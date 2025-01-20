@@ -1,0 +1,48 @@
+import { Request, Response, NextFunction } from 'express';
+import { PrismaClient } from '@prisma/client';
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const SECRET_KEY = process.env.SECRET_KEY as string;
+const prisma = new PrismaClient();
+
+interface CustomRequest extends Request {
+  user?: { userId: string };
+}
+
+export const adminGuard = async (req: Request, res: Response, next: NextFunction) => {
+ const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+    
+    if (!token) {
+      res.status(401).json({ message: "Token est manquant ou invalide" });
+      return;
+    }
+
+    try {
+        const payload = jwt.verify(token, SECRET_KEY) as { userId: string };
+        
+        const userId = Number(payload.userId);
+        // console.log(userId);
+        const user = await prisma.users.findUnique({
+            where: { id: userId },
+        });
+
+        if (!user) {
+            res.status(404).json({ error: "Utilisateur non trouvé" });
+            return; 
+        }
+
+        if (user.role !== 'admin') {
+            res.status(403).json({ error: "Accès refusé. Administrateurs uniquement." });
+            return;
+        }
+
+        req.user = { userId: payload.userId };
+        next();
+    } catch (error: any) {
+        res.status(500).json({ error: "Erreur lors de la vérification du rôle de l'utilisateur", message: error.message });
+    }
+};

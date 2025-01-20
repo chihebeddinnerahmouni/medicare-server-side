@@ -17,7 +17,7 @@ export const login = async (req: Request, res: Response) => {
 
   const errors = validateBody({ email, password });
   if (errors.length !== 0) {
-    res.status(400).json({ message: "Error logging in", details: errors });
+    res.status(400).json({ error: "Erreur de connexion", message: errors });
     return;
   }
 
@@ -36,20 +36,24 @@ export const login = async (req: Request, res: Response) => {
       );
       res.json({ message: "Connexion réussie", token });
     } else {
-      res.status(404).json({ message: "User not found or incorrect password" });
+      res.status(404).json({ message: "Utilisateur introuvable ou mot de passe incorrect" });
     }
   } catch (error: any) {
     res
       .status(500)
-      .json({ message: "Error logging in", details: error.message });
+      .json({ error: "Erreur de connexion", message: error.message });
   }
 };
 
 // _________________________________________________________________
 
 export const getUsers = async (req: Request, res: Response) => {
-  const users = await prisma.users.findMany();
-  res.json(users);
+  try {
+    const users = await prisma.users.findMany();
+    res.json(users);
+  } catch (error: any) {
+    res.status(500).json({ error: "Error getting users", message: error.message });
+  }
 };
 
 //______________________________________________________________________________________
@@ -59,7 +63,7 @@ export const createUser = async (req: Request, res: Response) => {
   
   const errors = validateBody({ email, phoneNumber, firstName, lastName, password, role });
   if (errors.length !== 0) {
-    res.status(400).json({ message: "Error creating user", details: errors });
+    res.status(400).json({ error: "Error creating user", message: errors });
     return;
   }
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -82,20 +86,20 @@ export const createUser = async (req: Request, res: Response) => {
       .status(500)
       .json({
         error: "Échec de la création de l'utilisateur",
-        details: error.message,
+        message: error.message,
       });
   }
 };
 
 // _________________________________________________________________
 
-// delete all users
+// supprimer tous les utilisateurs
 export const deleteAllUsers = async (req: Request, res: Response) => {
   try {
     await prisma.users.deleteMany();
-    res.json({ message: "All users deleted" });
+    res.json({ message: "Tous les utilisateurs ont été supprimés" });
   } catch (error: any) {
-    res.status(500).json({ message: "Error deleting users", details: error.message });
+    res.status(500).json({ error: "Erreur lors de la suppression des utilisateurs", message: error.message });
   }
 };
 
@@ -116,6 +120,118 @@ export const getAuthUser = async (req: Request, res: Response) => {
     }
     res.json(authUser);
   } catch (error: any) {
-    res.status(500).json({ message: "Erreur lors de la récupération de l'utilisateur authentifié", details: error.message });
+    res.status(500).json({ error: "Erreur lors de la récupération de l'utilisateur authentifié", message: error.message });
+  }
+};
+
+// _________________________________________________________________
+
+// update user
+export const updateUser = async (req: Request, res: Response) => {
+  const id = Number(req.user?.userId);
+  const { email, phoneNumber, firstName, lastName } = req.body;
+  const errors = validateBody({ email, phoneNumber, firstName, lastName });
+  if (errors.length !== 0) {
+    res.status(400).json({ error: "Erreur lors de la mise à jour de l'utilisateur", message: errors });
+    return;
+  }
+  try {
+    const updatedUser = await prisma.users.update({
+      where: {
+        id,
+      },
+      data: {
+        email,
+        phoneNumber,
+        firstName,
+        lastName,
+      },
+    });
+    res.json(updatedUser);
+  } catch (error: any) {
+    if (error.code === "P2002") {
+      const target = error.meta.target;
+      if (target.includes("phoneNumber")) {
+        res.status(400).json({ message: "Le numéro de téléphone existe déjà" });
+      } else if (target.includes("email")) {
+        res.status(400).json({ message: "L'email existe déjà" });
+      } else {
+        res
+          .status(500)
+          .json({
+            error: "Erreur lors de la mise à jour de l'utilisateur",
+            message: error.message,
+          });
+      }
+    } else {
+      res
+        .status(500)
+        .json({
+          message: "Erreur lors de la mise à jour de l'utilisateur",
+          details: error.message,
+        });
+    }
+  }
+};
+
+//______________________________________________________________________________________
+
+// create demande
+export const createDemande = async (req: Request, res: Response) => { 
+  const id = Number(req.user?.userId);
+  const { serviceType, userType } = req.body;
+  const errors = validateBody({ serviceType, userType });
+  if (errors.length !== 0) {
+    res.status(400).json({ error: "Erreur lors de la création de la demande", message: errors });
+    return;
+  }
+
+  try {
+    const user = await prisma.users.findUnique({
+      where: {
+        id,
+      },
+    });
+    if (!user) {
+      res.status(404).json({ message: "Utilisateur introuvable" });
+      return;
+    }
+    const newDemande = await prisma.demandes.create({
+      data: {
+        serviceType,
+        userType,
+        userId: id,
+      },
+    });
+
+    res
+      .status(201)
+      .json({ message: "Demande créée avec succès", data: newDemande });
+  } catch (error: any) {
+    res.status(500).json({ error: "Erreur lors de la création de la demande", message: error.message });
+  }   
+}
+
+// _________________________________________________________________
+
+// get demandes
+export const getDemandes = async (req: Request, res: Response) => {
+  try {
+    const demandes = await prisma.demandes.findMany({
+      include: {
+        user: {
+          select: {
+            id: true,
+            email: true,
+            phoneNumber: true,
+            firstName: true,
+            lastName: true,
+          },
+        },
+      },
+    });
+    res.json(demandes);
+  } catch (error: any) {
+    res.status(500).json({ error: "Erreur lors de la récupération des demandes", message: error.message });
   }
 };
