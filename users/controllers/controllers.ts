@@ -201,6 +201,7 @@ export const createDemande = async (req: Request, res: Response) => {
         serviceType,
         userType,
         userId: id,
+        status: "pending",
       },
     });
 
@@ -216,8 +217,14 @@ export const createDemande = async (req: Request, res: Response) => {
 
 // get demandes
 export const getDemandes = async (req: Request, res: Response) => {
+
+  const type = req.query.type ? req.query.type as string : "pending";
+
   try {
     const demandes = await prisma.demandes.findMany({
+      where: {
+        status: type,
+      },
       include: {
         user: {
           select: {
@@ -233,5 +240,107 @@ export const getDemandes = async (req: Request, res: Response) => {
     res.json(demandes);
   } catch (error: any) {
     res.status(500).json({ error: "Erreur lors de la récupération des demandes", message: error.message });
+  }
+};
+
+// _________________________________________________________________
+
+// accepter une demande
+export const acceptDemande = async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  try {
+    const existingDemande = await prisma.demandes.findUnique({
+      where: { id },
+    });
+
+    if (!existingDemande) {
+      res.status(404).json({ error: "Demande n'existe pas" });
+      return; 
+    }
+
+    const demande = await prisma.demandes.update({
+      where: {
+        id,
+      },
+      data: {
+        status: "documents",
+      },
+    });
+    res.json({Message: "Demande acceptée", data: demande });
+  } catch (error: any) {
+    res.status(500).json({ error: "Erreur lors de l'acceptation de la demande", message: error.message });
+  }
+};
+
+// _________________________________________________________________
+
+// add document
+export const addDocument = async (req: Request, res: Response) => {
+  const id = Number(req.user?.userId);
+  const { description, url } = req.body;
+  const { demandeId } = req.params;
+  try {
+
+    const demande = await prisma.demandes.findUnique({
+      where: {
+        id: Number(demandeId),
+      },
+    });
+    if (!demande) {
+      res.status(404).json({ message: "Demande introuvable" });
+      return;
+    }
+    if (demande.status !== "documents") {
+      res.status(400).json({ message: "Vous ne pouvez pas ajouter de document à cette demande" });
+      return;
+    }
+
+    const newDocument = await prisma.documents.create({
+      data: {
+        description,
+        url,
+        userId: id,
+        demandeId: Number(demandeId),
+      },
+    });
+    res.status(201).json({ message: "Document ajouté avec succès", data: newDocument });
+  } catch (error: any) {
+    res.status(500).json({ error: "Erreur lors de l'ajout du document", message: error.message });
+  }
+};
+
+// _________________________________________________________________
+
+// get documents by demandeId
+export const getDocuments = async (req: Request, res: Response) => {
+  const demandeId = Number(req.params.demandeId);
+  try {
+    const documents = await prisma.documents.findMany({
+      where: {
+        demandeId,
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            email: true,
+            phoneNumber: true,
+            firstName: true,
+            lastName: true,
+          },
+        },
+        demande: {  
+          select: {
+            id: true,
+            serviceType: true,
+            userType: true,
+            status: true,
+          },
+        },
+      },
+    });
+    res.json(documents);
+  } catch (error: any) {
+    res.status(500).json({ error: "Erreur lors de la récupération des documents", message: error.message });
   }
 };

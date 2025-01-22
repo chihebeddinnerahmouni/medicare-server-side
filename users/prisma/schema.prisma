@@ -24,6 +24,7 @@ model Users {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   demandes    Demandes[]
+  documents   Documents[]
 }
 
 model Demandes {
@@ -31,5 +32,19 @@ model Demandes {
   userId      Int
   userType    String
   serviceType String
+  status      String
   user        Users  @relation(fields: [userId], references: [id])
+  documents   Documents[]
+}
+
+model Documents {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  description      String
+  url       String
+  demandeId Int     
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  demande   Demandes @relation(fields: [demandeId], references: [id])   
+  user      Users    @relation(fields: [userId], references: [id])
 }
