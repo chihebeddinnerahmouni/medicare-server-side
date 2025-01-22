@@ -1,0 +1,181 @@
+// // This is your Prisma schema file,
+// // learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
+
+// model Images {
+//   id        Int      @id @default(autoincrement())
+//   url       String
+//   cabinetId Int
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   Cabinet   Cabinet  @relation(fields: [cabinetId], references: [id])
+// }
+
+// model availabilities {
+//   id        Int      @id @default(autoincrement())
+//   cabinetId Int
+//   from   String
+//   to     String
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   Cabinet   Cabinet  @relation(fields: [cabinetId], references: [id])
+// }
+
+// model Services {
+//   id        Int      @id @default(autoincrement())
+//   name      String
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   Cabinets  Cabinet[] @relation("CabinetServices")
+//   CabinetServices CabinetServices[]
+// }
+
+// model Reviews {
+//   id        Int      @id @default(autoincrement())
+//   comment   String
+//   userId    Int
+//   cabinetId Int
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   Cabinet   Cabinet  @relation(fields: [cabinetId], references: [id])
+// }
+
+// model Cabinet {
+//   id        Int      @id @default(autoincrement())
+//   name      String
+//   images    Images[]
+//   description String
+//   address   String
+//   phone     String
+//   totalViews Int @default(0)
+//   totalRate      Int @default(0)
+//   numberOfRates  Int @default(0)
+//   averageRate    Float @default(0)
+//   availabilities availabilities[]
+//   ownerId   Int
+//   services  Services[] @relation("CabinetServices")
+//   validated Boolean
+//   blocked   Boolean
+//   Reviews         Reviews[]
+//   rates Json
+//   openTime String
+//   closeTime String
+//   latitude String
+//   longitude String
+
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+
+//   CabinetServices CabinetServices[]
+// }
+
+
+
+// model CabinetServices {
+//   cabinetId Int
+//   serviceId Int
+//   price     Float
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   Cabinet   Cabinet  @relation(fields: [cabinetId], references: [id])
+//   Services  Services @relation(fields: [serviceId], references: [id])
+
+//   @@id([cabinetId, serviceId])
+// }
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Images {
+  id        Int      @id @default(autoincrement())
+  url       String
+  cabinetId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Cabinet   Cabinet  @relation(fields: [cabinetId], references: [id])
+}
+
+model availabilities {
+  id        Int      @id @default(autoincrement())
+  cabinetId Int
+  start_date      String
+  end_date        String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Cabinet   Cabinet  @relation(fields: [cabinetId], references: [id])
+}
+
+model Services {
+  id                Int               @id @default(autoincrement())
+  name              String
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  Cabinets          Cabinet[]         @relation("CabinetServices")
+  CabinetServices   CabinetServices[]
+}
+
+model Reviews {
+  id        Int      @id @default(autoincrement())
+  comment   String
+  userId    Int
+  cabinetId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Cabinet   Cabinet  @relation(fields: [cabinetId], references: [id])
+}
+
+model Cabinet {
+  id              Int                @id @default(autoincrement())
+  name            String
+  images          Images[]
+  description     String
+  address         String
+  phone           String
+  totalViews      Int                @default(0)
+  totalRate       Int                @default(0)
+  numberOfRates   Int                @default(0)
+  averageRate     Float              @default(0)
+  availabilities  availabilities[]
+  ownerId         Int
+  services        Services[]         @relation("CabinetServices")
+  validated       Boolean
+  blocked         Boolean
+  Reviews         Reviews[]
+  rates           Json
+  openTime        String
+  closeTime       String
+  latitude        String
+  longitude       String
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  CabinetServices CabinetServices[]
+}
+
+model CabinetServices {
+  cabinetId Int
+  serviceId Int
+  price     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Cabinet   Cabinet  @relation(fields: [cabinetId], references: [id])
+  Services  Services @relation(fields: [serviceId], references: [id])
+
+  @@id([cabinetId, serviceId])
+}

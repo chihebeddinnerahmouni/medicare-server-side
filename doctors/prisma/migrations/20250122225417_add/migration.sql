@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Cabinet" ALTER COLUMN "totalViews" SET DEFAULT 0,
+ALTER COLUMN "totalRate" SET DEFAULT 0,
+ALTER COLUMN "numberOfRates" SET DEFAULT 0,
+ALTER COLUMN "averageRate" SET DEFAULT 0;
