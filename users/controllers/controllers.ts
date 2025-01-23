@@ -3,6 +3,8 @@ import { Request, Response } from "express";
 import { validateBody } from "../helper/validateBody";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+// import { createRouteHandler } from "uploadthing/express";
+// import { uploadRouter } from "../uploadthing";
 
 declare module "express-serve-static-core" {
   interface Request {
@@ -249,23 +251,25 @@ export const getDemandes = async (req: Request, res: Response) => {
 export const acceptDemande = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   try {
-    const existingDemande = await prisma.demandes.findUnique({
-      where: { id },
-    });
+    const demande = await updateDemandeStatus(id, "documents", res);
+    // const existingDemande = await prisma.demandes.findUnique({
+    //   where: { id },
+    // });
 
-    if (!existingDemande) {
-      res.status(404).json({ error: "Demande n'existe pas" });
-      return; 
-    }
+    // if (!existingDemande) {
+    //   res.status(404).json({ error: "Demande n'existe pas" });
+    //   return; 
+    // }
 
-    const demande = await prisma.demandes.update({
-      where: {
-        id,
-      },
-      data: {
-        status: "documents",
-      },
-    });
+    // const demande = await prisma.demandes.update({
+    //   where: {
+    //     id,
+    //   },
+    //   data: {
+    //     status: "documents",
+    //   },
+    // });
+
     res.json({Message: "Demande acceptée", data: demande });
   } catch (error: any) {
     res.status(500).json({ error: "Erreur lors de l'acceptation de la demande", message: error.message });
@@ -309,6 +313,54 @@ export const addDocument = async (req: Request, res: Response) => {
   }
 };
 
+// export const addDocument = async (req: Request, res: Response) => {
+//   const id = Number(req.user?.userId);
+//   const { description } = req.body;
+//   const { demandeId } = req.params;
+//   const file = req.file;
+//   if (!file) {
+//     res.status(400).json({ message: "No file provided" });
+//     return;
+//   }
+
+//   try {
+//     const demande = await prisma.demandes.findUnique({
+//       where: {
+//         id: Number(demandeId),
+//       },
+//     });
+//     if (!demande) {
+//       res.status(404).json({ message: "Demande introuvable" });
+//       return;
+//     }
+//     if (demande.status !== "documents") {
+//       res.status(400).json({ message: "Vous ne pouvez pas ajouter de document à cette demande" });
+//       return;
+//     }
+
+//     const uploadResponse = await uploadRouter.imageUploader.uploadBuffer({
+//       buffer: file.buffer,
+//       filename: file.originalname,
+//       mimetype: file.mimetype,
+//     });
+//     if (!uploadResponse?.url) {
+//       res.status(500).json({ message: "File upload failed" });
+//       return;
+//     }
+//     const newDocument = await prisma.documents.create({
+//       data: {
+//         description,
+//         url: uploadResponse.url,
+//         userId: id,
+//         demandeId: Number(demandeId),
+//       },
+//     });
+//     res.status(201).json({ message: "Document ajouté avec succès", data: newDocument });
+//   } catch (error: any) {
+//     res.status(500).json({ error: "Erreur lors de l'ajout du document", message: error.message });
+//   }
+// };
+
 // _________________________________________________________________
 
 // get documents by demandeId
@@ -342,5 +394,83 @@ export const getDocuments = async (req: Request, res: Response) => {
     res.json(documents);
   } catch (error: any) {
     res.status(500).json({ error: "Erreur lors de la récupération des documents", message: error.message });
+  }
+};
+
+// _________________________________________________________________
+
+// accept documents of a demande
+export const acceptDocuments = async (req: Request, res: Response) => {
+  const demandeId = Number(req.params.demandeId);
+  try {
+    const documents = await prisma.documents.findMany({
+      where: {
+        demandeId,
+      },
+    });
+    if (documents.length === 0) {
+      res.status(404).json({ message: "Aucun document trouvé" });
+      return;
+    }
+    // const demande = await prisma.demandes.update({
+    //   where: {
+    //     id: demandeId,
+    //   },
+    //   data: {
+    //     status: "accepted",
+    //   },
+    // });
+    const demande = await updateDemandeStatus(demandeId, "accepted", res);
+    res.json({ message: "Documents acceptés", data: demande });
+  } catch (error: any) {
+    res.status(500).json({ error: "Erreur lors de l'acceptation des documents", message: error.message });
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// helpers
+const updateDemandeStatus = async (id: number, status: string, res: Response) => {
+  try {
+    const existingDemande = await prisma.demandes.findUnique({
+      where: { id },
+    });
+
+    if (!existingDemande) {
+      res.status(404).json({ error: "Demande n'existe pas" });
+      return null;
+    }
+
+    const demande = await prisma.demandes.update({
+      where: { id },
+      data: { status },
+    });
+
+    return demande;
+  } catch (error: any) {
+    res.status(500).json({ error: "Erreur lors de la mise à jour de la demande", message: error.message });
+    return null;
   }
 };

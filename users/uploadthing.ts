@@ -20,16 +20,13 @@ export const uploadRouter = {
 
 export type OurFileRouter = typeof uploadRouter;
 
-
-
 // import { createUploadthing } from "uploadthing/server";
 
 // const uploadThing = createUploadthing();
 
-// export const fileUploader = uploadThing({
-//   // Define the allowed file types and size limits
-//   image: { maxFileSize: "4MB", maxFileCount: 5 },
-//   pdf: { maxFileSize: "10MB" },
-// }).onUploadComplete(({ metadata }) => {
-//   console.log("Upload complete:", metadata);
+// export const uploadFile = uploadThing({
+//   image: { maxFileSize: "4MB" },
+//   pdf: { maxFileSize: "4MB" },
+// }).onUploadComplete(({ file, metadata }) => {
+//   console.log("UploadThing completed:", file, metadata);
 // });
