@@ -8,7 +8,8 @@ import {
   getServices,
   getCabinets,
   addSpeciality,
-  getSpecialities
+  getSpecialities,
+  getCabinetById,
 } from "../controllers/controllers";
 
 
@@ -19,6 +20,7 @@ router.post("/add-cabinet", authGuard, addCabinet);
 router.get("/get-services", getServices);
 router.get("/get-cabinets", getCabinets);
 router.get("/get-specialities", getSpecialities);
+router.get("/get-cabinet/:id", getCabinetById);
 
 // admin
 router.post("/add-service", adminGuard, addService);

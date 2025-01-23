@@ -2,9 +2,11 @@ import { prisma } from "../db/index";
 import { Request, Response } from "express";
 // import {validateBody} from "../helper/validateBody";
 
-declare module "express-serve-static-core" {
-  interface Request {
-    user?: any; // Adjust the type as needed, e.g., `User` if you have a User type/interface
+declare global {
+  namespace Express {
+    interface Request {
+      user?: any;
+    }
   }
 }
 
@@ -195,3 +197,26 @@ export const getCabinets = async (req: Request, res: Response) => {
     });
   }
 };
+
+// _____________________________________________________________________________
+
+export const getCabinetById = async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+  try {
+    const cabinet = await prisma.cabinet.findUnique({
+      where: { id },
+      include: {
+        images: true,
+        availabilities: true,
+        CabinetServices: true,
+        speciality: true,
+      },
+    });
+    res.json(cabinet);
+  } catch (error: any) {
+    res.status(500).json({
+      error: "Erreur lors de la récupération du cabinet",
+      message: error.message,
+    });
+  }
+}

@@ -108,18 +108,23 @@ export const deleteAllUsers = async (req: Request, res: Response) => {
 //______________________________________________________________________________________
 
 // get auth user
+const searchUser = async (userId: number, res: Response) => {
+  try {
+    const user = await prisma.users.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+    return user;
+  } catch (error: any) {
+    res.status(500).json({ error: "Erreur lors de la récupération de l'utilisateur", message: error.message });
+  }
+};
+
 export const getAuthUser = async (req: Request, res: Response) => {
   const user = req.user;
   try {
-    const authUser = await prisma.users.findUnique({
-      where: {
-        id: Number(user?.userId),
-      },
-    });
-    if (!authUser) {
-      res.status(404).json({ message: "Utilisateur introuvable" });
-      return;
-    }
+    const authUser = await searchUser(Number(user?.userId), res);
     res.json(authUser);
   } catch (error: any) {
     res.status(500).json({ error: "Erreur lors de la récupération de l'utilisateur authentifié", message: error.message });
@@ -252,24 +257,6 @@ export const acceptDemande = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   try {
     const demande = await updateDemandeStatus(id, "documents", res);
-    // const existingDemande = await prisma.demandes.findUnique({
-    //   where: { id },
-    // });
-
-    // if (!existingDemande) {
-    //   res.status(404).json({ error: "Demande n'existe pas" });
-    //   return; 
-    // }
-
-    // const demande = await prisma.demandes.update({
-    //   where: {
-    //     id,
-    //   },
-    //   data: {
-    //     status: "documents",
-    //   },
-    // });
-
     res.json({Message: "Demande acceptée", data: demande });
   } catch (error: any) {
     res.status(500).json({ error: "Erreur lors de l'acceptation de la demande", message: error.message });
@@ -313,53 +300,6 @@ export const addDocument = async (req: Request, res: Response) => {
   }
 };
 
-// export const addDocument = async (req: Request, res: Response) => {
-//   const id = Number(req.user?.userId);
-//   const { description } = req.body;
-//   const { demandeId } = req.params;
-//   const file = req.file;
-//   if (!file) {
-//     res.status(400).json({ message: "No file provided" });
-//     return;
-//   }
-
-//   try {
-//     const demande = await prisma.demandes.findUnique({
-//       where: {
-//         id: Number(demandeId),
-//       },
-//     });
-//     if (!demande) {
-//       res.status(404).json({ message: "Demande introuvable" });
-//       return;
-//     }
-//     if (demande.status !== "documents") {
-//       res.status(400).json({ message: "Vous ne pouvez pas ajouter de document à cette demande" });
-//       return;
-//     }
-
-//     const uploadResponse = await uploadRouter.imageUploader.uploadBuffer({
-//       buffer: file.buffer,
-//       filename: file.originalname,
-//       mimetype: file.mimetype,
-//     });
-//     if (!uploadResponse?.url) {
-//       res.status(500).json({ message: "File upload failed" });
-//       return;
-//     }
-//     const newDocument = await prisma.documents.create({
-//       data: {
-//         description,
-//         url: uploadResponse.url,
-//         userId: id,
-//         demandeId: Number(demandeId),
-//       },
-//     });
-//     res.status(201).json({ message: "Document ajouté avec succès", data: newDocument });
-//   } catch (error: any) {
-//     res.status(500).json({ error: "Erreur lors de l'ajout du document", message: error.message });
-//   }
-// };
 
 // _________________________________________________________________
 
@@ -412,18 +352,30 @@ export const acceptDocuments = async (req: Request, res: Response) => {
       res.status(404).json({ message: "Aucun document trouvé" });
       return;
     }
-    // const demande = await prisma.demandes.update({
-    //   where: {
-    //     id: demandeId,
-    //   },
-    //   data: {
-    //     status: "accepted",
-    //   },
-    // });
     const demande = await updateDemandeStatus(demandeId, "accepted", res);
     res.json({ message: "Documents acceptés", data: demande });
   } catch (error: any) {
     res.status(500).json({ error: "Erreur lors de l'acceptation des documents", message: error.message });
+  }
+}
+
+// _________________________________________________________________
+
+export const getUserById = async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  try {
+    const user = await prisma.users.findUnique({
+      where: {
+        id,
+      },
+    });
+    if (!user) {
+      res.status(404).json({ message: "Utilisateur introuvable" });
+      return;
+    }
+    res.json(user);
+  } catch (error: any) {
+    res.status(500).json({ error: "Erreur lors de la récupération de l'utilisateur", message: error.message });
   }
 }
 
@@ -474,3 +426,18 @@ const updateDemandeStatus = async (id: number, status: string, res: Response) =>
     return null;
   }
 };
+
+// const searchUser = async (id: number, res: Response) => {
+//   try {
+//     const user = await prisma.users.findUnique({
+//       where: {
+//         id,
+//       },
+//     });
+//     console.log(user);
+//     return user;
+//   } catch (error: any) {
+//     res.status(500).json({ error: "Erreur lors de la récupération de l'utilisateur", message: error.message });
+//     return null;
+//   }
+// }
