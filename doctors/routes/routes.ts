@@ -10,6 +10,7 @@ import {
   addSpeciality,
   getSpecialities,
   getCabinetById,
+  deleteCabinet,
 } from "../controllers/controllers";
 
 
@@ -21,6 +22,7 @@ router.get("/get-services", getServices);
 router.get("/get-cabinets", getCabinets);
 router.get("/get-specialities", getSpecialities);
 router.get("/get-cabinet/:id", getCabinetById);
+router.delete("/delete-cabinet/:id",authGuard, deleteCabinet);
 
 // admin
 router.post("/add-service", adminGuard, addService);

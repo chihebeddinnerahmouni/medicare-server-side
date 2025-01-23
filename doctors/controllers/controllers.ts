@@ -1,6 +1,7 @@
 import { prisma } from "../db/index";
 import { Request, Response } from "express";
 // import {validateBody} from "../helper/validateBody";
+import axios from "axios";
 
 declare global {
   namespace Express {
@@ -203,6 +204,8 @@ export const getCabinets = async (req: Request, res: Response) => {
 export const getCabinetById = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   try {
+
+
     const cabinet = await prisma.cabinet.findUnique({
       where: { id },
       include: {
@@ -210,12 +213,89 @@ export const getCabinetById = async (req: Request, res: Response) => {
         availabilities: true,
         CabinetServices: true,
         speciality: true,
+        Reviews: true,
       },
     });
-    res.json(cabinet);
+    if (!cabinet) {
+      res.status(404).json({ message: "Cabinet non trouvé" });
+      return;
+    }
+
+     const updatedCabinet = await prisma.cabinet.update({
+       where: { id },
+       data: {
+         reviewsCount: {
+           increment: 1,
+         },
+       },
+     });
+
+    const owner = await axios.get(process.env.USERS_URL + "/get-user/" + cabinet.ownerId);
+     
+    const cabinetWithOwner = {
+      ...cabinet,
+      owner: owner.data,
+    };
+
+    res.json(cabinetWithOwner);
   } catch (error: any) {
     res.status(500).json({
       error: "Erreur lors de la récupération du cabinet",
+      message: error.message,
+    });
+  }
+}
+
+// _____________________________________________________________________________
+
+export const deleteCabinet = async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+  const userId = Number(req.user?.userId);
+  let user: any;
+
+  try {
+    user = await axios.get(process.env.USERS_URL + "/get-user/" + userId);
+  } catch (error: any) {
+    res.status(500).json({
+      error: "Erreur lors de la recherche de l'utilisateur",
+      message: error,
+    });
+    return
+  }
+
+  try {
+    const cabinet = await prisma.cabinet.findUnique({
+      where: { id },
+    });
+    if (!cabinet) {
+      res.status(404).json({ error: "Cabinet non trouvé" });
+      return;
+    }
+    if (cabinet?.ownerId !== userId && user.data.role !== "admin") {
+      res.status(403).json({
+        message: "Vous n'êtes pas autorisé à supprimer ce cabinet",
+      })
+      return; 
+    }
+   await prisma.images.deleteMany({
+     where: { cabinetId: id },
+   });
+
+   await prisma.availabilities.deleteMany({
+     where: { cabinetId: id },
+   });
+
+   await prisma.cabinetServices.deleteMany({
+     where: { cabinetId: id },
+   });
+    const deletedCabinet = await prisma.cabinet.delete({
+      where: { id },
+    });
+
+    res.json({ message: "Suppression effectuée", data: deletedCabinet });
+      } catch (error: any) {
+    res.status(500).json({
+      error: "Erreur lors de la suppression du cabinet",
       message: error.message,
     });
   }
