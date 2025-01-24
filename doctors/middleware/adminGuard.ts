@@ -25,7 +25,7 @@ export const adminGuard = async (req: Request, res: Response, next: NextFunction
     try {
         
         const data: any = await axios.get(
-          `${process.env.USERS_URL}/users/get-auth-user`,
+          `${process.env.USERS_URL}/get-auth-user`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -47,6 +47,6 @@ export const adminGuard = async (req: Request, res: Response, next: NextFunction
         req.user = { userId: user.id };
         next();
     } catch (error: any) {
-        res.status(500).json({ error: "Erreur lors de la vérification du rôle de l'utilisateur", message: error.message });
+        res.status(500).json({ error: "Erreur lors de la vérification du rôle de l'utilisateur", message: error });
     }
 };

@@ -11,18 +11,22 @@ import {
   getSpecialities,
   getCabinetById,
   deleteCabinet,
+  getLandingDoctors,
 } from "../controllers/controllers";
 
 
 
 const router = Router();
 
-router.post("/add-cabinet", authGuard, addCabinet);
 router.get("/get-services", getServices);
 router.get("/get-cabinets", getCabinets);
 router.get("/get-specialities", getSpecialities);
 router.get("/get-cabinet/:id", getCabinetById);
+router.get("/get-landing-doctors", getLandingDoctors);
+
+// user
 router.delete("/delete-cabinet/:id",authGuard, deleteCabinet);
+router.post("/add-cabinet", authGuard, addCabinet);
 
 // admin
 router.post("/add-service", adminGuard, addService);

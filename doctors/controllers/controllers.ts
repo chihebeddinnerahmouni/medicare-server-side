@@ -82,21 +82,7 @@ export const getSpecialities = async (req: Request, res: Response) => {
 
 export const addCabinet = async (req: Request, res: Response) => {
   const userId = req.user?.userId;
-  const {
-    title,
-    specialityId,
-    description,
-    images,
-    address,
-    phone,
-    year,
-    availabilities,
-    services,
-    openTime,
-    closeTime,
-    latitude,
-    longitude,
-  } = req.body;
+  const {title, specialityId, description, images, address, phone, year, availabilities, PricingServices, services, openTime, closeTime, latitude, longitude} = req.body;
 
   try {
     const newCabinet = await prisma.cabinet.create({
@@ -112,6 +98,8 @@ export const addCabinet = async (req: Request, res: Response) => {
         closeTime,
         latitude,
         longitude,
+        validated: false,
+        blocked: false,
         images: {
           create: images.map((url: string) => ({ url })),
         },
@@ -123,8 +111,8 @@ export const addCabinet = async (req: Request, res: Response) => {
             })
           ),
         },
-        CabinetServices: {
-          create: services.map(
+        PricingServices: {
+          create: PricingServices.map(
             (service: { id: number; price: number; name: string }) => ({
               serviceId: service.id, // Map `id` to `serviceId`
               price: service.price, // Include the price
@@ -132,8 +120,11 @@ export const addCabinet = async (req: Request, res: Response) => {
             })
           ),
         },
-        validated: false,
-        blocked: false,
+        nonPricingServices: {
+          connect: services.map((serviceId: number) => ({
+            id: serviceId,
+          })),
+        },
         rates: {
           Communication: 0,
           Cleanliness: 0,
@@ -150,7 +141,9 @@ export const addCabinet = async (req: Request, res: Response) => {
       include: {
         images: true, // Include related images
         availabilities: true, // Include related availabilities
-        CabinetServices: true, // Include related services
+        PricingServices: true, // Include related services
+        speciality: true, // Include related speciality
+        nonPricingServices: true,
       },
     });
 
@@ -177,8 +170,9 @@ export const getCabinets = async (req: Request, res: Response) => {
       include: {
         images: true,
         availabilities: true,
-        CabinetServices: true,
+        PricingServices: true,
         speciality: true,
+        nonPricingServices: true,
       },
     });
     const totalCabinets = await prisma.cabinet.count();
@@ -211,9 +205,10 @@ export const getCabinetById = async (req: Request, res: Response) => {
       include: {
         images: true,
         availabilities: true,
-        CabinetServices: true,
+        PricingServices: true,
         speciality: true,
         Reviews: true,
+        nonPricingServices: true,
       },
     });
     if (!cabinet) {
@@ -221,7 +216,7 @@ export const getCabinetById = async (req: Request, res: Response) => {
       return;
     }
 
-     const updatedCabinet = await prisma.cabinet.update({
+     await prisma.cabinet.update({
        where: { id },
        data: {
          reviewsCount: {
@@ -285,7 +280,7 @@ export const deleteCabinet = async (req: Request, res: Response) => {
      where: { cabinetId: id },
    });
 
-   await prisma.cabinetServices.deleteMany({
+   await prisma.pricingServices.deleteMany({
      where: { cabinetId: id },
    });
     const deletedCabinet = await prisma.cabinet.delete({
@@ -296,6 +291,34 @@ export const deleteCabinet = async (req: Request, res: Response) => {
       } catch (error: any) {
     res.status(500).json({
       error: "Erreur lors de la suppression du cabinet",
+      message: error.message,
+    });
+  }
+}
+
+// _____________________________________________________________________________
+
+export const getLandingDoctors = async (req: Request, res: Response) => {
+
+  const take = parseInt(req.query.take as string) || 3;
+
+  try {
+    const doctors = await prisma.cabinet.findMany({
+      take,
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        images: true,
+        speciality: true,
+        PricingServices: true,
+        nonPricingServices: true,
+      },
+    });
+    res.json(doctors);
+  } catch (error: any) {
+    res.status(500).json({
+      error: "Erreur lors de la récupération des médecins",
       message: error.message,
     });
   }
