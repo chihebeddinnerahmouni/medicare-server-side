@@ -15,7 +15,8 @@ import {
   acceptDemande,
   addDocument,
   getDocuments,
-  getUserById
+  getUserById,
+  acceptDocuments,
 } from "../controllers/controllers";
 
 
@@ -32,10 +33,11 @@ router.post("/add-document/:demandeId", authGuard, addDocument);
 router.get("/get-user/:id", getUserById);
 
 // admin
-router.get("/demandes", adminGuard, getDemandes);
 router.delete("/delete-all-users", adminGuard, deleteAllUsers);
+router.get("/demandes", adminGuard, getDemandes);
 router.put("/accept-demande/:id", adminGuard, acceptDemande);
 router.get("/get-documents/:demandeId", adminGuard, getDocuments);
+router.put("/accept-documents/:demandeId", adminGuard, acceptDocuments);
 
 
 module.exports = router;
