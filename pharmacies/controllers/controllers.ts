@@ -13,81 +13,14 @@ declare global {
 
 // _____________________________________________________________________________
 
-export const addService = async (req: Request, res: Response) => {
-  const { name } = req.body;
-  try {
-    const newService = await prisma.services.create({
-      data: {
-        name,
-      },
-    });
-    res.json({ data: newService });
-  } catch (error: any) {
-    res.status(500).json({
-      error: "Erreur l'or de la creastion d'un service",
-      message: error.message,
-    });
-  }
-};
 
-// _____________________________________________________________________________
-
-export const getServices = async (req: Request, res: Response) => {
-  try {
-    const services = await prisma.services.findMany();
-    res.json({ data: services });
-  } catch (error: any) {
-    res.status(500).json({
-      error: "Erreur lors de la récupération des services",
-      message: error.message,
-    });
-  }
-};
-
-// _____________________________________________________________________________
-
-// export const addSpeciality = async (req: Request, res: Response) => {
-//   const { name } = req.body;
-//   try {
-//     const newSpeciality = await prisma.specialities.create({
-//       data: {
-//         name,
-//       },
-//     });
-//     res.json({ data: newSpeciality });
-//   } catch (error: any) {
-//     res.status(500).json({
-//       error: "Erreur lors de la création d'une spécialité",
-//       message: error.message,
-//     });
-//   }
-// }
-
-// _____________________________________________________________________________
-
-// export const getSpecialities = async (req: Request, res: Response) => {
-//   try {
-//     const specialities = await prisma.specialities.findMany();
-//     res.json({ data: specialities });
-//   }
-//   catch (error: any) {
-//     res.status(500).json({
-//       error: "Erreur lors de la récupération des spécialités",
-//       message: error.message,
-//     });
-//   }
-// }
-
-// _____________________________________________________________________________
-
-export const addCabinet = async (req: Request, res: Response) => {
+export const addPharmacy = async (req: Request, res: Response) => {
   const userId = req.user?.userId;
-  const {title, description, images, address, phone, year, availabilities, PricingServices, services, openTime, closeTime, latitude, longitude} = req.body;
+  const {title, description, images, address, phone, year, availabilities, openTime, closeTime, latitude, longitude} = req.body;
 
   try {
-    const newCabinet = await prisma.cabinet.create({
+    const newCabinet = await prisma.pharmacies.create({
       data: { title, description,
-        // specialityId,
         address,
         phone,
         ownerId: userId,
@@ -109,20 +42,6 @@ export const addCabinet = async (req: Request, res: Response) => {
             })
           ),
         },
-        PricingServices: {
-          create: PricingServices.map(
-            (service: { id: number; price: number; name: string }) => ({
-              serviceId: service.id, 
-              price: service.price, 
-              service_name: service.name,
-            })
-          ),
-        },
-        nonPricingServices: {
-          connect: services.map((serviceId: number) => ({
-            id: serviceId,
-          })),
-        },
         rates: {
           Communication: 0,
           Cleanliness: 0,
@@ -139,16 +58,13 @@ export const addCabinet = async (req: Request, res: Response) => {
       include: {
         images: true, // Include related images
         availabilities: true, // Include related availabilities
-        PricingServices: true, // Include related services
-        // speciality: true, // Include related speciality
-        nonPricingServices: true,
       },
     });
 
     res.json({ data: newCabinet });
   } catch (error: any) {
     res.status(500).json({
-      error: "Erreur lors de la création d'un cabinet",
+      error: "Erreur lors de la création d'un pharmacie",
       message: error.message,
     });
   }
@@ -156,24 +72,21 @@ export const addCabinet = async (req: Request, res: Response) => {
 
 // _____________________________________________________________________________
 
-export const getCabinets = async (req: Request, res: Response) => {
+export const getPharmacies = async (req: Request, res: Response) => {
   const page = parseInt(req.query.page as string) || 1;
   const limit = parseInt(req.query.limit as string) || 3;
   const skip = (page - 1) * limit;
 
   try {
-    const cabinets = await prisma.cabinet.findMany({
+    const cabinets = await prisma.pharmacies.findMany({
       skip: skip,
       take: limit,
       include: {
         images: true,
         availabilities: true,
-        PricingServices: true,
-        // speciality: true,
-        nonPricingServices: true,
       },
     });
-    const totalCabinets = await prisma.cabinet.count();
+    const totalCabinets = await prisma.pharmacies.count();
     res.json({
       data: cabinets,
       pagination: {
@@ -185,7 +98,7 @@ export const getCabinets = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     res.status(500).json({
-      error: "Erreur lors de la récupération des cabinets",
+      error: "Erreur lors de la récupération des pharmacies",
       message: error.message,
     });
   }
@@ -193,28 +106,25 @@ export const getCabinets = async (req: Request, res: Response) => {
 
 // _____________________________________________________________________________
 
-export const getCabinetById = async (req: Request, res: Response) => {
+export const getPharmacyById = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   try {
 
 
-    const cabinet = await prisma.cabinet.findUnique({
+    const cabinet = await prisma.pharmacies.findUnique({
       where: { id },
       include: {
         images: true,
         availabilities: true,
-        PricingServices: true,
-        // speciality: true,
         Reviews: true,
-        nonPricingServices: true,
       },
     });
     if (!cabinet) {
-      res.status(404).json({ message: "Cabinet non trouvé" });
+      res.status(404).json({ message: "Pharmacie non trouvé" });
       return;
     }
 
-     await prisma.cabinet.update({
+     await prisma.pharmacies.update({
        where: { id },
        data: {
          reviewsCount: {
@@ -233,7 +143,7 @@ export const getCabinetById = async (req: Request, res: Response) => {
     res.json(cabinetWithOwner);
   } catch (error: any) {
     res.status(500).json({
-      error: "Erreur lors de la récupération du cabinet",
+      error: "Erreur lors de la récupération du pharmacie",
       message: error.message,
     });
   }
@@ -241,7 +151,7 @@ export const getCabinetById = async (req: Request, res: Response) => {
 
 // _____________________________________________________________________________
 
-export const deleteCabinet = async (req: Request, res: Response) => {
+export const deletePharmacy = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   const userId = Number(req.user?.userId);
   let user: any;
@@ -257,38 +167,35 @@ export const deleteCabinet = async (req: Request, res: Response) => {
   }
 
   try {
-    const cabinet = await prisma.cabinet.findUnique({
+    const cabinet = await prisma.pharmacies.findUnique({
       where: { id },
     });
     if (!cabinet) {
-      res.status(404).json({ error: "Cabinet non trouvé" });
+      res.status(404).json({ error: "Pharmacie non trouvé" });
       return;
     }
     if (cabinet?.ownerId !== userId && user.data.role !== "admin") {
       res.status(403).json({
-        message: "Vous n'êtes pas autorisé à supprimer ce cabinet",
+        message: "Vous n'êtes pas autorisé à supprimer ce pharmacie",
       })
       return; 
     }
    await prisma.images.deleteMany({
-     where: { cabinetId: id },
+     where: { pharmacyId: id },
    });
 
    await prisma.availabilities.deleteMany({
-     where: { cabinetId: id },
+     where: { pharmacyId: id },
    });
-
-   await prisma.pricingServices.deleteMany({
-     where: { cabinetId: id },
-   });
-    const deletedCabinet = await prisma.cabinet.delete({
+    
+    const deletedCabinet = await prisma.pharmacies.delete({
       where: { id },
     });
 
     res.json({ message: "Suppression effectuée", data: deletedCabinet });
       } catch (error: any) {
     res.status(500).json({
-      error: "Erreur lors de la suppression du cabinet",
+      error: "Erreur lors de la suppression du pharmacie",
       message: error.message,
     });
   }
@@ -296,21 +203,18 @@ export const deleteCabinet = async (req: Request, res: Response) => {
 
 // _____________________________________________________________________________
 
-export const getLandingDoctors = async (req: Request, res: Response) => {
+export const getLandingPharmacies = async (req: Request, res: Response) => {
 
   const take = parseInt(req.query.take as string) || 3;
 
   try {
-    const doctors = await prisma.cabinet.findMany({
+    const doctors = await prisma.pharmacies.findMany({
       take,
       orderBy: {
         createdAt: "desc",
       },
       include: {
         images: true,
-        // speciality: true,
-        PricingServices: true,
-        nonPricingServices: true,
       },
     });
     res.json(doctors);
