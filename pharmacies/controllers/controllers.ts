@@ -2,6 +2,8 @@ import { prisma } from "../db/index";
 import { Request, Response } from "express";
 // import {validateBody} from "../helper/validateBody";
 import axios from "axios";
+import fs from "fs";
+import path from "path";
 
 declare global {
   namespace Express {
@@ -16,26 +18,30 @@ declare global {
 
 export const addPharmacy = async (req: Request, res: Response) => {
   const userId = req.user?.userId;
-  const {title, description, images, address, phone, year, availabilities, openTime, closeTime, latitude, longitude} = req.body;
+  const { title, description, address, phone, year, availabilities, openTime, closeTime, latitude, longitude } = req.body;
+  const images = req.files as Express.Multer.File[];
+  const parsedAvailabilities = JSON.parse(availabilities);
 
   try {
     const newCabinet = await prisma.pharmacies.create({
-      data: { title, description,
+      data: {
+        title,
+        description,
         address,
         phone,
         ownerId: userId,
         openTime,
-        year,
+        year: parseInt(year),
         closeTime,
         latitude,
         longitude,
         validated: false,
         blocked: false,
         images: {
-          create: images.map((url: string) => ({ url })),
+          create: images.map((file) => ({ url: `/images/${file.filename}` })),
         },
         availabilities: {
-          create: availabilities.map(
+          create: parsedAvailabilities.map(
             (availability: { start_date: string; end_date: string }) => ({
               start_date: availability.start_date,
               end_date: availability.end_date,
@@ -76,6 +82,7 @@ export const getPharmacies = async (req: Request, res: Response) => {
   const page = parseInt(req.query.page as string) || 1;
   const limit = parseInt(req.query.limit as string) || 3;
   const skip = (page - 1) * limit;
+
 
   try {
     const cabinets = await prisma.pharmacies.findMany({
@@ -180,19 +187,20 @@ export const deletePharmacy = async (req: Request, res: Response) => {
       })
       return; 
     }
-   await prisma.images.deleteMany({
-     where: { pharmacyId: id },
-   });
+    const images = await prisma.images.findMany({ where: { pharmacyId: id } });
+     images.forEach((image) => {
+       const imagePath = path.join(__dirname, "..", "public", image.url);
+       if (fs.existsSync(imagePath)) {
+         fs.unlinkSync(imagePath);
+       }
+     });
+    await prisma.$transaction([
+      prisma.images.deleteMany({ where: { pharmacyId: id } }),
+      prisma.availabilities.deleteMany({ where: { pharmacyId: id } }),
+      prisma.pharmacies.delete({ where: { id } }),
+    ]);
 
-   await prisma.availabilities.deleteMany({
-     where: { pharmacyId: id },
-   });
-    
-    const deletedCabinet = await prisma.pharmacies.delete({
-      where: { id },
-    });
-
-    res.json({ message: "Suppression effectuée", data: deletedCabinet });
+    res.json({ message: "Suppression effectuée" });
       } catch (error: any) {
     res.status(500).json({
       error: "Erreur lors de la suppression du pharmacie",

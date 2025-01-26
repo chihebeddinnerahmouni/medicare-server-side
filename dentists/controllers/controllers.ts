@@ -2,6 +2,8 @@ import { prisma } from "../db/index";
 import { Request, Response } from "express";
 // import {validateBody} from "../helper/validateBody";
 import axios from "axios";
+import fs from "fs";
+import path from "path";
 
 declare global {
   namespace Express {
@@ -46,63 +48,35 @@ export const getServices = async (req: Request, res: Response) => {
 
 // _____________________________________________________________________________
 
-// export const addSpeciality = async (req: Request, res: Response) => {
-//   const { name } = req.body;
-//   try {
-//     const newSpeciality = await prisma.specialities.create({
-//       data: {
-//         name,
-//       },
-//     });
-//     res.json({ data: newSpeciality });
-//   } catch (error: any) {
-//     res.status(500).json({
-//       error: "Erreur lors de la création d'une spécialité",
-//       message: error.message,
-//     });
-//   }
-// }
-
-// _____________________________________________________________________________
-
-// export const getSpecialities = async (req: Request, res: Response) => {
-//   try {
-//     const specialities = await prisma.specialities.findMany();
-//     res.json({ data: specialities });
-//   }
-//   catch (error: any) {
-//     res.status(500).json({
-//       error: "Erreur lors de la récupération des spécialités",
-//       message: error.message,
-//     });
-//   }
-// }
-
-// _____________________________________________________________________________
-
 export const addCabinet = async (req: Request, res: Response) => {
   const userId = req.user?.userId;
-  const {title, description, images, address, phone, year, availabilities, PricingServices, services, openTime, closeTime, latitude, longitude} = req.body;
+  const {title, description, address, phone, year, availabilities, PricingServices, services, openTime, closeTime, latitude, longitude} = req.body;
+  const images = req.files as Express.Multer.File[];
+  const parsedAvailabilities = JSON.parse(availabilities);
+    const parsedPricingServices = JSON.parse(PricingServices);
+    const parsedServices = Array.isArray(JSON.parse(services)) ? JSON.parse(services) : [JSON.parse(services)];
+
 
   try {
     const newCabinet = await prisma.cabinet.create({
-      data: { title, description,
-        // specialityId,
+      data: {
+        title,
+        description,
         address,
         phone,
         ownerId: userId,
         openTime,
-        year,
+        year: Number(year),
         closeTime,
         latitude,
         longitude,
         validated: false,
         blocked: false,
         images: {
-          create: images.map((url: string) => ({ url })),
+          create: images.map((file) => ({ url: `/images/${file.filename}` })),
         },
         availabilities: {
-          create: availabilities.map(
+          create: parsedAvailabilities.map(
             (availability: { start_date: string; end_date: string }) => ({
               start_date: availability.start_date,
               end_date: availability.end_date,
@@ -110,16 +84,16 @@ export const addCabinet = async (req: Request, res: Response) => {
           ),
         },
         PricingServices: {
-          create: PricingServices.map(
+          create: parsedPricingServices.map(
             (service: { id: number; price: number; name: string }) => ({
-              serviceId: service.id, 
-              price: service.price, 
+              serviceId: service.id,
+              price: service.price,
               service_name: service.name,
             })
           ),
         },
         nonPricingServices: {
-          connect: services.map((serviceId: number) => ({
+          connect: parsedServices.map((serviceId: number) => ({
             id: serviceId,
           })),
         },
@@ -140,7 +114,6 @@ export const addCabinet = async (req: Request, res: Response) => {
         images: true, // Include related images
         availabilities: true, // Include related availabilities
         PricingServices: true, // Include related services
-        // speciality: true, // Include related speciality
         nonPricingServices: true,
       },
     });
@@ -257,6 +230,8 @@ export const deleteCabinet = async (req: Request, res: Response) => {
   }
 
   try {
+    const images = await prisma.images.findMany({ where: { cabinetId: id } });
+
     const cabinet = await prisma.cabinet.findUnique({
       where: { id },
     });
@@ -270,22 +245,19 @@ export const deleteCabinet = async (req: Request, res: Response) => {
       })
       return; 
     }
-   await prisma.images.deleteMany({
-     where: { cabinetId: id },
-   });
-
-   await prisma.availabilities.deleteMany({
-     where: { cabinetId: id },
-   });
-
-   await prisma.pricingServices.deleteMany({
-     where: { cabinetId: id },
-   });
-    const deletedCabinet = await prisma.cabinet.delete({
-      where: { id },
+   await prisma.$transaction([
+     prisma.images.deleteMany({ where: { cabinetId: id } }),
+     prisma.availabilities.deleteMany({ where: { cabinetId: id } }),
+     prisma.pricingServices.deleteMany({ where: { cabinetId: id } }),
+     prisma.cabinet.delete({ where: { id } }),
+   ]);
+    images.forEach((image) => {
+      const imagePath = path.join(__dirname, "..", "public", image.url);
+      if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath);
+      }
     });
-
-    res.json({ message: "Suppression effectuée", data: deletedCabinet });
+    res.json({ message: "Suppression effectuée" });
       } catch (error: any) {
     res.status(500).json({
       error: "Erreur lors de la suppression du cabinet",
