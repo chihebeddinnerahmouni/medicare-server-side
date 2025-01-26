@@ -1,6 +1,8 @@
 import { prisma } from "../db/index";
 import { Request, Response } from "express";
 // import {validateBody} from "../helper/validateBody";
+import fs from "fs";
+import path from "path";
 import axios from "axios";
 
 declare global {
@@ -80,69 +82,145 @@ export const getSpecialities = async (req: Request, res: Response) => {
 
 // _____________________________________________________________________________
 
+// export const addCabinet = async (req: Request, res: Response) => {
+//   const userId = req.user?.userId;
+//   const {title, specialityId, description, images, address, phone, year, availabilities, PricingServices, services, openTime, closeTime, latitude, longitude} = req.body;
+
+//   try {
+//     const newCabinet = await prisma.cabinet.create({
+//       data: {
+//         title,
+//         description,
+//         specialityId,
+//         address,
+//         phone,
+//         ownerId: userId,
+//         openTime,
+//         year,
+//         closeTime,
+//         latitude,
+//         longitude,
+//         validated: false,
+//         blocked: false,
+//         images: {
+//           create: images.map((url: string) => ({ url })),
+//         },
+//         availabilities: {
+//           create: availabilities.map(
+//             (availability: { start_date: string; end_date: string }) => ({
+//               start_date: availability.start_date,
+//               end_date: availability.end_date,
+//             })
+//           ),
+//         },
+//         PricingServices: {
+//           create: PricingServices.map(
+//             (service: { id: number; price: number; name: string }) => ({
+//               serviceId: service.id, // Map `id` to `serviceId`
+//               price: service.price, // Include the price
+//               service_name: service.name,
+//             })
+//           ),
+//         },
+//         nonPricingServices: {
+//           connect: services.map((serviceId: number) => ({
+//             id: serviceId,
+//           })),
+//         },
+//         rates: {
+//           Communication: 0,
+//           Cleanliness: 0,
+//           Staff: 0,
+//           Treatment: 0,
+//           ValueForMoney: 0,
+//           totalRatesComminication: 0,
+//           totalRatesCleanliness: 0,
+//           totalRatesStaff: 0,
+//           totalRatesTreatment: 0,
+//           totalRatesValueForMoney: 0,
+//         },
+//       },
+//       include: {
+//         images: true, // Include related images
+//         availabilities: true, // Include related availabilities
+//         PricingServices: true, // Include related services
+//         speciality: true, // Include related speciality
+//         nonPricingServices: true,
+//       },
+//     });
+
+//     res.json({ data: newCabinet });
+//   } catch (error: any) {
+//     res.status(500).json({
+//       error: "Erreur lors de la création d'un cabinet",
+//       message: error.message,
+//     });
+//   }
+// };
 export const addCabinet = async (req: Request, res: Response) => {
   const userId = req.user?.userId;
-  const {title, specialityId, description, images, address, phone, year, availabilities, PricingServices, services, openTime, closeTime, latitude, longitude} = req.body;
+  const { title, specialityId, description, address, phone, year, availabilities, PricingServices, services, openTime, closeTime, latitude, longitude } = req.body;
+  const images = req.files as Express.Multer.File[];
 
   try {
+    const parsedAvailabilities = JSON.parse(availabilities);
+    const parsedPricingServices = JSON.parse(PricingServices);
+    const parsedServices = Array.isArray(JSON.parse(services)) ? JSON.parse(services) : [JSON.parse(services)];
+
     const newCabinet = await prisma.cabinet.create({
       data: {
         title,
         description,
-        specialityId,
+        specialityId: Number(specialityId),
         address,
         phone,
         ownerId: userId,
         openTime,
-        year,
+        year: Number(year),
         closeTime,
         latitude,
         longitude,
         validated: false,
         blocked: false,
         images: {
-          create: images.map((url: string) => ({ url })),
+          create: images.map(file => ({ url: `/images/${file.filename}` })),
         },
         availabilities: {
-          create: availabilities.map(
-            (availability: { start_date: string; end_date: string }) => ({
-              start_date: availability.start_date,
-              end_date: availability.end_date,
-            })
-          ),
-        },
-        PricingServices: {
-          create: PricingServices.map(
-            (service: { id: number; price: number; name: string }) => ({
-              serviceId: service.id, // Map `id` to `serviceId`
-              price: service.price, // Include the price
-              service_name: service.name,
-            })
-          ),
-        },
-        nonPricingServices: {
-          connect: services.map((serviceId: number) => ({
-            id: serviceId,
+          create: parsedAvailabilities.map(({ start_date, end_date }: { start_date: string; end_date: string }) => ({
+            start_date,
+            end_date,
           })),
         },
+        PricingServices: {
+          create: parsedPricingServices.map(({ id, price, name }: { id: number; price: number; name: string }) => ({
+            serviceId: id,
+            price,
+            service_name: name,
+          })),
+        },
+        nonPricingServices: {
+          connect: parsedServices.map((serviceId: number) => ({ id: serviceId })),
+        },
         rates: {
-          Communication: 0,
-          Cleanliness: 0,
-          Staff: 0,
-          Treatment: 0,
-          ValueForMoney: 0,
-          totalRatesComminication: 0,
-          totalRatesCleanliness: 0,
-          totalRatesStaff: 0,
-          totalRatesTreatment: 0,
-          totalRatesValueForMoney: 0,
+          create: {
+            Communication: 0,
+            Cleanliness: 0,
+            Staff: 0,
+            Treatment: 0,
+            ValueForMoney: 0,
+            totalRatesComminication: 0,
+            totalRatesCleanliness: 0,
+            totalRatesStaff: 0,
+            totalRatesTreatment: 0,
+            totalRatesValueForMoney: 0,
+          },
         },
       },
       include: {
-        images: true, // Include related images
-        availabilities: true, // Include related availabilities
-        PricingServices: true, // Include related services
-        speciality: true, // Include related speciality
+        images: true,
+        availabilities: true,
+        PricingServices: true,
+        speciality: true,
         nonPricingServices: true,
       },
     });
@@ -246,55 +324,44 @@ export const getCabinetById = async (req: Request, res: Response) => {
 export const deleteCabinet = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   const userId = Number(req.user?.userId);
-  let user: any;
 
   try {
-    user = await axios.get(process.env.USERS_URL + "/get-user/" + userId);
-  } catch (error: any) {
-    res.status(500).json({
-      error: "Erreur lors de la recherche de l'utilisateur",
-      message: error,
-    });
-    return
-  }
+    const userResponse = await axios.get(`${process.env.USERS_URL}/get-user/${userId}`);
+    const user = userResponse.data;
 
-  try {
-    const cabinet = await prisma.cabinet.findUnique({
-      where: { id },
-    });
+    const cabinet = await prisma.cabinet.findUnique({ where: { id } });
     if (!cabinet) {
       res.status(404).json({ error: "Cabinet non trouvé" });
       return;
     }
-    if (cabinet?.ownerId !== userId && user.data.role !== "admin") {
-      res.status(403).json({
-        message: "Vous n'êtes pas autorisé à supprimer ce cabinet",
-      })
+    if (cabinet.ownerId !== userId && user.role !== "admin") {
+      res.status(403).json({ message: "Vous n'êtes pas autorisé à supprimer ce cabinet" });
       return; 
     }
-   await prisma.images.deleteMany({
-     where: { cabinetId: id },
-   });
 
-   await prisma.availabilities.deleteMany({
-     where: { cabinetId: id },
-   });
+    const images = await prisma.images.findMany({ where: { cabinetId: id } });
 
-   await prisma.pricingServices.deleteMany({
-     where: { cabinetId: id },
-   });
-    const deletedCabinet = await prisma.cabinet.delete({
-      where: { id },
+    await prisma.$transaction([
+      prisma.images.deleteMany({ where: { cabinetId: id } }),
+      prisma.availabilities.deleteMany({ where: { cabinetId: id } }),
+      prisma.pricingServices.deleteMany({ where: { cabinetId: id } }),
+      prisma.cabinet.delete({ where: { id } }),
+    ]);
+
+    images.forEach(image => {
+      const imagePath = path.join(__dirname, "..", "public", image.url);
+      if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath);
+      }
     });
-
-    res.json({ message: "Suppression effectuée", data: deletedCabinet });
-      } catch (error: any) {
+    res.json({ message: "Suppression effectuée" });
+  } catch (error: any) {
     res.status(500).json({
       error: "Erreur lors de la suppression du cabinet",
       message: error.message,
     });
   }
-}
+};
 
 // _____________________________________________________________________________
 

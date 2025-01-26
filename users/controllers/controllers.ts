@@ -81,8 +81,14 @@ export const createUser = async (req: Request, res: Response) => {
         role,
       },
     });
+
+    const token = jwt.sign(
+      { userId: newuser.id },
+      process.env.SECRET_KEY as string 
+      //, { expiresIn: "1h" }
+    );
     
-    res.status(201).json(newuser);
+    res.status(201).json({data: newuser, token});
   } catch (error: any) {
     res
       .status(500)
@@ -114,6 +120,14 @@ const searchUser = async (userId: number, res: Response) => {
       where: {
         id: userId,
       },
+      select: {
+        id: true,
+        email: true,
+        phoneNumber: true,
+        firstName: true,
+        lastName: true,
+        profilePic: true,
+      },
     });
     return user;
   } catch (error: any) {
@@ -136,8 +150,8 @@ export const getAuthUser = async (req: Request, res: Response) => {
 // update user
 export const updateUser = async (req: Request, res: Response) => {
   const id = Number(req.user?.userId);
-  const { email, phoneNumber, firstName, lastName } = req.body;
-  const errors = validateBody({ email, phoneNumber, firstName, lastName });
+  const { phoneNumber, firstName, lastName } = req.body;
+  const errors = validateBody({ phoneNumber, firstName, lastName });
   if (errors.length !== 0) {
     res.status(400).json({ error: "Erreur lors de la mise à jour de l'utilisateur", message: errors });
     return;
@@ -148,7 +162,6 @@ export const updateUser = async (req: Request, res: Response) => {
         id,
       },
       data: {
-        email,
         phoneNumber,
         firstName,
         lastName,
@@ -429,17 +442,5 @@ const updateDemandeStatus = async (id: number, status: string, res: Response) =>
   }
 };
 
-// const searchUser = async (id: number, res: Response) => {
-//   try {
-//     const user = await prisma.users.findUnique({
-//       where: {
-//         id,
-//       },
-//     });
-//     console.log(user);
-//     return user;
-//   } catch (error: any) {
-//     res.status(500).json({ error: "Erreur lors de la récupération de l'utilisateur", message: error.message });
-//     return null;
-//   }
-// }
+// _________________________________________________________________
+

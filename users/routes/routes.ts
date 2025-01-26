@@ -23,10 +23,10 @@ import {
 
 const router = Router();
 
+router.post("/add-user", createUser);
 router.post("/login", login);
 router.get("/users", getUsers);
 router.get("/get-auth-user", authGuard, getAuthUser);
-router.post("/add-user", createUser);
 router.put("/update-user", authGuard, updateUser);
 router.post("/create-demande", authGuard, createDemande);
 router.post("/add-document/:demandeId", authGuard, addDocument);
