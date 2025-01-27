@@ -1,38 +1,48 @@
 import multer from "multer";
 import path from "path";
-import { Request } from "express";
 
-// Multer Configuration
+// Set storage engine
 const storage = multer.diskStorage({
-    destination: (_req, _file, cb) => {
-        cb(null, path.join(__dirname, "uploads")); // Specify the upload directory
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`);
-    },
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, "../public/images"));
+  },
+  filename: function (req, file, cb) {
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  },
 });
 
-// File Filter to Accept Only Images and PDFs
-const fileFilter = (
-    req: Request,
-    file: Express.Multer.File,
-    cb: multer.FileFilterCallback
-) => {
-    if (
-        file.mimetype.startsWith("image/") ||
-        file.mimetype === "application/pdf"
-    ) {
-        cb(null, true);
-    } else {
-        cb(new Error("Invalid file type. Only images and PDFs are allowed."));
-    }
-};
+// Initialize upload for single file
+const uploadSingle = multer({
+  storage: storage,
+  limits: { fileSize: 1000000 }, // Limit file size to 1MB
+  fileFilter: function (req, file, cb) {
+    checkFileType(file, cb);
+  },
+}).single("image"); // 'image' is the field name for the file
 
-// Multer Instance
-export const upload = multer({ 
-    storage, 
-    fileFilter,
-    limits: { fileSize: 5 * 1024 * 1024 } // Limit file size to 5MB
-});
+// Initialize upload for multiple files
+const uploadArray = multer({
+  storage: storage,
+  limits: { fileSize: 1000000 }, // Limit file size to 1MB per file
+  fileFilter: function (req, file, cb) {
+    checkFileType(file, cb);
+  },
+}).array("images", 10); // 'images' is the field name for the files, limit to 10 files
 
-// export upload;
+// Check file type
+function checkFileType(file: any, cb: any) {
+  const filetypes = /jpeg|jpg|png|gif/;
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  const mimetype = filetypes.test(file.mimetype);
+
+  if (extname && mimetype) {
+    return cb(null, true);
+  } else {
+    cb("Error: Images Only!");
+  }
+}
+
+export { uploadSingle, uploadArray };

@@ -5,12 +5,22 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 // import { createRouteHandler } from "uploadthing/express";
 // import { uploadRouter } from "../uploadthing";
+import { Multer } from "multer";
+import fs from "fs";
+import path from "path";
 
-declare module "express-serve-static-core" {
-  interface Request {
-    user?: { userId: string };
+declare global {
+  namespace Express {
+    interface Request {
+      user?: any;
+      files?:
+        | { [fieldname: string]: Express.Multer.File[] }
+      | Express.Multer.File[];
+      file?: Express.Multer.File;
+    }
   }
 }
+
 
 export const login = async (req: Request, res: Response) => {
 
@@ -394,9 +404,49 @@ export const getUserById = async (req: Request, res: Response) => {
 
 // _________________________________________________________________
 
+// import { Request, Response } from 'express';
+// import path from 'path';
+// import fs from 'fs';
+// import prisma from './prismaClient'; // Adjust the import according to your project structure
 
+export const updateUserImage = async (req: Request, res: Response) => {
+  const id = Number(req.user?.userId);
+  const file = req.file as Express.Multer.File;
 
+  if (!file) {
+    res.status(400).json({ error: 'No file uploaded' });
+    return; 
+  }
 
+  const user = await prisma.users.findUnique({
+    where: { id },
+  });
+
+  if (!user) {
+    res.status(404).json({ error: 'User not found' });
+    return;
+  }
+
+  try {
+    // Remove the old profile picture if it exists
+    if (user.profilePic) {
+      const oldImagePath = path.join(__dirname, "..", "public", user.profilePic);
+      if (fs.existsSync(oldImagePath)) {
+        fs.unlinkSync(oldImagePath);
+      }
+    }
+
+    // Update the user's profile picture in the database
+    const updatedUser = await prisma.users.update({
+      where: { id },
+      data: { profilePic: `/images/${file.filename}` },
+    });
+
+    res.json(updatedUser);
+  } catch (error: any) {
+    res.status(500).json({ error: "Erreur lors de la mise à jour de l'image de l'utilisateur", message: error.message });
+  }
+};
 
 
 

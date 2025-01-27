@@ -4,11 +4,15 @@ import { Request, Response } from "express";
 import axios from "axios";
 import fs from "fs";
 import path from "path";
+import { Multer } from "multer";
 
 declare global {
   namespace Express {
     interface Request {
       user?: any;
+      files?:
+        | { [fieldname: string]: Express.Multer.File[] }
+        | Express.Multer.File[];
     }
   }
 }
@@ -111,9 +115,9 @@ export const addCabinet = async (req: Request, res: Response) => {
         },
       },
       include: {
-        images: true, // Include related images
-        availabilities: true, // Include related availabilities
-        PricingServices: true, // Include related services
+        images: true, 
+        availabilities: true,
+        PricingServices: true, 
         nonPricingServices: true,
       },
     });

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { authGuard } from "../middleware/authGuard";
 // import { adminGuard } from "../middleware/adminGuard";
-import  upload  from "../multer";
+import { uploadArray } from "../middleware/multer";
 import {
   addPharmacy,
   getPharmacies,
@@ -21,7 +21,7 @@ router.get("/get-landing-pharmacies", getLandingPharmacies);
 
 // user
 router.delete("/delete-pharmacy/:id",authGuard, deletePharmacy);
-router.post("/add-pharmacy", authGuard,upload.array("images", 10), addPharmacy);
+router.post("/add-pharmacy", authGuard,uploadArray, addPharmacy);
 
 // admin
 
