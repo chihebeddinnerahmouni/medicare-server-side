@@ -20,6 +20,7 @@ model Users {
   updatedAt   DateTime @updatedAt
   demandes    Demandes[]
   documents   Documents[]
+  hasDemandes Boolean  @default(false)
 }
 
 model Demandes {

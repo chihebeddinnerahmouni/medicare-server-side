@@ -235,6 +235,7 @@ export const createDemande = async (req: Request, res: Response) => {
       },
     });
 
+    user.hasDemandes = true;
     res
       .status(201)
       .json({ message: "Demande créée avec succès", data: newDemande });
@@ -404,11 +405,6 @@ export const getUserById = async (req: Request, res: Response) => {
 
 // _________________________________________________________________
 
-// import { Request, Response } from 'express';
-// import path from 'path';
-// import fs from 'fs';
-// import prisma from './prismaClient'; // Adjust the import according to your project structure
-
 export const updateUserImage = async (req: Request, res: Response) => {
   const id = Number(req.user?.userId);
   const file = req.file as Express.Multer.File;
@@ -448,6 +444,16 @@ export const updateUserImage = async (req: Request, res: Response) => {
   }
 };
 
+// _________________________________________________________________
+
+export const NumberOfUsers = async (req: Request, res: Response) => {
+  try {
+    const users = await prisma.users.count();
+    res.json({ users });
+  } catch (error: any) {
+    res.status(500).json({ error: "Erreur lors de la récupération du nombre d'utilisateurs", message: error.message });
+  }
+}
 
 
 

@@ -17,7 +17,8 @@ import {
   getDocuments,
   getUserById,
   acceptDocuments,
-  updateUserImage
+  updateUserImage,
+  NumberOfUsers
 } from "../controllers/controllers";
 
 
@@ -28,6 +29,8 @@ router.post("/add-user", createUser);
 router.post("/login", login);
 router.get("/users", getUsers);
 router.get("/get-user/:id", getUserById);
+router.get("/number-of-users", NumberOfUsers);
+
 
 //user
 router.get("/get-auth-user", authGuard, getAuthUser);
