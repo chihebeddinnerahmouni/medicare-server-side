@@ -2,6 +2,7 @@ import { Router } from "express";
 import { authGuard } from "../middleware/authGuard";
 import { adminGuard } from "../middleware/adminGuard";
 import { uploadSingle } from "../middleware/multer";
+import { uploadSingleFile } from "../middleware/multerFiles";
 
 import {
   getUsers,
@@ -18,7 +19,8 @@ import {
   getUserById,
   acceptDocuments,
   updateUserImage,
-  NumberOfUsers
+  NumberOfUsers,
+  getMyDemandes
 } from "../controllers/controllers";
 
 
@@ -36,8 +38,9 @@ router.get("/number-of-users", NumberOfUsers);
 router.get("/get-auth-user", authGuard, getAuthUser);
 router.post("/create-demande", authGuard, createDemande);
 router.put("/update-user", authGuard, updateUser);
-router.post("/add-document/:demandeId", authGuard, addDocument);
+router.post("/add-document/:demandeId", authGuard, uploadSingleFile, addDocument);
 router.put("/update-image", authGuard, uploadSingle, updateUserImage);
+router.get("/my-demandes", authGuard, getMyDemandes);
 
 // admin
 router.delete("/delete-all-users", adminGuard, deleteAllUsers);

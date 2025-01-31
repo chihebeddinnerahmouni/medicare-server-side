@@ -137,6 +137,7 @@ const searchUser = async (userId: number, res: Response) => {
         firstName: true,
         lastName: true,
         profilePic: true,
+        hasDemandes: true,
       },
     });
     return user;
@@ -235,7 +236,14 @@ export const createDemande = async (req: Request, res: Response) => {
       },
     });
 
-    user.hasDemandes = true;
+    await prisma.users.update({
+      where: {
+        id,
+      },
+      data: {
+        hasDemandes: true,
+      },
+    });
     res
       .status(201)
       .json({ message: "Demande créée avec succès", data: newDemande });
@@ -292,8 +300,10 @@ export const acceptDemande = async (req: Request, res: Response) => {
 // add document
 export const addDocument = async (req: Request, res: Response) => {
   const id = Number(req.user?.userId);
-  const { description, url } = req.body;
+  const { description } = req.body;
   const { demandeId } = req.params;
+  const file = req.file as Express.Multer.File;
+
   try {
 
     const demande = await prisma.demandes.findUnique({
@@ -309,6 +319,7 @@ export const addDocument = async (req: Request, res: Response) => {
       res.status(400).json({ message: "Vous ne pouvez pas ajouter de document à cette demande" });
       return;
     }
+    const url = `/files/${file.filename}`;
 
     const newDocument = await prisma.documents.create({
       data: {
@@ -452,6 +463,22 @@ export const NumberOfUsers = async (req: Request, res: Response) => {
     res.json({ users });
   } catch (error: any) {
     res.status(500).json({ error: "Erreur lors de la récupération du nombre d'utilisateurs", message: error.message });
+  }
+}
+
+// _________________________________________________________________
+
+export const getMyDemandes = async (req: Request, res: Response) => {
+  const id = Number(req.user?.userId);
+  try {
+    const demandes = await prisma.demandes.findMany({
+      where: {
+        userId: id,
+      },
+    });
+    res.json(demandes);
+  } catch (error: any) {
+    res.status(500).json({ error: "Erreur lors de la récupération des demandes", message: error.message });
   }
 }
 
