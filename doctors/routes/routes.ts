@@ -26,11 +26,19 @@ router.get("/get-landing-doctors", getLandingDoctors);
 
 // user
 router.delete("/delete-cabinet/:id",authGuard, deleteCabinet);
-router.post("/add-cabinet", authGuard,uploadArray, addCabinet);
+router.post("/add-cabinet", authGuard, uploadArray, addCabinet);
 
 // admin
 router.post("/add-service", adminGuard, addService);
 router.post("/add-speciality", adminGuard, addSpeciality);
+
+
+// Middleware to handle non-existent routes
+router.use((req, res) => {
+  res.status(450).json({
+    message: `Route does not exist ${req.originalUrl}`,
+  });
+});
 
 
 

@@ -74,7 +74,7 @@ export const addSpeciality = async (req: Request, res: Response) => {
 export const getSpecialities = async (req: Request, res: Response) => {
   try {
     const specialities = await prisma.specialities.findMany();
-    res.json({ data: specialities });
+    res.json(specialities);
   } catch (error: any) {
     res.status(500).json({
       error: "Erreur lors de la récupération des spécialités",
@@ -102,7 +102,8 @@ export const addCabinet = async (req: Request, res: Response) => {
     latitude,
     longitude,
   } = req.body;
-  const images = req.files as Express.Multer.File[];
+  // const images = req.files as Express.Multer.File[];
+  const images = Array.isArray(req.files) ? req.files : [];
 
   try {
     const parsedAvailabilities = JSON.parse(availabilities);
@@ -110,7 +111,7 @@ export const addCabinet = async (req: Request, res: Response) => {
     const parsedServices = Array.isArray(JSON.parse(services))
       ? JSON.parse(services)
       : [JSON.parse(services)];
-
+    
     const newCabinet = await prisma.cabinet.create({
       data: {
         title,

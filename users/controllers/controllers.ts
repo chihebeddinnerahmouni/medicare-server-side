@@ -138,6 +138,7 @@ const searchUser = async (userId: number, res: Response) => {
         lastName: true,
         profilePic: true,
         hasDemandes: true,
+        role: true,
       },
     });
     return user;

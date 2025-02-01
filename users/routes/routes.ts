@@ -50,4 +50,14 @@ router.get("/get-documents/:demandeId", adminGuard, getDocuments);
 router.put("/accept-documents/:demandeId", adminGuard, acceptDocuments);
 
 
+// Middleware to handle non-existent routes
+router.use((req, res) => {
+  res
+    .status(450)
+    .json({
+      message: `Route does not exist ${req.originalUrl}`,
+    });
+});
+
+
 module.exports = router;

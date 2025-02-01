@@ -38,7 +38,6 @@ export const adminGuard = async (req: Request, res: Response, next: NextFunction
             return; 
         }
 
-
         if (user.role !== 'admin') {
             res.status(403).json({ error: "Accès refusé. Administrateurs uniquement." });
             return;
