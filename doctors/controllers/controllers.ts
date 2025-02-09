@@ -101,19 +101,28 @@ export const addCabinet = async (req: Request, res: Response) => {
     closeTime,
     latitude,
     longitude,
+    daysOff,
   } = req.body;
   // const images = req.files as Express.Multer.File[];
   const images = Array.isArray(req.files) ? req.files : [];
 
   try {
     const parsedAvailabilities = JSON.parse(availabilities);
-    const parsedPricingServices = JSON.parse(PricingServices);
+    const parsedPricingServices = JSON.parse(PricingServices).map(
+      (service: { service_name: string; price: string }) => ({
+        ...service,
+        price: parseInt(service.price, 10),
+      })
+    );
+    const parsedDaysOff = JSON.parse(daysOff);
     const parsedNonPricingServices = Array.isArray(
       JSON.parse(nonPricingServices)
     )
       ? JSON.parse(nonPricingServices)
       : [JSON.parse(nonPricingServices)];
-    
+
+    console.log(parsedPricingServices);
+
     const newCabinet = await prisma.cabinet.create({
       data: {
         title,
@@ -129,6 +138,7 @@ export const addCabinet = async (req: Request, res: Response) => {
         longitude,
         validated: false,
         blocked: false,
+        daysOff: parsedDaysOff,
         images: {
           create: images!.map((file) => ({ url: `/images/${file.filename}` })),
         },
@@ -190,7 +200,7 @@ export const addCabinet = async (req: Request, res: Response) => {
       },
     });
 
-    res.json({ data: newCabinet });
+    res.json(newCabinet);
   } catch (error: any) {
     res.status(500).json({
       error: "Erreur lors de la création d'un cabinet",
@@ -377,7 +387,7 @@ export const deleteService = async (req: Request, res: Response) => {
       message: error.message,
     });
   }
-}
+};
 
 // _____________________________________________________________________________
 
@@ -398,4 +408,4 @@ export const updateService = async (req: Request, res: Response) => {
       message: error.message,
     });
   }
-}
+};
