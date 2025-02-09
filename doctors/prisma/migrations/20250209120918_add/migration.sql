@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Cabinet" ALTER COLUMN "daysOff" SET DEFAULT ARRAY[]::INTEGER[];

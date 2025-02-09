@@ -41,7 +41,7 @@ export const addService = async (req: Request, res: Response) => {
 export const getServices = async (req: Request, res: Response) => {
   try {
     const services = await prisma.services.findMany();
-    res.json({ data: services });
+    res.json(services);
   } catch (error: any) {
     res.status(500).json({
       error: "Erreur lors de la récupération des services",
@@ -96,7 +96,7 @@ export const addCabinet = async (req: Request, res: Response) => {
     year,
     availabilities,
     PricingServices,
-    services,
+    nonPricingServices,
     openTime,
     closeTime,
     latitude,
@@ -108,9 +108,11 @@ export const addCabinet = async (req: Request, res: Response) => {
   try {
     const parsedAvailabilities = JSON.parse(availabilities);
     const parsedPricingServices = JSON.parse(PricingServices);
-    const parsedServices = Array.isArray(JSON.parse(services))
-      ? JSON.parse(services)
-      : [JSON.parse(services)];
+    const parsedNonPricingServices = Array.isArray(
+      JSON.parse(nonPricingServices)
+    )
+      ? JSON.parse(nonPricingServices)
+      : [JSON.parse(nonPricingServices)];
     
     const newCabinet = await prisma.cabinet.create({
       data: {
@@ -147,23 +149,23 @@ export const addCabinet = async (req: Request, res: Response) => {
         PricingServices: {
           create: parsedPricingServices.map(
             ({
-              id,
+              // id,
               price,
-              name,
+              service_name,
             }: {
-              id: number;
+              // id: number;
               price: number;
-              name: string;
+              service_name: string;
             }) => ({
-              serviceId: id,
+              // serviceId: id,
               price,
-              service_name: name,
+              service_name,
             })
           ),
         },
         nonPricingServices: {
-          connect: parsedServices.map((serviceId: number) => ({
-            id: serviceId,
+          create: parsedNonPricingServices.map((service_name: string) => ({
+            service_name,
           })),
         },
         rates: {
@@ -357,78 +359,43 @@ export const getLandingDoctors = async (req: Request, res: Response) => {
   }
 };
 
-// export const addCabinet = async (req: Request, res: Response) => {
-//   const userId = req.user?.userId;
-//   const {title, specialityId, description, images, address, phone, year, availabilities, PricingServices, services, openTime, closeTime, latitude, longitude} = req.body;
+// _____________________________________________________________________________
 
-//   try {
-//     const newCabinet = await prisma.cabinet.create({
-//       data: {
-//         title,
-//         description,
-//         specialityId,
-//         address,
-//         phone,
-//         ownerId: userId,
-//         openTime,
-//         year,
-//         closeTime,
-//         latitude,
-//         longitude,
-//         validated: false,
-//         blocked: false,
-//         images: {
-//           create: images.map((url: string) => ({ url })),
-//         },
-//         availabilities: {
-//           create: availabilities.map(
-//             (availability: { start_date: string; end_date: string }) => ({
-//               start_date: availability.start_date,
-//               end_date: availability.end_date,
-//             })
-//           ),
-//         },
-//         PricingServices: {
-//           create: PricingServices.map(
-//             (service: { id: number; price: number; name: string }) => ({
-//               serviceId: service.id, // Map `id` to `serviceId`
-//               price: service.price, // Include the price
-//               service_name: service.name,
-//             })
-//           ),
-//         },
-//         nonPricingServices: {
-//           connect: services.map((serviceId: number) => ({
-//             id: serviceId,
-//           })),
-//         },
-//         rates: {
-//           Communication: 0,
-//           Cleanliness: 0,
-//           Staff: 0,
-//           Treatment: 0,
-//           ValueForMoney: 0,
-//           totalRatesComminication: 0,
-//           totalRatesCleanliness: 0,
-//           totalRatesStaff: 0,
-//           totalRatesTreatment: 0,
-//           totalRatesValueForMoney: 0,
-//         },
-//       },
-//       include: {
-//         images: true, // Include related images
-//         availabilities: true, // Include related availabilities
-//         PricingServices: true, // Include related services
-//         speciality: true, // Include related speciality
-//         nonPricingServices: true,
-//       },
-//     });
+export const deleteService = async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+  try {
+    const service = await prisma.services.findUnique({ where: { id } });
+    if (!service) {
+      res.status(404).json({ error: "Service non trouvé" });
+      return;
+    }
+    await prisma.services.delete({ where: { id } });
+    res.json({ message: "Service supprimé" });
+  } catch (error: any) {
+    res.status(500).json({
+      error: "Erreur lors de la suppression du service",
+      message: error.message,
+    });
+  }
+}
 
-//     res.json({ data: newCabinet });
-//   } catch (error: any) {
-//     res.status(500).json({
-//       error: "Erreur lors de la création d'un cabinet",
-//       message: error.message,
-//     });
-//   }
-// };
+// _____________________________________________________________________________
+
+export const updateService = async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+  const { name } = req.body;
+  try {
+    const updatedService = await prisma.services.update({
+      where: { id },
+      data: {
+        name,
+      },
+    });
+    res.json({ data: updatedService });
+  } catch (error: any) {
+    res.status(500).json({
+      error: "Erreur lors de la mise à jour du service",
+      message: error.message,
+    });
+  }
+}

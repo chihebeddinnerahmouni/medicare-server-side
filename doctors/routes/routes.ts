@@ -12,6 +12,8 @@ import {
   getCabinetById,
   deleteCabinet,
   getLandingDoctors,
+  deleteService,
+  updateService
 } from "../controllers/controllers";
 
 
@@ -31,6 +33,8 @@ router.post("/add-cabinet", authGuard, uploadArray, addCabinet);
 // admin
 router.post("/add-service", adminGuard, addService);
 router.post("/add-speciality", adminGuard, addSpeciality);
+router.delete("/delete-service/:id", adminGuard, deleteService);
+router.put("/update-service/:id", adminGuard, updateService);
 
 
 // Middleware to handle non-existent routes
