@@ -84,7 +84,7 @@ export const createUser = async (req: Request, res: Response) => {
     const newuser = await prisma.users.create({
       data: {
         email,
-        phoneNumber,
+        phoneNumber : "+213" + phoneNumber,
         firstName,
         lastName,
         password: hashedPassword,
@@ -174,7 +174,7 @@ export const updateUser = async (req: Request, res: Response) => {
         id,
       },
       data: {
-        phoneNumber,
+        phoneNumber: "+213" + phoneNumber,
         firstName,
         lastName,
       },
@@ -490,6 +490,7 @@ export const getMyDemandes = async (req: Request, res: Response) => {
 
 export const setDemandeOnWork = async (req: Request, res: Response) => { 
   const demandeId = Number(req.params.demandeId);
+  const userId = Number(req.params.userId);
   try {
     const demande = await prisma.demandes.findUnique({
       where: { id: demandeId },
@@ -498,6 +499,12 @@ export const setDemandeOnWork = async (req: Request, res: Response) => {
       res.status(404).json({ message: "Demande introuvable" });
       return;
     }
+
+    if (demande.userId !== userId) {
+      res.status(400).json({ message: "Vous ne pouvez pas travailler sur cette demande, car vous n'en êtes pas le propriétaire." });
+      return;
+    }
+  
     if (demande.status !== "accepted") {
       res.status(400).json({ message: "Vous ne pouvez pas travailler sur cette demande" });
       return;

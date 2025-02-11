@@ -16,6 +16,7 @@ declare global {
     }
   }
 }
+const usersUrl = process.env.USERS_URL;
 
 // _____________________________________________________________________________
 
@@ -87,7 +88,7 @@ export const getSpecialities = async (req: Request, res: Response) => {
 
 export const addCabinet = async (req: Request, res: Response) => {
   const userId = req.user?.userId;
-  const { demandeId } = req.params;
+  const demandeId = Number(req.params.demandeId);
   const {
     title,
     specialityId,
@@ -105,6 +106,16 @@ export const addCabinet = async (req: Request, res: Response) => {
     daysOff,
   } = req.body;
   const images = Array.isArray(req.files) ? req.files : [];
+
+  try {
+    await axios.put(usersUrl + "/set-demande-working/" + demandeId + "/" + userId);
+  } catch (error: any) {
+    res.status(500).json({
+      error: "Erreur lors de la création d'un cabinet from user service",
+      message: error.message,
+    });
+    return;
+  }
 
   try {
     const parsedAvailabilities = JSON.parse(availabilities);
@@ -127,7 +138,7 @@ export const addCabinet = async (req: Request, res: Response) => {
         description,
         specialityId: Number(specialityId),
         address,
-        phone,
+        phone: "+213" + phone,
         ownerId: userId,
         openTime,
         year: Number(year),
