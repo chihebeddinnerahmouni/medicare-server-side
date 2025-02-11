@@ -4,7 +4,6 @@ import { Request, Response } from "express";
 import fs from "fs";
 import path from "path";
 import axios from "axios";
-import { Multer } from "multer";
 
 declare global {
   namespace Express {
@@ -107,14 +106,16 @@ export const addCabinet = async (req: Request, res: Response) => {
   } = req.body;
   const images = Array.isArray(req.files) ? req.files : [];
 
-  try {
-    await axios.put(usersUrl + "/set-demande-working/" + demandeId + "/" + userId);
-  } catch (error: any) {
-    res.status(500).json({
-      error: "Erreur lors de la création d'un cabinet from user service",
-      message: error.message,
-    });
-    return;
+  if (demandeId) {
+    try {
+      await axios.put(usersUrl + "/set-demande-working/" + demandeId + "/" + userId);
+    } catch (error: any) {
+      res.status(500).json({
+        error: "Erreur lors de la création d'un cabinet from user service",
+        message: error.message,
+      });
+      return;
+    }
   }
 
   try {
@@ -168,15 +169,12 @@ export const addCabinet = async (req: Request, res: Response) => {
         PricingServices: {
           create: parsedPricingServices.map(
             ({
-              // id,
               price,
               service_name,
             }: {
-              // id: number;
               price: number;
               service_name: string;
             }) => ({
-              // serviceId: id,
               price,
               service_name,
             })
@@ -311,7 +309,7 @@ export const deleteCabinet = async (req: Request, res: Response) => {
 
   try {
     const userResponse = await axios.get(
-      `${process.env.USERS_URL}/get-user/${userId}`
+      `${usersUrl}/get-user/${userId}`
     );
     const user = userResponse.data;
 
@@ -333,7 +331,9 @@ export const deleteCabinet = async (req: Request, res: Response) => {
       prisma.images.deleteMany({ where: { cabinetId: id } }),
       prisma.availabilities.deleteMany({ where: { cabinetId: id } }),
       prisma.pricingServices.deleteMany({ where: { cabinetId: id } }),
+      prisma.nonPricingServices.deleteMany({ where: { cabinetId: id } }),
       prisma.cabinet.delete({ where: { id } }),
+
     ]);
 
     images.forEach((image: any) => {
