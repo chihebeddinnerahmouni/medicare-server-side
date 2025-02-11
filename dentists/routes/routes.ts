@@ -25,7 +25,7 @@ router.get("/get-landing-dentists", getLandingDoctors);
 
 // user
 router.delete("/delete-cabinet/:id",authGuard, deleteCabinet);
-router.post("/add-cabinet", authGuard, uploadArray, addCabinet);
+router.post("/add-cabinet/:demandeId?", authGuard, uploadArray, addCabinet);
 
 // admin
 router.post("/add-service", adminGuard, addService);

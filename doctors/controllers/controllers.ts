@@ -4,6 +4,7 @@ import { Request, Response } from "express";
 import fs from "fs";
 import path from "path";
 import axios from "axios";
+import {Multer} from "multer";
 
 declare global {
   namespace Express {

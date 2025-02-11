@@ -1,5 +1,97 @@
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
+
+// model Images {
+//   id        Int      @id @default(autoincrement())
+//   url       String
+//   cabinetId Int
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   Cabinet   Cabinet  @relation(fields: [cabinetId], references: [id])
+// }
+
+// model availabilities {
+//   id        Int      @id @default(autoincrement())
+//   cabinetId Int
+//   start_date      String
+//   end_date        String
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   Cabinet   Cabinet  @relation(fields: [cabinetId], references: [id])
+// }
+
+// model Services {
+//   id                Int               @id @default(autoincrement())
+//   name              String
+//   createdAt         DateTime          @default(now())
+//   updatedAt         DateTime          @updatedAt
+//   Cabinets          Cabinet[]         @relation("PricingServices")
+//   PricingServices   PricingServices[]
+//   nonPricingServices Cabinet[]
+// }
+
+// model Reviews {
+//   id        Int      @id @default(autoincrement())
+//   comment   String
+//   userId    Int
+//   cabinetId Int
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   Cabinet   Cabinet  @relation(fields: [cabinetId], references: [id])
+// }
+
+
+// model Cabinet {
+//   id              Int                @id @default(autoincrement())
+//   title            String
+//   images          Images[]
+//   description     String
+//   address         String
+//   phone           String
+//   totalViews      Int                @default(0)
+//   totalRate       Int                @default(0)
+//   numberOfRates   Int                @default(0)
+//   averageRate     Float              @default(0)
+//   availabilities  availabilities[]
+//   ownerId         Int
+//   year      Int
+//   services        Services[]         @relation("PricingServices")
+//   validated       Boolean
+//   blocked         Boolean
+//   Reviews         Reviews[]
+//   rates           Json
+//   openTime        String
+//   closeTime       String
+//   latitude        String
+//   longitude       String
+//   reviewsCount    Int                @default(0)
+//   createdAt       DateTime           @default(now())
+//   updatedAt       DateTime           @updatedAt
+//   PricingServices PricingServices[]
+//   nonPricingServices Services[]
+// }
+
+// model PricingServices {
+//   cabinetId Int
+//   serviceId Int
+//   service_name String
+//   price     Float
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   Cabinet   Cabinet  @relation(fields: [cabinetId], references: [id])
+//   Services  Services @relation(fields: [serviceId], references: [id])
+
+//   @@id([cabinetId, serviceId])
+// }
 generator client {
   provider = "prisma-client-js"
+  output   = "../generated/dentists-client"
 }
 
 datasource db {
@@ -10,20 +102,20 @@ datasource db {
 model Images {
   id        Int      @id @default(autoincrement())
   url       String
-  cabinetId Int
+  dentistId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Cabinet   Cabinet  @relation(fields: [cabinetId], references: [id])
+  Dentist   Dentists  @relation(fields: [dentistId], references: [id])
 }
 
 model availabilities {
   id        Int      @id @default(autoincrement())
-  cabinetId Int
+  dentistId Int
   start_date      String
   end_date        String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Cabinet   Cabinet  @relation(fields: [cabinetId], references: [id])
+  dentist   Dentists  @relation(fields: [dentistId], references: [id])
 }
 
 model Services {
@@ -31,25 +123,22 @@ model Services {
   name              String
   createdAt         DateTime          @default(now())
   updatedAt         DateTime          @updatedAt
-  Cabinets          Cabinet[]         @relation("PricingServices")
-  PricingServices   PricingServices[]
-  nonPricingServices Cabinet[]
 }
 
 model Reviews {
   id        Int      @id @default(autoincrement())
   comment   String
   userId    Int
-  cabinetId Int
+  dentistId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Cabinet   Cabinet  @relation(fields: [cabinetId], references: [id])
+  Dentist   Dentists  @relation(fields: [dentistId], references: [id])
 }
 
 
-model Cabinet {
+model Dentists {
   id              Int                @id @default(autoincrement())
-  title            String
+  title           String
   images          Images[]
   description     String
   address         String
@@ -60,8 +149,7 @@ model Cabinet {
   averageRate     Float              @default(0)
   availabilities  availabilities[]
   ownerId         Int
-  year      Int
-  services        Services[]         @relation("PricingServices")
+  year            Int
   validated       Boolean
   blocked         Boolean
   Reviews         Reviews[]
@@ -70,22 +158,29 @@ model Cabinet {
   closeTime       String
   latitude        String
   longitude       String
+  daysOff         Int[]              @default([])
   reviewsCount    Int                @default(0)
   createdAt       DateTime           @default(now())
   updatedAt       DateTime           @updatedAt
   PricingServices PricingServices[]
-  nonPricingServices Services[]
+  nonPricingServices NonPricingServices[]
 }
 
 model PricingServices {
-  cabinetId Int
-  serviceId Int
+  id        Int      @id @default(autoincrement())
+  dentistId Int
   service_name String
   price     Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Cabinet   Cabinet  @relation(fields: [cabinetId], references: [id])
-  Services  Services @relation(fields: [serviceId], references: [id])
+  dentist   Dentists  @relation(fields: [dentistId], references: [id])
+}
 
-  @@id([cabinetId, serviceId])
+model NonPricingServices {
+  id        Int      @id @default(autoincrement())
+  dentistId Int
+  service_name String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  dentist   Dentists  @relation(fields: [dentistId], references: [id])
 }
