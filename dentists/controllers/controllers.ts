@@ -42,7 +42,7 @@ export const addService = async (req: Request, res: Response) => {
 export const getServices = async (req: Request, res: Response) => {
   try {
     const services = await prisma.services.findMany();
-    res.json({ data: services });
+    res.json(services);
   } catch (error: any) {
     res.status(500).json({
       error: "Erreur lors de la récupération des services",
