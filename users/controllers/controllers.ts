@@ -475,11 +475,37 @@ export const getMyDemandes = async (req: Request, res: Response) => {
     const demandes = await prisma.demandes.findMany({
       where: {
         userId: id,
+        NOT: {
+          status: "working",
+        },
       },
     });
     res.json(demandes);
   } catch (error: any) {
     res.status(500).json({ error: "Erreur lors de la récupération des demandes", message: error.message });
+  }
+}
+
+// _________________________________________________________________
+
+export const setDemandeOnWork = async (req: Request, res: Response) => { 
+  const demandeId = Number(req.params.demandeId);
+  try {
+    const demande = await prisma.demandes.findUnique({
+      where: { id: demandeId },
+    });
+    if (!demande) {
+      res.status(404).json({ message: "Demande introuvable" });
+      return;
+    }
+    if (demande.status !== "accepted") {
+      res.status(400).json({ message: "Vous ne pouvez pas travailler sur cette demande" });
+      return;
+    }
+    const newDemande = await updateDemandeStatus(demandeId, "working", res);
+    res.json(newDemande);
+  } catch (error: any) {
+    res.status(500).json({ error: "Erreur lors de la mise à jour de la demande", message: error.message });
   }
 }
 

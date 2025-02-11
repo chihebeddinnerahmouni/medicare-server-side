@@ -87,6 +87,7 @@ export const getSpecialities = async (req: Request, res: Response) => {
 
 export const addCabinet = async (req: Request, res: Response) => {
   const userId = req.user?.userId;
+  const { demandeId } = req.params;
   const {
     title,
     specialityId,
@@ -103,7 +104,6 @@ export const addCabinet = async (req: Request, res: Response) => {
     longitude,
     daysOff,
   } = req.body;
-  // const images = req.files as Express.Multer.File[];
   const images = Array.isArray(req.files) ? req.files : [];
 
   try {
@@ -120,8 +120,6 @@ export const addCabinet = async (req: Request, res: Response) => {
     )
       ? JSON.parse(nonPricingServices)
       : [JSON.parse(nonPricingServices)];
-
-    console.log(parsedPricingServices);
 
     const newCabinet = await prisma.cabinet.create({
       data: {

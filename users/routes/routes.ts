@@ -20,7 +20,8 @@ import {
   acceptDocuments,
   updateUserImage,
   NumberOfUsers,
-  getMyDemandes
+  getMyDemandes,
+  setDemandeOnWork
 } from "../controllers/controllers";
 
 
@@ -32,6 +33,7 @@ router.post("/login", login);
 router.get("/users", getUsers);
 router.get("/get-user/:id", getUserById);
 router.get("/number-of-users", NumberOfUsers);
+router.put("/set-demande-working/:demandeId", setDemandeOnWork);
 
 
 //user
