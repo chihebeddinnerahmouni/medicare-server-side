@@ -21,7 +21,7 @@ router.get("/get-landing-pharmacies", getLandingPharmacies);
 
 // user
 router.delete("/delete-pharmacy/:id",authGuard, deletePharmacy);
-router.post("/add-pharmacy", authGuard,uploadArray, addPharmacy);
+router.post("/add-pharmacy/:demandeId?", authGuard, uploadArray, addPharmacy);
 
 // admin
 

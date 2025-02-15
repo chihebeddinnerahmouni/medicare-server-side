@@ -17,14 +17,31 @@ declare global {
   }
 }
 
+const usersUrl = process.env.USERS_URL as string;
+
 // _____________________________________________________________________________
 
 
 export const addPharmacy = async (req: Request, res: Response) => {
   const userId = req.user?.userId;
+     const demandeId = Number(req.params.demandeId);
   const { title, description, address, phone, year, availabilities, openTime, closeTime, latitude, longitude } = req.body;
   const images = req.files as Express.Multer.File[];
   const parsedAvailabilities = JSON.parse(availabilities);
+
+  if (demandeId) {
+    try {
+      await axios.put(
+        usersUrl + "/set-demande-working/" + demandeId + "/" + userId
+      );
+    } catch (error: any) {
+      res.status(500).json({
+        error: "Erreur lors de la création d'un cabinet from user service",
+        message: error.message,
+      });
+      return;
+    }
+  }
 
   try {
     const newCabinet = await prisma.pharmacies.create({
@@ -71,7 +88,7 @@ export const addPharmacy = async (req: Request, res: Response) => {
       },
     });
 
-    res.json({ data: newCabinet });
+    res.json(newCabinet);
   } catch (error: any) {
     res.status(500).json({
       error: "Erreur lors de la création d'un pharmacie",
