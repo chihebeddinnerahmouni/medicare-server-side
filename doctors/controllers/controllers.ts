@@ -230,12 +230,14 @@ export const addCabinet = async (req: Request, res: Response) => {
 export const getCabinets = async (req: Request, res: Response) => {
   const page = parseInt(req.query.page as string) || 1;
   const limit = parseInt(req.query.limit as string) || 3;
+  const speciality = parseInt(req.query.speciality as string);
   const skip = (page - 1) * limit;
 
   try {
     const cabinets = await prisma.cabinet.findMany({
       skip: skip,
       take: limit,
+      where: speciality ? { specialityId: speciality } : {},
       include: {
         images: true,
         availabilities: true,
@@ -244,7 +246,10 @@ export const getCabinets = async (req: Request, res: Response) => {
         nonPricingServices: true,
       },
     });
-    const totalCabinets = await prisma.cabinet.count();
+    const totalCabinets = await prisma.cabinet.count({
+      where: speciality ? { specialityId: speciality } : {},
+    });
+      
     res.json({
       data: cabinets,
       pagination: {
