@@ -34,15 +34,10 @@ export type Services = $Result.DefaultSelection<Prisma.$ServicesPayload>
  */
 export type Reviews = $Result.DefaultSelection<Prisma.$ReviewsPayload>
 /**
- * Model specialities
+ * Model Clinics
  * 
  */
-export type specialities = $Result.DefaultSelection<Prisma.$specialitiesPayload>
-/**
- * Model Cabinet
- * 
- */
-export type Cabinet = $Result.DefaultSelection<Prisma.$CabinetPayload>
+export type Clinics = $Result.DefaultSelection<Prisma.$ClinicsPayload>
 /**
  * Model PricingServices
  * 
@@ -220,24 +215,14 @@ export class PrismaClient<
   get reviews(): Prisma.ReviewsDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.specialities`: Exposes CRUD operations for the **specialities** model.
+   * `prisma.clinics`: Exposes CRUD operations for the **Clinics** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Specialities
-    * const specialities = await prisma.specialities.findMany()
+    * // Fetch zero or more Clinics
+    * const clinics = await prisma.clinics.findMany()
     * ```
     */
-  get specialities(): Prisma.specialitiesDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.cabinet`: Exposes CRUD operations for the **Cabinet** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Cabinets
-    * const cabinets = await prisma.cabinet.findMany()
-    * ```
-    */
-  get cabinet(): Prisma.CabinetDelegate<ExtArgs, ClientOptions>;
+  get clinics(): Prisma.ClinicsDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.pricingServices`: Exposes CRUD operations for the **PricingServices** model.
@@ -702,8 +687,7 @@ export namespace Prisma {
     availabilities: 'availabilities',
     Services: 'Services',
     Reviews: 'Reviews',
-    specialities: 'specialities',
-    Cabinet: 'Cabinet',
+    Clinics: 'Clinics',
     PricingServices: 'PricingServices',
     NonPricingServices: 'NonPricingServices'
   };
@@ -721,7 +705,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "images" | "availabilities" | "services" | "reviews" | "specialities" | "cabinet" | "pricingServices" | "nonPricingServices"
+      modelProps: "images" | "availabilities" | "services" | "reviews" | "clinics" | "pricingServices" | "nonPricingServices"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1021,151 +1005,77 @@ export namespace Prisma {
           }
         }
       }
-      specialities: {
-        payload: Prisma.$specialitiesPayload<ExtArgs>
-        fields: Prisma.specialitiesFieldRefs
+      Clinics: {
+        payload: Prisma.$ClinicsPayload<ExtArgs>
+        fields: Prisma.ClinicsFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.specialitiesFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$specialitiesPayload> | null
+            args: Prisma.ClinicsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClinicsPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.specialitiesFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$specialitiesPayload>
+            args: Prisma.ClinicsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClinicsPayload>
           }
           findFirst: {
-            args: Prisma.specialitiesFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$specialitiesPayload> | null
+            args: Prisma.ClinicsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClinicsPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.specialitiesFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$specialitiesPayload>
+            args: Prisma.ClinicsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClinicsPayload>
           }
           findMany: {
-            args: Prisma.specialitiesFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$specialitiesPayload>[]
+            args: Prisma.ClinicsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClinicsPayload>[]
           }
           create: {
-            args: Prisma.specialitiesCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$specialitiesPayload>
+            args: Prisma.ClinicsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClinicsPayload>
           }
           createMany: {
-            args: Prisma.specialitiesCreateManyArgs<ExtArgs>
+            args: Prisma.ClinicsCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.specialitiesCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$specialitiesPayload>[]
+            args: Prisma.ClinicsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClinicsPayload>[]
           }
           delete: {
-            args: Prisma.specialitiesDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$specialitiesPayload>
+            args: Prisma.ClinicsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClinicsPayload>
           }
           update: {
-            args: Prisma.specialitiesUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$specialitiesPayload>
+            args: Prisma.ClinicsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClinicsPayload>
           }
           deleteMany: {
-            args: Prisma.specialitiesDeleteManyArgs<ExtArgs>
+            args: Prisma.ClinicsDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.specialitiesUpdateManyArgs<ExtArgs>
+            args: Prisma.ClinicsUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.specialitiesUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$specialitiesPayload>[]
+            args: Prisma.ClinicsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClinicsPayload>[]
           }
           upsert: {
-            args: Prisma.specialitiesUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$specialitiesPayload>
+            args: Prisma.ClinicsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClinicsPayload>
           }
           aggregate: {
-            args: Prisma.SpecialitiesAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateSpecialities>
+            args: Prisma.ClinicsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateClinics>
           }
           groupBy: {
-            args: Prisma.specialitiesGroupByArgs<ExtArgs>
-            result: $Utils.Optional<SpecialitiesGroupByOutputType>[]
+            args: Prisma.ClinicsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ClinicsGroupByOutputType>[]
           }
           count: {
-            args: Prisma.specialitiesCountArgs<ExtArgs>
-            result: $Utils.Optional<SpecialitiesCountAggregateOutputType> | number
-          }
-        }
-      }
-      Cabinet: {
-        payload: Prisma.$CabinetPayload<ExtArgs>
-        fields: Prisma.CabinetFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.CabinetFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CabinetPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.CabinetFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CabinetPayload>
-          }
-          findFirst: {
-            args: Prisma.CabinetFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CabinetPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.CabinetFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CabinetPayload>
-          }
-          findMany: {
-            args: Prisma.CabinetFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CabinetPayload>[]
-          }
-          create: {
-            args: Prisma.CabinetCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CabinetPayload>
-          }
-          createMany: {
-            args: Prisma.CabinetCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.CabinetCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CabinetPayload>[]
-          }
-          delete: {
-            args: Prisma.CabinetDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CabinetPayload>
-          }
-          update: {
-            args: Prisma.CabinetUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CabinetPayload>
-          }
-          deleteMany: {
-            args: Prisma.CabinetDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.CabinetUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.CabinetUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CabinetPayload>[]
-          }
-          upsert: {
-            args: Prisma.CabinetUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CabinetPayload>
-          }
-          aggregate: {
-            args: Prisma.CabinetAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateCabinet>
-          }
-          groupBy: {
-            args: Prisma.CabinetGroupByArgs<ExtArgs>
-            result: $Utils.Optional<CabinetGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.CabinetCountArgs<ExtArgs>
-            result: $Utils.Optional<CabinetCountAggregateOutputType> | number
+            args: Prisma.ClinicsCountArgs<ExtArgs>
+            result: $Utils.Optional<ClinicsCountAggregateOutputType> | number
           }
         }
       }
@@ -1405,8 +1315,7 @@ export namespace Prisma {
     availabilities?: availabilitiesOmit
     services?: ServicesOmit
     reviews?: ReviewsOmit
-    specialities?: specialitiesOmit
-    cabinet?: CabinetOmit
+    clinics?: ClinicsOmit
     pricingServices?: PricingServicesOmit
     nonPricingServices?: NonPricingServicesOmit
   }
@@ -1499,41 +1408,10 @@ export namespace Prisma {
 
 
   /**
-   * Count Type SpecialitiesCountOutputType
+   * Count Type ClinicsCountOutputType
    */
 
-  export type SpecialitiesCountOutputType = {
-    Cabinets: number
-  }
-
-  export type SpecialitiesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Cabinets?: boolean | SpecialitiesCountOutputTypeCountCabinetsArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * SpecialitiesCountOutputType without action
-   */
-  export type SpecialitiesCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SpecialitiesCountOutputType
-     */
-    select?: SpecialitiesCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * SpecialitiesCountOutputType without action
-   */
-  export type SpecialitiesCountOutputTypeCountCabinetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CabinetWhereInput
-  }
-
-
-  /**
-   * Count Type CabinetCountOutputType
-   */
-
-  export type CabinetCountOutputType = {
+  export type ClinicsCountOutputType = {
     images: number
     availabilities: number
     Reviews: number
@@ -1541,57 +1419,57 @@ export namespace Prisma {
     nonPricingServices: number
   }
 
-  export type CabinetCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    images?: boolean | CabinetCountOutputTypeCountImagesArgs
-    availabilities?: boolean | CabinetCountOutputTypeCountAvailabilitiesArgs
-    Reviews?: boolean | CabinetCountOutputTypeCountReviewsArgs
-    PricingServices?: boolean | CabinetCountOutputTypeCountPricingServicesArgs
-    nonPricingServices?: boolean | CabinetCountOutputTypeCountNonPricingServicesArgs
+  export type ClinicsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    images?: boolean | ClinicsCountOutputTypeCountImagesArgs
+    availabilities?: boolean | ClinicsCountOutputTypeCountAvailabilitiesArgs
+    Reviews?: boolean | ClinicsCountOutputTypeCountReviewsArgs
+    PricingServices?: boolean | ClinicsCountOutputTypeCountPricingServicesArgs
+    nonPricingServices?: boolean | ClinicsCountOutputTypeCountNonPricingServicesArgs
   }
 
   // Custom InputTypes
   /**
-   * CabinetCountOutputType without action
+   * ClinicsCountOutputType without action
    */
-  export type CabinetCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClinicsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CabinetCountOutputType
+     * Select specific fields to fetch from the ClinicsCountOutputType
      */
-    select?: CabinetCountOutputTypeSelect<ExtArgs> | null
+    select?: ClinicsCountOutputTypeSelect<ExtArgs> | null
   }
 
   /**
-   * CabinetCountOutputType without action
+   * ClinicsCountOutputType without action
    */
-  export type CabinetCountOutputTypeCountImagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClinicsCountOutputTypeCountImagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ImagesWhereInput
   }
 
   /**
-   * CabinetCountOutputType without action
+   * ClinicsCountOutputType without action
    */
-  export type CabinetCountOutputTypeCountAvailabilitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClinicsCountOutputTypeCountAvailabilitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: availabilitiesWhereInput
   }
 
   /**
-   * CabinetCountOutputType without action
+   * ClinicsCountOutputType without action
    */
-  export type CabinetCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClinicsCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ReviewsWhereInput
   }
 
   /**
-   * CabinetCountOutputType without action
+   * ClinicsCountOutputType without action
    */
-  export type CabinetCountOutputTypeCountPricingServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClinicsCountOutputTypeCountPricingServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PricingServicesWhereInput
   }
 
   /**
-   * CabinetCountOutputType without action
+   * ClinicsCountOutputType without action
    */
-  export type CabinetCountOutputTypeCountNonPricingServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClinicsCountOutputTypeCountNonPricingServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: NonPricingServicesWhereInput
   }
 
@@ -1614,18 +1492,18 @@ export namespace Prisma {
 
   export type ImagesAvgAggregateOutputType = {
     id: number | null
-    cabinetId: number | null
+    clinicId: number | null
   }
 
   export type ImagesSumAggregateOutputType = {
     id: number | null
-    cabinetId: number | null
+    clinicId: number | null
   }
 
   export type ImagesMinAggregateOutputType = {
     id: number | null
     url: string | null
-    cabinetId: number | null
+    clinicId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1633,7 +1511,7 @@ export namespace Prisma {
   export type ImagesMaxAggregateOutputType = {
     id: number | null
     url: string | null
-    cabinetId: number | null
+    clinicId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1641,7 +1519,7 @@ export namespace Prisma {
   export type ImagesCountAggregateOutputType = {
     id: number
     url: number
-    cabinetId: number
+    clinicId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1650,18 +1528,18 @@ export namespace Prisma {
 
   export type ImagesAvgAggregateInputType = {
     id?: true
-    cabinetId?: true
+    clinicId?: true
   }
 
   export type ImagesSumAggregateInputType = {
     id?: true
-    cabinetId?: true
+    clinicId?: true
   }
 
   export type ImagesMinAggregateInputType = {
     id?: true
     url?: true
-    cabinetId?: true
+    clinicId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1669,7 +1547,7 @@ export namespace Prisma {
   export type ImagesMaxAggregateInputType = {
     id?: true
     url?: true
-    cabinetId?: true
+    clinicId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1677,7 +1555,7 @@ export namespace Prisma {
   export type ImagesCountAggregateInputType = {
     id?: true
     url?: true
-    cabinetId?: true
+    clinicId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1772,7 +1650,7 @@ export namespace Prisma {
   export type ImagesGroupByOutputType = {
     id: number
     url: string
-    cabinetId: number
+    clinicId: number
     createdAt: Date
     updatedAt: Date
     _count: ImagesCountAggregateOutputType | null
@@ -1799,58 +1677,58 @@ export namespace Prisma {
   export type ImagesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     url?: boolean
-    cabinetId?: boolean
+    clinicId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["images"]>
 
   export type ImagesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     url?: boolean
-    cabinetId?: boolean
+    clinicId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["images"]>
 
   export type ImagesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     url?: boolean
-    cabinetId?: boolean
+    clinicId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["images"]>
 
   export type ImagesSelectScalar = {
     id?: boolean
     url?: boolean
-    cabinetId?: boolean
+    clinicId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ImagesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "cabinetId" | "createdAt" | "updatedAt", ExtArgs["result"]["images"]>
+  export type ImagesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "clinicId" | "createdAt" | "updatedAt", ExtArgs["result"]["images"]>
   export type ImagesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }
   export type ImagesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }
   export type ImagesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }
 
   export type $ImagesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Images"
     objects: {
-      Cabinet: Prisma.$CabinetPayload<ExtArgs>
+      clinic: Prisma.$ClinicsPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       url: string
-      cabinetId: number
+      clinicId: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["images"]>
@@ -2247,7 +2125,7 @@ export namespace Prisma {
    */
   export interface Prisma__ImagesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    Cabinet<T extends CabinetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CabinetDefaultArgs<ExtArgs>>): Prisma__CabinetClient<$Result.GetResult<Prisma.$CabinetPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    clinic<T extends ClinicsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClinicsDefaultArgs<ExtArgs>>): Prisma__ClinicsClient<$Result.GetResult<Prisma.$ClinicsPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2279,7 +2157,7 @@ export namespace Prisma {
   interface ImagesFieldRefs {
     readonly id: FieldRef<"Images", 'Int'>
     readonly url: FieldRef<"Images", 'String'>
-    readonly cabinetId: FieldRef<"Images", 'Int'>
+    readonly clinicId: FieldRef<"Images", 'Int'>
     readonly createdAt: FieldRef<"Images", 'DateTime'>
     readonly updatedAt: FieldRef<"Images", 'DateTime'>
   }
@@ -2710,17 +2588,17 @@ export namespace Prisma {
 
   export type AvailabilitiesAvgAggregateOutputType = {
     id: number | null
-    cabinetId: number | null
+    clinicId: number | null
   }
 
   export type AvailabilitiesSumAggregateOutputType = {
     id: number | null
-    cabinetId: number | null
+    clinicId: number | null
   }
 
   export type AvailabilitiesMinAggregateOutputType = {
     id: number | null
-    cabinetId: number | null
+    clinicId: number | null
     start_date: string | null
     end_date: string | null
     createdAt: Date | null
@@ -2729,7 +2607,7 @@ export namespace Prisma {
 
   export type AvailabilitiesMaxAggregateOutputType = {
     id: number | null
-    cabinetId: number | null
+    clinicId: number | null
     start_date: string | null
     end_date: string | null
     createdAt: Date | null
@@ -2738,7 +2616,7 @@ export namespace Prisma {
 
   export type AvailabilitiesCountAggregateOutputType = {
     id: number
-    cabinetId: number
+    clinicId: number
     start_date: number
     end_date: number
     createdAt: number
@@ -2749,17 +2627,17 @@ export namespace Prisma {
 
   export type AvailabilitiesAvgAggregateInputType = {
     id?: true
-    cabinetId?: true
+    clinicId?: true
   }
 
   export type AvailabilitiesSumAggregateInputType = {
     id?: true
-    cabinetId?: true
+    clinicId?: true
   }
 
   export type AvailabilitiesMinAggregateInputType = {
     id?: true
-    cabinetId?: true
+    clinicId?: true
     start_date?: true
     end_date?: true
     createdAt?: true
@@ -2768,7 +2646,7 @@ export namespace Prisma {
 
   export type AvailabilitiesMaxAggregateInputType = {
     id?: true
-    cabinetId?: true
+    clinicId?: true
     start_date?: true
     end_date?: true
     createdAt?: true
@@ -2777,7 +2655,7 @@ export namespace Prisma {
 
   export type AvailabilitiesCountAggregateInputType = {
     id?: true
-    cabinetId?: true
+    clinicId?: true
     start_date?: true
     end_date?: true
     createdAt?: true
@@ -2873,7 +2751,7 @@ export namespace Prisma {
 
   export type AvailabilitiesGroupByOutputType = {
     id: number
-    cabinetId: number
+    clinicId: number
     start_date: string
     end_date: string
     createdAt: Date
@@ -2901,62 +2779,62 @@ export namespace Prisma {
 
   export type availabilitiesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    cabinetId?: boolean
+    clinicId?: boolean
     start_date?: boolean
     end_date?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["availabilities"]>
 
   export type availabilitiesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    cabinetId?: boolean
+    clinicId?: boolean
     start_date?: boolean
     end_date?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["availabilities"]>
 
   export type availabilitiesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    cabinetId?: boolean
+    clinicId?: boolean
     start_date?: boolean
     end_date?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["availabilities"]>
 
   export type availabilitiesSelectScalar = {
     id?: boolean
-    cabinetId?: boolean
+    clinicId?: boolean
     start_date?: boolean
     end_date?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type availabilitiesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cabinetId" | "start_date" | "end_date" | "createdAt" | "updatedAt", ExtArgs["result"]["availabilities"]>
+  export type availabilitiesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clinicId" | "start_date" | "end_date" | "createdAt" | "updatedAt", ExtArgs["result"]["availabilities"]>
   export type availabilitiesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }
   export type availabilitiesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }
   export type availabilitiesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }
 
   export type $availabilitiesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "availabilities"
     objects: {
-      Cabinet: Prisma.$CabinetPayload<ExtArgs>
+      clinic: Prisma.$ClinicsPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      cabinetId: number
+      clinicId: number
       start_date: string
       end_date: string
       createdAt: Date
@@ -3355,7 +3233,7 @@ export namespace Prisma {
    */
   export interface Prisma__availabilitiesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    Cabinet<T extends CabinetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CabinetDefaultArgs<ExtArgs>>): Prisma__CabinetClient<$Result.GetResult<Prisma.$CabinetPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    clinic<T extends ClinicsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClinicsDefaultArgs<ExtArgs>>): Prisma__ClinicsClient<$Result.GetResult<Prisma.$ClinicsPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3386,7 +3264,7 @@ export namespace Prisma {
    */ 
   interface availabilitiesFieldRefs {
     readonly id: FieldRef<"availabilities", 'Int'>
-    readonly cabinetId: FieldRef<"availabilities", 'Int'>
+    readonly clinicId: FieldRef<"availabilities", 'Int'>
     readonly start_date: FieldRef<"availabilities", 'String'>
     readonly end_date: FieldRef<"availabilities", 'String'>
     readonly createdAt: FieldRef<"availabilities", 'DateTime'>
@@ -4836,20 +4714,20 @@ export namespace Prisma {
   export type ReviewsAvgAggregateOutputType = {
     id: number | null
     userId: number | null
-    cabinetId: number | null
+    clinicId: number | null
   }
 
   export type ReviewsSumAggregateOutputType = {
     id: number | null
     userId: number | null
-    cabinetId: number | null
+    clinicId: number | null
   }
 
   export type ReviewsMinAggregateOutputType = {
     id: number | null
     comment: string | null
     userId: number | null
-    cabinetId: number | null
+    clinicId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4858,7 +4736,7 @@ export namespace Prisma {
     id: number | null
     comment: string | null
     userId: number | null
-    cabinetId: number | null
+    clinicId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4867,7 +4745,7 @@ export namespace Prisma {
     id: number
     comment: number
     userId: number
-    cabinetId: number
+    clinicId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -4877,20 +4755,20 @@ export namespace Prisma {
   export type ReviewsAvgAggregateInputType = {
     id?: true
     userId?: true
-    cabinetId?: true
+    clinicId?: true
   }
 
   export type ReviewsSumAggregateInputType = {
     id?: true
     userId?: true
-    cabinetId?: true
+    clinicId?: true
   }
 
   export type ReviewsMinAggregateInputType = {
     id?: true
     comment?: true
     userId?: true
-    cabinetId?: true
+    clinicId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4899,7 +4777,7 @@ export namespace Prisma {
     id?: true
     comment?: true
     userId?: true
-    cabinetId?: true
+    clinicId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4908,7 +4786,7 @@ export namespace Prisma {
     id?: true
     comment?: true
     userId?: true
-    cabinetId?: true
+    clinicId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -5004,7 +4882,7 @@ export namespace Prisma {
     id: number
     comment: string
     userId: number
-    cabinetId: number
+    clinicId: number
     createdAt: Date
     updatedAt: Date
     _count: ReviewsCountAggregateOutputType | null
@@ -5032,62 +4910,62 @@ export namespace Prisma {
     id?: boolean
     comment?: boolean
     userId?: boolean
-    cabinetId?: boolean
+    clinicId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["reviews"]>
 
   export type ReviewsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     comment?: boolean
     userId?: boolean
-    cabinetId?: boolean
+    clinicId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["reviews"]>
 
   export type ReviewsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     comment?: boolean
     userId?: boolean
-    cabinetId?: boolean
+    clinicId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["reviews"]>
 
   export type ReviewsSelectScalar = {
     id?: boolean
     comment?: boolean
     userId?: boolean
-    cabinetId?: boolean
+    clinicId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ReviewsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "comment" | "userId" | "cabinetId" | "createdAt" | "updatedAt", ExtArgs["result"]["reviews"]>
+  export type ReviewsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "comment" | "userId" | "clinicId" | "createdAt" | "updatedAt", ExtArgs["result"]["reviews"]>
   export type ReviewsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }
   export type ReviewsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }
   export type ReviewsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }
 
   export type $ReviewsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Reviews"
     objects: {
-      Cabinet: Prisma.$CabinetPayload<ExtArgs>
+      clinic: Prisma.$ClinicsPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       comment: string
       userId: number
-      cabinetId: number
+      clinicId: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["reviews"]>
@@ -5484,7 +5362,7 @@ export namespace Prisma {
    */
   export interface Prisma__ReviewsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    Cabinet<T extends CabinetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CabinetDefaultArgs<ExtArgs>>): Prisma__CabinetClient<$Result.GetResult<Prisma.$CabinetPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    clinic<T extends ClinicsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClinicsDefaultArgs<ExtArgs>>): Prisma__ClinicsClient<$Result.GetResult<Prisma.$ClinicsPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5517,7 +5395,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Reviews", 'Int'>
     readonly comment: FieldRef<"Reviews", 'String'>
     readonly userId: FieldRef<"Reviews", 'Int'>
-    readonly cabinetId: FieldRef<"Reviews", 'Int'>
+    readonly clinicId: FieldRef<"Reviews", 'Int'>
     readonly createdAt: FieldRef<"Reviews", 'DateTime'>
     readonly updatedAt: FieldRef<"Reviews", 'DateTime'>
   }
@@ -5935,1124 +5813,19 @@ export namespace Prisma {
 
 
   /**
-   * Model specialities
+   * Model Clinics
    */
 
-  export type AggregateSpecialities = {
-    _count: SpecialitiesCountAggregateOutputType | null
-    _avg: SpecialitiesAvgAggregateOutputType | null
-    _sum: SpecialitiesSumAggregateOutputType | null
-    _min: SpecialitiesMinAggregateOutputType | null
-    _max: SpecialitiesMaxAggregateOutputType | null
+  export type AggregateClinics = {
+    _count: ClinicsCountAggregateOutputType | null
+    _avg: ClinicsAvgAggregateOutputType | null
+    _sum: ClinicsSumAggregateOutputType | null
+    _min: ClinicsMinAggregateOutputType | null
+    _max: ClinicsMaxAggregateOutputType | null
   }
 
-  export type SpecialitiesAvgAggregateOutputType = {
+  export type ClinicsAvgAggregateOutputType = {
     id: number | null
-  }
-
-  export type SpecialitiesSumAggregateOutputType = {
-    id: number | null
-  }
-
-  export type SpecialitiesMinAggregateOutputType = {
-    id: number | null
-    name: string | null
-    image: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type SpecialitiesMaxAggregateOutputType = {
-    id: number | null
-    name: string | null
-    image: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type SpecialitiesCountAggregateOutputType = {
-    id: number
-    name: number
-    image: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type SpecialitiesAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type SpecialitiesSumAggregateInputType = {
-    id?: true
-  }
-
-  export type SpecialitiesMinAggregateInputType = {
-    id?: true
-    name?: true
-    image?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type SpecialitiesMaxAggregateInputType = {
-    id?: true
-    name?: true
-    image?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type SpecialitiesCountAggregateInputType = {
-    id?: true
-    name?: true
-    image?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type SpecialitiesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which specialities to aggregate.
-     */
-    where?: specialitiesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of specialities to fetch.
-     */
-    orderBy?: specialitiesOrderByWithRelationInput | specialitiesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: specialitiesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` specialities from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` specialities.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned specialities
-    **/
-    _count?: true | SpecialitiesCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: SpecialitiesAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: SpecialitiesSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: SpecialitiesMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: SpecialitiesMaxAggregateInputType
-  }
-
-  export type GetSpecialitiesAggregateType<T extends SpecialitiesAggregateArgs> = {
-        [P in keyof T & keyof AggregateSpecialities]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateSpecialities[P]>
-      : GetScalarType<T[P], AggregateSpecialities[P]>
-  }
-
-
-
-
-  export type specialitiesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: specialitiesWhereInput
-    orderBy?: specialitiesOrderByWithAggregationInput | specialitiesOrderByWithAggregationInput[]
-    by: SpecialitiesScalarFieldEnum[] | SpecialitiesScalarFieldEnum
-    having?: specialitiesScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: SpecialitiesCountAggregateInputType | true
-    _avg?: SpecialitiesAvgAggregateInputType
-    _sum?: SpecialitiesSumAggregateInputType
-    _min?: SpecialitiesMinAggregateInputType
-    _max?: SpecialitiesMaxAggregateInputType
-  }
-
-  export type SpecialitiesGroupByOutputType = {
-    id: number
-    name: string
-    image: string
-    createdAt: Date
-    updatedAt: Date
-    _count: SpecialitiesCountAggregateOutputType | null
-    _avg: SpecialitiesAvgAggregateOutputType | null
-    _sum: SpecialitiesSumAggregateOutputType | null
-    _min: SpecialitiesMinAggregateOutputType | null
-    _max: SpecialitiesMaxAggregateOutputType | null
-  }
-
-  type GetSpecialitiesGroupByPayload<T extends specialitiesGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<SpecialitiesGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof SpecialitiesGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], SpecialitiesGroupByOutputType[P]>
-            : GetScalarType<T[P], SpecialitiesGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type specialitiesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    image?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    Cabinets?: boolean | specialities$CabinetsArgs<ExtArgs>
-    _count?: boolean | SpecialitiesCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["specialities"]>
-
-  export type specialitiesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    image?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["specialities"]>
-
-  export type specialitiesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    image?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["specialities"]>
-
-  export type specialitiesSelectScalar = {
-    id?: boolean
-    name?: boolean
-    image?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }
-
-  export type specialitiesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "image" | "createdAt" | "updatedAt", ExtArgs["result"]["specialities"]>
-  export type specialitiesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Cabinets?: boolean | specialities$CabinetsArgs<ExtArgs>
-    _count?: boolean | SpecialitiesCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type specialitiesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type specialitiesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-
-  export type $specialitiesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "specialities"
-    objects: {
-      Cabinets: Prisma.$CabinetPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      name: string
-      image: string
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["specialities"]>
-    composites: {}
-  }
-
-  type specialitiesGetPayload<S extends boolean | null | undefined | specialitiesDefaultArgs> = $Result.GetResult<Prisma.$specialitiesPayload, S>
-
-  type specialitiesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<specialitiesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: SpecialitiesCountAggregateInputType | true
-    }
-
-  export interface specialitiesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['specialities'], meta: { name: 'specialities' } }
-    /**
-     * Find zero or one Specialities that matches the filter.
-     * @param {specialitiesFindUniqueArgs} args - Arguments to find a Specialities
-     * @example
-     * // Get one Specialities
-     * const specialities = await prisma.specialities.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends specialitiesFindUniqueArgs>(args: SelectSubset<T, specialitiesFindUniqueArgs<ExtArgs>>): Prisma__specialitiesClient<$Result.GetResult<Prisma.$specialitiesPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
-
-    /**
-     * Find one Specialities that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {specialitiesFindUniqueOrThrowArgs} args - Arguments to find a Specialities
-     * @example
-     * // Get one Specialities
-     * const specialities = await prisma.specialities.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends specialitiesFindUniqueOrThrowArgs>(args: SelectSubset<T, specialitiesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__specialitiesClient<$Result.GetResult<Prisma.$specialitiesPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
-
-    /**
-     * Find the first Specialities that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {specialitiesFindFirstArgs} args - Arguments to find a Specialities
-     * @example
-     * // Get one Specialities
-     * const specialities = await prisma.specialities.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends specialitiesFindFirstArgs>(args?: SelectSubset<T, specialitiesFindFirstArgs<ExtArgs>>): Prisma__specialitiesClient<$Result.GetResult<Prisma.$specialitiesPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
-
-    /**
-     * Find the first Specialities that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {specialitiesFindFirstOrThrowArgs} args - Arguments to find a Specialities
-     * @example
-     * // Get one Specialities
-     * const specialities = await prisma.specialities.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends specialitiesFindFirstOrThrowArgs>(args?: SelectSubset<T, specialitiesFindFirstOrThrowArgs<ExtArgs>>): Prisma__specialitiesClient<$Result.GetResult<Prisma.$specialitiesPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
-
-    /**
-     * Find zero or more Specialities that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {specialitiesFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Specialities
-     * const specialities = await prisma.specialities.findMany()
-     * 
-     * // Get first 10 Specialities
-     * const specialities = await prisma.specialities.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const specialitiesWithIdOnly = await prisma.specialities.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends specialitiesFindManyArgs>(args?: SelectSubset<T, specialitiesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$specialitiesPayload<ExtArgs>, T, "findMany", ClientOptions>>
-
-    /**
-     * Create a Specialities.
-     * @param {specialitiesCreateArgs} args - Arguments to create a Specialities.
-     * @example
-     * // Create one Specialities
-     * const Specialities = await prisma.specialities.create({
-     *   data: {
-     *     // ... data to create a Specialities
-     *   }
-     * })
-     * 
-     */
-    create<T extends specialitiesCreateArgs>(args: SelectSubset<T, specialitiesCreateArgs<ExtArgs>>): Prisma__specialitiesClient<$Result.GetResult<Prisma.$specialitiesPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
-
-    /**
-     * Create many Specialities.
-     * @param {specialitiesCreateManyArgs} args - Arguments to create many Specialities.
-     * @example
-     * // Create many Specialities
-     * const specialities = await prisma.specialities.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends specialitiesCreateManyArgs>(args?: SelectSubset<T, specialitiesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Specialities and returns the data saved in the database.
-     * @param {specialitiesCreateManyAndReturnArgs} args - Arguments to create many Specialities.
-     * @example
-     * // Create many Specialities
-     * const specialities = await prisma.specialities.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Specialities and only return the `id`
-     * const specialitiesWithIdOnly = await prisma.specialities.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends specialitiesCreateManyAndReturnArgs>(args?: SelectSubset<T, specialitiesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$specialitiesPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
-
-    /**
-     * Delete a Specialities.
-     * @param {specialitiesDeleteArgs} args - Arguments to delete one Specialities.
-     * @example
-     * // Delete one Specialities
-     * const Specialities = await prisma.specialities.delete({
-     *   where: {
-     *     // ... filter to delete one Specialities
-     *   }
-     * })
-     * 
-     */
-    delete<T extends specialitiesDeleteArgs>(args: SelectSubset<T, specialitiesDeleteArgs<ExtArgs>>): Prisma__specialitiesClient<$Result.GetResult<Prisma.$specialitiesPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
-
-    /**
-     * Update one Specialities.
-     * @param {specialitiesUpdateArgs} args - Arguments to update one Specialities.
-     * @example
-     * // Update one Specialities
-     * const specialities = await prisma.specialities.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends specialitiesUpdateArgs>(args: SelectSubset<T, specialitiesUpdateArgs<ExtArgs>>): Prisma__specialitiesClient<$Result.GetResult<Prisma.$specialitiesPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
-
-    /**
-     * Delete zero or more Specialities.
-     * @param {specialitiesDeleteManyArgs} args - Arguments to filter Specialities to delete.
-     * @example
-     * // Delete a few Specialities
-     * const { count } = await prisma.specialities.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends specialitiesDeleteManyArgs>(args?: SelectSubset<T, specialitiesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Specialities.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {specialitiesUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Specialities
-     * const specialities = await prisma.specialities.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends specialitiesUpdateManyArgs>(args: SelectSubset<T, specialitiesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Specialities and returns the data updated in the database.
-     * @param {specialitiesUpdateManyAndReturnArgs} args - Arguments to update many Specialities.
-     * @example
-     * // Update many Specialities
-     * const specialities = await prisma.specialities.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Specialities and only return the `id`
-     * const specialitiesWithIdOnly = await prisma.specialities.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends specialitiesUpdateManyAndReturnArgs>(args: SelectSubset<T, specialitiesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$specialitiesPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
-
-    /**
-     * Create or update one Specialities.
-     * @param {specialitiesUpsertArgs} args - Arguments to update or create a Specialities.
-     * @example
-     * // Update or create a Specialities
-     * const specialities = await prisma.specialities.upsert({
-     *   create: {
-     *     // ... data to create a Specialities
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Specialities we want to update
-     *   }
-     * })
-     */
-    upsert<T extends specialitiesUpsertArgs>(args: SelectSubset<T, specialitiesUpsertArgs<ExtArgs>>): Prisma__specialitiesClient<$Result.GetResult<Prisma.$specialitiesPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
-
-
-    /**
-     * Count the number of Specialities.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {specialitiesCountArgs} args - Arguments to filter Specialities to count.
-     * @example
-     * // Count the number of Specialities
-     * const count = await prisma.specialities.count({
-     *   where: {
-     *     // ... the filter for the Specialities we want to count
-     *   }
-     * })
-    **/
-    count<T extends specialitiesCountArgs>(
-      args?: Subset<T, specialitiesCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], SpecialitiesCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Specialities.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SpecialitiesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends SpecialitiesAggregateArgs>(args: Subset<T, SpecialitiesAggregateArgs>): Prisma.PrismaPromise<GetSpecialitiesAggregateType<T>>
-
-    /**
-     * Group by Specialities.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {specialitiesGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends specialitiesGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: specialitiesGroupByArgs['orderBy'] }
-        : { orderBy?: specialitiesGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, specialitiesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSpecialitiesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the specialities model
-   */
-  readonly fields: specialitiesFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for specialities.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__specialitiesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    Cabinets<T extends specialities$CabinetsArgs<ExtArgs> = {}>(args?: Subset<T, specialities$CabinetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CabinetPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the specialities model
-   */ 
-  interface specialitiesFieldRefs {
-    readonly id: FieldRef<"specialities", 'Int'>
-    readonly name: FieldRef<"specialities", 'String'>
-    readonly image: FieldRef<"specialities", 'String'>
-    readonly createdAt: FieldRef<"specialities", 'DateTime'>
-    readonly updatedAt: FieldRef<"specialities", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * specialities findUnique
-   */
-  export type specialitiesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the specialities
-     */
-    select?: specialitiesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the specialities
-     */
-    omit?: specialitiesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: specialitiesInclude<ExtArgs> | null
-    /**
-     * Filter, which specialities to fetch.
-     */
-    where: specialitiesWhereUniqueInput
-  }
-
-  /**
-   * specialities findUniqueOrThrow
-   */
-  export type specialitiesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the specialities
-     */
-    select?: specialitiesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the specialities
-     */
-    omit?: specialitiesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: specialitiesInclude<ExtArgs> | null
-    /**
-     * Filter, which specialities to fetch.
-     */
-    where: specialitiesWhereUniqueInput
-  }
-
-  /**
-   * specialities findFirst
-   */
-  export type specialitiesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the specialities
-     */
-    select?: specialitiesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the specialities
-     */
-    omit?: specialitiesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: specialitiesInclude<ExtArgs> | null
-    /**
-     * Filter, which specialities to fetch.
-     */
-    where?: specialitiesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of specialities to fetch.
-     */
-    orderBy?: specialitiesOrderByWithRelationInput | specialitiesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for specialities.
-     */
-    cursor?: specialitiesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` specialities from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` specialities.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of specialities.
-     */
-    distinct?: SpecialitiesScalarFieldEnum | SpecialitiesScalarFieldEnum[]
-  }
-
-  /**
-   * specialities findFirstOrThrow
-   */
-  export type specialitiesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the specialities
-     */
-    select?: specialitiesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the specialities
-     */
-    omit?: specialitiesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: specialitiesInclude<ExtArgs> | null
-    /**
-     * Filter, which specialities to fetch.
-     */
-    where?: specialitiesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of specialities to fetch.
-     */
-    orderBy?: specialitiesOrderByWithRelationInput | specialitiesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for specialities.
-     */
-    cursor?: specialitiesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` specialities from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` specialities.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of specialities.
-     */
-    distinct?: SpecialitiesScalarFieldEnum | SpecialitiesScalarFieldEnum[]
-  }
-
-  /**
-   * specialities findMany
-   */
-  export type specialitiesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the specialities
-     */
-    select?: specialitiesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the specialities
-     */
-    omit?: specialitiesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: specialitiesInclude<ExtArgs> | null
-    /**
-     * Filter, which specialities to fetch.
-     */
-    where?: specialitiesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of specialities to fetch.
-     */
-    orderBy?: specialitiesOrderByWithRelationInput | specialitiesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing specialities.
-     */
-    cursor?: specialitiesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` specialities from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` specialities.
-     */
-    skip?: number
-    distinct?: SpecialitiesScalarFieldEnum | SpecialitiesScalarFieldEnum[]
-  }
-
-  /**
-   * specialities create
-   */
-  export type specialitiesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the specialities
-     */
-    select?: specialitiesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the specialities
-     */
-    omit?: specialitiesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: specialitiesInclude<ExtArgs> | null
-    /**
-     * The data needed to create a specialities.
-     */
-    data: XOR<specialitiesCreateInput, specialitiesUncheckedCreateInput>
-  }
-
-  /**
-   * specialities createMany
-   */
-  export type specialitiesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many specialities.
-     */
-    data: specialitiesCreateManyInput | specialitiesCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * specialities createManyAndReturn
-   */
-  export type specialitiesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the specialities
-     */
-    select?: specialitiesSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the specialities
-     */
-    omit?: specialitiesOmit<ExtArgs> | null
-    /**
-     * The data used to create many specialities.
-     */
-    data: specialitiesCreateManyInput | specialitiesCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * specialities update
-   */
-  export type specialitiesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the specialities
-     */
-    select?: specialitiesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the specialities
-     */
-    omit?: specialitiesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: specialitiesInclude<ExtArgs> | null
-    /**
-     * The data needed to update a specialities.
-     */
-    data: XOR<specialitiesUpdateInput, specialitiesUncheckedUpdateInput>
-    /**
-     * Choose, which specialities to update.
-     */
-    where: specialitiesWhereUniqueInput
-  }
-
-  /**
-   * specialities updateMany
-   */
-  export type specialitiesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update specialities.
-     */
-    data: XOR<specialitiesUpdateManyMutationInput, specialitiesUncheckedUpdateManyInput>
-    /**
-     * Filter which specialities to update
-     */
-    where?: specialitiesWhereInput
-    /**
-     * Limit how many specialities to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * specialities updateManyAndReturn
-   */
-  export type specialitiesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the specialities
-     */
-    select?: specialitiesSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the specialities
-     */
-    omit?: specialitiesOmit<ExtArgs> | null
-    /**
-     * The data used to update specialities.
-     */
-    data: XOR<specialitiesUpdateManyMutationInput, specialitiesUncheckedUpdateManyInput>
-    /**
-     * Filter which specialities to update
-     */
-    where?: specialitiesWhereInput
-    /**
-     * Limit how many specialities to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * specialities upsert
-   */
-  export type specialitiesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the specialities
-     */
-    select?: specialitiesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the specialities
-     */
-    omit?: specialitiesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: specialitiesInclude<ExtArgs> | null
-    /**
-     * The filter to search for the specialities to update in case it exists.
-     */
-    where: specialitiesWhereUniqueInput
-    /**
-     * In case the specialities found by the `where` argument doesn't exist, create a new specialities with this data.
-     */
-    create: XOR<specialitiesCreateInput, specialitiesUncheckedCreateInput>
-    /**
-     * In case the specialities was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<specialitiesUpdateInput, specialitiesUncheckedUpdateInput>
-  }
-
-  /**
-   * specialities delete
-   */
-  export type specialitiesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the specialities
-     */
-    select?: specialitiesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the specialities
-     */
-    omit?: specialitiesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: specialitiesInclude<ExtArgs> | null
-    /**
-     * Filter which specialities to delete.
-     */
-    where: specialitiesWhereUniqueInput
-  }
-
-  /**
-   * specialities deleteMany
-   */
-  export type specialitiesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which specialities to delete
-     */
-    where?: specialitiesWhereInput
-    /**
-     * Limit how many specialities to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * specialities.Cabinets
-   */
-  export type specialities$CabinetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Cabinet
-     */
-    select?: CabinetSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Cabinet
-     */
-    omit?: CabinetOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CabinetInclude<ExtArgs> | null
-    where?: CabinetWhereInput
-    orderBy?: CabinetOrderByWithRelationInput | CabinetOrderByWithRelationInput[]
-    cursor?: CabinetWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: CabinetScalarFieldEnum | CabinetScalarFieldEnum[]
-  }
-
-  /**
-   * specialities without action
-   */
-  export type specialitiesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the specialities
-     */
-    select?: specialitiesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the specialities
-     */
-    omit?: specialitiesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: specialitiesInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model Cabinet
-   */
-
-  export type AggregateCabinet = {
-    _count: CabinetCountAggregateOutputType | null
-    _avg: CabinetAvgAggregateOutputType | null
-    _sum: CabinetSumAggregateOutputType | null
-    _min: CabinetMinAggregateOutputType | null
-    _max: CabinetMaxAggregateOutputType | null
-  }
-
-  export type CabinetAvgAggregateOutputType = {
-    id: number | null
-    specialityId: number | null
     totalViews: number | null
     totalRate: number | null
     numberOfRates: number | null
@@ -7063,9 +5836,8 @@ export namespace Prisma {
     reviewsCount: number | null
   }
 
-  export type CabinetSumAggregateOutputType = {
+  export type ClinicsSumAggregateOutputType = {
     id: number | null
-    specialityId: number | null
     totalViews: number | null
     totalRate: number | null
     numberOfRates: number | null
@@ -7076,10 +5848,9 @@ export namespace Prisma {
     reviewsCount: number | null
   }
 
-  export type CabinetMinAggregateOutputType = {
+  export type ClinicsMinAggregateOutputType = {
     id: number | null
     title: string | null
-    specialityId: number | null
     description: string | null
     address: string | null
     phone: string | null
@@ -7100,10 +5871,9 @@ export namespace Prisma {
     updatedAt: Date | null
   }
 
-  export type CabinetMaxAggregateOutputType = {
+  export type ClinicsMaxAggregateOutputType = {
     id: number | null
     title: string | null
-    specialityId: number | null
     description: string | null
     address: string | null
     phone: string | null
@@ -7124,10 +5894,9 @@ export namespace Prisma {
     updatedAt: Date | null
   }
 
-  export type CabinetCountAggregateOutputType = {
+  export type ClinicsCountAggregateOutputType = {
     id: number
     title: number
-    specialityId: number
     description: number
     address: number
     phone: number
@@ -7152,9 +5921,8 @@ export namespace Prisma {
   }
 
 
-  export type CabinetAvgAggregateInputType = {
+  export type ClinicsAvgAggregateInputType = {
     id?: true
-    specialityId?: true
     totalViews?: true
     totalRate?: true
     numberOfRates?: true
@@ -7165,9 +5933,8 @@ export namespace Prisma {
     reviewsCount?: true
   }
 
-  export type CabinetSumAggregateInputType = {
+  export type ClinicsSumAggregateInputType = {
     id?: true
-    specialityId?: true
     totalViews?: true
     totalRate?: true
     numberOfRates?: true
@@ -7178,10 +5945,9 @@ export namespace Prisma {
     reviewsCount?: true
   }
 
-  export type CabinetMinAggregateInputType = {
+  export type ClinicsMinAggregateInputType = {
     id?: true
     title?: true
-    specialityId?: true
     description?: true
     address?: true
     phone?: true
@@ -7202,10 +5968,9 @@ export namespace Prisma {
     updatedAt?: true
   }
 
-  export type CabinetMaxAggregateInputType = {
+  export type ClinicsMaxAggregateInputType = {
     id?: true
     title?: true
-    specialityId?: true
     description?: true
     address?: true
     phone?: true
@@ -7226,10 +5991,9 @@ export namespace Prisma {
     updatedAt?: true
   }
 
-  export type CabinetCountAggregateInputType = {
+  export type ClinicsCountAggregateInputType = {
     id?: true
     title?: true
-    specialityId?: true
     description?: true
     address?: true
     phone?: true
@@ -7253,96 +6017,95 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type CabinetAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClinicsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Cabinet to aggregate.
+     * Filter which Clinics to aggregate.
      */
-    where?: CabinetWhereInput
+    where?: ClinicsWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Cabinets to fetch.
+     * Determine the order of Clinics to fetch.
      */
-    orderBy?: CabinetOrderByWithRelationInput | CabinetOrderByWithRelationInput[]
+    orderBy?: ClinicsOrderByWithRelationInput | ClinicsOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: CabinetWhereUniqueInput
+    cursor?: ClinicsWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Cabinets from the position of the cursor.
+     * Take `±n` Clinics from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Cabinets.
+     * Skip the first `n` Clinics.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Cabinets
+     * Count returned Clinics
     **/
-    _count?: true | CabinetCountAggregateInputType
+    _count?: true | ClinicsCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: CabinetAvgAggregateInputType
+    _avg?: ClinicsAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: CabinetSumAggregateInputType
+    _sum?: ClinicsSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: CabinetMinAggregateInputType
+    _min?: ClinicsMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: CabinetMaxAggregateInputType
+    _max?: ClinicsMaxAggregateInputType
   }
 
-  export type GetCabinetAggregateType<T extends CabinetAggregateArgs> = {
-        [P in keyof T & keyof AggregateCabinet]: P extends '_count' | 'count'
+  export type GetClinicsAggregateType<T extends ClinicsAggregateArgs> = {
+        [P in keyof T & keyof AggregateClinics]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateCabinet[P]>
-      : GetScalarType<T[P], AggregateCabinet[P]>
+        : GetScalarType<T[P], AggregateClinics[P]>
+      : GetScalarType<T[P], AggregateClinics[P]>
   }
 
 
 
 
-  export type CabinetGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CabinetWhereInput
-    orderBy?: CabinetOrderByWithAggregationInput | CabinetOrderByWithAggregationInput[]
-    by: CabinetScalarFieldEnum[] | CabinetScalarFieldEnum
-    having?: CabinetScalarWhereWithAggregatesInput
+  export type ClinicsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClinicsWhereInput
+    orderBy?: ClinicsOrderByWithAggregationInput | ClinicsOrderByWithAggregationInput[]
+    by: ClinicsScalarFieldEnum[] | ClinicsScalarFieldEnum
+    having?: ClinicsScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: CabinetCountAggregateInputType | true
-    _avg?: CabinetAvgAggregateInputType
-    _sum?: CabinetSumAggregateInputType
-    _min?: CabinetMinAggregateInputType
-    _max?: CabinetMaxAggregateInputType
+    _count?: ClinicsCountAggregateInputType | true
+    _avg?: ClinicsAvgAggregateInputType
+    _sum?: ClinicsSumAggregateInputType
+    _min?: ClinicsMinAggregateInputType
+    _max?: ClinicsMaxAggregateInputType
   }
 
-  export type CabinetGroupByOutputType = {
+  export type ClinicsGroupByOutputType = {
     id: number
     title: string
-    specialityId: number
     description: string
     address: string
     phone: string
@@ -7363,31 +6126,30 @@ export namespace Prisma {
     reviewsCount: number
     createdAt: Date
     updatedAt: Date
-    _count: CabinetCountAggregateOutputType | null
-    _avg: CabinetAvgAggregateOutputType | null
-    _sum: CabinetSumAggregateOutputType | null
-    _min: CabinetMinAggregateOutputType | null
-    _max: CabinetMaxAggregateOutputType | null
+    _count: ClinicsCountAggregateOutputType | null
+    _avg: ClinicsAvgAggregateOutputType | null
+    _sum: ClinicsSumAggregateOutputType | null
+    _min: ClinicsMinAggregateOutputType | null
+    _max: ClinicsMaxAggregateOutputType | null
   }
 
-  type GetCabinetGroupByPayload<T extends CabinetGroupByArgs> = Prisma.PrismaPromise<
+  type GetClinicsGroupByPayload<T extends ClinicsGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<CabinetGroupByOutputType, T['by']> &
+      PickEnumerable<ClinicsGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof CabinetGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof ClinicsGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], CabinetGroupByOutputType[P]>
-            : GetScalarType<T[P], CabinetGroupByOutputType[P]>
+              : GetScalarType<T[P], ClinicsGroupByOutputType[P]>
+            : GetScalarType<T[P], ClinicsGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type CabinetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ClinicsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    specialityId?: boolean
     description?: boolean
     address?: boolean
     phone?: boolean
@@ -7408,19 +6170,17 @@ export namespace Prisma {
     reviewsCount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    images?: boolean | Cabinet$imagesArgs<ExtArgs>
-    availabilities?: boolean | Cabinet$availabilitiesArgs<ExtArgs>
-    Reviews?: boolean | Cabinet$ReviewsArgs<ExtArgs>
-    PricingServices?: boolean | Cabinet$PricingServicesArgs<ExtArgs>
-    nonPricingServices?: boolean | Cabinet$nonPricingServicesArgs<ExtArgs>
-    speciality?: boolean | specialitiesDefaultArgs<ExtArgs>
-    _count?: boolean | CabinetCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["cabinet"]>
+    images?: boolean | Clinics$imagesArgs<ExtArgs>
+    availabilities?: boolean | Clinics$availabilitiesArgs<ExtArgs>
+    Reviews?: boolean | Clinics$ReviewsArgs<ExtArgs>
+    PricingServices?: boolean | Clinics$PricingServicesArgs<ExtArgs>
+    nonPricingServices?: boolean | Clinics$nonPricingServicesArgs<ExtArgs>
+    _count?: boolean | ClinicsCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["clinics"]>
 
-  export type CabinetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ClinicsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    specialityId?: boolean
     description?: boolean
     address?: boolean
     phone?: boolean
@@ -7441,13 +6201,11 @@ export namespace Prisma {
     reviewsCount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    speciality?: boolean | specialitiesDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["cabinet"]>
+  }, ExtArgs["result"]["clinics"]>
 
-  export type CabinetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ClinicsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    specialityId?: boolean
     description?: boolean
     address?: boolean
     phone?: boolean
@@ -7468,13 +6226,11 @@ export namespace Prisma {
     reviewsCount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    speciality?: boolean | specialitiesDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["cabinet"]>
+  }, ExtArgs["result"]["clinics"]>
 
-  export type CabinetSelectScalar = {
+  export type ClinicsSelectScalar = {
     id?: boolean
     title?: boolean
-    specialityId?: boolean
     description?: boolean
     address?: boolean
     phone?: boolean
@@ -7497,37 +6253,30 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type CabinetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "specialityId" | "description" | "address" | "phone" | "totalViews" | "totalRate" | "numberOfRates" | "averageRate" | "ownerId" | "year" | "validated" | "blocked" | "rates" | "openTime" | "closeTime" | "latitude" | "longitude" | "daysOff" | "reviewsCount" | "createdAt" | "updatedAt", ExtArgs["result"]["cabinet"]>
-  export type CabinetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    images?: boolean | Cabinet$imagesArgs<ExtArgs>
-    availabilities?: boolean | Cabinet$availabilitiesArgs<ExtArgs>
-    Reviews?: boolean | Cabinet$ReviewsArgs<ExtArgs>
-    PricingServices?: boolean | Cabinet$PricingServicesArgs<ExtArgs>
-    nonPricingServices?: boolean | Cabinet$nonPricingServicesArgs<ExtArgs>
-    speciality?: boolean | specialitiesDefaultArgs<ExtArgs>
-    _count?: boolean | CabinetCountOutputTypeDefaultArgs<ExtArgs>
+  export type ClinicsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "address" | "phone" | "totalViews" | "totalRate" | "numberOfRates" | "averageRate" | "ownerId" | "year" | "validated" | "blocked" | "rates" | "openTime" | "closeTime" | "latitude" | "longitude" | "daysOff" | "reviewsCount" | "createdAt" | "updatedAt", ExtArgs["result"]["clinics"]>
+  export type ClinicsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    images?: boolean | Clinics$imagesArgs<ExtArgs>
+    availabilities?: boolean | Clinics$availabilitiesArgs<ExtArgs>
+    Reviews?: boolean | Clinics$ReviewsArgs<ExtArgs>
+    PricingServices?: boolean | Clinics$PricingServicesArgs<ExtArgs>
+    nonPricingServices?: boolean | Clinics$nonPricingServicesArgs<ExtArgs>
+    _count?: boolean | ClinicsCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type CabinetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    speciality?: boolean | specialitiesDefaultArgs<ExtArgs>
-  }
-  export type CabinetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    speciality?: boolean | specialitiesDefaultArgs<ExtArgs>
-  }
+  export type ClinicsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ClinicsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
-  export type $CabinetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Cabinet"
+  export type $ClinicsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Clinics"
     objects: {
       images: Prisma.$ImagesPayload<ExtArgs>[]
       availabilities: Prisma.$availabilitiesPayload<ExtArgs>[]
       Reviews: Prisma.$ReviewsPayload<ExtArgs>[]
       PricingServices: Prisma.$PricingServicesPayload<ExtArgs>[]
       nonPricingServices: Prisma.$NonPricingServicesPayload<ExtArgs>[]
-      speciality: Prisma.$specialitiesPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       title: string
-      specialityId: number
       description: string
       address: string
       phone: string
@@ -7548,136 +6297,136 @@ export namespace Prisma {
       reviewsCount: number
       createdAt: Date
       updatedAt: Date
-    }, ExtArgs["result"]["cabinet"]>
+    }, ExtArgs["result"]["clinics"]>
     composites: {}
   }
 
-  type CabinetGetPayload<S extends boolean | null | undefined | CabinetDefaultArgs> = $Result.GetResult<Prisma.$CabinetPayload, S>
+  type ClinicsGetPayload<S extends boolean | null | undefined | ClinicsDefaultArgs> = $Result.GetResult<Prisma.$ClinicsPayload, S>
 
-  type CabinetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<CabinetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: CabinetCountAggregateInputType | true
+  type ClinicsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ClinicsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ClinicsCountAggregateInputType | true
     }
 
-  export interface CabinetDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Cabinet'], meta: { name: 'Cabinet' } }
+  export interface ClinicsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Clinics'], meta: { name: 'Clinics' } }
     /**
-     * Find zero or one Cabinet that matches the filter.
-     * @param {CabinetFindUniqueArgs} args - Arguments to find a Cabinet
+     * Find zero or one Clinics that matches the filter.
+     * @param {ClinicsFindUniqueArgs} args - Arguments to find a Clinics
      * @example
-     * // Get one Cabinet
-     * const cabinet = await prisma.cabinet.findUnique({
+     * // Get one Clinics
+     * const clinics = await prisma.clinics.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends CabinetFindUniqueArgs>(args: SelectSubset<T, CabinetFindUniqueArgs<ExtArgs>>): Prisma__CabinetClient<$Result.GetResult<Prisma.$CabinetPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findUnique<T extends ClinicsFindUniqueArgs>(args: SelectSubset<T, ClinicsFindUniqueArgs<ExtArgs>>): Prisma__ClinicsClient<$Result.GetResult<Prisma.$ClinicsPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one Cabinet that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Clinics that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {CabinetFindUniqueOrThrowArgs} args - Arguments to find a Cabinet
+     * @param {ClinicsFindUniqueOrThrowArgs} args - Arguments to find a Clinics
      * @example
-     * // Get one Cabinet
-     * const cabinet = await prisma.cabinet.findUniqueOrThrow({
+     * // Get one Clinics
+     * const clinics = await prisma.clinics.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends CabinetFindUniqueOrThrowArgs>(args: SelectSubset<T, CabinetFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CabinetClient<$Result.GetResult<Prisma.$CabinetPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findUniqueOrThrow<T extends ClinicsFindUniqueOrThrowArgs>(args: SelectSubset<T, ClinicsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ClinicsClient<$Result.GetResult<Prisma.$ClinicsPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
 
     /**
-     * Find the first Cabinet that matches the filter.
+     * Find the first Clinics that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CabinetFindFirstArgs} args - Arguments to find a Cabinet
+     * @param {ClinicsFindFirstArgs} args - Arguments to find a Clinics
      * @example
-     * // Get one Cabinet
-     * const cabinet = await prisma.cabinet.findFirst({
+     * // Get one Clinics
+     * const clinics = await prisma.clinics.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends CabinetFindFirstArgs>(args?: SelectSubset<T, CabinetFindFirstArgs<ExtArgs>>): Prisma__CabinetClient<$Result.GetResult<Prisma.$CabinetPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findFirst<T extends ClinicsFindFirstArgs>(args?: SelectSubset<T, ClinicsFindFirstArgs<ExtArgs>>): Prisma__ClinicsClient<$Result.GetResult<Prisma.$ClinicsPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find the first Cabinet that matches the filter or
+     * Find the first Clinics that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CabinetFindFirstOrThrowArgs} args - Arguments to find a Cabinet
+     * @param {ClinicsFindFirstOrThrowArgs} args - Arguments to find a Clinics
      * @example
-     * // Get one Cabinet
-     * const cabinet = await prisma.cabinet.findFirstOrThrow({
+     * // Get one Clinics
+     * const clinics = await prisma.clinics.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends CabinetFindFirstOrThrowArgs>(args?: SelectSubset<T, CabinetFindFirstOrThrowArgs<ExtArgs>>): Prisma__CabinetClient<$Result.GetResult<Prisma.$CabinetPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findFirstOrThrow<T extends ClinicsFindFirstOrThrowArgs>(args?: SelectSubset<T, ClinicsFindFirstOrThrowArgs<ExtArgs>>): Prisma__ClinicsClient<$Result.GetResult<Prisma.$ClinicsPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
 
     /**
-     * Find zero or more Cabinets that matches the filter.
+     * Find zero or more Clinics that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CabinetFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {ClinicsFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Cabinets
-     * const cabinets = await prisma.cabinet.findMany()
+     * // Get all Clinics
+     * const clinics = await prisma.clinics.findMany()
      * 
-     * // Get first 10 Cabinets
-     * const cabinets = await prisma.cabinet.findMany({ take: 10 })
+     * // Get first 10 Clinics
+     * const clinics = await prisma.clinics.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const cabinetWithIdOnly = await prisma.cabinet.findMany({ select: { id: true } })
+     * const clinicsWithIdOnly = await prisma.clinics.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends CabinetFindManyArgs>(args?: SelectSubset<T, CabinetFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CabinetPayload<ExtArgs>, T, "findMany", ClientOptions>>
+    findMany<T extends ClinicsFindManyArgs>(args?: SelectSubset<T, ClinicsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClinicsPayload<ExtArgs>, T, "findMany", ClientOptions>>
 
     /**
-     * Create a Cabinet.
-     * @param {CabinetCreateArgs} args - Arguments to create a Cabinet.
+     * Create a Clinics.
+     * @param {ClinicsCreateArgs} args - Arguments to create a Clinics.
      * @example
-     * // Create one Cabinet
-     * const Cabinet = await prisma.cabinet.create({
+     * // Create one Clinics
+     * const Clinics = await prisma.clinics.create({
      *   data: {
-     *     // ... data to create a Cabinet
+     *     // ... data to create a Clinics
      *   }
      * })
      * 
      */
-    create<T extends CabinetCreateArgs>(args: SelectSubset<T, CabinetCreateArgs<ExtArgs>>): Prisma__CabinetClient<$Result.GetResult<Prisma.$CabinetPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+    create<T extends ClinicsCreateArgs>(args: SelectSubset<T, ClinicsCreateArgs<ExtArgs>>): Prisma__ClinicsClient<$Result.GetResult<Prisma.$ClinicsPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
     /**
-     * Create many Cabinets.
-     * @param {CabinetCreateManyArgs} args - Arguments to create many Cabinets.
+     * Create many Clinics.
+     * @param {ClinicsCreateManyArgs} args - Arguments to create many Clinics.
      * @example
-     * // Create many Cabinets
-     * const cabinet = await prisma.cabinet.createMany({
+     * // Create many Clinics
+     * const clinics = await prisma.clinics.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends CabinetCreateManyArgs>(args?: SelectSubset<T, CabinetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends ClinicsCreateManyArgs>(args?: SelectSubset<T, ClinicsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Cabinets and returns the data saved in the database.
-     * @param {CabinetCreateManyAndReturnArgs} args - Arguments to create many Cabinets.
+     * Create many Clinics and returns the data saved in the database.
+     * @param {ClinicsCreateManyAndReturnArgs} args - Arguments to create many Clinics.
      * @example
-     * // Create many Cabinets
-     * const cabinet = await prisma.cabinet.createManyAndReturn({
+     * // Create many Clinics
+     * const clinics = await prisma.clinics.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many Cabinets and only return the `id`
-     * const cabinetWithIdOnly = await prisma.cabinet.createManyAndReturn({
+     * // Create many Clinics and only return the `id`
+     * const clinicsWithIdOnly = await prisma.clinics.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -7687,28 +6436,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends CabinetCreateManyAndReturnArgs>(args?: SelectSubset<T, CabinetCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CabinetPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+    createManyAndReturn<T extends ClinicsCreateManyAndReturnArgs>(args?: SelectSubset<T, ClinicsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClinicsPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
     /**
-     * Delete a Cabinet.
-     * @param {CabinetDeleteArgs} args - Arguments to delete one Cabinet.
+     * Delete a Clinics.
+     * @param {ClinicsDeleteArgs} args - Arguments to delete one Clinics.
      * @example
-     * // Delete one Cabinet
-     * const Cabinet = await prisma.cabinet.delete({
+     * // Delete one Clinics
+     * const Clinics = await prisma.clinics.delete({
      *   where: {
-     *     // ... filter to delete one Cabinet
+     *     // ... filter to delete one Clinics
      *   }
      * })
      * 
      */
-    delete<T extends CabinetDeleteArgs>(args: SelectSubset<T, CabinetDeleteArgs<ExtArgs>>): Prisma__CabinetClient<$Result.GetResult<Prisma.$CabinetPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+    delete<T extends ClinicsDeleteArgs>(args: SelectSubset<T, ClinicsDeleteArgs<ExtArgs>>): Prisma__ClinicsClient<$Result.GetResult<Prisma.$ClinicsPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
     /**
-     * Update one Cabinet.
-     * @param {CabinetUpdateArgs} args - Arguments to update one Cabinet.
+     * Update one Clinics.
+     * @param {ClinicsUpdateArgs} args - Arguments to update one Clinics.
      * @example
-     * // Update one Cabinet
-     * const cabinet = await prisma.cabinet.update({
+     * // Update one Clinics
+     * const clinics = await prisma.clinics.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -7718,30 +6467,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends CabinetUpdateArgs>(args: SelectSubset<T, CabinetUpdateArgs<ExtArgs>>): Prisma__CabinetClient<$Result.GetResult<Prisma.$CabinetPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+    update<T extends ClinicsUpdateArgs>(args: SelectSubset<T, ClinicsUpdateArgs<ExtArgs>>): Prisma__ClinicsClient<$Result.GetResult<Prisma.$ClinicsPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
     /**
-     * Delete zero or more Cabinets.
-     * @param {CabinetDeleteManyArgs} args - Arguments to filter Cabinets to delete.
+     * Delete zero or more Clinics.
+     * @param {ClinicsDeleteManyArgs} args - Arguments to filter Clinics to delete.
      * @example
-     * // Delete a few Cabinets
-     * const { count } = await prisma.cabinet.deleteMany({
+     * // Delete a few Clinics
+     * const { count } = await prisma.clinics.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends CabinetDeleteManyArgs>(args?: SelectSubset<T, CabinetDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends ClinicsDeleteManyArgs>(args?: SelectSubset<T, ClinicsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Cabinets.
+     * Update zero or more Clinics.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CabinetUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {ClinicsUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Cabinets
-     * const cabinet = await prisma.cabinet.updateMany({
+     * // Update many Clinics
+     * const clinics = await prisma.clinics.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -7751,14 +6500,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends CabinetUpdateManyArgs>(args: SelectSubset<T, CabinetUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends ClinicsUpdateManyArgs>(args: SelectSubset<T, ClinicsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Cabinets and returns the data updated in the database.
-     * @param {CabinetUpdateManyAndReturnArgs} args - Arguments to update many Cabinets.
+     * Update zero or more Clinics and returns the data updated in the database.
+     * @param {ClinicsUpdateManyAndReturnArgs} args - Arguments to update many Clinics.
      * @example
-     * // Update many Cabinets
-     * const cabinet = await prisma.cabinet.updateManyAndReturn({
+     * // Update many Clinics
+     * const clinics = await prisma.clinics.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -7767,8 +6516,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Cabinets and only return the `id`
-     * const cabinetWithIdOnly = await prisma.cabinet.updateManyAndReturn({
+     * // Update zero or more Clinics and only return the `id`
+     * const clinicsWithIdOnly = await prisma.clinics.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -7781,56 +6530,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends CabinetUpdateManyAndReturnArgs>(args: SelectSubset<T, CabinetUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CabinetPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+    updateManyAndReturn<T extends ClinicsUpdateManyAndReturnArgs>(args: SelectSubset<T, ClinicsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClinicsPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
 
     /**
-     * Create or update one Cabinet.
-     * @param {CabinetUpsertArgs} args - Arguments to update or create a Cabinet.
+     * Create or update one Clinics.
+     * @param {ClinicsUpsertArgs} args - Arguments to update or create a Clinics.
      * @example
-     * // Update or create a Cabinet
-     * const cabinet = await prisma.cabinet.upsert({
+     * // Update or create a Clinics
+     * const clinics = await prisma.clinics.upsert({
      *   create: {
-     *     // ... data to create a Cabinet
+     *     // ... data to create a Clinics
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Cabinet we want to update
+     *     // ... the filter for the Clinics we want to update
      *   }
      * })
      */
-    upsert<T extends CabinetUpsertArgs>(args: SelectSubset<T, CabinetUpsertArgs<ExtArgs>>): Prisma__CabinetClient<$Result.GetResult<Prisma.$CabinetPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+    upsert<T extends ClinicsUpsertArgs>(args: SelectSubset<T, ClinicsUpsertArgs<ExtArgs>>): Prisma__ClinicsClient<$Result.GetResult<Prisma.$ClinicsPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
 
 
     /**
-     * Count the number of Cabinets.
+     * Count the number of Clinics.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CabinetCountArgs} args - Arguments to filter Cabinets to count.
+     * @param {ClinicsCountArgs} args - Arguments to filter Clinics to count.
      * @example
-     * // Count the number of Cabinets
-     * const count = await prisma.cabinet.count({
+     * // Count the number of Clinics
+     * const count = await prisma.clinics.count({
      *   where: {
-     *     // ... the filter for the Cabinets we want to count
+     *     // ... the filter for the Clinics we want to count
      *   }
      * })
     **/
-    count<T extends CabinetCountArgs>(
-      args?: Subset<T, CabinetCountArgs>,
+    count<T extends ClinicsCountArgs>(
+      args?: Subset<T, ClinicsCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], CabinetCountAggregateOutputType>
+          : GetScalarType<T['select'], ClinicsCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Cabinet.
+     * Allows you to perform aggregations operations on a Clinics.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CabinetAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {ClinicsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -7850,13 +6599,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends CabinetAggregateArgs>(args: Subset<T, CabinetAggregateArgs>): Prisma.PrismaPromise<GetCabinetAggregateType<T>>
+    aggregate<T extends ClinicsAggregateArgs>(args: Subset<T, ClinicsAggregateArgs>): Prisma.PrismaPromise<GetClinicsAggregateType<T>>
 
     /**
-     * Group by Cabinet.
+     * Group by Clinics.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CabinetGroupByArgs} args - Group by arguments.
+     * @param {ClinicsGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -7871,14 +6620,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends CabinetGroupByArgs,
+      T extends ClinicsGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: CabinetGroupByArgs['orderBy'] }
-        : { orderBy?: CabinetGroupByArgs['orderBy'] },
+        ? { orderBy: ClinicsGroupByArgs['orderBy'] }
+        : { orderBy?: ClinicsGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -7927,27 +6676,26 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, CabinetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCabinetGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, ClinicsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetClinicsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Cabinet model
+   * Fields of the Clinics model
    */
-  readonly fields: CabinetFieldRefs;
+  readonly fields: ClinicsFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Cabinet.
+   * The delegate class that acts as a "Promise-like" for Clinics.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__CabinetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__ClinicsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    images<T extends Cabinet$imagesArgs<ExtArgs> = {}>(args?: Subset<T, Cabinet$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagesPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
-    availabilities<T extends Cabinet$availabilitiesArgs<ExtArgs> = {}>(args?: Subset<T, Cabinet$availabilitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$availabilitiesPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
-    Reviews<T extends Cabinet$ReviewsArgs<ExtArgs> = {}>(args?: Subset<T, Cabinet$ReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewsPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
-    PricingServices<T extends Cabinet$PricingServicesArgs<ExtArgs> = {}>(args?: Subset<T, Cabinet$PricingServicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PricingServicesPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
-    nonPricingServices<T extends Cabinet$nonPricingServicesArgs<ExtArgs> = {}>(args?: Subset<T, Cabinet$nonPricingServicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NonPricingServicesPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
-    speciality<T extends specialitiesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, specialitiesDefaultArgs<ExtArgs>>): Prisma__specialitiesClient<$Result.GetResult<Prisma.$specialitiesPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    images<T extends Clinics$imagesArgs<ExtArgs> = {}>(args?: Subset<T, Clinics$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagesPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    availabilities<T extends Clinics$availabilitiesArgs<ExtArgs> = {}>(args?: Subset<T, Clinics$availabilitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$availabilitiesPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    Reviews<T extends Clinics$ReviewsArgs<ExtArgs> = {}>(args?: Subset<T, Clinics$ReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewsPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    PricingServices<T extends Clinics$PricingServicesArgs<ExtArgs> = {}>(args?: Subset<T, Clinics$PricingServicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PricingServicesPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    nonPricingServices<T extends Clinics$nonPricingServicesArgs<ExtArgs> = {}>(args?: Subset<T, Clinics$nonPricingServicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NonPricingServicesPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7974,431 +6722,422 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Cabinet model
+   * Fields of the Clinics model
    */ 
-  interface CabinetFieldRefs {
-    readonly id: FieldRef<"Cabinet", 'Int'>
-    readonly title: FieldRef<"Cabinet", 'String'>
-    readonly specialityId: FieldRef<"Cabinet", 'Int'>
-    readonly description: FieldRef<"Cabinet", 'String'>
-    readonly address: FieldRef<"Cabinet", 'String'>
-    readonly phone: FieldRef<"Cabinet", 'String'>
-    readonly totalViews: FieldRef<"Cabinet", 'Int'>
-    readonly totalRate: FieldRef<"Cabinet", 'Int'>
-    readonly numberOfRates: FieldRef<"Cabinet", 'Int'>
-    readonly averageRate: FieldRef<"Cabinet", 'Float'>
-    readonly ownerId: FieldRef<"Cabinet", 'Int'>
-    readonly year: FieldRef<"Cabinet", 'Int'>
-    readonly validated: FieldRef<"Cabinet", 'Boolean'>
-    readonly blocked: FieldRef<"Cabinet", 'Boolean'>
-    readonly rates: FieldRef<"Cabinet", 'Json'>
-    readonly openTime: FieldRef<"Cabinet", 'String'>
-    readonly closeTime: FieldRef<"Cabinet", 'String'>
-    readonly latitude: FieldRef<"Cabinet", 'String'>
-    readonly longitude: FieldRef<"Cabinet", 'String'>
-    readonly daysOff: FieldRef<"Cabinet", 'Int[]'>
-    readonly reviewsCount: FieldRef<"Cabinet", 'Int'>
-    readonly createdAt: FieldRef<"Cabinet", 'DateTime'>
-    readonly updatedAt: FieldRef<"Cabinet", 'DateTime'>
+  interface ClinicsFieldRefs {
+    readonly id: FieldRef<"Clinics", 'Int'>
+    readonly title: FieldRef<"Clinics", 'String'>
+    readonly description: FieldRef<"Clinics", 'String'>
+    readonly address: FieldRef<"Clinics", 'String'>
+    readonly phone: FieldRef<"Clinics", 'String'>
+    readonly totalViews: FieldRef<"Clinics", 'Int'>
+    readonly totalRate: FieldRef<"Clinics", 'Int'>
+    readonly numberOfRates: FieldRef<"Clinics", 'Int'>
+    readonly averageRate: FieldRef<"Clinics", 'Float'>
+    readonly ownerId: FieldRef<"Clinics", 'Int'>
+    readonly year: FieldRef<"Clinics", 'Int'>
+    readonly validated: FieldRef<"Clinics", 'Boolean'>
+    readonly blocked: FieldRef<"Clinics", 'Boolean'>
+    readonly rates: FieldRef<"Clinics", 'Json'>
+    readonly openTime: FieldRef<"Clinics", 'String'>
+    readonly closeTime: FieldRef<"Clinics", 'String'>
+    readonly latitude: FieldRef<"Clinics", 'String'>
+    readonly longitude: FieldRef<"Clinics", 'String'>
+    readonly daysOff: FieldRef<"Clinics", 'Int[]'>
+    readonly reviewsCount: FieldRef<"Clinics", 'Int'>
+    readonly createdAt: FieldRef<"Clinics", 'DateTime'>
+    readonly updatedAt: FieldRef<"Clinics", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * Cabinet findUnique
+   * Clinics findUnique
    */
-  export type CabinetFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClinicsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Cabinet
+     * Select specific fields to fetch from the Clinics
      */
-    select?: CabinetSelect<ExtArgs> | null
+    select?: ClinicsSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Cabinet
+     * Omit specific fields from the Clinics
      */
-    omit?: CabinetOmit<ExtArgs> | null
+    omit?: ClinicsOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CabinetInclude<ExtArgs> | null
+    include?: ClinicsInclude<ExtArgs> | null
     /**
-     * Filter, which Cabinet to fetch.
+     * Filter, which Clinics to fetch.
      */
-    where: CabinetWhereUniqueInput
+    where: ClinicsWhereUniqueInput
   }
 
   /**
-   * Cabinet findUniqueOrThrow
+   * Clinics findUniqueOrThrow
    */
-  export type CabinetFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClinicsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Cabinet
+     * Select specific fields to fetch from the Clinics
      */
-    select?: CabinetSelect<ExtArgs> | null
+    select?: ClinicsSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Cabinet
+     * Omit specific fields from the Clinics
      */
-    omit?: CabinetOmit<ExtArgs> | null
+    omit?: ClinicsOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CabinetInclude<ExtArgs> | null
+    include?: ClinicsInclude<ExtArgs> | null
     /**
-     * Filter, which Cabinet to fetch.
+     * Filter, which Clinics to fetch.
      */
-    where: CabinetWhereUniqueInput
+    where: ClinicsWhereUniqueInput
   }
 
   /**
-   * Cabinet findFirst
+   * Clinics findFirst
    */
-  export type CabinetFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClinicsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Cabinet
+     * Select specific fields to fetch from the Clinics
      */
-    select?: CabinetSelect<ExtArgs> | null
+    select?: ClinicsSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Cabinet
+     * Omit specific fields from the Clinics
      */
-    omit?: CabinetOmit<ExtArgs> | null
+    omit?: ClinicsOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CabinetInclude<ExtArgs> | null
+    include?: ClinicsInclude<ExtArgs> | null
     /**
-     * Filter, which Cabinet to fetch.
+     * Filter, which Clinics to fetch.
      */
-    where?: CabinetWhereInput
+    where?: ClinicsWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Cabinets to fetch.
+     * Determine the order of Clinics to fetch.
      */
-    orderBy?: CabinetOrderByWithRelationInput | CabinetOrderByWithRelationInput[]
+    orderBy?: ClinicsOrderByWithRelationInput | ClinicsOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Cabinets.
+     * Sets the position for searching for Clinics.
      */
-    cursor?: CabinetWhereUniqueInput
+    cursor?: ClinicsWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Cabinets from the position of the cursor.
+     * Take `±n` Clinics from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Cabinets.
+     * Skip the first `n` Clinics.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Cabinets.
+     * Filter by unique combinations of Clinics.
      */
-    distinct?: CabinetScalarFieldEnum | CabinetScalarFieldEnum[]
+    distinct?: ClinicsScalarFieldEnum | ClinicsScalarFieldEnum[]
   }
 
   /**
-   * Cabinet findFirstOrThrow
+   * Clinics findFirstOrThrow
    */
-  export type CabinetFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClinicsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Cabinet
+     * Select specific fields to fetch from the Clinics
      */
-    select?: CabinetSelect<ExtArgs> | null
+    select?: ClinicsSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Cabinet
+     * Omit specific fields from the Clinics
      */
-    omit?: CabinetOmit<ExtArgs> | null
+    omit?: ClinicsOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CabinetInclude<ExtArgs> | null
+    include?: ClinicsInclude<ExtArgs> | null
     /**
-     * Filter, which Cabinet to fetch.
+     * Filter, which Clinics to fetch.
      */
-    where?: CabinetWhereInput
+    where?: ClinicsWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Cabinets to fetch.
+     * Determine the order of Clinics to fetch.
      */
-    orderBy?: CabinetOrderByWithRelationInput | CabinetOrderByWithRelationInput[]
+    orderBy?: ClinicsOrderByWithRelationInput | ClinicsOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Cabinets.
+     * Sets the position for searching for Clinics.
      */
-    cursor?: CabinetWhereUniqueInput
+    cursor?: ClinicsWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Cabinets from the position of the cursor.
+     * Take `±n` Clinics from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Cabinets.
+     * Skip the first `n` Clinics.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Cabinets.
+     * Filter by unique combinations of Clinics.
      */
-    distinct?: CabinetScalarFieldEnum | CabinetScalarFieldEnum[]
+    distinct?: ClinicsScalarFieldEnum | ClinicsScalarFieldEnum[]
   }
 
   /**
-   * Cabinet findMany
+   * Clinics findMany
    */
-  export type CabinetFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClinicsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Cabinet
+     * Select specific fields to fetch from the Clinics
      */
-    select?: CabinetSelect<ExtArgs> | null
+    select?: ClinicsSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Cabinet
+     * Omit specific fields from the Clinics
      */
-    omit?: CabinetOmit<ExtArgs> | null
+    omit?: ClinicsOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CabinetInclude<ExtArgs> | null
+    include?: ClinicsInclude<ExtArgs> | null
     /**
-     * Filter, which Cabinets to fetch.
+     * Filter, which Clinics to fetch.
      */
-    where?: CabinetWhereInput
+    where?: ClinicsWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Cabinets to fetch.
+     * Determine the order of Clinics to fetch.
      */
-    orderBy?: CabinetOrderByWithRelationInput | CabinetOrderByWithRelationInput[]
+    orderBy?: ClinicsOrderByWithRelationInput | ClinicsOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Cabinets.
+     * Sets the position for listing Clinics.
      */
-    cursor?: CabinetWhereUniqueInput
+    cursor?: ClinicsWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Cabinets from the position of the cursor.
+     * Take `±n` Clinics from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Cabinets.
+     * Skip the first `n` Clinics.
      */
     skip?: number
-    distinct?: CabinetScalarFieldEnum | CabinetScalarFieldEnum[]
+    distinct?: ClinicsScalarFieldEnum | ClinicsScalarFieldEnum[]
   }
 
   /**
-   * Cabinet create
+   * Clinics create
    */
-  export type CabinetCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClinicsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Cabinet
+     * Select specific fields to fetch from the Clinics
      */
-    select?: CabinetSelect<ExtArgs> | null
+    select?: ClinicsSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Cabinet
+     * Omit specific fields from the Clinics
      */
-    omit?: CabinetOmit<ExtArgs> | null
+    omit?: ClinicsOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CabinetInclude<ExtArgs> | null
+    include?: ClinicsInclude<ExtArgs> | null
     /**
-     * The data needed to create a Cabinet.
+     * The data needed to create a Clinics.
      */
-    data: XOR<CabinetCreateInput, CabinetUncheckedCreateInput>
+    data: XOR<ClinicsCreateInput, ClinicsUncheckedCreateInput>
   }
 
   /**
-   * Cabinet createMany
+   * Clinics createMany
    */
-  export type CabinetCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClinicsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Cabinets.
+     * The data used to create many Clinics.
      */
-    data: CabinetCreateManyInput | CabinetCreateManyInput[]
+    data: ClinicsCreateManyInput | ClinicsCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Cabinet createManyAndReturn
+   * Clinics createManyAndReturn
    */
-  export type CabinetCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClinicsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Cabinet
+     * Select specific fields to fetch from the Clinics
      */
-    select?: CabinetSelectCreateManyAndReturn<ExtArgs> | null
+    select?: ClinicsSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Cabinet
+     * Omit specific fields from the Clinics
      */
-    omit?: CabinetOmit<ExtArgs> | null
+    omit?: ClinicsOmit<ExtArgs> | null
     /**
-     * The data used to create many Cabinets.
+     * The data used to create many Clinics.
      */
-    data: CabinetCreateManyInput | CabinetCreateManyInput[]
+    data: ClinicsCreateManyInput | ClinicsCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CabinetIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Cabinet update
+   * Clinics update
    */
-  export type CabinetUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClinicsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Cabinet
+     * Select specific fields to fetch from the Clinics
      */
-    select?: CabinetSelect<ExtArgs> | null
+    select?: ClinicsSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Cabinet
+     * Omit specific fields from the Clinics
      */
-    omit?: CabinetOmit<ExtArgs> | null
+    omit?: ClinicsOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CabinetInclude<ExtArgs> | null
+    include?: ClinicsInclude<ExtArgs> | null
     /**
-     * The data needed to update a Cabinet.
+     * The data needed to update a Clinics.
      */
-    data: XOR<CabinetUpdateInput, CabinetUncheckedUpdateInput>
+    data: XOR<ClinicsUpdateInput, ClinicsUncheckedUpdateInput>
     /**
-     * Choose, which Cabinet to update.
+     * Choose, which Clinics to update.
      */
-    where: CabinetWhereUniqueInput
+    where: ClinicsWhereUniqueInput
   }
 
   /**
-   * Cabinet updateMany
+   * Clinics updateMany
    */
-  export type CabinetUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClinicsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Cabinets.
+     * The data used to update Clinics.
      */
-    data: XOR<CabinetUpdateManyMutationInput, CabinetUncheckedUpdateManyInput>
+    data: XOR<ClinicsUpdateManyMutationInput, ClinicsUncheckedUpdateManyInput>
     /**
-     * Filter which Cabinets to update
+     * Filter which Clinics to update
      */
-    where?: CabinetWhereInput
+    where?: ClinicsWhereInput
     /**
-     * Limit how many Cabinets to update.
+     * Limit how many Clinics to update.
      */
     limit?: number
   }
 
   /**
-   * Cabinet updateManyAndReturn
+   * Clinics updateManyAndReturn
    */
-  export type CabinetUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClinicsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Cabinet
+     * Select specific fields to fetch from the Clinics
      */
-    select?: CabinetSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: ClinicsSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Cabinet
+     * Omit specific fields from the Clinics
      */
-    omit?: CabinetOmit<ExtArgs> | null
+    omit?: ClinicsOmit<ExtArgs> | null
     /**
-     * The data used to update Cabinets.
+     * The data used to update Clinics.
      */
-    data: XOR<CabinetUpdateManyMutationInput, CabinetUncheckedUpdateManyInput>
+    data: XOR<ClinicsUpdateManyMutationInput, ClinicsUncheckedUpdateManyInput>
     /**
-     * Filter which Cabinets to update
+     * Filter which Clinics to update
      */
-    where?: CabinetWhereInput
+    where?: ClinicsWhereInput
     /**
-     * Limit how many Cabinets to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CabinetIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Cabinet upsert
-   */
-  export type CabinetUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Cabinet
-     */
-    select?: CabinetSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Cabinet
-     */
-    omit?: CabinetOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CabinetInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Cabinet to update in case it exists.
-     */
-    where: CabinetWhereUniqueInput
-    /**
-     * In case the Cabinet found by the `where` argument doesn't exist, create a new Cabinet with this data.
-     */
-    create: XOR<CabinetCreateInput, CabinetUncheckedCreateInput>
-    /**
-     * In case the Cabinet was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<CabinetUpdateInput, CabinetUncheckedUpdateInput>
-  }
-
-  /**
-   * Cabinet delete
-   */
-  export type CabinetDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Cabinet
-     */
-    select?: CabinetSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Cabinet
-     */
-    omit?: CabinetOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CabinetInclude<ExtArgs> | null
-    /**
-     * Filter which Cabinet to delete.
-     */
-    where: CabinetWhereUniqueInput
-  }
-
-  /**
-   * Cabinet deleteMany
-   */
-  export type CabinetDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Cabinets to delete
-     */
-    where?: CabinetWhereInput
-    /**
-     * Limit how many Cabinets to delete.
+     * Limit how many Clinics to update.
      */
     limit?: number
   }
 
   /**
-   * Cabinet.images
+   * Clinics upsert
    */
-  export type Cabinet$imagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClinicsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Clinics
+     */
+    select?: ClinicsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Clinics
+     */
+    omit?: ClinicsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClinicsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Clinics to update in case it exists.
+     */
+    where: ClinicsWhereUniqueInput
+    /**
+     * In case the Clinics found by the `where` argument doesn't exist, create a new Clinics with this data.
+     */
+    create: XOR<ClinicsCreateInput, ClinicsUncheckedCreateInput>
+    /**
+     * In case the Clinics was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ClinicsUpdateInput, ClinicsUncheckedUpdateInput>
+  }
+
+  /**
+   * Clinics delete
+   */
+  export type ClinicsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Clinics
+     */
+    select?: ClinicsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Clinics
+     */
+    omit?: ClinicsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClinicsInclude<ExtArgs> | null
+    /**
+     * Filter which Clinics to delete.
+     */
+    where: ClinicsWhereUniqueInput
+  }
+
+  /**
+   * Clinics deleteMany
+   */
+  export type ClinicsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Clinics to delete
+     */
+    where?: ClinicsWhereInput
+    /**
+     * Limit how many Clinics to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Clinics.images
+   */
+  export type Clinics$imagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Images
      */
@@ -8420,9 +7159,9 @@ export namespace Prisma {
   }
 
   /**
-   * Cabinet.availabilities
+   * Clinics.availabilities
    */
-  export type Cabinet$availabilitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Clinics$availabilitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the availabilities
      */
@@ -8444,9 +7183,9 @@ export namespace Prisma {
   }
 
   /**
-   * Cabinet.Reviews
+   * Clinics.Reviews
    */
-  export type Cabinet$ReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Clinics$ReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Reviews
      */
@@ -8468,9 +7207,9 @@ export namespace Prisma {
   }
 
   /**
-   * Cabinet.PricingServices
+   * Clinics.PricingServices
    */
-  export type Cabinet$PricingServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Clinics$PricingServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the PricingServices
      */
@@ -8492,9 +7231,9 @@ export namespace Prisma {
   }
 
   /**
-   * Cabinet.nonPricingServices
+   * Clinics.nonPricingServices
    */
-  export type Cabinet$nonPricingServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Clinics$nonPricingServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the NonPricingServices
      */
@@ -8516,21 +7255,21 @@ export namespace Prisma {
   }
 
   /**
-   * Cabinet without action
+   * Clinics without action
    */
-  export type CabinetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClinicsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Cabinet
+     * Select specific fields to fetch from the Clinics
      */
-    select?: CabinetSelect<ExtArgs> | null
+    select?: ClinicsSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Cabinet
+     * Omit specific fields from the Clinics
      */
-    omit?: CabinetOmit<ExtArgs> | null
+    omit?: ClinicsOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CabinetInclude<ExtArgs> | null
+    include?: ClinicsInclude<ExtArgs> | null
   }
 
 
@@ -8548,19 +7287,19 @@ export namespace Prisma {
 
   export type PricingServicesAvgAggregateOutputType = {
     id: number | null
-    cabinetId: number | null
+    clinicId: number | null
     price: number | null
   }
 
   export type PricingServicesSumAggregateOutputType = {
     id: number | null
-    cabinetId: number | null
+    clinicId: number | null
     price: number | null
   }
 
   export type PricingServicesMinAggregateOutputType = {
     id: number | null
-    cabinetId: number | null
+    clinicId: number | null
     service_name: string | null
     price: number | null
     createdAt: Date | null
@@ -8569,7 +7308,7 @@ export namespace Prisma {
 
   export type PricingServicesMaxAggregateOutputType = {
     id: number | null
-    cabinetId: number | null
+    clinicId: number | null
     service_name: string | null
     price: number | null
     createdAt: Date | null
@@ -8578,7 +7317,7 @@ export namespace Prisma {
 
   export type PricingServicesCountAggregateOutputType = {
     id: number
-    cabinetId: number
+    clinicId: number
     service_name: number
     price: number
     createdAt: number
@@ -8589,19 +7328,19 @@ export namespace Prisma {
 
   export type PricingServicesAvgAggregateInputType = {
     id?: true
-    cabinetId?: true
+    clinicId?: true
     price?: true
   }
 
   export type PricingServicesSumAggregateInputType = {
     id?: true
-    cabinetId?: true
+    clinicId?: true
     price?: true
   }
 
   export type PricingServicesMinAggregateInputType = {
     id?: true
-    cabinetId?: true
+    clinicId?: true
     service_name?: true
     price?: true
     createdAt?: true
@@ -8610,7 +7349,7 @@ export namespace Prisma {
 
   export type PricingServicesMaxAggregateInputType = {
     id?: true
-    cabinetId?: true
+    clinicId?: true
     service_name?: true
     price?: true
     createdAt?: true
@@ -8619,7 +7358,7 @@ export namespace Prisma {
 
   export type PricingServicesCountAggregateInputType = {
     id?: true
-    cabinetId?: true
+    clinicId?: true
     service_name?: true
     price?: true
     createdAt?: true
@@ -8715,7 +7454,7 @@ export namespace Prisma {
 
   export type PricingServicesGroupByOutputType = {
     id: number
-    cabinetId: number
+    clinicId: number
     service_name: string
     price: number
     createdAt: Date
@@ -8743,62 +7482,62 @@ export namespace Prisma {
 
   export type PricingServicesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    cabinetId?: boolean
+    clinicId?: boolean
     service_name?: boolean
     price?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pricingServices"]>
 
   export type PricingServicesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    cabinetId?: boolean
+    clinicId?: boolean
     service_name?: boolean
     price?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pricingServices"]>
 
   export type PricingServicesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    cabinetId?: boolean
+    clinicId?: boolean
     service_name?: boolean
     price?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pricingServices"]>
 
   export type PricingServicesSelectScalar = {
     id?: boolean
-    cabinetId?: boolean
+    clinicId?: boolean
     service_name?: boolean
     price?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type PricingServicesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cabinetId" | "service_name" | "price" | "createdAt" | "updatedAt", ExtArgs["result"]["pricingServices"]>
+  export type PricingServicesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clinicId" | "service_name" | "price" | "createdAt" | "updatedAt", ExtArgs["result"]["pricingServices"]>
   export type PricingServicesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }
   export type PricingServicesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }
   export type PricingServicesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }
 
   export type $PricingServicesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "PricingServices"
     objects: {
-      Cabinet: Prisma.$CabinetPayload<ExtArgs>
+      clinic: Prisma.$ClinicsPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      cabinetId: number
+      clinicId: number
       service_name: string
       price: number
       createdAt: Date
@@ -9197,7 +7936,7 @@ export namespace Prisma {
    */
   export interface Prisma__PricingServicesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    Cabinet<T extends CabinetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CabinetDefaultArgs<ExtArgs>>): Prisma__CabinetClient<$Result.GetResult<Prisma.$CabinetPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    clinic<T extends ClinicsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClinicsDefaultArgs<ExtArgs>>): Prisma__ClinicsClient<$Result.GetResult<Prisma.$ClinicsPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9228,7 +7967,7 @@ export namespace Prisma {
    */ 
   interface PricingServicesFieldRefs {
     readonly id: FieldRef<"PricingServices", 'Int'>
-    readonly cabinetId: FieldRef<"PricingServices", 'Int'>
+    readonly clinicId: FieldRef<"PricingServices", 'Int'>
     readonly service_name: FieldRef<"PricingServices", 'String'>
     readonly price: FieldRef<"PricingServices", 'Float'>
     readonly createdAt: FieldRef<"PricingServices", 'DateTime'>
@@ -9661,17 +8400,17 @@ export namespace Prisma {
 
   export type NonPricingServicesAvgAggregateOutputType = {
     id: number | null
-    cabinetId: number | null
+    clinicId: number | null
   }
 
   export type NonPricingServicesSumAggregateOutputType = {
     id: number | null
-    cabinetId: number | null
+    clinicId: number | null
   }
 
   export type NonPricingServicesMinAggregateOutputType = {
     id: number | null
-    cabinetId: number | null
+    clinicId: number | null
     service_name: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -9679,7 +8418,7 @@ export namespace Prisma {
 
   export type NonPricingServicesMaxAggregateOutputType = {
     id: number | null
-    cabinetId: number | null
+    clinicId: number | null
     service_name: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -9687,7 +8426,7 @@ export namespace Prisma {
 
   export type NonPricingServicesCountAggregateOutputType = {
     id: number
-    cabinetId: number
+    clinicId: number
     service_name: number
     createdAt: number
     updatedAt: number
@@ -9697,17 +8436,17 @@ export namespace Prisma {
 
   export type NonPricingServicesAvgAggregateInputType = {
     id?: true
-    cabinetId?: true
+    clinicId?: true
   }
 
   export type NonPricingServicesSumAggregateInputType = {
     id?: true
-    cabinetId?: true
+    clinicId?: true
   }
 
   export type NonPricingServicesMinAggregateInputType = {
     id?: true
-    cabinetId?: true
+    clinicId?: true
     service_name?: true
     createdAt?: true
     updatedAt?: true
@@ -9715,7 +8454,7 @@ export namespace Prisma {
 
   export type NonPricingServicesMaxAggregateInputType = {
     id?: true
-    cabinetId?: true
+    clinicId?: true
     service_name?: true
     createdAt?: true
     updatedAt?: true
@@ -9723,7 +8462,7 @@ export namespace Prisma {
 
   export type NonPricingServicesCountAggregateInputType = {
     id?: true
-    cabinetId?: true
+    clinicId?: true
     service_name?: true
     createdAt?: true
     updatedAt?: true
@@ -9818,7 +8557,7 @@ export namespace Prisma {
 
   export type NonPricingServicesGroupByOutputType = {
     id: number
-    cabinetId: number
+    clinicId: number
     service_name: string
     createdAt: Date
     updatedAt: Date
@@ -9845,58 +8584,58 @@ export namespace Prisma {
 
   export type NonPricingServicesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    cabinetId?: boolean
+    clinicId?: boolean
     service_name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["nonPricingServices"]>
 
   export type NonPricingServicesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    cabinetId?: boolean
+    clinicId?: boolean
     service_name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["nonPricingServices"]>
 
   export type NonPricingServicesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    cabinetId?: boolean
+    clinicId?: boolean
     service_name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["nonPricingServices"]>
 
   export type NonPricingServicesSelectScalar = {
     id?: boolean
-    cabinetId?: boolean
+    clinicId?: boolean
     service_name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type NonPricingServicesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cabinetId" | "service_name" | "createdAt" | "updatedAt", ExtArgs["result"]["nonPricingServices"]>
+  export type NonPricingServicesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clinicId" | "service_name" | "createdAt" | "updatedAt", ExtArgs["result"]["nonPricingServices"]>
   export type NonPricingServicesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }
   export type NonPricingServicesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }
   export type NonPricingServicesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicsDefaultArgs<ExtArgs>
   }
 
   export type $NonPricingServicesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "NonPricingServices"
     objects: {
-      Cabinet: Prisma.$CabinetPayload<ExtArgs>
+      clinic: Prisma.$ClinicsPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      cabinetId: number
+      clinicId: number
       service_name: string
       createdAt: Date
       updatedAt: Date
@@ -10294,7 +9033,7 @@ export namespace Prisma {
    */
   export interface Prisma__NonPricingServicesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    Cabinet<T extends CabinetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CabinetDefaultArgs<ExtArgs>>): Prisma__CabinetClient<$Result.GetResult<Prisma.$CabinetPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    clinic<T extends ClinicsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClinicsDefaultArgs<ExtArgs>>): Prisma__ClinicsClient<$Result.GetResult<Prisma.$ClinicsPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10325,7 +9064,7 @@ export namespace Prisma {
    */ 
   interface NonPricingServicesFieldRefs {
     readonly id: FieldRef<"NonPricingServices", 'Int'>
-    readonly cabinetId: FieldRef<"NonPricingServices", 'Int'>
+    readonly clinicId: FieldRef<"NonPricingServices", 'Int'>
     readonly service_name: FieldRef<"NonPricingServices", 'String'>
     readonly createdAt: FieldRef<"NonPricingServices", 'DateTime'>
     readonly updatedAt: FieldRef<"NonPricingServices", 'DateTime'>
@@ -10760,7 +9499,7 @@ export namespace Prisma {
   export const ImagesScalarFieldEnum: {
     id: 'id',
     url: 'url',
-    cabinetId: 'cabinetId',
+    clinicId: 'clinicId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -10770,7 +9509,7 @@ export namespace Prisma {
 
   export const AvailabilitiesScalarFieldEnum: {
     id: 'id',
-    cabinetId: 'cabinetId',
+    clinicId: 'clinicId',
     start_date: 'start_date',
     end_date: 'end_date',
     createdAt: 'createdAt',
@@ -10794,7 +9533,7 @@ export namespace Prisma {
     id: 'id',
     comment: 'comment',
     userId: 'userId',
-    cabinetId: 'cabinetId',
+    clinicId: 'clinicId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -10802,21 +9541,9 @@ export namespace Prisma {
   export type ReviewsScalarFieldEnum = (typeof ReviewsScalarFieldEnum)[keyof typeof ReviewsScalarFieldEnum]
 
 
-  export const SpecialitiesScalarFieldEnum: {
-    id: 'id',
-    name: 'name',
-    image: 'image',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-  };
-
-  export type SpecialitiesScalarFieldEnum = (typeof SpecialitiesScalarFieldEnum)[keyof typeof SpecialitiesScalarFieldEnum]
-
-
-  export const CabinetScalarFieldEnum: {
+  export const ClinicsScalarFieldEnum: {
     id: 'id',
     title: 'title',
-    specialityId: 'specialityId',
     description: 'description',
     address: 'address',
     phone: 'phone',
@@ -10839,12 +9566,12 @@ export namespace Prisma {
     updatedAt: 'updatedAt'
   };
 
-  export type CabinetScalarFieldEnum = (typeof CabinetScalarFieldEnum)[keyof typeof CabinetScalarFieldEnum]
+  export type ClinicsScalarFieldEnum = (typeof ClinicsScalarFieldEnum)[keyof typeof ClinicsScalarFieldEnum]
 
 
   export const PricingServicesScalarFieldEnum: {
     id: 'id',
-    cabinetId: 'cabinetId',
+    clinicId: 'clinicId',
     service_name: 'service_name',
     price: 'price',
     createdAt: 'createdAt',
@@ -10856,7 +9583,7 @@ export namespace Prisma {
 
   export const NonPricingServicesScalarFieldEnum: {
     id: 'id',
-    cabinetId: 'cabinetId',
+    clinicId: 'clinicId',
     service_name: 'service_name',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -10981,19 +9708,19 @@ export namespace Prisma {
     NOT?: ImagesWhereInput | ImagesWhereInput[]
     id?: IntFilter<"Images"> | number
     url?: StringFilter<"Images"> | string
-    cabinetId?: IntFilter<"Images"> | number
+    clinicId?: IntFilter<"Images"> | number
     createdAt?: DateTimeFilter<"Images"> | Date | string
     updatedAt?: DateTimeFilter<"Images"> | Date | string
-    Cabinet?: XOR<CabinetScalarRelationFilter, CabinetWhereInput>
+    clinic?: XOR<ClinicsScalarRelationFilter, ClinicsWhereInput>
   }
 
   export type ImagesOrderByWithRelationInput = {
     id?: SortOrder
     url?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    Cabinet?: CabinetOrderByWithRelationInput
+    clinic?: ClinicsOrderByWithRelationInput
   }
 
   export type ImagesWhereUniqueInput = Prisma.AtLeast<{
@@ -11002,16 +9729,16 @@ export namespace Prisma {
     OR?: ImagesWhereInput[]
     NOT?: ImagesWhereInput | ImagesWhereInput[]
     url?: StringFilter<"Images"> | string
-    cabinetId?: IntFilter<"Images"> | number
+    clinicId?: IntFilter<"Images"> | number
     createdAt?: DateTimeFilter<"Images"> | Date | string
     updatedAt?: DateTimeFilter<"Images"> | Date | string
-    Cabinet?: XOR<CabinetScalarRelationFilter, CabinetWhereInput>
+    clinic?: XOR<ClinicsScalarRelationFilter, ClinicsWhereInput>
   }, "id">
 
   export type ImagesOrderByWithAggregationInput = {
     id?: SortOrder
     url?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ImagesCountOrderByAggregateInput
@@ -11027,7 +9754,7 @@ export namespace Prisma {
     NOT?: ImagesScalarWhereWithAggregatesInput | ImagesScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Images"> | number
     url?: StringWithAggregatesFilter<"Images"> | string
-    cabinetId?: IntWithAggregatesFilter<"Images"> | number
+    clinicId?: IntWithAggregatesFilter<"Images"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Images"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Images"> | Date | string
   }
@@ -11037,22 +9764,22 @@ export namespace Prisma {
     OR?: availabilitiesWhereInput[]
     NOT?: availabilitiesWhereInput | availabilitiesWhereInput[]
     id?: IntFilter<"availabilities"> | number
-    cabinetId?: IntFilter<"availabilities"> | number
+    clinicId?: IntFilter<"availabilities"> | number
     start_date?: StringFilter<"availabilities"> | string
     end_date?: StringFilter<"availabilities"> | string
     createdAt?: DateTimeFilter<"availabilities"> | Date | string
     updatedAt?: DateTimeFilter<"availabilities"> | Date | string
-    Cabinet?: XOR<CabinetScalarRelationFilter, CabinetWhereInput>
+    clinic?: XOR<ClinicsScalarRelationFilter, ClinicsWhereInput>
   }
 
   export type availabilitiesOrderByWithRelationInput = {
     id?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     start_date?: SortOrder
     end_date?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    Cabinet?: CabinetOrderByWithRelationInput
+    clinic?: ClinicsOrderByWithRelationInput
   }
 
   export type availabilitiesWhereUniqueInput = Prisma.AtLeast<{
@@ -11060,17 +9787,17 @@ export namespace Prisma {
     AND?: availabilitiesWhereInput | availabilitiesWhereInput[]
     OR?: availabilitiesWhereInput[]
     NOT?: availabilitiesWhereInput | availabilitiesWhereInput[]
-    cabinetId?: IntFilter<"availabilities"> | number
+    clinicId?: IntFilter<"availabilities"> | number
     start_date?: StringFilter<"availabilities"> | string
     end_date?: StringFilter<"availabilities"> | string
     createdAt?: DateTimeFilter<"availabilities"> | Date | string
     updatedAt?: DateTimeFilter<"availabilities"> | Date | string
-    Cabinet?: XOR<CabinetScalarRelationFilter, CabinetWhereInput>
+    clinic?: XOR<ClinicsScalarRelationFilter, ClinicsWhereInput>
   }, "id">
 
   export type availabilitiesOrderByWithAggregationInput = {
     id?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     start_date?: SortOrder
     end_date?: SortOrder
     createdAt?: SortOrder
@@ -11087,7 +9814,7 @@ export namespace Prisma {
     OR?: availabilitiesScalarWhereWithAggregatesInput[]
     NOT?: availabilitiesScalarWhereWithAggregatesInput | availabilitiesScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"availabilities"> | number
-    cabinetId?: IntWithAggregatesFilter<"availabilities"> | number
+    clinicId?: IntWithAggregatesFilter<"availabilities"> | number
     start_date?: StringWithAggregatesFilter<"availabilities"> | string
     end_date?: StringWithAggregatesFilter<"availabilities"> | string
     createdAt?: DateTimeWithAggregatesFilter<"availabilities"> | Date | string
@@ -11150,20 +9877,20 @@ export namespace Prisma {
     id?: IntFilter<"Reviews"> | number
     comment?: StringFilter<"Reviews"> | string
     userId?: IntFilter<"Reviews"> | number
-    cabinetId?: IntFilter<"Reviews"> | number
+    clinicId?: IntFilter<"Reviews"> | number
     createdAt?: DateTimeFilter<"Reviews"> | Date | string
     updatedAt?: DateTimeFilter<"Reviews"> | Date | string
-    Cabinet?: XOR<CabinetScalarRelationFilter, CabinetWhereInput>
+    clinic?: XOR<ClinicsScalarRelationFilter, ClinicsWhereInput>
   }
 
   export type ReviewsOrderByWithRelationInput = {
     id?: SortOrder
     comment?: SortOrder
     userId?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    Cabinet?: CabinetOrderByWithRelationInput
+    clinic?: ClinicsOrderByWithRelationInput
   }
 
   export type ReviewsWhereUniqueInput = Prisma.AtLeast<{
@@ -11173,17 +9900,17 @@ export namespace Prisma {
     NOT?: ReviewsWhereInput | ReviewsWhereInput[]
     comment?: StringFilter<"Reviews"> | string
     userId?: IntFilter<"Reviews"> | number
-    cabinetId?: IntFilter<"Reviews"> | number
+    clinicId?: IntFilter<"Reviews"> | number
     createdAt?: DateTimeFilter<"Reviews"> | Date | string
     updatedAt?: DateTimeFilter<"Reviews"> | Date | string
-    Cabinet?: XOR<CabinetScalarRelationFilter, CabinetWhereInput>
+    clinic?: XOR<ClinicsScalarRelationFilter, ClinicsWhereInput>
   }, "id">
 
   export type ReviewsOrderByWithAggregationInput = {
     id?: SortOrder
     comment?: SortOrder
     userId?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ReviewsCountOrderByAggregateInput
@@ -11200,107 +9927,47 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Reviews"> | number
     comment?: StringWithAggregatesFilter<"Reviews"> | string
     userId?: IntWithAggregatesFilter<"Reviews"> | number
-    cabinetId?: IntWithAggregatesFilter<"Reviews"> | number
+    clinicId?: IntWithAggregatesFilter<"Reviews"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Reviews"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Reviews"> | Date | string
   }
 
-  export type specialitiesWhereInput = {
-    AND?: specialitiesWhereInput | specialitiesWhereInput[]
-    OR?: specialitiesWhereInput[]
-    NOT?: specialitiesWhereInput | specialitiesWhereInput[]
-    id?: IntFilter<"specialities"> | number
-    name?: StringFilter<"specialities"> | string
-    image?: StringFilter<"specialities"> | string
-    createdAt?: DateTimeFilter<"specialities"> | Date | string
-    updatedAt?: DateTimeFilter<"specialities"> | Date | string
-    Cabinets?: CabinetListRelationFilter
-  }
-
-  export type specialitiesOrderByWithRelationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    image?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    Cabinets?: CabinetOrderByRelationAggregateInput
-  }
-
-  export type specialitiesWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    AND?: specialitiesWhereInput | specialitiesWhereInput[]
-    OR?: specialitiesWhereInput[]
-    NOT?: specialitiesWhereInput | specialitiesWhereInput[]
-    name?: StringFilter<"specialities"> | string
-    image?: StringFilter<"specialities"> | string
-    createdAt?: DateTimeFilter<"specialities"> | Date | string
-    updatedAt?: DateTimeFilter<"specialities"> | Date | string
-    Cabinets?: CabinetListRelationFilter
-  }, "id">
-
-  export type specialitiesOrderByWithAggregationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    image?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: specialitiesCountOrderByAggregateInput
-    _avg?: specialitiesAvgOrderByAggregateInput
-    _max?: specialitiesMaxOrderByAggregateInput
-    _min?: specialitiesMinOrderByAggregateInput
-    _sum?: specialitiesSumOrderByAggregateInput
-  }
-
-  export type specialitiesScalarWhereWithAggregatesInput = {
-    AND?: specialitiesScalarWhereWithAggregatesInput | specialitiesScalarWhereWithAggregatesInput[]
-    OR?: specialitiesScalarWhereWithAggregatesInput[]
-    NOT?: specialitiesScalarWhereWithAggregatesInput | specialitiesScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"specialities"> | number
-    name?: StringWithAggregatesFilter<"specialities"> | string
-    image?: StringWithAggregatesFilter<"specialities"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"specialities"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"specialities"> | Date | string
-  }
-
-  export type CabinetWhereInput = {
-    AND?: CabinetWhereInput | CabinetWhereInput[]
-    OR?: CabinetWhereInput[]
-    NOT?: CabinetWhereInput | CabinetWhereInput[]
-    id?: IntFilter<"Cabinet"> | number
-    title?: StringFilter<"Cabinet"> | string
-    specialityId?: IntFilter<"Cabinet"> | number
-    description?: StringFilter<"Cabinet"> | string
-    address?: StringFilter<"Cabinet"> | string
-    phone?: StringFilter<"Cabinet"> | string
-    totalViews?: IntFilter<"Cabinet"> | number
-    totalRate?: IntFilter<"Cabinet"> | number
-    numberOfRates?: IntFilter<"Cabinet"> | number
-    averageRate?: FloatFilter<"Cabinet"> | number
-    ownerId?: IntFilter<"Cabinet"> | number
-    year?: IntFilter<"Cabinet"> | number
-    validated?: BoolFilter<"Cabinet"> | boolean
-    blocked?: BoolFilter<"Cabinet"> | boolean
-    rates?: JsonFilter<"Cabinet">
-    openTime?: StringFilter<"Cabinet"> | string
-    closeTime?: StringFilter<"Cabinet"> | string
-    latitude?: StringFilter<"Cabinet"> | string
-    longitude?: StringFilter<"Cabinet"> | string
-    daysOff?: IntNullableListFilter<"Cabinet">
-    reviewsCount?: IntFilter<"Cabinet"> | number
-    createdAt?: DateTimeFilter<"Cabinet"> | Date | string
-    updatedAt?: DateTimeFilter<"Cabinet"> | Date | string
+  export type ClinicsWhereInput = {
+    AND?: ClinicsWhereInput | ClinicsWhereInput[]
+    OR?: ClinicsWhereInput[]
+    NOT?: ClinicsWhereInput | ClinicsWhereInput[]
+    id?: IntFilter<"Clinics"> | number
+    title?: StringFilter<"Clinics"> | string
+    description?: StringFilter<"Clinics"> | string
+    address?: StringFilter<"Clinics"> | string
+    phone?: StringFilter<"Clinics"> | string
+    totalViews?: IntFilter<"Clinics"> | number
+    totalRate?: IntFilter<"Clinics"> | number
+    numberOfRates?: IntFilter<"Clinics"> | number
+    averageRate?: FloatFilter<"Clinics"> | number
+    ownerId?: IntFilter<"Clinics"> | number
+    year?: IntFilter<"Clinics"> | number
+    validated?: BoolFilter<"Clinics"> | boolean
+    blocked?: BoolFilter<"Clinics"> | boolean
+    rates?: JsonFilter<"Clinics">
+    openTime?: StringFilter<"Clinics"> | string
+    closeTime?: StringFilter<"Clinics"> | string
+    latitude?: StringFilter<"Clinics"> | string
+    longitude?: StringFilter<"Clinics"> | string
+    daysOff?: IntNullableListFilter<"Clinics">
+    reviewsCount?: IntFilter<"Clinics"> | number
+    createdAt?: DateTimeFilter<"Clinics"> | Date | string
+    updatedAt?: DateTimeFilter<"Clinics"> | Date | string
     images?: ImagesListRelationFilter
     availabilities?: AvailabilitiesListRelationFilter
     Reviews?: ReviewsListRelationFilter
     PricingServices?: PricingServicesListRelationFilter
     nonPricingServices?: NonPricingServicesListRelationFilter
-    speciality?: XOR<SpecialitiesScalarRelationFilter, specialitiesWhereInput>
   }
 
-  export type CabinetOrderByWithRelationInput = {
+  export type ClinicsOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
-    specialityId?: SortOrder
     description?: SortOrder
     address?: SortOrder
     phone?: SortOrder
@@ -11326,48 +9993,44 @@ export namespace Prisma {
     Reviews?: ReviewsOrderByRelationAggregateInput
     PricingServices?: PricingServicesOrderByRelationAggregateInput
     nonPricingServices?: NonPricingServicesOrderByRelationAggregateInput
-    speciality?: specialitiesOrderByWithRelationInput
   }
 
-  export type CabinetWhereUniqueInput = Prisma.AtLeast<{
+  export type ClinicsWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    AND?: CabinetWhereInput | CabinetWhereInput[]
-    OR?: CabinetWhereInput[]
-    NOT?: CabinetWhereInput | CabinetWhereInput[]
-    title?: StringFilter<"Cabinet"> | string
-    specialityId?: IntFilter<"Cabinet"> | number
-    description?: StringFilter<"Cabinet"> | string
-    address?: StringFilter<"Cabinet"> | string
-    phone?: StringFilter<"Cabinet"> | string
-    totalViews?: IntFilter<"Cabinet"> | number
-    totalRate?: IntFilter<"Cabinet"> | number
-    numberOfRates?: IntFilter<"Cabinet"> | number
-    averageRate?: FloatFilter<"Cabinet"> | number
-    ownerId?: IntFilter<"Cabinet"> | number
-    year?: IntFilter<"Cabinet"> | number
-    validated?: BoolFilter<"Cabinet"> | boolean
-    blocked?: BoolFilter<"Cabinet"> | boolean
-    rates?: JsonFilter<"Cabinet">
-    openTime?: StringFilter<"Cabinet"> | string
-    closeTime?: StringFilter<"Cabinet"> | string
-    latitude?: StringFilter<"Cabinet"> | string
-    longitude?: StringFilter<"Cabinet"> | string
-    daysOff?: IntNullableListFilter<"Cabinet">
-    reviewsCount?: IntFilter<"Cabinet"> | number
-    createdAt?: DateTimeFilter<"Cabinet"> | Date | string
-    updatedAt?: DateTimeFilter<"Cabinet"> | Date | string
+    AND?: ClinicsWhereInput | ClinicsWhereInput[]
+    OR?: ClinicsWhereInput[]
+    NOT?: ClinicsWhereInput | ClinicsWhereInput[]
+    title?: StringFilter<"Clinics"> | string
+    description?: StringFilter<"Clinics"> | string
+    address?: StringFilter<"Clinics"> | string
+    phone?: StringFilter<"Clinics"> | string
+    totalViews?: IntFilter<"Clinics"> | number
+    totalRate?: IntFilter<"Clinics"> | number
+    numberOfRates?: IntFilter<"Clinics"> | number
+    averageRate?: FloatFilter<"Clinics"> | number
+    ownerId?: IntFilter<"Clinics"> | number
+    year?: IntFilter<"Clinics"> | number
+    validated?: BoolFilter<"Clinics"> | boolean
+    blocked?: BoolFilter<"Clinics"> | boolean
+    rates?: JsonFilter<"Clinics">
+    openTime?: StringFilter<"Clinics"> | string
+    closeTime?: StringFilter<"Clinics"> | string
+    latitude?: StringFilter<"Clinics"> | string
+    longitude?: StringFilter<"Clinics"> | string
+    daysOff?: IntNullableListFilter<"Clinics">
+    reviewsCount?: IntFilter<"Clinics"> | number
+    createdAt?: DateTimeFilter<"Clinics"> | Date | string
+    updatedAt?: DateTimeFilter<"Clinics"> | Date | string
     images?: ImagesListRelationFilter
     availabilities?: AvailabilitiesListRelationFilter
     Reviews?: ReviewsListRelationFilter
     PricingServices?: PricingServicesListRelationFilter
     nonPricingServices?: NonPricingServicesListRelationFilter
-    speciality?: XOR<SpecialitiesScalarRelationFilter, specialitiesWhereInput>
   }, "id">
 
-  export type CabinetOrderByWithAggregationInput = {
+  export type ClinicsOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
-    specialityId?: SortOrder
     description?: SortOrder
     address?: SortOrder
     phone?: SortOrder
@@ -11388,40 +10051,39 @@ export namespace Prisma {
     reviewsCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    _count?: CabinetCountOrderByAggregateInput
-    _avg?: CabinetAvgOrderByAggregateInput
-    _max?: CabinetMaxOrderByAggregateInput
-    _min?: CabinetMinOrderByAggregateInput
-    _sum?: CabinetSumOrderByAggregateInput
+    _count?: ClinicsCountOrderByAggregateInput
+    _avg?: ClinicsAvgOrderByAggregateInput
+    _max?: ClinicsMaxOrderByAggregateInput
+    _min?: ClinicsMinOrderByAggregateInput
+    _sum?: ClinicsSumOrderByAggregateInput
   }
 
-  export type CabinetScalarWhereWithAggregatesInput = {
-    AND?: CabinetScalarWhereWithAggregatesInput | CabinetScalarWhereWithAggregatesInput[]
-    OR?: CabinetScalarWhereWithAggregatesInput[]
-    NOT?: CabinetScalarWhereWithAggregatesInput | CabinetScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Cabinet"> | number
-    title?: StringWithAggregatesFilter<"Cabinet"> | string
-    specialityId?: IntWithAggregatesFilter<"Cabinet"> | number
-    description?: StringWithAggregatesFilter<"Cabinet"> | string
-    address?: StringWithAggregatesFilter<"Cabinet"> | string
-    phone?: StringWithAggregatesFilter<"Cabinet"> | string
-    totalViews?: IntWithAggregatesFilter<"Cabinet"> | number
-    totalRate?: IntWithAggregatesFilter<"Cabinet"> | number
-    numberOfRates?: IntWithAggregatesFilter<"Cabinet"> | number
-    averageRate?: FloatWithAggregatesFilter<"Cabinet"> | number
-    ownerId?: IntWithAggregatesFilter<"Cabinet"> | number
-    year?: IntWithAggregatesFilter<"Cabinet"> | number
-    validated?: BoolWithAggregatesFilter<"Cabinet"> | boolean
-    blocked?: BoolWithAggregatesFilter<"Cabinet"> | boolean
-    rates?: JsonWithAggregatesFilter<"Cabinet">
-    openTime?: StringWithAggregatesFilter<"Cabinet"> | string
-    closeTime?: StringWithAggregatesFilter<"Cabinet"> | string
-    latitude?: StringWithAggregatesFilter<"Cabinet"> | string
-    longitude?: StringWithAggregatesFilter<"Cabinet"> | string
-    daysOff?: IntNullableListFilter<"Cabinet">
-    reviewsCount?: IntWithAggregatesFilter<"Cabinet"> | number
-    createdAt?: DateTimeWithAggregatesFilter<"Cabinet"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Cabinet"> | Date | string
+  export type ClinicsScalarWhereWithAggregatesInput = {
+    AND?: ClinicsScalarWhereWithAggregatesInput | ClinicsScalarWhereWithAggregatesInput[]
+    OR?: ClinicsScalarWhereWithAggregatesInput[]
+    NOT?: ClinicsScalarWhereWithAggregatesInput | ClinicsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Clinics"> | number
+    title?: StringWithAggregatesFilter<"Clinics"> | string
+    description?: StringWithAggregatesFilter<"Clinics"> | string
+    address?: StringWithAggregatesFilter<"Clinics"> | string
+    phone?: StringWithAggregatesFilter<"Clinics"> | string
+    totalViews?: IntWithAggregatesFilter<"Clinics"> | number
+    totalRate?: IntWithAggregatesFilter<"Clinics"> | number
+    numberOfRates?: IntWithAggregatesFilter<"Clinics"> | number
+    averageRate?: FloatWithAggregatesFilter<"Clinics"> | number
+    ownerId?: IntWithAggregatesFilter<"Clinics"> | number
+    year?: IntWithAggregatesFilter<"Clinics"> | number
+    validated?: BoolWithAggregatesFilter<"Clinics"> | boolean
+    blocked?: BoolWithAggregatesFilter<"Clinics"> | boolean
+    rates?: JsonWithAggregatesFilter<"Clinics">
+    openTime?: StringWithAggregatesFilter<"Clinics"> | string
+    closeTime?: StringWithAggregatesFilter<"Clinics"> | string
+    latitude?: StringWithAggregatesFilter<"Clinics"> | string
+    longitude?: StringWithAggregatesFilter<"Clinics"> | string
+    daysOff?: IntNullableListFilter<"Clinics">
+    reviewsCount?: IntWithAggregatesFilter<"Clinics"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Clinics"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Clinics"> | Date | string
   }
 
   export type PricingServicesWhereInput = {
@@ -11429,22 +10091,22 @@ export namespace Prisma {
     OR?: PricingServicesWhereInput[]
     NOT?: PricingServicesWhereInput | PricingServicesWhereInput[]
     id?: IntFilter<"PricingServices"> | number
-    cabinetId?: IntFilter<"PricingServices"> | number
+    clinicId?: IntFilter<"PricingServices"> | number
     service_name?: StringFilter<"PricingServices"> | string
     price?: FloatFilter<"PricingServices"> | number
     createdAt?: DateTimeFilter<"PricingServices"> | Date | string
     updatedAt?: DateTimeFilter<"PricingServices"> | Date | string
-    Cabinet?: XOR<CabinetScalarRelationFilter, CabinetWhereInput>
+    clinic?: XOR<ClinicsScalarRelationFilter, ClinicsWhereInput>
   }
 
   export type PricingServicesOrderByWithRelationInput = {
     id?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     service_name?: SortOrder
     price?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    Cabinet?: CabinetOrderByWithRelationInput
+    clinic?: ClinicsOrderByWithRelationInput
   }
 
   export type PricingServicesWhereUniqueInput = Prisma.AtLeast<{
@@ -11452,17 +10114,17 @@ export namespace Prisma {
     AND?: PricingServicesWhereInput | PricingServicesWhereInput[]
     OR?: PricingServicesWhereInput[]
     NOT?: PricingServicesWhereInput | PricingServicesWhereInput[]
-    cabinetId?: IntFilter<"PricingServices"> | number
+    clinicId?: IntFilter<"PricingServices"> | number
     service_name?: StringFilter<"PricingServices"> | string
     price?: FloatFilter<"PricingServices"> | number
     createdAt?: DateTimeFilter<"PricingServices"> | Date | string
     updatedAt?: DateTimeFilter<"PricingServices"> | Date | string
-    Cabinet?: XOR<CabinetScalarRelationFilter, CabinetWhereInput>
+    clinic?: XOR<ClinicsScalarRelationFilter, ClinicsWhereInput>
   }, "id">
 
   export type PricingServicesOrderByWithAggregationInput = {
     id?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     service_name?: SortOrder
     price?: SortOrder
     createdAt?: SortOrder
@@ -11479,7 +10141,7 @@ export namespace Prisma {
     OR?: PricingServicesScalarWhereWithAggregatesInput[]
     NOT?: PricingServicesScalarWhereWithAggregatesInput | PricingServicesScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"PricingServices"> | number
-    cabinetId?: IntWithAggregatesFilter<"PricingServices"> | number
+    clinicId?: IntWithAggregatesFilter<"PricingServices"> | number
     service_name?: StringWithAggregatesFilter<"PricingServices"> | string
     price?: FloatWithAggregatesFilter<"PricingServices"> | number
     createdAt?: DateTimeWithAggregatesFilter<"PricingServices"> | Date | string
@@ -11491,20 +10153,20 @@ export namespace Prisma {
     OR?: NonPricingServicesWhereInput[]
     NOT?: NonPricingServicesWhereInput | NonPricingServicesWhereInput[]
     id?: IntFilter<"NonPricingServices"> | number
-    cabinetId?: IntFilter<"NonPricingServices"> | number
+    clinicId?: IntFilter<"NonPricingServices"> | number
     service_name?: StringFilter<"NonPricingServices"> | string
     createdAt?: DateTimeFilter<"NonPricingServices"> | Date | string
     updatedAt?: DateTimeFilter<"NonPricingServices"> | Date | string
-    Cabinet?: XOR<CabinetScalarRelationFilter, CabinetWhereInput>
+    clinic?: XOR<ClinicsScalarRelationFilter, ClinicsWhereInput>
   }
 
   export type NonPricingServicesOrderByWithRelationInput = {
     id?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     service_name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    Cabinet?: CabinetOrderByWithRelationInput
+    clinic?: ClinicsOrderByWithRelationInput
   }
 
   export type NonPricingServicesWhereUniqueInput = Prisma.AtLeast<{
@@ -11512,16 +10174,16 @@ export namespace Prisma {
     AND?: NonPricingServicesWhereInput | NonPricingServicesWhereInput[]
     OR?: NonPricingServicesWhereInput[]
     NOT?: NonPricingServicesWhereInput | NonPricingServicesWhereInput[]
-    cabinetId?: IntFilter<"NonPricingServices"> | number
+    clinicId?: IntFilter<"NonPricingServices"> | number
     service_name?: StringFilter<"NonPricingServices"> | string
     createdAt?: DateTimeFilter<"NonPricingServices"> | Date | string
     updatedAt?: DateTimeFilter<"NonPricingServices"> | Date | string
-    Cabinet?: XOR<CabinetScalarRelationFilter, CabinetWhereInput>
+    clinic?: XOR<ClinicsScalarRelationFilter, ClinicsWhereInput>
   }, "id">
 
   export type NonPricingServicesOrderByWithAggregationInput = {
     id?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     service_name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11537,7 +10199,7 @@ export namespace Prisma {
     OR?: NonPricingServicesScalarWhereWithAggregatesInput[]
     NOT?: NonPricingServicesScalarWhereWithAggregatesInput | NonPricingServicesScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"NonPricingServices"> | number
-    cabinetId?: IntWithAggregatesFilter<"NonPricingServices"> | number
+    clinicId?: IntWithAggregatesFilter<"NonPricingServices"> | number
     service_name?: StringWithAggregatesFilter<"NonPricingServices"> | string
     createdAt?: DateTimeWithAggregatesFilter<"NonPricingServices"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"NonPricingServices"> | Date | string
@@ -11547,13 +10209,13 @@ export namespace Prisma {
     url: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    Cabinet: CabinetCreateNestedOneWithoutImagesInput
+    clinic: ClinicsCreateNestedOneWithoutImagesInput
   }
 
   export type ImagesUncheckedCreateInput = {
     id?: number
     url: string
-    cabinetId: number
+    clinicId: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11562,13 +10224,13 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Cabinet?: CabinetUpdateOneRequiredWithoutImagesNestedInput
+    clinic?: ClinicsUpdateOneRequiredWithoutImagesNestedInput
   }
 
   export type ImagesUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
-    cabinetId?: IntFieldUpdateOperationsInput | number
+    clinicId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11576,7 +10238,7 @@ export namespace Prisma {
   export type ImagesCreateManyInput = {
     id?: number
     url: string
-    cabinetId: number
+    clinicId: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11590,7 +10252,7 @@ export namespace Prisma {
   export type ImagesUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
-    cabinetId?: IntFieldUpdateOperationsInput | number
+    clinicId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11600,12 +10262,12 @@ export namespace Prisma {
     end_date: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    Cabinet: CabinetCreateNestedOneWithoutAvailabilitiesInput
+    clinic: ClinicsCreateNestedOneWithoutAvailabilitiesInput
   }
 
   export type availabilitiesUncheckedCreateInput = {
     id?: number
-    cabinetId: number
+    clinicId: number
     start_date: string
     end_date: string
     createdAt?: Date | string
@@ -11617,12 +10279,12 @@ export namespace Prisma {
     end_date?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Cabinet?: CabinetUpdateOneRequiredWithoutAvailabilitiesNestedInput
+    clinic?: ClinicsUpdateOneRequiredWithoutAvailabilitiesNestedInput
   }
 
   export type availabilitiesUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    cabinetId?: IntFieldUpdateOperationsInput | number
+    clinicId?: IntFieldUpdateOperationsInput | number
     start_date?: StringFieldUpdateOperationsInput | string
     end_date?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11631,7 +10293,7 @@ export namespace Prisma {
 
   export type availabilitiesCreateManyInput = {
     id?: number
-    cabinetId: number
+    clinicId: number
     start_date: string
     end_date: string
     createdAt?: Date | string
@@ -11647,7 +10309,7 @@ export namespace Prisma {
 
   export type availabilitiesUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    cabinetId?: IntFieldUpdateOperationsInput | number
+    clinicId?: IntFieldUpdateOperationsInput | number
     start_date?: StringFieldUpdateOperationsInput | string
     end_date?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11705,14 +10367,14 @@ export namespace Prisma {
     userId: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    Cabinet: CabinetCreateNestedOneWithoutReviewsInput
+    clinic: ClinicsCreateNestedOneWithoutReviewsInput
   }
 
   export type ReviewsUncheckedCreateInput = {
     id?: number
     comment: string
     userId: number
-    cabinetId: number
+    clinicId: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11722,14 +10384,14 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Cabinet?: CabinetUpdateOneRequiredWithoutReviewsNestedInput
+    clinic?: ClinicsUpdateOneRequiredWithoutReviewsNestedInput
   }
 
   export type ReviewsUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
-    cabinetId?: IntFieldUpdateOperationsInput | number
+    clinicId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11738,7 +10400,7 @@ export namespace Prisma {
     id?: number
     comment: string
     userId: number
-    cabinetId: number
+    clinicId: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11754,69 +10416,12 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
-    cabinetId?: IntFieldUpdateOperationsInput | number
+    clinicId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type specialitiesCreateInput = {
-    name: string
-    image?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    Cabinets?: CabinetCreateNestedManyWithoutSpecialityInput
-  }
-
-  export type specialitiesUncheckedCreateInput = {
-    id?: number
-    name: string
-    image?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    Cabinets?: CabinetUncheckedCreateNestedManyWithoutSpecialityInput
-  }
-
-  export type specialitiesUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Cabinets?: CabinetUpdateManyWithoutSpecialityNestedInput
-  }
-
-  export type specialitiesUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Cabinets?: CabinetUncheckedUpdateManyWithoutSpecialityNestedInput
-  }
-
-  export type specialitiesCreateManyInput = {
-    id?: number
-    name: string
-    image?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type specialitiesUpdateManyMutationInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type specialitiesUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CabinetCreateInput = {
+  export type ClinicsCreateInput = {
     title: string
     description: string
     address: string
@@ -11834,22 +10439,20 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
-    daysOff?: CabinetCreatedaysOffInput | number[]
+    daysOff?: ClinicsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    images?: ImagesCreateNestedManyWithoutCabinetInput
-    availabilities?: availabilitiesCreateNestedManyWithoutCabinetInput
-    Reviews?: ReviewsCreateNestedManyWithoutCabinetInput
-    PricingServices?: PricingServicesCreateNestedManyWithoutCabinetInput
-    nonPricingServices?: NonPricingServicesCreateNestedManyWithoutCabinetInput
-    speciality: specialitiesCreateNestedOneWithoutCabinetsInput
+    images?: ImagesCreateNestedManyWithoutClinicInput
+    availabilities?: availabilitiesCreateNestedManyWithoutClinicInput
+    Reviews?: ReviewsCreateNestedManyWithoutClinicInput
+    PricingServices?: PricingServicesCreateNestedManyWithoutClinicInput
+    nonPricingServices?: NonPricingServicesCreateNestedManyWithoutClinicInput
   }
 
-  export type CabinetUncheckedCreateInput = {
+  export type ClinicsUncheckedCreateInput = {
     id?: number
     title: string
-    specialityId: number
     description: string
     address: string
     phone: string
@@ -11866,18 +10469,18 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
-    daysOff?: CabinetCreatedaysOffInput | number[]
+    daysOff?: ClinicsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    images?: ImagesUncheckedCreateNestedManyWithoutCabinetInput
-    availabilities?: availabilitiesUncheckedCreateNestedManyWithoutCabinetInput
-    Reviews?: ReviewsUncheckedCreateNestedManyWithoutCabinetInput
-    PricingServices?: PricingServicesUncheckedCreateNestedManyWithoutCabinetInput
-    nonPricingServices?: NonPricingServicesUncheckedCreateNestedManyWithoutCabinetInput
+    images?: ImagesUncheckedCreateNestedManyWithoutClinicInput
+    availabilities?: availabilitiesUncheckedCreateNestedManyWithoutClinicInput
+    Reviews?: ReviewsUncheckedCreateNestedManyWithoutClinicInput
+    PricingServices?: PricingServicesUncheckedCreateNestedManyWithoutClinicInput
+    nonPricingServices?: NonPricingServicesUncheckedCreateNestedManyWithoutClinicInput
   }
 
-  export type CabinetUpdateInput = {
+  export type ClinicsUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -11895,22 +10498,20 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
-    daysOff?: CabinetUpdatedaysOffInput | number[]
+    daysOff?: ClinicsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    images?: ImagesUpdateManyWithoutCabinetNestedInput
-    availabilities?: availabilitiesUpdateManyWithoutCabinetNestedInput
-    Reviews?: ReviewsUpdateManyWithoutCabinetNestedInput
-    PricingServices?: PricingServicesUpdateManyWithoutCabinetNestedInput
-    nonPricingServices?: NonPricingServicesUpdateManyWithoutCabinetNestedInput
-    speciality?: specialitiesUpdateOneRequiredWithoutCabinetsNestedInput
+    images?: ImagesUpdateManyWithoutClinicNestedInput
+    availabilities?: availabilitiesUpdateManyWithoutClinicNestedInput
+    Reviews?: ReviewsUpdateManyWithoutClinicNestedInput
+    PricingServices?: PricingServicesUpdateManyWithoutClinicNestedInput
+    nonPricingServices?: NonPricingServicesUpdateManyWithoutClinicNestedInput
   }
 
-  export type CabinetUncheckedUpdateInput = {
+  export type ClinicsUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
-    specialityId?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
@@ -11927,21 +10528,20 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
-    daysOff?: CabinetUpdatedaysOffInput | number[]
+    daysOff?: ClinicsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    images?: ImagesUncheckedUpdateManyWithoutCabinetNestedInput
-    availabilities?: availabilitiesUncheckedUpdateManyWithoutCabinetNestedInput
-    Reviews?: ReviewsUncheckedUpdateManyWithoutCabinetNestedInput
-    PricingServices?: PricingServicesUncheckedUpdateManyWithoutCabinetNestedInput
-    nonPricingServices?: NonPricingServicesUncheckedUpdateManyWithoutCabinetNestedInput
+    images?: ImagesUncheckedUpdateManyWithoutClinicNestedInput
+    availabilities?: availabilitiesUncheckedUpdateManyWithoutClinicNestedInput
+    Reviews?: ReviewsUncheckedUpdateManyWithoutClinicNestedInput
+    PricingServices?: PricingServicesUncheckedUpdateManyWithoutClinicNestedInput
+    nonPricingServices?: NonPricingServicesUncheckedUpdateManyWithoutClinicNestedInput
   }
 
-  export type CabinetCreateManyInput = {
+  export type ClinicsCreateManyInput = {
     id?: number
     title: string
-    specialityId: number
     description: string
     address: string
     phone: string
@@ -11958,13 +10558,13 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
-    daysOff?: CabinetCreatedaysOffInput | number[]
+    daysOff?: ClinicsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type CabinetUpdateManyMutationInput = {
+  export type ClinicsUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -11982,16 +10582,15 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
-    daysOff?: CabinetUpdatedaysOffInput | number[]
+    daysOff?: ClinicsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type CabinetUncheckedUpdateManyInput = {
+  export type ClinicsUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
-    specialityId?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
@@ -12008,7 +10607,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
-    daysOff?: CabinetUpdatedaysOffInput | number[]
+    daysOff?: ClinicsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12019,12 +10618,12 @@ export namespace Prisma {
     price: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    Cabinet: CabinetCreateNestedOneWithoutPricingServicesInput
+    clinic: ClinicsCreateNestedOneWithoutPricingServicesInput
   }
 
   export type PricingServicesUncheckedCreateInput = {
     id?: number
-    cabinetId: number
+    clinicId: number
     service_name: string
     price: number
     createdAt?: Date | string
@@ -12036,12 +10635,12 @@ export namespace Prisma {
     price?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Cabinet?: CabinetUpdateOneRequiredWithoutPricingServicesNestedInput
+    clinic?: ClinicsUpdateOneRequiredWithoutPricingServicesNestedInput
   }
 
   export type PricingServicesUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    cabinetId?: IntFieldUpdateOperationsInput | number
+    clinicId?: IntFieldUpdateOperationsInput | number
     service_name?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12050,7 +10649,7 @@ export namespace Prisma {
 
   export type PricingServicesCreateManyInput = {
     id?: number
-    cabinetId: number
+    clinicId: number
     service_name: string
     price: number
     createdAt?: Date | string
@@ -12066,7 +10665,7 @@ export namespace Prisma {
 
   export type PricingServicesUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    cabinetId?: IntFieldUpdateOperationsInput | number
+    clinicId?: IntFieldUpdateOperationsInput | number
     service_name?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12077,12 +10676,12 @@ export namespace Prisma {
     service_name: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    Cabinet: CabinetCreateNestedOneWithoutNonPricingServicesInput
+    clinic: ClinicsCreateNestedOneWithoutNonPricingServicesInput
   }
 
   export type NonPricingServicesUncheckedCreateInput = {
     id?: number
-    cabinetId: number
+    clinicId: number
     service_name: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12092,12 +10691,12 @@ export namespace Prisma {
     service_name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Cabinet?: CabinetUpdateOneRequiredWithoutNonPricingServicesNestedInput
+    clinic?: ClinicsUpdateOneRequiredWithoutNonPricingServicesNestedInput
   }
 
   export type NonPricingServicesUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    cabinetId?: IntFieldUpdateOperationsInput | number
+    clinicId?: IntFieldUpdateOperationsInput | number
     service_name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12105,7 +10704,7 @@ export namespace Prisma {
 
   export type NonPricingServicesCreateManyInput = {
     id?: number
-    cabinetId: number
+    clinicId: number
     service_name: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12119,7 +10718,7 @@ export namespace Prisma {
 
   export type NonPricingServicesUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    cabinetId?: IntFieldUpdateOperationsInput | number
+    clinicId?: IntFieldUpdateOperationsInput | number
     service_name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12162,28 +10761,28 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type CabinetScalarRelationFilter = {
-    is?: CabinetWhereInput
-    isNot?: CabinetWhereInput
+  export type ClinicsScalarRelationFilter = {
+    is?: ClinicsWhereInput
+    isNot?: ClinicsWhereInput
   }
 
   export type ImagesCountOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type ImagesAvgOrderByAggregateInput = {
     id?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
   }
 
   export type ImagesMaxOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12191,14 +10790,14 @@ export namespace Prisma {
   export type ImagesMinOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type ImagesSumOrderByAggregateInput = {
     id?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -12251,7 +10850,7 @@ export namespace Prisma {
 
   export type availabilitiesCountOrderByAggregateInput = {
     id?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     start_date?: SortOrder
     end_date?: SortOrder
     createdAt?: SortOrder
@@ -12260,12 +10859,12 @@ export namespace Prisma {
 
   export type availabilitiesAvgOrderByAggregateInput = {
     id?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
   }
 
   export type availabilitiesMaxOrderByAggregateInput = {
     id?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     start_date?: SortOrder
     end_date?: SortOrder
     createdAt?: SortOrder
@@ -12274,7 +10873,7 @@ export namespace Prisma {
 
   export type availabilitiesMinOrderByAggregateInput = {
     id?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     start_date?: SortOrder
     end_date?: SortOrder
     createdAt?: SortOrder
@@ -12283,7 +10882,7 @@ export namespace Prisma {
 
   export type availabilitiesSumOrderByAggregateInput = {
     id?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
   }
 
   export type ServicesCountOrderByAggregateInput = {
@@ -12319,7 +10918,7 @@ export namespace Prisma {
     id?: SortOrder
     comment?: SortOrder
     userId?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12327,14 +10926,14 @@ export namespace Prisma {
   export type ReviewsAvgOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
   }
 
   export type ReviewsMaxOrderByAggregateInput = {
     id?: SortOrder
     comment?: SortOrder
     userId?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12343,7 +10942,7 @@ export namespace Prisma {
     id?: SortOrder
     comment?: SortOrder
     userId?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12351,49 +10950,7 @@ export namespace Prisma {
   export type ReviewsSumOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    cabinetId?: SortOrder
-  }
-
-  export type CabinetListRelationFilter = {
-    every?: CabinetWhereInput
-    some?: CabinetWhereInput
-    none?: CabinetWhereInput
-  }
-
-  export type CabinetOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type specialitiesCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    image?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type specialitiesAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type specialitiesMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    image?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type specialitiesMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    image?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type specialitiesSumOrderByAggregateInput = {
-    id?: SortOrder
+    clinicId?: SortOrder
   }
 
   export type FloatFilter<$PrismaModel = never> = {
@@ -12472,11 +11029,6 @@ export namespace Prisma {
     none?: NonPricingServicesWhereInput
   }
 
-  export type SpecialitiesScalarRelationFilter = {
-    is?: specialitiesWhereInput
-    isNot?: specialitiesWhereInput
-  }
-
   export type ImagesOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -12497,10 +11049,9 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type CabinetCountOrderByAggregateInput = {
+  export type ClinicsCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    specialityId?: SortOrder
     description?: SortOrder
     address?: SortOrder
     phone?: SortOrder
@@ -12523,9 +11074,8 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type CabinetAvgOrderByAggregateInput = {
+  export type ClinicsAvgOrderByAggregateInput = {
     id?: SortOrder
-    specialityId?: SortOrder
     totalViews?: SortOrder
     totalRate?: SortOrder
     numberOfRates?: SortOrder
@@ -12536,10 +11086,9 @@ export namespace Prisma {
     reviewsCount?: SortOrder
   }
 
-  export type CabinetMaxOrderByAggregateInput = {
+  export type ClinicsMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    specialityId?: SortOrder
     description?: SortOrder
     address?: SortOrder
     phone?: SortOrder
@@ -12560,10 +11109,9 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type CabinetMinOrderByAggregateInput = {
+  export type ClinicsMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    specialityId?: SortOrder
     description?: SortOrder
     address?: SortOrder
     phone?: SortOrder
@@ -12584,9 +11132,8 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type CabinetSumOrderByAggregateInput = {
+  export type ClinicsSumOrderByAggregateInput = {
     id?: SortOrder
-    specialityId?: SortOrder
     totalViews?: SortOrder
     totalRate?: SortOrder
     numberOfRates?: SortOrder
@@ -12648,7 +11195,7 @@ export namespace Prisma {
 
   export type PricingServicesCountOrderByAggregateInput = {
     id?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     service_name?: SortOrder
     price?: SortOrder
     createdAt?: SortOrder
@@ -12657,13 +11204,13 @@ export namespace Prisma {
 
   export type PricingServicesAvgOrderByAggregateInput = {
     id?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     price?: SortOrder
   }
 
   export type PricingServicesMaxOrderByAggregateInput = {
     id?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     service_name?: SortOrder
     price?: SortOrder
     createdAt?: SortOrder
@@ -12672,7 +11219,7 @@ export namespace Prisma {
 
   export type PricingServicesMinOrderByAggregateInput = {
     id?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     service_name?: SortOrder
     price?: SortOrder
     createdAt?: SortOrder
@@ -12681,13 +11228,13 @@ export namespace Prisma {
 
   export type PricingServicesSumOrderByAggregateInput = {
     id?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     price?: SortOrder
   }
 
   export type NonPricingServicesCountOrderByAggregateInput = {
     id?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     service_name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12695,12 +11242,12 @@ export namespace Prisma {
 
   export type NonPricingServicesAvgOrderByAggregateInput = {
     id?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
   }
 
   export type NonPricingServicesMaxOrderByAggregateInput = {
     id?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     service_name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12708,7 +11255,7 @@ export namespace Prisma {
 
   export type NonPricingServicesMinOrderByAggregateInput = {
     id?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
     service_name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12716,13 +11263,13 @@ export namespace Prisma {
 
   export type NonPricingServicesSumOrderByAggregateInput = {
     id?: SortOrder
-    cabinetId?: SortOrder
+    clinicId?: SortOrder
   }
 
-  export type CabinetCreateNestedOneWithoutImagesInput = {
-    create?: XOR<CabinetCreateWithoutImagesInput, CabinetUncheckedCreateWithoutImagesInput>
-    connectOrCreate?: CabinetCreateOrConnectWithoutImagesInput
-    connect?: CabinetWhereUniqueInput
+  export type ClinicsCreateNestedOneWithoutImagesInput = {
+    create?: XOR<ClinicsCreateWithoutImagesInput, ClinicsUncheckedCreateWithoutImagesInput>
+    connectOrCreate?: ClinicsCreateOrConnectWithoutImagesInput
+    connect?: ClinicsWhereUniqueInput
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -12733,12 +11280,12 @@ export namespace Prisma {
     set?: Date | string
   }
 
-  export type CabinetUpdateOneRequiredWithoutImagesNestedInput = {
-    create?: XOR<CabinetCreateWithoutImagesInput, CabinetUncheckedCreateWithoutImagesInput>
-    connectOrCreate?: CabinetCreateOrConnectWithoutImagesInput
-    upsert?: CabinetUpsertWithoutImagesInput
-    connect?: CabinetWhereUniqueInput
-    update?: XOR<XOR<CabinetUpdateToOneWithWhereWithoutImagesInput, CabinetUpdateWithoutImagesInput>, CabinetUncheckedUpdateWithoutImagesInput>
+  export type ClinicsUpdateOneRequiredWithoutImagesNestedInput = {
+    create?: XOR<ClinicsCreateWithoutImagesInput, ClinicsUncheckedCreateWithoutImagesInput>
+    connectOrCreate?: ClinicsCreateOrConnectWithoutImagesInput
+    upsert?: ClinicsUpsertWithoutImagesInput
+    connect?: ClinicsWhereUniqueInput
+    update?: XOR<XOR<ClinicsUpdateToOneWithWhereWithoutImagesInput, ClinicsUpdateWithoutImagesInput>, ClinicsUncheckedUpdateWithoutImagesInput>
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -12749,153 +11296,105 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type CabinetCreateNestedOneWithoutAvailabilitiesInput = {
-    create?: XOR<CabinetCreateWithoutAvailabilitiesInput, CabinetUncheckedCreateWithoutAvailabilitiesInput>
-    connectOrCreate?: CabinetCreateOrConnectWithoutAvailabilitiesInput
-    connect?: CabinetWhereUniqueInput
+  export type ClinicsCreateNestedOneWithoutAvailabilitiesInput = {
+    create?: XOR<ClinicsCreateWithoutAvailabilitiesInput, ClinicsUncheckedCreateWithoutAvailabilitiesInput>
+    connectOrCreate?: ClinicsCreateOrConnectWithoutAvailabilitiesInput
+    connect?: ClinicsWhereUniqueInput
   }
 
-  export type CabinetUpdateOneRequiredWithoutAvailabilitiesNestedInput = {
-    create?: XOR<CabinetCreateWithoutAvailabilitiesInput, CabinetUncheckedCreateWithoutAvailabilitiesInput>
-    connectOrCreate?: CabinetCreateOrConnectWithoutAvailabilitiesInput
-    upsert?: CabinetUpsertWithoutAvailabilitiesInput
-    connect?: CabinetWhereUniqueInput
-    update?: XOR<XOR<CabinetUpdateToOneWithWhereWithoutAvailabilitiesInput, CabinetUpdateWithoutAvailabilitiesInput>, CabinetUncheckedUpdateWithoutAvailabilitiesInput>
+  export type ClinicsUpdateOneRequiredWithoutAvailabilitiesNestedInput = {
+    create?: XOR<ClinicsCreateWithoutAvailabilitiesInput, ClinicsUncheckedCreateWithoutAvailabilitiesInput>
+    connectOrCreate?: ClinicsCreateOrConnectWithoutAvailabilitiesInput
+    upsert?: ClinicsUpsertWithoutAvailabilitiesInput
+    connect?: ClinicsWhereUniqueInput
+    update?: XOR<XOR<ClinicsUpdateToOneWithWhereWithoutAvailabilitiesInput, ClinicsUpdateWithoutAvailabilitiesInput>, ClinicsUncheckedUpdateWithoutAvailabilitiesInput>
   }
 
-  export type CabinetCreateNestedOneWithoutReviewsInput = {
-    create?: XOR<CabinetCreateWithoutReviewsInput, CabinetUncheckedCreateWithoutReviewsInput>
-    connectOrCreate?: CabinetCreateOrConnectWithoutReviewsInput
-    connect?: CabinetWhereUniqueInput
+  export type ClinicsCreateNestedOneWithoutReviewsInput = {
+    create?: XOR<ClinicsCreateWithoutReviewsInput, ClinicsUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: ClinicsCreateOrConnectWithoutReviewsInput
+    connect?: ClinicsWhereUniqueInput
   }
 
-  export type CabinetUpdateOneRequiredWithoutReviewsNestedInput = {
-    create?: XOR<CabinetCreateWithoutReviewsInput, CabinetUncheckedCreateWithoutReviewsInput>
-    connectOrCreate?: CabinetCreateOrConnectWithoutReviewsInput
-    upsert?: CabinetUpsertWithoutReviewsInput
-    connect?: CabinetWhereUniqueInput
-    update?: XOR<XOR<CabinetUpdateToOneWithWhereWithoutReviewsInput, CabinetUpdateWithoutReviewsInput>, CabinetUncheckedUpdateWithoutReviewsInput>
+  export type ClinicsUpdateOneRequiredWithoutReviewsNestedInput = {
+    create?: XOR<ClinicsCreateWithoutReviewsInput, ClinicsUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: ClinicsCreateOrConnectWithoutReviewsInput
+    upsert?: ClinicsUpsertWithoutReviewsInput
+    connect?: ClinicsWhereUniqueInput
+    update?: XOR<XOR<ClinicsUpdateToOneWithWhereWithoutReviewsInput, ClinicsUpdateWithoutReviewsInput>, ClinicsUncheckedUpdateWithoutReviewsInput>
   }
 
-  export type CabinetCreateNestedManyWithoutSpecialityInput = {
-    create?: XOR<CabinetCreateWithoutSpecialityInput, CabinetUncheckedCreateWithoutSpecialityInput> | CabinetCreateWithoutSpecialityInput[] | CabinetUncheckedCreateWithoutSpecialityInput[]
-    connectOrCreate?: CabinetCreateOrConnectWithoutSpecialityInput | CabinetCreateOrConnectWithoutSpecialityInput[]
-    createMany?: CabinetCreateManySpecialityInputEnvelope
-    connect?: CabinetWhereUniqueInput | CabinetWhereUniqueInput[]
-  }
-
-  export type CabinetUncheckedCreateNestedManyWithoutSpecialityInput = {
-    create?: XOR<CabinetCreateWithoutSpecialityInput, CabinetUncheckedCreateWithoutSpecialityInput> | CabinetCreateWithoutSpecialityInput[] | CabinetUncheckedCreateWithoutSpecialityInput[]
-    connectOrCreate?: CabinetCreateOrConnectWithoutSpecialityInput | CabinetCreateOrConnectWithoutSpecialityInput[]
-    createMany?: CabinetCreateManySpecialityInputEnvelope
-    connect?: CabinetWhereUniqueInput | CabinetWhereUniqueInput[]
-  }
-
-  export type CabinetUpdateManyWithoutSpecialityNestedInput = {
-    create?: XOR<CabinetCreateWithoutSpecialityInput, CabinetUncheckedCreateWithoutSpecialityInput> | CabinetCreateWithoutSpecialityInput[] | CabinetUncheckedCreateWithoutSpecialityInput[]
-    connectOrCreate?: CabinetCreateOrConnectWithoutSpecialityInput | CabinetCreateOrConnectWithoutSpecialityInput[]
-    upsert?: CabinetUpsertWithWhereUniqueWithoutSpecialityInput | CabinetUpsertWithWhereUniqueWithoutSpecialityInput[]
-    createMany?: CabinetCreateManySpecialityInputEnvelope
-    set?: CabinetWhereUniqueInput | CabinetWhereUniqueInput[]
-    disconnect?: CabinetWhereUniqueInput | CabinetWhereUniqueInput[]
-    delete?: CabinetWhereUniqueInput | CabinetWhereUniqueInput[]
-    connect?: CabinetWhereUniqueInput | CabinetWhereUniqueInput[]
-    update?: CabinetUpdateWithWhereUniqueWithoutSpecialityInput | CabinetUpdateWithWhereUniqueWithoutSpecialityInput[]
-    updateMany?: CabinetUpdateManyWithWhereWithoutSpecialityInput | CabinetUpdateManyWithWhereWithoutSpecialityInput[]
-    deleteMany?: CabinetScalarWhereInput | CabinetScalarWhereInput[]
-  }
-
-  export type CabinetUncheckedUpdateManyWithoutSpecialityNestedInput = {
-    create?: XOR<CabinetCreateWithoutSpecialityInput, CabinetUncheckedCreateWithoutSpecialityInput> | CabinetCreateWithoutSpecialityInput[] | CabinetUncheckedCreateWithoutSpecialityInput[]
-    connectOrCreate?: CabinetCreateOrConnectWithoutSpecialityInput | CabinetCreateOrConnectWithoutSpecialityInput[]
-    upsert?: CabinetUpsertWithWhereUniqueWithoutSpecialityInput | CabinetUpsertWithWhereUniqueWithoutSpecialityInput[]
-    createMany?: CabinetCreateManySpecialityInputEnvelope
-    set?: CabinetWhereUniqueInput | CabinetWhereUniqueInput[]
-    disconnect?: CabinetWhereUniqueInput | CabinetWhereUniqueInput[]
-    delete?: CabinetWhereUniqueInput | CabinetWhereUniqueInput[]
-    connect?: CabinetWhereUniqueInput | CabinetWhereUniqueInput[]
-    update?: CabinetUpdateWithWhereUniqueWithoutSpecialityInput | CabinetUpdateWithWhereUniqueWithoutSpecialityInput[]
-    updateMany?: CabinetUpdateManyWithWhereWithoutSpecialityInput | CabinetUpdateManyWithWhereWithoutSpecialityInput[]
-    deleteMany?: CabinetScalarWhereInput | CabinetScalarWhereInput[]
-  }
-
-  export type CabinetCreatedaysOffInput = {
+  export type ClinicsCreatedaysOffInput = {
     set: number[]
   }
 
-  export type ImagesCreateNestedManyWithoutCabinetInput = {
-    create?: XOR<ImagesCreateWithoutCabinetInput, ImagesUncheckedCreateWithoutCabinetInput> | ImagesCreateWithoutCabinetInput[] | ImagesUncheckedCreateWithoutCabinetInput[]
-    connectOrCreate?: ImagesCreateOrConnectWithoutCabinetInput | ImagesCreateOrConnectWithoutCabinetInput[]
-    createMany?: ImagesCreateManyCabinetInputEnvelope
+  export type ImagesCreateNestedManyWithoutClinicInput = {
+    create?: XOR<ImagesCreateWithoutClinicInput, ImagesUncheckedCreateWithoutClinicInput> | ImagesCreateWithoutClinicInput[] | ImagesUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: ImagesCreateOrConnectWithoutClinicInput | ImagesCreateOrConnectWithoutClinicInput[]
+    createMany?: ImagesCreateManyClinicInputEnvelope
     connect?: ImagesWhereUniqueInput | ImagesWhereUniqueInput[]
   }
 
-  export type availabilitiesCreateNestedManyWithoutCabinetInput = {
-    create?: XOR<availabilitiesCreateWithoutCabinetInput, availabilitiesUncheckedCreateWithoutCabinetInput> | availabilitiesCreateWithoutCabinetInput[] | availabilitiesUncheckedCreateWithoutCabinetInput[]
-    connectOrCreate?: availabilitiesCreateOrConnectWithoutCabinetInput | availabilitiesCreateOrConnectWithoutCabinetInput[]
-    createMany?: availabilitiesCreateManyCabinetInputEnvelope
+  export type availabilitiesCreateNestedManyWithoutClinicInput = {
+    create?: XOR<availabilitiesCreateWithoutClinicInput, availabilitiesUncheckedCreateWithoutClinicInput> | availabilitiesCreateWithoutClinicInput[] | availabilitiesUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: availabilitiesCreateOrConnectWithoutClinicInput | availabilitiesCreateOrConnectWithoutClinicInput[]
+    createMany?: availabilitiesCreateManyClinicInputEnvelope
     connect?: availabilitiesWhereUniqueInput | availabilitiesWhereUniqueInput[]
   }
 
-  export type ReviewsCreateNestedManyWithoutCabinetInput = {
-    create?: XOR<ReviewsCreateWithoutCabinetInput, ReviewsUncheckedCreateWithoutCabinetInput> | ReviewsCreateWithoutCabinetInput[] | ReviewsUncheckedCreateWithoutCabinetInput[]
-    connectOrCreate?: ReviewsCreateOrConnectWithoutCabinetInput | ReviewsCreateOrConnectWithoutCabinetInput[]
-    createMany?: ReviewsCreateManyCabinetInputEnvelope
+  export type ReviewsCreateNestedManyWithoutClinicInput = {
+    create?: XOR<ReviewsCreateWithoutClinicInput, ReviewsUncheckedCreateWithoutClinicInput> | ReviewsCreateWithoutClinicInput[] | ReviewsUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: ReviewsCreateOrConnectWithoutClinicInput | ReviewsCreateOrConnectWithoutClinicInput[]
+    createMany?: ReviewsCreateManyClinicInputEnvelope
     connect?: ReviewsWhereUniqueInput | ReviewsWhereUniqueInput[]
   }
 
-  export type PricingServicesCreateNestedManyWithoutCabinetInput = {
-    create?: XOR<PricingServicesCreateWithoutCabinetInput, PricingServicesUncheckedCreateWithoutCabinetInput> | PricingServicesCreateWithoutCabinetInput[] | PricingServicesUncheckedCreateWithoutCabinetInput[]
-    connectOrCreate?: PricingServicesCreateOrConnectWithoutCabinetInput | PricingServicesCreateOrConnectWithoutCabinetInput[]
-    createMany?: PricingServicesCreateManyCabinetInputEnvelope
+  export type PricingServicesCreateNestedManyWithoutClinicInput = {
+    create?: XOR<PricingServicesCreateWithoutClinicInput, PricingServicesUncheckedCreateWithoutClinicInput> | PricingServicesCreateWithoutClinicInput[] | PricingServicesUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: PricingServicesCreateOrConnectWithoutClinicInput | PricingServicesCreateOrConnectWithoutClinicInput[]
+    createMany?: PricingServicesCreateManyClinicInputEnvelope
     connect?: PricingServicesWhereUniqueInput | PricingServicesWhereUniqueInput[]
   }
 
-  export type NonPricingServicesCreateNestedManyWithoutCabinetInput = {
-    create?: XOR<NonPricingServicesCreateWithoutCabinetInput, NonPricingServicesUncheckedCreateWithoutCabinetInput> | NonPricingServicesCreateWithoutCabinetInput[] | NonPricingServicesUncheckedCreateWithoutCabinetInput[]
-    connectOrCreate?: NonPricingServicesCreateOrConnectWithoutCabinetInput | NonPricingServicesCreateOrConnectWithoutCabinetInput[]
-    createMany?: NonPricingServicesCreateManyCabinetInputEnvelope
+  export type NonPricingServicesCreateNestedManyWithoutClinicInput = {
+    create?: XOR<NonPricingServicesCreateWithoutClinicInput, NonPricingServicesUncheckedCreateWithoutClinicInput> | NonPricingServicesCreateWithoutClinicInput[] | NonPricingServicesUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: NonPricingServicesCreateOrConnectWithoutClinicInput | NonPricingServicesCreateOrConnectWithoutClinicInput[]
+    createMany?: NonPricingServicesCreateManyClinicInputEnvelope
     connect?: NonPricingServicesWhereUniqueInput | NonPricingServicesWhereUniqueInput[]
   }
 
-  export type specialitiesCreateNestedOneWithoutCabinetsInput = {
-    create?: XOR<specialitiesCreateWithoutCabinetsInput, specialitiesUncheckedCreateWithoutCabinetsInput>
-    connectOrCreate?: specialitiesCreateOrConnectWithoutCabinetsInput
-    connect?: specialitiesWhereUniqueInput
-  }
-
-  export type ImagesUncheckedCreateNestedManyWithoutCabinetInput = {
-    create?: XOR<ImagesCreateWithoutCabinetInput, ImagesUncheckedCreateWithoutCabinetInput> | ImagesCreateWithoutCabinetInput[] | ImagesUncheckedCreateWithoutCabinetInput[]
-    connectOrCreate?: ImagesCreateOrConnectWithoutCabinetInput | ImagesCreateOrConnectWithoutCabinetInput[]
-    createMany?: ImagesCreateManyCabinetInputEnvelope
+  export type ImagesUncheckedCreateNestedManyWithoutClinicInput = {
+    create?: XOR<ImagesCreateWithoutClinicInput, ImagesUncheckedCreateWithoutClinicInput> | ImagesCreateWithoutClinicInput[] | ImagesUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: ImagesCreateOrConnectWithoutClinicInput | ImagesCreateOrConnectWithoutClinicInput[]
+    createMany?: ImagesCreateManyClinicInputEnvelope
     connect?: ImagesWhereUniqueInput | ImagesWhereUniqueInput[]
   }
 
-  export type availabilitiesUncheckedCreateNestedManyWithoutCabinetInput = {
-    create?: XOR<availabilitiesCreateWithoutCabinetInput, availabilitiesUncheckedCreateWithoutCabinetInput> | availabilitiesCreateWithoutCabinetInput[] | availabilitiesUncheckedCreateWithoutCabinetInput[]
-    connectOrCreate?: availabilitiesCreateOrConnectWithoutCabinetInput | availabilitiesCreateOrConnectWithoutCabinetInput[]
-    createMany?: availabilitiesCreateManyCabinetInputEnvelope
+  export type availabilitiesUncheckedCreateNestedManyWithoutClinicInput = {
+    create?: XOR<availabilitiesCreateWithoutClinicInput, availabilitiesUncheckedCreateWithoutClinicInput> | availabilitiesCreateWithoutClinicInput[] | availabilitiesUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: availabilitiesCreateOrConnectWithoutClinicInput | availabilitiesCreateOrConnectWithoutClinicInput[]
+    createMany?: availabilitiesCreateManyClinicInputEnvelope
     connect?: availabilitiesWhereUniqueInput | availabilitiesWhereUniqueInput[]
   }
 
-  export type ReviewsUncheckedCreateNestedManyWithoutCabinetInput = {
-    create?: XOR<ReviewsCreateWithoutCabinetInput, ReviewsUncheckedCreateWithoutCabinetInput> | ReviewsCreateWithoutCabinetInput[] | ReviewsUncheckedCreateWithoutCabinetInput[]
-    connectOrCreate?: ReviewsCreateOrConnectWithoutCabinetInput | ReviewsCreateOrConnectWithoutCabinetInput[]
-    createMany?: ReviewsCreateManyCabinetInputEnvelope
+  export type ReviewsUncheckedCreateNestedManyWithoutClinicInput = {
+    create?: XOR<ReviewsCreateWithoutClinicInput, ReviewsUncheckedCreateWithoutClinicInput> | ReviewsCreateWithoutClinicInput[] | ReviewsUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: ReviewsCreateOrConnectWithoutClinicInput | ReviewsCreateOrConnectWithoutClinicInput[]
+    createMany?: ReviewsCreateManyClinicInputEnvelope
     connect?: ReviewsWhereUniqueInput | ReviewsWhereUniqueInput[]
   }
 
-  export type PricingServicesUncheckedCreateNestedManyWithoutCabinetInput = {
-    create?: XOR<PricingServicesCreateWithoutCabinetInput, PricingServicesUncheckedCreateWithoutCabinetInput> | PricingServicesCreateWithoutCabinetInput[] | PricingServicesUncheckedCreateWithoutCabinetInput[]
-    connectOrCreate?: PricingServicesCreateOrConnectWithoutCabinetInput | PricingServicesCreateOrConnectWithoutCabinetInput[]
-    createMany?: PricingServicesCreateManyCabinetInputEnvelope
+  export type PricingServicesUncheckedCreateNestedManyWithoutClinicInput = {
+    create?: XOR<PricingServicesCreateWithoutClinicInput, PricingServicesUncheckedCreateWithoutClinicInput> | PricingServicesCreateWithoutClinicInput[] | PricingServicesUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: PricingServicesCreateOrConnectWithoutClinicInput | PricingServicesCreateOrConnectWithoutClinicInput[]
+    createMany?: PricingServicesCreateManyClinicInputEnvelope
     connect?: PricingServicesWhereUniqueInput | PricingServicesWhereUniqueInput[]
   }
 
-  export type NonPricingServicesUncheckedCreateNestedManyWithoutCabinetInput = {
-    create?: XOR<NonPricingServicesCreateWithoutCabinetInput, NonPricingServicesUncheckedCreateWithoutCabinetInput> | NonPricingServicesCreateWithoutCabinetInput[] | NonPricingServicesUncheckedCreateWithoutCabinetInput[]
-    connectOrCreate?: NonPricingServicesCreateOrConnectWithoutCabinetInput | NonPricingServicesCreateOrConnectWithoutCabinetInput[]
-    createMany?: NonPricingServicesCreateManyCabinetInputEnvelope
+  export type NonPricingServicesUncheckedCreateNestedManyWithoutClinicInput = {
+    create?: XOR<NonPricingServicesCreateWithoutClinicInput, NonPricingServicesUncheckedCreateWithoutClinicInput> | NonPricingServicesCreateWithoutClinicInput[] | NonPricingServicesUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: NonPricingServicesCreateOrConnectWithoutClinicInput | NonPricingServicesCreateOrConnectWithoutClinicInput[]
+    createMany?: NonPricingServicesCreateManyClinicInputEnvelope
     connect?: NonPricingServicesWhereUniqueInput | NonPricingServicesWhereUniqueInput[]
   }
 
@@ -12911,185 +11410,177 @@ export namespace Prisma {
     set?: boolean
   }
 
-  export type CabinetUpdatedaysOffInput = {
+  export type ClinicsUpdatedaysOffInput = {
     set?: number[]
     push?: number | number[]
   }
 
-  export type ImagesUpdateManyWithoutCabinetNestedInput = {
-    create?: XOR<ImagesCreateWithoutCabinetInput, ImagesUncheckedCreateWithoutCabinetInput> | ImagesCreateWithoutCabinetInput[] | ImagesUncheckedCreateWithoutCabinetInput[]
-    connectOrCreate?: ImagesCreateOrConnectWithoutCabinetInput | ImagesCreateOrConnectWithoutCabinetInput[]
-    upsert?: ImagesUpsertWithWhereUniqueWithoutCabinetInput | ImagesUpsertWithWhereUniqueWithoutCabinetInput[]
-    createMany?: ImagesCreateManyCabinetInputEnvelope
+  export type ImagesUpdateManyWithoutClinicNestedInput = {
+    create?: XOR<ImagesCreateWithoutClinicInput, ImagesUncheckedCreateWithoutClinicInput> | ImagesCreateWithoutClinicInput[] | ImagesUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: ImagesCreateOrConnectWithoutClinicInput | ImagesCreateOrConnectWithoutClinicInput[]
+    upsert?: ImagesUpsertWithWhereUniqueWithoutClinicInput | ImagesUpsertWithWhereUniqueWithoutClinicInput[]
+    createMany?: ImagesCreateManyClinicInputEnvelope
     set?: ImagesWhereUniqueInput | ImagesWhereUniqueInput[]
     disconnect?: ImagesWhereUniqueInput | ImagesWhereUniqueInput[]
     delete?: ImagesWhereUniqueInput | ImagesWhereUniqueInput[]
     connect?: ImagesWhereUniqueInput | ImagesWhereUniqueInput[]
-    update?: ImagesUpdateWithWhereUniqueWithoutCabinetInput | ImagesUpdateWithWhereUniqueWithoutCabinetInput[]
-    updateMany?: ImagesUpdateManyWithWhereWithoutCabinetInput | ImagesUpdateManyWithWhereWithoutCabinetInput[]
+    update?: ImagesUpdateWithWhereUniqueWithoutClinicInput | ImagesUpdateWithWhereUniqueWithoutClinicInput[]
+    updateMany?: ImagesUpdateManyWithWhereWithoutClinicInput | ImagesUpdateManyWithWhereWithoutClinicInput[]
     deleteMany?: ImagesScalarWhereInput | ImagesScalarWhereInput[]
   }
 
-  export type availabilitiesUpdateManyWithoutCabinetNestedInput = {
-    create?: XOR<availabilitiesCreateWithoutCabinetInput, availabilitiesUncheckedCreateWithoutCabinetInput> | availabilitiesCreateWithoutCabinetInput[] | availabilitiesUncheckedCreateWithoutCabinetInput[]
-    connectOrCreate?: availabilitiesCreateOrConnectWithoutCabinetInput | availabilitiesCreateOrConnectWithoutCabinetInput[]
-    upsert?: availabilitiesUpsertWithWhereUniqueWithoutCabinetInput | availabilitiesUpsertWithWhereUniqueWithoutCabinetInput[]
-    createMany?: availabilitiesCreateManyCabinetInputEnvelope
+  export type availabilitiesUpdateManyWithoutClinicNestedInput = {
+    create?: XOR<availabilitiesCreateWithoutClinicInput, availabilitiesUncheckedCreateWithoutClinicInput> | availabilitiesCreateWithoutClinicInput[] | availabilitiesUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: availabilitiesCreateOrConnectWithoutClinicInput | availabilitiesCreateOrConnectWithoutClinicInput[]
+    upsert?: availabilitiesUpsertWithWhereUniqueWithoutClinicInput | availabilitiesUpsertWithWhereUniqueWithoutClinicInput[]
+    createMany?: availabilitiesCreateManyClinicInputEnvelope
     set?: availabilitiesWhereUniqueInput | availabilitiesWhereUniqueInput[]
     disconnect?: availabilitiesWhereUniqueInput | availabilitiesWhereUniqueInput[]
     delete?: availabilitiesWhereUniqueInput | availabilitiesWhereUniqueInput[]
     connect?: availabilitiesWhereUniqueInput | availabilitiesWhereUniqueInput[]
-    update?: availabilitiesUpdateWithWhereUniqueWithoutCabinetInput | availabilitiesUpdateWithWhereUniqueWithoutCabinetInput[]
-    updateMany?: availabilitiesUpdateManyWithWhereWithoutCabinetInput | availabilitiesUpdateManyWithWhereWithoutCabinetInput[]
+    update?: availabilitiesUpdateWithWhereUniqueWithoutClinicInput | availabilitiesUpdateWithWhereUniqueWithoutClinicInput[]
+    updateMany?: availabilitiesUpdateManyWithWhereWithoutClinicInput | availabilitiesUpdateManyWithWhereWithoutClinicInput[]
     deleteMany?: availabilitiesScalarWhereInput | availabilitiesScalarWhereInput[]
   }
 
-  export type ReviewsUpdateManyWithoutCabinetNestedInput = {
-    create?: XOR<ReviewsCreateWithoutCabinetInput, ReviewsUncheckedCreateWithoutCabinetInput> | ReviewsCreateWithoutCabinetInput[] | ReviewsUncheckedCreateWithoutCabinetInput[]
-    connectOrCreate?: ReviewsCreateOrConnectWithoutCabinetInput | ReviewsCreateOrConnectWithoutCabinetInput[]
-    upsert?: ReviewsUpsertWithWhereUniqueWithoutCabinetInput | ReviewsUpsertWithWhereUniqueWithoutCabinetInput[]
-    createMany?: ReviewsCreateManyCabinetInputEnvelope
+  export type ReviewsUpdateManyWithoutClinicNestedInput = {
+    create?: XOR<ReviewsCreateWithoutClinicInput, ReviewsUncheckedCreateWithoutClinicInput> | ReviewsCreateWithoutClinicInput[] | ReviewsUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: ReviewsCreateOrConnectWithoutClinicInput | ReviewsCreateOrConnectWithoutClinicInput[]
+    upsert?: ReviewsUpsertWithWhereUniqueWithoutClinicInput | ReviewsUpsertWithWhereUniqueWithoutClinicInput[]
+    createMany?: ReviewsCreateManyClinicInputEnvelope
     set?: ReviewsWhereUniqueInput | ReviewsWhereUniqueInput[]
     disconnect?: ReviewsWhereUniqueInput | ReviewsWhereUniqueInput[]
     delete?: ReviewsWhereUniqueInput | ReviewsWhereUniqueInput[]
     connect?: ReviewsWhereUniqueInput | ReviewsWhereUniqueInput[]
-    update?: ReviewsUpdateWithWhereUniqueWithoutCabinetInput | ReviewsUpdateWithWhereUniqueWithoutCabinetInput[]
-    updateMany?: ReviewsUpdateManyWithWhereWithoutCabinetInput | ReviewsUpdateManyWithWhereWithoutCabinetInput[]
+    update?: ReviewsUpdateWithWhereUniqueWithoutClinicInput | ReviewsUpdateWithWhereUniqueWithoutClinicInput[]
+    updateMany?: ReviewsUpdateManyWithWhereWithoutClinicInput | ReviewsUpdateManyWithWhereWithoutClinicInput[]
     deleteMany?: ReviewsScalarWhereInput | ReviewsScalarWhereInput[]
   }
 
-  export type PricingServicesUpdateManyWithoutCabinetNestedInput = {
-    create?: XOR<PricingServicesCreateWithoutCabinetInput, PricingServicesUncheckedCreateWithoutCabinetInput> | PricingServicesCreateWithoutCabinetInput[] | PricingServicesUncheckedCreateWithoutCabinetInput[]
-    connectOrCreate?: PricingServicesCreateOrConnectWithoutCabinetInput | PricingServicesCreateOrConnectWithoutCabinetInput[]
-    upsert?: PricingServicesUpsertWithWhereUniqueWithoutCabinetInput | PricingServicesUpsertWithWhereUniqueWithoutCabinetInput[]
-    createMany?: PricingServicesCreateManyCabinetInputEnvelope
+  export type PricingServicesUpdateManyWithoutClinicNestedInput = {
+    create?: XOR<PricingServicesCreateWithoutClinicInput, PricingServicesUncheckedCreateWithoutClinicInput> | PricingServicesCreateWithoutClinicInput[] | PricingServicesUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: PricingServicesCreateOrConnectWithoutClinicInput | PricingServicesCreateOrConnectWithoutClinicInput[]
+    upsert?: PricingServicesUpsertWithWhereUniqueWithoutClinicInput | PricingServicesUpsertWithWhereUniqueWithoutClinicInput[]
+    createMany?: PricingServicesCreateManyClinicInputEnvelope
     set?: PricingServicesWhereUniqueInput | PricingServicesWhereUniqueInput[]
     disconnect?: PricingServicesWhereUniqueInput | PricingServicesWhereUniqueInput[]
     delete?: PricingServicesWhereUniqueInput | PricingServicesWhereUniqueInput[]
     connect?: PricingServicesWhereUniqueInput | PricingServicesWhereUniqueInput[]
-    update?: PricingServicesUpdateWithWhereUniqueWithoutCabinetInput | PricingServicesUpdateWithWhereUniqueWithoutCabinetInput[]
-    updateMany?: PricingServicesUpdateManyWithWhereWithoutCabinetInput | PricingServicesUpdateManyWithWhereWithoutCabinetInput[]
+    update?: PricingServicesUpdateWithWhereUniqueWithoutClinicInput | PricingServicesUpdateWithWhereUniqueWithoutClinicInput[]
+    updateMany?: PricingServicesUpdateManyWithWhereWithoutClinicInput | PricingServicesUpdateManyWithWhereWithoutClinicInput[]
     deleteMany?: PricingServicesScalarWhereInput | PricingServicesScalarWhereInput[]
   }
 
-  export type NonPricingServicesUpdateManyWithoutCabinetNestedInput = {
-    create?: XOR<NonPricingServicesCreateWithoutCabinetInput, NonPricingServicesUncheckedCreateWithoutCabinetInput> | NonPricingServicesCreateWithoutCabinetInput[] | NonPricingServicesUncheckedCreateWithoutCabinetInput[]
-    connectOrCreate?: NonPricingServicesCreateOrConnectWithoutCabinetInput | NonPricingServicesCreateOrConnectWithoutCabinetInput[]
-    upsert?: NonPricingServicesUpsertWithWhereUniqueWithoutCabinetInput | NonPricingServicesUpsertWithWhereUniqueWithoutCabinetInput[]
-    createMany?: NonPricingServicesCreateManyCabinetInputEnvelope
+  export type NonPricingServicesUpdateManyWithoutClinicNestedInput = {
+    create?: XOR<NonPricingServicesCreateWithoutClinicInput, NonPricingServicesUncheckedCreateWithoutClinicInput> | NonPricingServicesCreateWithoutClinicInput[] | NonPricingServicesUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: NonPricingServicesCreateOrConnectWithoutClinicInput | NonPricingServicesCreateOrConnectWithoutClinicInput[]
+    upsert?: NonPricingServicesUpsertWithWhereUniqueWithoutClinicInput | NonPricingServicesUpsertWithWhereUniqueWithoutClinicInput[]
+    createMany?: NonPricingServicesCreateManyClinicInputEnvelope
     set?: NonPricingServicesWhereUniqueInput | NonPricingServicesWhereUniqueInput[]
     disconnect?: NonPricingServicesWhereUniqueInput | NonPricingServicesWhereUniqueInput[]
     delete?: NonPricingServicesWhereUniqueInput | NonPricingServicesWhereUniqueInput[]
     connect?: NonPricingServicesWhereUniqueInput | NonPricingServicesWhereUniqueInput[]
-    update?: NonPricingServicesUpdateWithWhereUniqueWithoutCabinetInput | NonPricingServicesUpdateWithWhereUniqueWithoutCabinetInput[]
-    updateMany?: NonPricingServicesUpdateManyWithWhereWithoutCabinetInput | NonPricingServicesUpdateManyWithWhereWithoutCabinetInput[]
+    update?: NonPricingServicesUpdateWithWhereUniqueWithoutClinicInput | NonPricingServicesUpdateWithWhereUniqueWithoutClinicInput[]
+    updateMany?: NonPricingServicesUpdateManyWithWhereWithoutClinicInput | NonPricingServicesUpdateManyWithWhereWithoutClinicInput[]
     deleteMany?: NonPricingServicesScalarWhereInput | NonPricingServicesScalarWhereInput[]
   }
 
-  export type specialitiesUpdateOneRequiredWithoutCabinetsNestedInput = {
-    create?: XOR<specialitiesCreateWithoutCabinetsInput, specialitiesUncheckedCreateWithoutCabinetsInput>
-    connectOrCreate?: specialitiesCreateOrConnectWithoutCabinetsInput
-    upsert?: specialitiesUpsertWithoutCabinetsInput
-    connect?: specialitiesWhereUniqueInput
-    update?: XOR<XOR<specialitiesUpdateToOneWithWhereWithoutCabinetsInput, specialitiesUpdateWithoutCabinetsInput>, specialitiesUncheckedUpdateWithoutCabinetsInput>
-  }
-
-  export type ImagesUncheckedUpdateManyWithoutCabinetNestedInput = {
-    create?: XOR<ImagesCreateWithoutCabinetInput, ImagesUncheckedCreateWithoutCabinetInput> | ImagesCreateWithoutCabinetInput[] | ImagesUncheckedCreateWithoutCabinetInput[]
-    connectOrCreate?: ImagesCreateOrConnectWithoutCabinetInput | ImagesCreateOrConnectWithoutCabinetInput[]
-    upsert?: ImagesUpsertWithWhereUniqueWithoutCabinetInput | ImagesUpsertWithWhereUniqueWithoutCabinetInput[]
-    createMany?: ImagesCreateManyCabinetInputEnvelope
+  export type ImagesUncheckedUpdateManyWithoutClinicNestedInput = {
+    create?: XOR<ImagesCreateWithoutClinicInput, ImagesUncheckedCreateWithoutClinicInput> | ImagesCreateWithoutClinicInput[] | ImagesUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: ImagesCreateOrConnectWithoutClinicInput | ImagesCreateOrConnectWithoutClinicInput[]
+    upsert?: ImagesUpsertWithWhereUniqueWithoutClinicInput | ImagesUpsertWithWhereUniqueWithoutClinicInput[]
+    createMany?: ImagesCreateManyClinicInputEnvelope
     set?: ImagesWhereUniqueInput | ImagesWhereUniqueInput[]
     disconnect?: ImagesWhereUniqueInput | ImagesWhereUniqueInput[]
     delete?: ImagesWhereUniqueInput | ImagesWhereUniqueInput[]
     connect?: ImagesWhereUniqueInput | ImagesWhereUniqueInput[]
-    update?: ImagesUpdateWithWhereUniqueWithoutCabinetInput | ImagesUpdateWithWhereUniqueWithoutCabinetInput[]
-    updateMany?: ImagesUpdateManyWithWhereWithoutCabinetInput | ImagesUpdateManyWithWhereWithoutCabinetInput[]
+    update?: ImagesUpdateWithWhereUniqueWithoutClinicInput | ImagesUpdateWithWhereUniqueWithoutClinicInput[]
+    updateMany?: ImagesUpdateManyWithWhereWithoutClinicInput | ImagesUpdateManyWithWhereWithoutClinicInput[]
     deleteMany?: ImagesScalarWhereInput | ImagesScalarWhereInput[]
   }
 
-  export type availabilitiesUncheckedUpdateManyWithoutCabinetNestedInput = {
-    create?: XOR<availabilitiesCreateWithoutCabinetInput, availabilitiesUncheckedCreateWithoutCabinetInput> | availabilitiesCreateWithoutCabinetInput[] | availabilitiesUncheckedCreateWithoutCabinetInput[]
-    connectOrCreate?: availabilitiesCreateOrConnectWithoutCabinetInput | availabilitiesCreateOrConnectWithoutCabinetInput[]
-    upsert?: availabilitiesUpsertWithWhereUniqueWithoutCabinetInput | availabilitiesUpsertWithWhereUniqueWithoutCabinetInput[]
-    createMany?: availabilitiesCreateManyCabinetInputEnvelope
+  export type availabilitiesUncheckedUpdateManyWithoutClinicNestedInput = {
+    create?: XOR<availabilitiesCreateWithoutClinicInput, availabilitiesUncheckedCreateWithoutClinicInput> | availabilitiesCreateWithoutClinicInput[] | availabilitiesUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: availabilitiesCreateOrConnectWithoutClinicInput | availabilitiesCreateOrConnectWithoutClinicInput[]
+    upsert?: availabilitiesUpsertWithWhereUniqueWithoutClinicInput | availabilitiesUpsertWithWhereUniqueWithoutClinicInput[]
+    createMany?: availabilitiesCreateManyClinicInputEnvelope
     set?: availabilitiesWhereUniqueInput | availabilitiesWhereUniqueInput[]
     disconnect?: availabilitiesWhereUniqueInput | availabilitiesWhereUniqueInput[]
     delete?: availabilitiesWhereUniqueInput | availabilitiesWhereUniqueInput[]
     connect?: availabilitiesWhereUniqueInput | availabilitiesWhereUniqueInput[]
-    update?: availabilitiesUpdateWithWhereUniqueWithoutCabinetInput | availabilitiesUpdateWithWhereUniqueWithoutCabinetInput[]
-    updateMany?: availabilitiesUpdateManyWithWhereWithoutCabinetInput | availabilitiesUpdateManyWithWhereWithoutCabinetInput[]
+    update?: availabilitiesUpdateWithWhereUniqueWithoutClinicInput | availabilitiesUpdateWithWhereUniqueWithoutClinicInput[]
+    updateMany?: availabilitiesUpdateManyWithWhereWithoutClinicInput | availabilitiesUpdateManyWithWhereWithoutClinicInput[]
     deleteMany?: availabilitiesScalarWhereInput | availabilitiesScalarWhereInput[]
   }
 
-  export type ReviewsUncheckedUpdateManyWithoutCabinetNestedInput = {
-    create?: XOR<ReviewsCreateWithoutCabinetInput, ReviewsUncheckedCreateWithoutCabinetInput> | ReviewsCreateWithoutCabinetInput[] | ReviewsUncheckedCreateWithoutCabinetInput[]
-    connectOrCreate?: ReviewsCreateOrConnectWithoutCabinetInput | ReviewsCreateOrConnectWithoutCabinetInput[]
-    upsert?: ReviewsUpsertWithWhereUniqueWithoutCabinetInput | ReviewsUpsertWithWhereUniqueWithoutCabinetInput[]
-    createMany?: ReviewsCreateManyCabinetInputEnvelope
+  export type ReviewsUncheckedUpdateManyWithoutClinicNestedInput = {
+    create?: XOR<ReviewsCreateWithoutClinicInput, ReviewsUncheckedCreateWithoutClinicInput> | ReviewsCreateWithoutClinicInput[] | ReviewsUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: ReviewsCreateOrConnectWithoutClinicInput | ReviewsCreateOrConnectWithoutClinicInput[]
+    upsert?: ReviewsUpsertWithWhereUniqueWithoutClinicInput | ReviewsUpsertWithWhereUniqueWithoutClinicInput[]
+    createMany?: ReviewsCreateManyClinicInputEnvelope
     set?: ReviewsWhereUniqueInput | ReviewsWhereUniqueInput[]
     disconnect?: ReviewsWhereUniqueInput | ReviewsWhereUniqueInput[]
     delete?: ReviewsWhereUniqueInput | ReviewsWhereUniqueInput[]
     connect?: ReviewsWhereUniqueInput | ReviewsWhereUniqueInput[]
-    update?: ReviewsUpdateWithWhereUniqueWithoutCabinetInput | ReviewsUpdateWithWhereUniqueWithoutCabinetInput[]
-    updateMany?: ReviewsUpdateManyWithWhereWithoutCabinetInput | ReviewsUpdateManyWithWhereWithoutCabinetInput[]
+    update?: ReviewsUpdateWithWhereUniqueWithoutClinicInput | ReviewsUpdateWithWhereUniqueWithoutClinicInput[]
+    updateMany?: ReviewsUpdateManyWithWhereWithoutClinicInput | ReviewsUpdateManyWithWhereWithoutClinicInput[]
     deleteMany?: ReviewsScalarWhereInput | ReviewsScalarWhereInput[]
   }
 
-  export type PricingServicesUncheckedUpdateManyWithoutCabinetNestedInput = {
-    create?: XOR<PricingServicesCreateWithoutCabinetInput, PricingServicesUncheckedCreateWithoutCabinetInput> | PricingServicesCreateWithoutCabinetInput[] | PricingServicesUncheckedCreateWithoutCabinetInput[]
-    connectOrCreate?: PricingServicesCreateOrConnectWithoutCabinetInput | PricingServicesCreateOrConnectWithoutCabinetInput[]
-    upsert?: PricingServicesUpsertWithWhereUniqueWithoutCabinetInput | PricingServicesUpsertWithWhereUniqueWithoutCabinetInput[]
-    createMany?: PricingServicesCreateManyCabinetInputEnvelope
+  export type PricingServicesUncheckedUpdateManyWithoutClinicNestedInput = {
+    create?: XOR<PricingServicesCreateWithoutClinicInput, PricingServicesUncheckedCreateWithoutClinicInput> | PricingServicesCreateWithoutClinicInput[] | PricingServicesUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: PricingServicesCreateOrConnectWithoutClinicInput | PricingServicesCreateOrConnectWithoutClinicInput[]
+    upsert?: PricingServicesUpsertWithWhereUniqueWithoutClinicInput | PricingServicesUpsertWithWhereUniqueWithoutClinicInput[]
+    createMany?: PricingServicesCreateManyClinicInputEnvelope
     set?: PricingServicesWhereUniqueInput | PricingServicesWhereUniqueInput[]
     disconnect?: PricingServicesWhereUniqueInput | PricingServicesWhereUniqueInput[]
     delete?: PricingServicesWhereUniqueInput | PricingServicesWhereUniqueInput[]
     connect?: PricingServicesWhereUniqueInput | PricingServicesWhereUniqueInput[]
-    update?: PricingServicesUpdateWithWhereUniqueWithoutCabinetInput | PricingServicesUpdateWithWhereUniqueWithoutCabinetInput[]
-    updateMany?: PricingServicesUpdateManyWithWhereWithoutCabinetInput | PricingServicesUpdateManyWithWhereWithoutCabinetInput[]
+    update?: PricingServicesUpdateWithWhereUniqueWithoutClinicInput | PricingServicesUpdateWithWhereUniqueWithoutClinicInput[]
+    updateMany?: PricingServicesUpdateManyWithWhereWithoutClinicInput | PricingServicesUpdateManyWithWhereWithoutClinicInput[]
     deleteMany?: PricingServicesScalarWhereInput | PricingServicesScalarWhereInput[]
   }
 
-  export type NonPricingServicesUncheckedUpdateManyWithoutCabinetNestedInput = {
-    create?: XOR<NonPricingServicesCreateWithoutCabinetInput, NonPricingServicesUncheckedCreateWithoutCabinetInput> | NonPricingServicesCreateWithoutCabinetInput[] | NonPricingServicesUncheckedCreateWithoutCabinetInput[]
-    connectOrCreate?: NonPricingServicesCreateOrConnectWithoutCabinetInput | NonPricingServicesCreateOrConnectWithoutCabinetInput[]
-    upsert?: NonPricingServicesUpsertWithWhereUniqueWithoutCabinetInput | NonPricingServicesUpsertWithWhereUniqueWithoutCabinetInput[]
-    createMany?: NonPricingServicesCreateManyCabinetInputEnvelope
+  export type NonPricingServicesUncheckedUpdateManyWithoutClinicNestedInput = {
+    create?: XOR<NonPricingServicesCreateWithoutClinicInput, NonPricingServicesUncheckedCreateWithoutClinicInput> | NonPricingServicesCreateWithoutClinicInput[] | NonPricingServicesUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: NonPricingServicesCreateOrConnectWithoutClinicInput | NonPricingServicesCreateOrConnectWithoutClinicInput[]
+    upsert?: NonPricingServicesUpsertWithWhereUniqueWithoutClinicInput | NonPricingServicesUpsertWithWhereUniqueWithoutClinicInput[]
+    createMany?: NonPricingServicesCreateManyClinicInputEnvelope
     set?: NonPricingServicesWhereUniqueInput | NonPricingServicesWhereUniqueInput[]
     disconnect?: NonPricingServicesWhereUniqueInput | NonPricingServicesWhereUniqueInput[]
     delete?: NonPricingServicesWhereUniqueInput | NonPricingServicesWhereUniqueInput[]
     connect?: NonPricingServicesWhereUniqueInput | NonPricingServicesWhereUniqueInput[]
-    update?: NonPricingServicesUpdateWithWhereUniqueWithoutCabinetInput | NonPricingServicesUpdateWithWhereUniqueWithoutCabinetInput[]
-    updateMany?: NonPricingServicesUpdateManyWithWhereWithoutCabinetInput | NonPricingServicesUpdateManyWithWhereWithoutCabinetInput[]
+    update?: NonPricingServicesUpdateWithWhereUniqueWithoutClinicInput | NonPricingServicesUpdateWithWhereUniqueWithoutClinicInput[]
+    updateMany?: NonPricingServicesUpdateManyWithWhereWithoutClinicInput | NonPricingServicesUpdateManyWithWhereWithoutClinicInput[]
     deleteMany?: NonPricingServicesScalarWhereInput | NonPricingServicesScalarWhereInput[]
   }
 
-  export type CabinetCreateNestedOneWithoutPricingServicesInput = {
-    create?: XOR<CabinetCreateWithoutPricingServicesInput, CabinetUncheckedCreateWithoutPricingServicesInput>
-    connectOrCreate?: CabinetCreateOrConnectWithoutPricingServicesInput
-    connect?: CabinetWhereUniqueInput
+  export type ClinicsCreateNestedOneWithoutPricingServicesInput = {
+    create?: XOR<ClinicsCreateWithoutPricingServicesInput, ClinicsUncheckedCreateWithoutPricingServicesInput>
+    connectOrCreate?: ClinicsCreateOrConnectWithoutPricingServicesInput
+    connect?: ClinicsWhereUniqueInput
   }
 
-  export type CabinetUpdateOneRequiredWithoutPricingServicesNestedInput = {
-    create?: XOR<CabinetCreateWithoutPricingServicesInput, CabinetUncheckedCreateWithoutPricingServicesInput>
-    connectOrCreate?: CabinetCreateOrConnectWithoutPricingServicesInput
-    upsert?: CabinetUpsertWithoutPricingServicesInput
-    connect?: CabinetWhereUniqueInput
-    update?: XOR<XOR<CabinetUpdateToOneWithWhereWithoutPricingServicesInput, CabinetUpdateWithoutPricingServicesInput>, CabinetUncheckedUpdateWithoutPricingServicesInput>
+  export type ClinicsUpdateOneRequiredWithoutPricingServicesNestedInput = {
+    create?: XOR<ClinicsCreateWithoutPricingServicesInput, ClinicsUncheckedCreateWithoutPricingServicesInput>
+    connectOrCreate?: ClinicsCreateOrConnectWithoutPricingServicesInput
+    upsert?: ClinicsUpsertWithoutPricingServicesInput
+    connect?: ClinicsWhereUniqueInput
+    update?: XOR<XOR<ClinicsUpdateToOneWithWhereWithoutPricingServicesInput, ClinicsUpdateWithoutPricingServicesInput>, ClinicsUncheckedUpdateWithoutPricingServicesInput>
   }
 
-  export type CabinetCreateNestedOneWithoutNonPricingServicesInput = {
-    create?: XOR<CabinetCreateWithoutNonPricingServicesInput, CabinetUncheckedCreateWithoutNonPricingServicesInput>
-    connectOrCreate?: CabinetCreateOrConnectWithoutNonPricingServicesInput
-    connect?: CabinetWhereUniqueInput
+  export type ClinicsCreateNestedOneWithoutNonPricingServicesInput = {
+    create?: XOR<ClinicsCreateWithoutNonPricingServicesInput, ClinicsUncheckedCreateWithoutNonPricingServicesInput>
+    connectOrCreate?: ClinicsCreateOrConnectWithoutNonPricingServicesInput
+    connect?: ClinicsWhereUniqueInput
   }
 
-  export type CabinetUpdateOneRequiredWithoutNonPricingServicesNestedInput = {
-    create?: XOR<CabinetCreateWithoutNonPricingServicesInput, CabinetUncheckedCreateWithoutNonPricingServicesInput>
-    connectOrCreate?: CabinetCreateOrConnectWithoutNonPricingServicesInput
-    upsert?: CabinetUpsertWithoutNonPricingServicesInput
-    connect?: CabinetWhereUniqueInput
-    update?: XOR<XOR<CabinetUpdateToOneWithWhereWithoutNonPricingServicesInput, CabinetUpdateWithoutNonPricingServicesInput>, CabinetUncheckedUpdateWithoutNonPricingServicesInput>
+  export type ClinicsUpdateOneRequiredWithoutNonPricingServicesNestedInput = {
+    create?: XOR<ClinicsCreateWithoutNonPricingServicesInput, ClinicsUncheckedCreateWithoutNonPricingServicesInput>
+    connectOrCreate?: ClinicsCreateOrConnectWithoutNonPricingServicesInput
+    upsert?: ClinicsUpsertWithoutNonPricingServicesInput
+    connect?: ClinicsWhereUniqueInput
+    update?: XOR<XOR<ClinicsUpdateToOneWithWhereWithoutNonPricingServicesInput, ClinicsUpdateWithoutNonPricingServicesInput>, ClinicsUncheckedUpdateWithoutNonPricingServicesInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -13237,7 +11728,7 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type CabinetCreateWithoutImagesInput = {
+  export type ClinicsCreateWithoutImagesInput = {
     title: string
     description: string
     address: string
@@ -13255,21 +11746,19 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
-    daysOff?: CabinetCreatedaysOffInput | number[]
+    daysOff?: ClinicsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    availabilities?: availabilitiesCreateNestedManyWithoutCabinetInput
-    Reviews?: ReviewsCreateNestedManyWithoutCabinetInput
-    PricingServices?: PricingServicesCreateNestedManyWithoutCabinetInput
-    nonPricingServices?: NonPricingServicesCreateNestedManyWithoutCabinetInput
-    speciality: specialitiesCreateNestedOneWithoutCabinetsInput
+    availabilities?: availabilitiesCreateNestedManyWithoutClinicInput
+    Reviews?: ReviewsCreateNestedManyWithoutClinicInput
+    PricingServices?: PricingServicesCreateNestedManyWithoutClinicInput
+    nonPricingServices?: NonPricingServicesCreateNestedManyWithoutClinicInput
   }
 
-  export type CabinetUncheckedCreateWithoutImagesInput = {
+  export type ClinicsUncheckedCreateWithoutImagesInput = {
     id?: number
     title: string
-    specialityId: number
     description: string
     address: string
     phone: string
@@ -13286,33 +11775,33 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
-    daysOff?: CabinetCreatedaysOffInput | number[]
+    daysOff?: ClinicsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    availabilities?: availabilitiesUncheckedCreateNestedManyWithoutCabinetInput
-    Reviews?: ReviewsUncheckedCreateNestedManyWithoutCabinetInput
-    PricingServices?: PricingServicesUncheckedCreateNestedManyWithoutCabinetInput
-    nonPricingServices?: NonPricingServicesUncheckedCreateNestedManyWithoutCabinetInput
+    availabilities?: availabilitiesUncheckedCreateNestedManyWithoutClinicInput
+    Reviews?: ReviewsUncheckedCreateNestedManyWithoutClinicInput
+    PricingServices?: PricingServicesUncheckedCreateNestedManyWithoutClinicInput
+    nonPricingServices?: NonPricingServicesUncheckedCreateNestedManyWithoutClinicInput
   }
 
-  export type CabinetCreateOrConnectWithoutImagesInput = {
-    where: CabinetWhereUniqueInput
-    create: XOR<CabinetCreateWithoutImagesInput, CabinetUncheckedCreateWithoutImagesInput>
+  export type ClinicsCreateOrConnectWithoutImagesInput = {
+    where: ClinicsWhereUniqueInput
+    create: XOR<ClinicsCreateWithoutImagesInput, ClinicsUncheckedCreateWithoutImagesInput>
   }
 
-  export type CabinetUpsertWithoutImagesInput = {
-    update: XOR<CabinetUpdateWithoutImagesInput, CabinetUncheckedUpdateWithoutImagesInput>
-    create: XOR<CabinetCreateWithoutImagesInput, CabinetUncheckedCreateWithoutImagesInput>
-    where?: CabinetWhereInput
+  export type ClinicsUpsertWithoutImagesInput = {
+    update: XOR<ClinicsUpdateWithoutImagesInput, ClinicsUncheckedUpdateWithoutImagesInput>
+    create: XOR<ClinicsCreateWithoutImagesInput, ClinicsUncheckedCreateWithoutImagesInput>
+    where?: ClinicsWhereInput
   }
 
-  export type CabinetUpdateToOneWithWhereWithoutImagesInput = {
-    where?: CabinetWhereInput
-    data: XOR<CabinetUpdateWithoutImagesInput, CabinetUncheckedUpdateWithoutImagesInput>
+  export type ClinicsUpdateToOneWithWhereWithoutImagesInput = {
+    where?: ClinicsWhereInput
+    data: XOR<ClinicsUpdateWithoutImagesInput, ClinicsUncheckedUpdateWithoutImagesInput>
   }
 
-  export type CabinetUpdateWithoutImagesInput = {
+  export type ClinicsUpdateWithoutImagesInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -13330,21 +11819,19 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
-    daysOff?: CabinetUpdatedaysOffInput | number[]
+    daysOff?: ClinicsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    availabilities?: availabilitiesUpdateManyWithoutCabinetNestedInput
-    Reviews?: ReviewsUpdateManyWithoutCabinetNestedInput
-    PricingServices?: PricingServicesUpdateManyWithoutCabinetNestedInput
-    nonPricingServices?: NonPricingServicesUpdateManyWithoutCabinetNestedInput
-    speciality?: specialitiesUpdateOneRequiredWithoutCabinetsNestedInput
+    availabilities?: availabilitiesUpdateManyWithoutClinicNestedInput
+    Reviews?: ReviewsUpdateManyWithoutClinicNestedInput
+    PricingServices?: PricingServicesUpdateManyWithoutClinicNestedInput
+    nonPricingServices?: NonPricingServicesUpdateManyWithoutClinicNestedInput
   }
 
-  export type CabinetUncheckedUpdateWithoutImagesInput = {
+  export type ClinicsUncheckedUpdateWithoutImagesInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
-    specialityId?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
@@ -13361,17 +11848,17 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
-    daysOff?: CabinetUpdatedaysOffInput | number[]
+    daysOff?: ClinicsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    availabilities?: availabilitiesUncheckedUpdateManyWithoutCabinetNestedInput
-    Reviews?: ReviewsUncheckedUpdateManyWithoutCabinetNestedInput
-    PricingServices?: PricingServicesUncheckedUpdateManyWithoutCabinetNestedInput
-    nonPricingServices?: NonPricingServicesUncheckedUpdateManyWithoutCabinetNestedInput
+    availabilities?: availabilitiesUncheckedUpdateManyWithoutClinicNestedInput
+    Reviews?: ReviewsUncheckedUpdateManyWithoutClinicNestedInput
+    PricingServices?: PricingServicesUncheckedUpdateManyWithoutClinicNestedInput
+    nonPricingServices?: NonPricingServicesUncheckedUpdateManyWithoutClinicNestedInput
   }
 
-  export type CabinetCreateWithoutAvailabilitiesInput = {
+  export type ClinicsCreateWithoutAvailabilitiesInput = {
     title: string
     description: string
     address: string
@@ -13389,21 +11876,19 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
-    daysOff?: CabinetCreatedaysOffInput | number[]
+    daysOff?: ClinicsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    images?: ImagesCreateNestedManyWithoutCabinetInput
-    Reviews?: ReviewsCreateNestedManyWithoutCabinetInput
-    PricingServices?: PricingServicesCreateNestedManyWithoutCabinetInput
-    nonPricingServices?: NonPricingServicesCreateNestedManyWithoutCabinetInput
-    speciality: specialitiesCreateNestedOneWithoutCabinetsInput
+    images?: ImagesCreateNestedManyWithoutClinicInput
+    Reviews?: ReviewsCreateNestedManyWithoutClinicInput
+    PricingServices?: PricingServicesCreateNestedManyWithoutClinicInput
+    nonPricingServices?: NonPricingServicesCreateNestedManyWithoutClinicInput
   }
 
-  export type CabinetUncheckedCreateWithoutAvailabilitiesInput = {
+  export type ClinicsUncheckedCreateWithoutAvailabilitiesInput = {
     id?: number
     title: string
-    specialityId: number
     description: string
     address: string
     phone: string
@@ -13420,33 +11905,33 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
-    daysOff?: CabinetCreatedaysOffInput | number[]
+    daysOff?: ClinicsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    images?: ImagesUncheckedCreateNestedManyWithoutCabinetInput
-    Reviews?: ReviewsUncheckedCreateNestedManyWithoutCabinetInput
-    PricingServices?: PricingServicesUncheckedCreateNestedManyWithoutCabinetInput
-    nonPricingServices?: NonPricingServicesUncheckedCreateNestedManyWithoutCabinetInput
+    images?: ImagesUncheckedCreateNestedManyWithoutClinicInput
+    Reviews?: ReviewsUncheckedCreateNestedManyWithoutClinicInput
+    PricingServices?: PricingServicesUncheckedCreateNestedManyWithoutClinicInput
+    nonPricingServices?: NonPricingServicesUncheckedCreateNestedManyWithoutClinicInput
   }
 
-  export type CabinetCreateOrConnectWithoutAvailabilitiesInput = {
-    where: CabinetWhereUniqueInput
-    create: XOR<CabinetCreateWithoutAvailabilitiesInput, CabinetUncheckedCreateWithoutAvailabilitiesInput>
+  export type ClinicsCreateOrConnectWithoutAvailabilitiesInput = {
+    where: ClinicsWhereUniqueInput
+    create: XOR<ClinicsCreateWithoutAvailabilitiesInput, ClinicsUncheckedCreateWithoutAvailabilitiesInput>
   }
 
-  export type CabinetUpsertWithoutAvailabilitiesInput = {
-    update: XOR<CabinetUpdateWithoutAvailabilitiesInput, CabinetUncheckedUpdateWithoutAvailabilitiesInput>
-    create: XOR<CabinetCreateWithoutAvailabilitiesInput, CabinetUncheckedCreateWithoutAvailabilitiesInput>
-    where?: CabinetWhereInput
+  export type ClinicsUpsertWithoutAvailabilitiesInput = {
+    update: XOR<ClinicsUpdateWithoutAvailabilitiesInput, ClinicsUncheckedUpdateWithoutAvailabilitiesInput>
+    create: XOR<ClinicsCreateWithoutAvailabilitiesInput, ClinicsUncheckedCreateWithoutAvailabilitiesInput>
+    where?: ClinicsWhereInput
   }
 
-  export type CabinetUpdateToOneWithWhereWithoutAvailabilitiesInput = {
-    where?: CabinetWhereInput
-    data: XOR<CabinetUpdateWithoutAvailabilitiesInput, CabinetUncheckedUpdateWithoutAvailabilitiesInput>
+  export type ClinicsUpdateToOneWithWhereWithoutAvailabilitiesInput = {
+    where?: ClinicsWhereInput
+    data: XOR<ClinicsUpdateWithoutAvailabilitiesInput, ClinicsUncheckedUpdateWithoutAvailabilitiesInput>
   }
 
-  export type CabinetUpdateWithoutAvailabilitiesInput = {
+  export type ClinicsUpdateWithoutAvailabilitiesInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -13464,21 +11949,19 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
-    daysOff?: CabinetUpdatedaysOffInput | number[]
+    daysOff?: ClinicsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    images?: ImagesUpdateManyWithoutCabinetNestedInput
-    Reviews?: ReviewsUpdateManyWithoutCabinetNestedInput
-    PricingServices?: PricingServicesUpdateManyWithoutCabinetNestedInput
-    nonPricingServices?: NonPricingServicesUpdateManyWithoutCabinetNestedInput
-    speciality?: specialitiesUpdateOneRequiredWithoutCabinetsNestedInput
+    images?: ImagesUpdateManyWithoutClinicNestedInput
+    Reviews?: ReviewsUpdateManyWithoutClinicNestedInput
+    PricingServices?: PricingServicesUpdateManyWithoutClinicNestedInput
+    nonPricingServices?: NonPricingServicesUpdateManyWithoutClinicNestedInput
   }
 
-  export type CabinetUncheckedUpdateWithoutAvailabilitiesInput = {
+  export type ClinicsUncheckedUpdateWithoutAvailabilitiesInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
-    specialityId?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
@@ -13495,17 +11978,17 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
-    daysOff?: CabinetUpdatedaysOffInput | number[]
+    daysOff?: ClinicsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    images?: ImagesUncheckedUpdateManyWithoutCabinetNestedInput
-    Reviews?: ReviewsUncheckedUpdateManyWithoutCabinetNestedInput
-    PricingServices?: PricingServicesUncheckedUpdateManyWithoutCabinetNestedInput
-    nonPricingServices?: NonPricingServicesUncheckedUpdateManyWithoutCabinetNestedInput
+    images?: ImagesUncheckedUpdateManyWithoutClinicNestedInput
+    Reviews?: ReviewsUncheckedUpdateManyWithoutClinicNestedInput
+    PricingServices?: PricingServicesUncheckedUpdateManyWithoutClinicNestedInput
+    nonPricingServices?: NonPricingServicesUncheckedUpdateManyWithoutClinicNestedInput
   }
 
-  export type CabinetCreateWithoutReviewsInput = {
+  export type ClinicsCreateWithoutReviewsInput = {
     title: string
     description: string
     address: string
@@ -13523,21 +12006,19 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
-    daysOff?: CabinetCreatedaysOffInput | number[]
+    daysOff?: ClinicsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    images?: ImagesCreateNestedManyWithoutCabinetInput
-    availabilities?: availabilitiesCreateNestedManyWithoutCabinetInput
-    PricingServices?: PricingServicesCreateNestedManyWithoutCabinetInput
-    nonPricingServices?: NonPricingServicesCreateNestedManyWithoutCabinetInput
-    speciality: specialitiesCreateNestedOneWithoutCabinetsInput
+    images?: ImagesCreateNestedManyWithoutClinicInput
+    availabilities?: availabilitiesCreateNestedManyWithoutClinicInput
+    PricingServices?: PricingServicesCreateNestedManyWithoutClinicInput
+    nonPricingServices?: NonPricingServicesCreateNestedManyWithoutClinicInput
   }
 
-  export type CabinetUncheckedCreateWithoutReviewsInput = {
+  export type ClinicsUncheckedCreateWithoutReviewsInput = {
     id?: number
     title: string
-    specialityId: number
     description: string
     address: string
     phone: string
@@ -13554,33 +12035,33 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
-    daysOff?: CabinetCreatedaysOffInput | number[]
+    daysOff?: ClinicsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    images?: ImagesUncheckedCreateNestedManyWithoutCabinetInput
-    availabilities?: availabilitiesUncheckedCreateNestedManyWithoutCabinetInput
-    PricingServices?: PricingServicesUncheckedCreateNestedManyWithoutCabinetInput
-    nonPricingServices?: NonPricingServicesUncheckedCreateNestedManyWithoutCabinetInput
+    images?: ImagesUncheckedCreateNestedManyWithoutClinicInput
+    availabilities?: availabilitiesUncheckedCreateNestedManyWithoutClinicInput
+    PricingServices?: PricingServicesUncheckedCreateNestedManyWithoutClinicInput
+    nonPricingServices?: NonPricingServicesUncheckedCreateNestedManyWithoutClinicInput
   }
 
-  export type CabinetCreateOrConnectWithoutReviewsInput = {
-    where: CabinetWhereUniqueInput
-    create: XOR<CabinetCreateWithoutReviewsInput, CabinetUncheckedCreateWithoutReviewsInput>
+  export type ClinicsCreateOrConnectWithoutReviewsInput = {
+    where: ClinicsWhereUniqueInput
+    create: XOR<ClinicsCreateWithoutReviewsInput, ClinicsUncheckedCreateWithoutReviewsInput>
   }
 
-  export type CabinetUpsertWithoutReviewsInput = {
-    update: XOR<CabinetUpdateWithoutReviewsInput, CabinetUncheckedUpdateWithoutReviewsInput>
-    create: XOR<CabinetCreateWithoutReviewsInput, CabinetUncheckedCreateWithoutReviewsInput>
-    where?: CabinetWhereInput
+  export type ClinicsUpsertWithoutReviewsInput = {
+    update: XOR<ClinicsUpdateWithoutReviewsInput, ClinicsUncheckedUpdateWithoutReviewsInput>
+    create: XOR<ClinicsCreateWithoutReviewsInput, ClinicsUncheckedCreateWithoutReviewsInput>
+    where?: ClinicsWhereInput
   }
 
-  export type CabinetUpdateToOneWithWhereWithoutReviewsInput = {
-    where?: CabinetWhereInput
-    data: XOR<CabinetUpdateWithoutReviewsInput, CabinetUncheckedUpdateWithoutReviewsInput>
+  export type ClinicsUpdateToOneWithWhereWithoutReviewsInput = {
+    where?: ClinicsWhereInput
+    data: XOR<ClinicsUpdateWithoutReviewsInput, ClinicsUncheckedUpdateWithoutReviewsInput>
   }
 
-  export type CabinetUpdateWithoutReviewsInput = {
+  export type ClinicsUpdateWithoutReviewsInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -13598,21 +12079,19 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
-    daysOff?: CabinetUpdatedaysOffInput | number[]
+    daysOff?: ClinicsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    images?: ImagesUpdateManyWithoutCabinetNestedInput
-    availabilities?: availabilitiesUpdateManyWithoutCabinetNestedInput
-    PricingServices?: PricingServicesUpdateManyWithoutCabinetNestedInput
-    nonPricingServices?: NonPricingServicesUpdateManyWithoutCabinetNestedInput
-    speciality?: specialitiesUpdateOneRequiredWithoutCabinetsNestedInput
+    images?: ImagesUpdateManyWithoutClinicNestedInput
+    availabilities?: availabilitiesUpdateManyWithoutClinicNestedInput
+    PricingServices?: PricingServicesUpdateManyWithoutClinicNestedInput
+    nonPricingServices?: NonPricingServicesUpdateManyWithoutClinicNestedInput
   }
 
-  export type CabinetUncheckedUpdateWithoutReviewsInput = {
+  export type ClinicsUncheckedUpdateWithoutReviewsInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
-    specialityId?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
@@ -13629,161 +12108,47 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
-    daysOff?: CabinetUpdatedaysOffInput | number[]
+    daysOff?: ClinicsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    images?: ImagesUncheckedUpdateManyWithoutCabinetNestedInput
-    availabilities?: availabilitiesUncheckedUpdateManyWithoutCabinetNestedInput
-    PricingServices?: PricingServicesUncheckedUpdateManyWithoutCabinetNestedInput
-    nonPricingServices?: NonPricingServicesUncheckedUpdateManyWithoutCabinetNestedInput
+    images?: ImagesUncheckedUpdateManyWithoutClinicNestedInput
+    availabilities?: availabilitiesUncheckedUpdateManyWithoutClinicNestedInput
+    PricingServices?: PricingServicesUncheckedUpdateManyWithoutClinicNestedInput
+    nonPricingServices?: NonPricingServicesUncheckedUpdateManyWithoutClinicNestedInput
   }
 
-  export type CabinetCreateWithoutSpecialityInput = {
-    title: string
-    description: string
-    address: string
-    phone: string
-    totalViews?: number
-    totalRate?: number
-    numberOfRates?: number
-    averageRate?: number
-    ownerId: number
-    year: number
-    validated: boolean
-    blocked: boolean
-    rates: JsonNullValueInput | InputJsonValue
-    openTime: string
-    closeTime: string
-    latitude: string
-    longitude: string
-    daysOff?: CabinetCreatedaysOffInput | number[]
-    reviewsCount?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    images?: ImagesCreateNestedManyWithoutCabinetInput
-    availabilities?: availabilitiesCreateNestedManyWithoutCabinetInput
-    Reviews?: ReviewsCreateNestedManyWithoutCabinetInput
-    PricingServices?: PricingServicesCreateNestedManyWithoutCabinetInput
-    nonPricingServices?: NonPricingServicesCreateNestedManyWithoutCabinetInput
-  }
-
-  export type CabinetUncheckedCreateWithoutSpecialityInput = {
-    id?: number
-    title: string
-    description: string
-    address: string
-    phone: string
-    totalViews?: number
-    totalRate?: number
-    numberOfRates?: number
-    averageRate?: number
-    ownerId: number
-    year: number
-    validated: boolean
-    blocked: boolean
-    rates: JsonNullValueInput | InputJsonValue
-    openTime: string
-    closeTime: string
-    latitude: string
-    longitude: string
-    daysOff?: CabinetCreatedaysOffInput | number[]
-    reviewsCount?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    images?: ImagesUncheckedCreateNestedManyWithoutCabinetInput
-    availabilities?: availabilitiesUncheckedCreateNestedManyWithoutCabinetInput
-    Reviews?: ReviewsUncheckedCreateNestedManyWithoutCabinetInput
-    PricingServices?: PricingServicesUncheckedCreateNestedManyWithoutCabinetInput
-    nonPricingServices?: NonPricingServicesUncheckedCreateNestedManyWithoutCabinetInput
-  }
-
-  export type CabinetCreateOrConnectWithoutSpecialityInput = {
-    where: CabinetWhereUniqueInput
-    create: XOR<CabinetCreateWithoutSpecialityInput, CabinetUncheckedCreateWithoutSpecialityInput>
-  }
-
-  export type CabinetCreateManySpecialityInputEnvelope = {
-    data: CabinetCreateManySpecialityInput | CabinetCreateManySpecialityInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type CabinetUpsertWithWhereUniqueWithoutSpecialityInput = {
-    where: CabinetWhereUniqueInput
-    update: XOR<CabinetUpdateWithoutSpecialityInput, CabinetUncheckedUpdateWithoutSpecialityInput>
-    create: XOR<CabinetCreateWithoutSpecialityInput, CabinetUncheckedCreateWithoutSpecialityInput>
-  }
-
-  export type CabinetUpdateWithWhereUniqueWithoutSpecialityInput = {
-    where: CabinetWhereUniqueInput
-    data: XOR<CabinetUpdateWithoutSpecialityInput, CabinetUncheckedUpdateWithoutSpecialityInput>
-  }
-
-  export type CabinetUpdateManyWithWhereWithoutSpecialityInput = {
-    where: CabinetScalarWhereInput
-    data: XOR<CabinetUpdateManyMutationInput, CabinetUncheckedUpdateManyWithoutSpecialityInput>
-  }
-
-  export type CabinetScalarWhereInput = {
-    AND?: CabinetScalarWhereInput | CabinetScalarWhereInput[]
-    OR?: CabinetScalarWhereInput[]
-    NOT?: CabinetScalarWhereInput | CabinetScalarWhereInput[]
-    id?: IntFilter<"Cabinet"> | number
-    title?: StringFilter<"Cabinet"> | string
-    specialityId?: IntFilter<"Cabinet"> | number
-    description?: StringFilter<"Cabinet"> | string
-    address?: StringFilter<"Cabinet"> | string
-    phone?: StringFilter<"Cabinet"> | string
-    totalViews?: IntFilter<"Cabinet"> | number
-    totalRate?: IntFilter<"Cabinet"> | number
-    numberOfRates?: IntFilter<"Cabinet"> | number
-    averageRate?: FloatFilter<"Cabinet"> | number
-    ownerId?: IntFilter<"Cabinet"> | number
-    year?: IntFilter<"Cabinet"> | number
-    validated?: BoolFilter<"Cabinet"> | boolean
-    blocked?: BoolFilter<"Cabinet"> | boolean
-    rates?: JsonFilter<"Cabinet">
-    openTime?: StringFilter<"Cabinet"> | string
-    closeTime?: StringFilter<"Cabinet"> | string
-    latitude?: StringFilter<"Cabinet"> | string
-    longitude?: StringFilter<"Cabinet"> | string
-    daysOff?: IntNullableListFilter<"Cabinet">
-    reviewsCount?: IntFilter<"Cabinet"> | number
-    createdAt?: DateTimeFilter<"Cabinet"> | Date | string
-    updatedAt?: DateTimeFilter<"Cabinet"> | Date | string
-  }
-
-  export type ImagesCreateWithoutCabinetInput = {
+  export type ImagesCreateWithoutClinicInput = {
     url: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type ImagesUncheckedCreateWithoutCabinetInput = {
+  export type ImagesUncheckedCreateWithoutClinicInput = {
     id?: number
     url: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type ImagesCreateOrConnectWithoutCabinetInput = {
+  export type ImagesCreateOrConnectWithoutClinicInput = {
     where: ImagesWhereUniqueInput
-    create: XOR<ImagesCreateWithoutCabinetInput, ImagesUncheckedCreateWithoutCabinetInput>
+    create: XOR<ImagesCreateWithoutClinicInput, ImagesUncheckedCreateWithoutClinicInput>
   }
 
-  export type ImagesCreateManyCabinetInputEnvelope = {
-    data: ImagesCreateManyCabinetInput | ImagesCreateManyCabinetInput[]
+  export type ImagesCreateManyClinicInputEnvelope = {
+    data: ImagesCreateManyClinicInput | ImagesCreateManyClinicInput[]
     skipDuplicates?: boolean
   }
 
-  export type availabilitiesCreateWithoutCabinetInput = {
+  export type availabilitiesCreateWithoutClinicInput = {
     start_date: string
     end_date: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type availabilitiesUncheckedCreateWithoutCabinetInput = {
+  export type availabilitiesUncheckedCreateWithoutClinicInput = {
     id?: number
     start_date: string
     end_date: string
@@ -13791,24 +12156,24 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type availabilitiesCreateOrConnectWithoutCabinetInput = {
+  export type availabilitiesCreateOrConnectWithoutClinicInput = {
     where: availabilitiesWhereUniqueInput
-    create: XOR<availabilitiesCreateWithoutCabinetInput, availabilitiesUncheckedCreateWithoutCabinetInput>
+    create: XOR<availabilitiesCreateWithoutClinicInput, availabilitiesUncheckedCreateWithoutClinicInput>
   }
 
-  export type availabilitiesCreateManyCabinetInputEnvelope = {
-    data: availabilitiesCreateManyCabinetInput | availabilitiesCreateManyCabinetInput[]
+  export type availabilitiesCreateManyClinicInputEnvelope = {
+    data: availabilitiesCreateManyClinicInput | availabilitiesCreateManyClinicInput[]
     skipDuplicates?: boolean
   }
 
-  export type ReviewsCreateWithoutCabinetInput = {
+  export type ReviewsCreateWithoutClinicInput = {
     comment: string
     userId: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type ReviewsUncheckedCreateWithoutCabinetInput = {
+  export type ReviewsUncheckedCreateWithoutClinicInput = {
     id?: number
     comment: string
     userId: number
@@ -13816,24 +12181,24 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type ReviewsCreateOrConnectWithoutCabinetInput = {
+  export type ReviewsCreateOrConnectWithoutClinicInput = {
     where: ReviewsWhereUniqueInput
-    create: XOR<ReviewsCreateWithoutCabinetInput, ReviewsUncheckedCreateWithoutCabinetInput>
+    create: XOR<ReviewsCreateWithoutClinicInput, ReviewsUncheckedCreateWithoutClinicInput>
   }
 
-  export type ReviewsCreateManyCabinetInputEnvelope = {
-    data: ReviewsCreateManyCabinetInput | ReviewsCreateManyCabinetInput[]
+  export type ReviewsCreateManyClinicInputEnvelope = {
+    data: ReviewsCreateManyClinicInput | ReviewsCreateManyClinicInput[]
     skipDuplicates?: boolean
   }
 
-  export type PricingServicesCreateWithoutCabinetInput = {
+  export type PricingServicesCreateWithoutClinicInput = {
     service_name: string
     price: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type PricingServicesUncheckedCreateWithoutCabinetInput = {
+  export type PricingServicesUncheckedCreateWithoutClinicInput = {
     id?: number
     service_name: string
     price: number
@@ -13841,73 +12206,53 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type PricingServicesCreateOrConnectWithoutCabinetInput = {
+  export type PricingServicesCreateOrConnectWithoutClinicInput = {
     where: PricingServicesWhereUniqueInput
-    create: XOR<PricingServicesCreateWithoutCabinetInput, PricingServicesUncheckedCreateWithoutCabinetInput>
+    create: XOR<PricingServicesCreateWithoutClinicInput, PricingServicesUncheckedCreateWithoutClinicInput>
   }
 
-  export type PricingServicesCreateManyCabinetInputEnvelope = {
-    data: PricingServicesCreateManyCabinetInput | PricingServicesCreateManyCabinetInput[]
+  export type PricingServicesCreateManyClinicInputEnvelope = {
+    data: PricingServicesCreateManyClinicInput | PricingServicesCreateManyClinicInput[]
     skipDuplicates?: boolean
   }
 
-  export type NonPricingServicesCreateWithoutCabinetInput = {
+  export type NonPricingServicesCreateWithoutClinicInput = {
     service_name: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type NonPricingServicesUncheckedCreateWithoutCabinetInput = {
+  export type NonPricingServicesUncheckedCreateWithoutClinicInput = {
     id?: number
     service_name: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type NonPricingServicesCreateOrConnectWithoutCabinetInput = {
+  export type NonPricingServicesCreateOrConnectWithoutClinicInput = {
     where: NonPricingServicesWhereUniqueInput
-    create: XOR<NonPricingServicesCreateWithoutCabinetInput, NonPricingServicesUncheckedCreateWithoutCabinetInput>
+    create: XOR<NonPricingServicesCreateWithoutClinicInput, NonPricingServicesUncheckedCreateWithoutClinicInput>
   }
 
-  export type NonPricingServicesCreateManyCabinetInputEnvelope = {
-    data: NonPricingServicesCreateManyCabinetInput | NonPricingServicesCreateManyCabinetInput[]
+  export type NonPricingServicesCreateManyClinicInputEnvelope = {
+    data: NonPricingServicesCreateManyClinicInput | NonPricingServicesCreateManyClinicInput[]
     skipDuplicates?: boolean
   }
 
-  export type specialitiesCreateWithoutCabinetsInput = {
-    name: string
-    image?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type specialitiesUncheckedCreateWithoutCabinetsInput = {
-    id?: number
-    name: string
-    image?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type specialitiesCreateOrConnectWithoutCabinetsInput = {
-    where: specialitiesWhereUniqueInput
-    create: XOR<specialitiesCreateWithoutCabinetsInput, specialitiesUncheckedCreateWithoutCabinetsInput>
-  }
-
-  export type ImagesUpsertWithWhereUniqueWithoutCabinetInput = {
+  export type ImagesUpsertWithWhereUniqueWithoutClinicInput = {
     where: ImagesWhereUniqueInput
-    update: XOR<ImagesUpdateWithoutCabinetInput, ImagesUncheckedUpdateWithoutCabinetInput>
-    create: XOR<ImagesCreateWithoutCabinetInput, ImagesUncheckedCreateWithoutCabinetInput>
+    update: XOR<ImagesUpdateWithoutClinicInput, ImagesUncheckedUpdateWithoutClinicInput>
+    create: XOR<ImagesCreateWithoutClinicInput, ImagesUncheckedCreateWithoutClinicInput>
   }
 
-  export type ImagesUpdateWithWhereUniqueWithoutCabinetInput = {
+  export type ImagesUpdateWithWhereUniqueWithoutClinicInput = {
     where: ImagesWhereUniqueInput
-    data: XOR<ImagesUpdateWithoutCabinetInput, ImagesUncheckedUpdateWithoutCabinetInput>
+    data: XOR<ImagesUpdateWithoutClinicInput, ImagesUncheckedUpdateWithoutClinicInput>
   }
 
-  export type ImagesUpdateManyWithWhereWithoutCabinetInput = {
+  export type ImagesUpdateManyWithWhereWithoutClinicInput = {
     where: ImagesScalarWhereInput
-    data: XOR<ImagesUpdateManyMutationInput, ImagesUncheckedUpdateManyWithoutCabinetInput>
+    data: XOR<ImagesUpdateManyMutationInput, ImagesUncheckedUpdateManyWithoutClinicInput>
   }
 
   export type ImagesScalarWhereInput = {
@@ -13916,25 +12261,25 @@ export namespace Prisma {
     NOT?: ImagesScalarWhereInput | ImagesScalarWhereInput[]
     id?: IntFilter<"Images"> | number
     url?: StringFilter<"Images"> | string
-    cabinetId?: IntFilter<"Images"> | number
+    clinicId?: IntFilter<"Images"> | number
     createdAt?: DateTimeFilter<"Images"> | Date | string
     updatedAt?: DateTimeFilter<"Images"> | Date | string
   }
 
-  export type availabilitiesUpsertWithWhereUniqueWithoutCabinetInput = {
+  export type availabilitiesUpsertWithWhereUniqueWithoutClinicInput = {
     where: availabilitiesWhereUniqueInput
-    update: XOR<availabilitiesUpdateWithoutCabinetInput, availabilitiesUncheckedUpdateWithoutCabinetInput>
-    create: XOR<availabilitiesCreateWithoutCabinetInput, availabilitiesUncheckedCreateWithoutCabinetInput>
+    update: XOR<availabilitiesUpdateWithoutClinicInput, availabilitiesUncheckedUpdateWithoutClinicInput>
+    create: XOR<availabilitiesCreateWithoutClinicInput, availabilitiesUncheckedCreateWithoutClinicInput>
   }
 
-  export type availabilitiesUpdateWithWhereUniqueWithoutCabinetInput = {
+  export type availabilitiesUpdateWithWhereUniqueWithoutClinicInput = {
     where: availabilitiesWhereUniqueInput
-    data: XOR<availabilitiesUpdateWithoutCabinetInput, availabilitiesUncheckedUpdateWithoutCabinetInput>
+    data: XOR<availabilitiesUpdateWithoutClinicInput, availabilitiesUncheckedUpdateWithoutClinicInput>
   }
 
-  export type availabilitiesUpdateManyWithWhereWithoutCabinetInput = {
+  export type availabilitiesUpdateManyWithWhereWithoutClinicInput = {
     where: availabilitiesScalarWhereInput
-    data: XOR<availabilitiesUpdateManyMutationInput, availabilitiesUncheckedUpdateManyWithoutCabinetInput>
+    data: XOR<availabilitiesUpdateManyMutationInput, availabilitiesUncheckedUpdateManyWithoutClinicInput>
   }
 
   export type availabilitiesScalarWhereInput = {
@@ -13942,27 +12287,27 @@ export namespace Prisma {
     OR?: availabilitiesScalarWhereInput[]
     NOT?: availabilitiesScalarWhereInput | availabilitiesScalarWhereInput[]
     id?: IntFilter<"availabilities"> | number
-    cabinetId?: IntFilter<"availabilities"> | number
+    clinicId?: IntFilter<"availabilities"> | number
     start_date?: StringFilter<"availabilities"> | string
     end_date?: StringFilter<"availabilities"> | string
     createdAt?: DateTimeFilter<"availabilities"> | Date | string
     updatedAt?: DateTimeFilter<"availabilities"> | Date | string
   }
 
-  export type ReviewsUpsertWithWhereUniqueWithoutCabinetInput = {
+  export type ReviewsUpsertWithWhereUniqueWithoutClinicInput = {
     where: ReviewsWhereUniqueInput
-    update: XOR<ReviewsUpdateWithoutCabinetInput, ReviewsUncheckedUpdateWithoutCabinetInput>
-    create: XOR<ReviewsCreateWithoutCabinetInput, ReviewsUncheckedCreateWithoutCabinetInput>
+    update: XOR<ReviewsUpdateWithoutClinicInput, ReviewsUncheckedUpdateWithoutClinicInput>
+    create: XOR<ReviewsCreateWithoutClinicInput, ReviewsUncheckedCreateWithoutClinicInput>
   }
 
-  export type ReviewsUpdateWithWhereUniqueWithoutCabinetInput = {
+  export type ReviewsUpdateWithWhereUniqueWithoutClinicInput = {
     where: ReviewsWhereUniqueInput
-    data: XOR<ReviewsUpdateWithoutCabinetInput, ReviewsUncheckedUpdateWithoutCabinetInput>
+    data: XOR<ReviewsUpdateWithoutClinicInput, ReviewsUncheckedUpdateWithoutClinicInput>
   }
 
-  export type ReviewsUpdateManyWithWhereWithoutCabinetInput = {
+  export type ReviewsUpdateManyWithWhereWithoutClinicInput = {
     where: ReviewsScalarWhereInput
-    data: XOR<ReviewsUpdateManyMutationInput, ReviewsUncheckedUpdateManyWithoutCabinetInput>
+    data: XOR<ReviewsUpdateManyMutationInput, ReviewsUncheckedUpdateManyWithoutClinicInput>
   }
 
   export type ReviewsScalarWhereInput = {
@@ -13972,25 +12317,25 @@ export namespace Prisma {
     id?: IntFilter<"Reviews"> | number
     comment?: StringFilter<"Reviews"> | string
     userId?: IntFilter<"Reviews"> | number
-    cabinetId?: IntFilter<"Reviews"> | number
+    clinicId?: IntFilter<"Reviews"> | number
     createdAt?: DateTimeFilter<"Reviews"> | Date | string
     updatedAt?: DateTimeFilter<"Reviews"> | Date | string
   }
 
-  export type PricingServicesUpsertWithWhereUniqueWithoutCabinetInput = {
+  export type PricingServicesUpsertWithWhereUniqueWithoutClinicInput = {
     where: PricingServicesWhereUniqueInput
-    update: XOR<PricingServicesUpdateWithoutCabinetInput, PricingServicesUncheckedUpdateWithoutCabinetInput>
-    create: XOR<PricingServicesCreateWithoutCabinetInput, PricingServicesUncheckedCreateWithoutCabinetInput>
+    update: XOR<PricingServicesUpdateWithoutClinicInput, PricingServicesUncheckedUpdateWithoutClinicInput>
+    create: XOR<PricingServicesCreateWithoutClinicInput, PricingServicesUncheckedCreateWithoutClinicInput>
   }
 
-  export type PricingServicesUpdateWithWhereUniqueWithoutCabinetInput = {
+  export type PricingServicesUpdateWithWhereUniqueWithoutClinicInput = {
     where: PricingServicesWhereUniqueInput
-    data: XOR<PricingServicesUpdateWithoutCabinetInput, PricingServicesUncheckedUpdateWithoutCabinetInput>
+    data: XOR<PricingServicesUpdateWithoutClinicInput, PricingServicesUncheckedUpdateWithoutClinicInput>
   }
 
-  export type PricingServicesUpdateManyWithWhereWithoutCabinetInput = {
+  export type PricingServicesUpdateManyWithWhereWithoutClinicInput = {
     where: PricingServicesScalarWhereInput
-    data: XOR<PricingServicesUpdateManyMutationInput, PricingServicesUncheckedUpdateManyWithoutCabinetInput>
+    data: XOR<PricingServicesUpdateManyMutationInput, PricingServicesUncheckedUpdateManyWithoutClinicInput>
   }
 
   export type PricingServicesScalarWhereInput = {
@@ -13998,27 +12343,27 @@ export namespace Prisma {
     OR?: PricingServicesScalarWhereInput[]
     NOT?: PricingServicesScalarWhereInput | PricingServicesScalarWhereInput[]
     id?: IntFilter<"PricingServices"> | number
-    cabinetId?: IntFilter<"PricingServices"> | number
+    clinicId?: IntFilter<"PricingServices"> | number
     service_name?: StringFilter<"PricingServices"> | string
     price?: FloatFilter<"PricingServices"> | number
     createdAt?: DateTimeFilter<"PricingServices"> | Date | string
     updatedAt?: DateTimeFilter<"PricingServices"> | Date | string
   }
 
-  export type NonPricingServicesUpsertWithWhereUniqueWithoutCabinetInput = {
+  export type NonPricingServicesUpsertWithWhereUniqueWithoutClinicInput = {
     where: NonPricingServicesWhereUniqueInput
-    update: XOR<NonPricingServicesUpdateWithoutCabinetInput, NonPricingServicesUncheckedUpdateWithoutCabinetInput>
-    create: XOR<NonPricingServicesCreateWithoutCabinetInput, NonPricingServicesUncheckedCreateWithoutCabinetInput>
+    update: XOR<NonPricingServicesUpdateWithoutClinicInput, NonPricingServicesUncheckedUpdateWithoutClinicInput>
+    create: XOR<NonPricingServicesCreateWithoutClinicInput, NonPricingServicesUncheckedCreateWithoutClinicInput>
   }
 
-  export type NonPricingServicesUpdateWithWhereUniqueWithoutCabinetInput = {
+  export type NonPricingServicesUpdateWithWhereUniqueWithoutClinicInput = {
     where: NonPricingServicesWhereUniqueInput
-    data: XOR<NonPricingServicesUpdateWithoutCabinetInput, NonPricingServicesUncheckedUpdateWithoutCabinetInput>
+    data: XOR<NonPricingServicesUpdateWithoutClinicInput, NonPricingServicesUncheckedUpdateWithoutClinicInput>
   }
 
-  export type NonPricingServicesUpdateManyWithWhereWithoutCabinetInput = {
+  export type NonPricingServicesUpdateManyWithWhereWithoutClinicInput = {
     where: NonPricingServicesScalarWhereInput
-    data: XOR<NonPricingServicesUpdateManyMutationInput, NonPricingServicesUncheckedUpdateManyWithoutCabinetInput>
+    data: XOR<NonPricingServicesUpdateManyMutationInput, NonPricingServicesUncheckedUpdateManyWithoutClinicInput>
   }
 
   export type NonPricingServicesScalarWhereInput = {
@@ -14026,39 +12371,13 @@ export namespace Prisma {
     OR?: NonPricingServicesScalarWhereInput[]
     NOT?: NonPricingServicesScalarWhereInput | NonPricingServicesScalarWhereInput[]
     id?: IntFilter<"NonPricingServices"> | number
-    cabinetId?: IntFilter<"NonPricingServices"> | number
+    clinicId?: IntFilter<"NonPricingServices"> | number
     service_name?: StringFilter<"NonPricingServices"> | string
     createdAt?: DateTimeFilter<"NonPricingServices"> | Date | string
     updatedAt?: DateTimeFilter<"NonPricingServices"> | Date | string
   }
 
-  export type specialitiesUpsertWithoutCabinetsInput = {
-    update: XOR<specialitiesUpdateWithoutCabinetsInput, specialitiesUncheckedUpdateWithoutCabinetsInput>
-    create: XOR<specialitiesCreateWithoutCabinetsInput, specialitiesUncheckedCreateWithoutCabinetsInput>
-    where?: specialitiesWhereInput
-  }
-
-  export type specialitiesUpdateToOneWithWhereWithoutCabinetsInput = {
-    where?: specialitiesWhereInput
-    data: XOR<specialitiesUpdateWithoutCabinetsInput, specialitiesUncheckedUpdateWithoutCabinetsInput>
-  }
-
-  export type specialitiesUpdateWithoutCabinetsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type specialitiesUncheckedUpdateWithoutCabinetsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CabinetCreateWithoutPricingServicesInput = {
+  export type ClinicsCreateWithoutPricingServicesInput = {
     title: string
     description: string
     address: string
@@ -14076,257 +12395,17 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
-    daysOff?: CabinetCreatedaysOffInput | number[]
+    daysOff?: ClinicsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    images?: ImagesCreateNestedManyWithoutCabinetInput
-    availabilities?: availabilitiesCreateNestedManyWithoutCabinetInput
-    Reviews?: ReviewsCreateNestedManyWithoutCabinetInput
-    nonPricingServices?: NonPricingServicesCreateNestedManyWithoutCabinetInput
-    speciality: specialitiesCreateNestedOneWithoutCabinetsInput
+    images?: ImagesCreateNestedManyWithoutClinicInput
+    availabilities?: availabilitiesCreateNestedManyWithoutClinicInput
+    Reviews?: ReviewsCreateNestedManyWithoutClinicInput
+    nonPricingServices?: NonPricingServicesCreateNestedManyWithoutClinicInput
   }
 
-  export type CabinetUncheckedCreateWithoutPricingServicesInput = {
-    id?: number
-    title: string
-    specialityId: number
-    description: string
-    address: string
-    phone: string
-    totalViews?: number
-    totalRate?: number
-    numberOfRates?: number
-    averageRate?: number
-    ownerId: number
-    year: number
-    validated: boolean
-    blocked: boolean
-    rates: JsonNullValueInput | InputJsonValue
-    openTime: string
-    closeTime: string
-    latitude: string
-    longitude: string
-    daysOff?: CabinetCreatedaysOffInput | number[]
-    reviewsCount?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    images?: ImagesUncheckedCreateNestedManyWithoutCabinetInput
-    availabilities?: availabilitiesUncheckedCreateNestedManyWithoutCabinetInput
-    Reviews?: ReviewsUncheckedCreateNestedManyWithoutCabinetInput
-    nonPricingServices?: NonPricingServicesUncheckedCreateNestedManyWithoutCabinetInput
-  }
-
-  export type CabinetCreateOrConnectWithoutPricingServicesInput = {
-    where: CabinetWhereUniqueInput
-    create: XOR<CabinetCreateWithoutPricingServicesInput, CabinetUncheckedCreateWithoutPricingServicesInput>
-  }
-
-  export type CabinetUpsertWithoutPricingServicesInput = {
-    update: XOR<CabinetUpdateWithoutPricingServicesInput, CabinetUncheckedUpdateWithoutPricingServicesInput>
-    create: XOR<CabinetCreateWithoutPricingServicesInput, CabinetUncheckedCreateWithoutPricingServicesInput>
-    where?: CabinetWhereInput
-  }
-
-  export type CabinetUpdateToOneWithWhereWithoutPricingServicesInput = {
-    where?: CabinetWhereInput
-    data: XOR<CabinetUpdateWithoutPricingServicesInput, CabinetUncheckedUpdateWithoutPricingServicesInput>
-  }
-
-  export type CabinetUpdateWithoutPricingServicesInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    totalViews?: IntFieldUpdateOperationsInput | number
-    totalRate?: IntFieldUpdateOperationsInput | number
-    numberOfRates?: IntFieldUpdateOperationsInput | number
-    averageRate?: FloatFieldUpdateOperationsInput | number
-    ownerId?: IntFieldUpdateOperationsInput | number
-    year?: IntFieldUpdateOperationsInput | number
-    validated?: BoolFieldUpdateOperationsInput | boolean
-    blocked?: BoolFieldUpdateOperationsInput | boolean
-    rates?: JsonNullValueInput | InputJsonValue
-    openTime?: StringFieldUpdateOperationsInput | string
-    closeTime?: StringFieldUpdateOperationsInput | string
-    latitude?: StringFieldUpdateOperationsInput | string
-    longitude?: StringFieldUpdateOperationsInput | string
-    daysOff?: CabinetUpdatedaysOffInput | number[]
-    reviewsCount?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    images?: ImagesUpdateManyWithoutCabinetNestedInput
-    availabilities?: availabilitiesUpdateManyWithoutCabinetNestedInput
-    Reviews?: ReviewsUpdateManyWithoutCabinetNestedInput
-    nonPricingServices?: NonPricingServicesUpdateManyWithoutCabinetNestedInput
-    speciality?: specialitiesUpdateOneRequiredWithoutCabinetsNestedInput
-  }
-
-  export type CabinetUncheckedUpdateWithoutPricingServicesInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    title?: StringFieldUpdateOperationsInput | string
-    specialityId?: IntFieldUpdateOperationsInput | number
-    description?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    totalViews?: IntFieldUpdateOperationsInput | number
-    totalRate?: IntFieldUpdateOperationsInput | number
-    numberOfRates?: IntFieldUpdateOperationsInput | number
-    averageRate?: FloatFieldUpdateOperationsInput | number
-    ownerId?: IntFieldUpdateOperationsInput | number
-    year?: IntFieldUpdateOperationsInput | number
-    validated?: BoolFieldUpdateOperationsInput | boolean
-    blocked?: BoolFieldUpdateOperationsInput | boolean
-    rates?: JsonNullValueInput | InputJsonValue
-    openTime?: StringFieldUpdateOperationsInput | string
-    closeTime?: StringFieldUpdateOperationsInput | string
-    latitude?: StringFieldUpdateOperationsInput | string
-    longitude?: StringFieldUpdateOperationsInput | string
-    daysOff?: CabinetUpdatedaysOffInput | number[]
-    reviewsCount?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    images?: ImagesUncheckedUpdateManyWithoutCabinetNestedInput
-    availabilities?: availabilitiesUncheckedUpdateManyWithoutCabinetNestedInput
-    Reviews?: ReviewsUncheckedUpdateManyWithoutCabinetNestedInput
-    nonPricingServices?: NonPricingServicesUncheckedUpdateManyWithoutCabinetNestedInput
-  }
-
-  export type CabinetCreateWithoutNonPricingServicesInput = {
-    title: string
-    description: string
-    address: string
-    phone: string
-    totalViews?: number
-    totalRate?: number
-    numberOfRates?: number
-    averageRate?: number
-    ownerId: number
-    year: number
-    validated: boolean
-    blocked: boolean
-    rates: JsonNullValueInput | InputJsonValue
-    openTime: string
-    closeTime: string
-    latitude: string
-    longitude: string
-    daysOff?: CabinetCreatedaysOffInput | number[]
-    reviewsCount?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    images?: ImagesCreateNestedManyWithoutCabinetInput
-    availabilities?: availabilitiesCreateNestedManyWithoutCabinetInput
-    Reviews?: ReviewsCreateNestedManyWithoutCabinetInput
-    PricingServices?: PricingServicesCreateNestedManyWithoutCabinetInput
-    speciality: specialitiesCreateNestedOneWithoutCabinetsInput
-  }
-
-  export type CabinetUncheckedCreateWithoutNonPricingServicesInput = {
-    id?: number
-    title: string
-    specialityId: number
-    description: string
-    address: string
-    phone: string
-    totalViews?: number
-    totalRate?: number
-    numberOfRates?: number
-    averageRate?: number
-    ownerId: number
-    year: number
-    validated: boolean
-    blocked: boolean
-    rates: JsonNullValueInput | InputJsonValue
-    openTime: string
-    closeTime: string
-    latitude: string
-    longitude: string
-    daysOff?: CabinetCreatedaysOffInput | number[]
-    reviewsCount?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    images?: ImagesUncheckedCreateNestedManyWithoutCabinetInput
-    availabilities?: availabilitiesUncheckedCreateNestedManyWithoutCabinetInput
-    Reviews?: ReviewsUncheckedCreateNestedManyWithoutCabinetInput
-    PricingServices?: PricingServicesUncheckedCreateNestedManyWithoutCabinetInput
-  }
-
-  export type CabinetCreateOrConnectWithoutNonPricingServicesInput = {
-    where: CabinetWhereUniqueInput
-    create: XOR<CabinetCreateWithoutNonPricingServicesInput, CabinetUncheckedCreateWithoutNonPricingServicesInput>
-  }
-
-  export type CabinetUpsertWithoutNonPricingServicesInput = {
-    update: XOR<CabinetUpdateWithoutNonPricingServicesInput, CabinetUncheckedUpdateWithoutNonPricingServicesInput>
-    create: XOR<CabinetCreateWithoutNonPricingServicesInput, CabinetUncheckedCreateWithoutNonPricingServicesInput>
-    where?: CabinetWhereInput
-  }
-
-  export type CabinetUpdateToOneWithWhereWithoutNonPricingServicesInput = {
-    where?: CabinetWhereInput
-    data: XOR<CabinetUpdateWithoutNonPricingServicesInput, CabinetUncheckedUpdateWithoutNonPricingServicesInput>
-  }
-
-  export type CabinetUpdateWithoutNonPricingServicesInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    totalViews?: IntFieldUpdateOperationsInput | number
-    totalRate?: IntFieldUpdateOperationsInput | number
-    numberOfRates?: IntFieldUpdateOperationsInput | number
-    averageRate?: FloatFieldUpdateOperationsInput | number
-    ownerId?: IntFieldUpdateOperationsInput | number
-    year?: IntFieldUpdateOperationsInput | number
-    validated?: BoolFieldUpdateOperationsInput | boolean
-    blocked?: BoolFieldUpdateOperationsInput | boolean
-    rates?: JsonNullValueInput | InputJsonValue
-    openTime?: StringFieldUpdateOperationsInput | string
-    closeTime?: StringFieldUpdateOperationsInput | string
-    latitude?: StringFieldUpdateOperationsInput | string
-    longitude?: StringFieldUpdateOperationsInput | string
-    daysOff?: CabinetUpdatedaysOffInput | number[]
-    reviewsCount?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    images?: ImagesUpdateManyWithoutCabinetNestedInput
-    availabilities?: availabilitiesUpdateManyWithoutCabinetNestedInput
-    Reviews?: ReviewsUpdateManyWithoutCabinetNestedInput
-    PricingServices?: PricingServicesUpdateManyWithoutCabinetNestedInput
-    speciality?: specialitiesUpdateOneRequiredWithoutCabinetsNestedInput
-  }
-
-  export type CabinetUncheckedUpdateWithoutNonPricingServicesInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    title?: StringFieldUpdateOperationsInput | string
-    specialityId?: IntFieldUpdateOperationsInput | number
-    description?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    totalViews?: IntFieldUpdateOperationsInput | number
-    totalRate?: IntFieldUpdateOperationsInput | number
-    numberOfRates?: IntFieldUpdateOperationsInput | number
-    averageRate?: FloatFieldUpdateOperationsInput | number
-    ownerId?: IntFieldUpdateOperationsInput | number
-    year?: IntFieldUpdateOperationsInput | number
-    validated?: BoolFieldUpdateOperationsInput | boolean
-    blocked?: BoolFieldUpdateOperationsInput | boolean
-    rates?: JsonNullValueInput | InputJsonValue
-    openTime?: StringFieldUpdateOperationsInput | string
-    closeTime?: StringFieldUpdateOperationsInput | string
-    latitude?: StringFieldUpdateOperationsInput | string
-    longitude?: StringFieldUpdateOperationsInput | string
-    daysOff?: CabinetUpdatedaysOffInput | number[]
-    reviewsCount?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    images?: ImagesUncheckedUpdateManyWithoutCabinetNestedInput
-    availabilities?: availabilitiesUncheckedUpdateManyWithoutCabinetNestedInput
-    Reviews?: ReviewsUncheckedUpdateManyWithoutCabinetNestedInput
-    PricingServices?: PricingServicesUncheckedUpdateManyWithoutCabinetNestedInput
-  }
-
-  export type CabinetCreateManySpecialityInput = {
+  export type ClinicsUncheckedCreateWithoutPricingServicesInput = {
     id?: number
     title: string
     description: string
@@ -14345,13 +12424,33 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
-    daysOff?: CabinetCreatedaysOffInput | number[]
+    daysOff?: ClinicsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    images?: ImagesUncheckedCreateNestedManyWithoutClinicInput
+    availabilities?: availabilitiesUncheckedCreateNestedManyWithoutClinicInput
+    Reviews?: ReviewsUncheckedCreateNestedManyWithoutClinicInput
+    nonPricingServices?: NonPricingServicesUncheckedCreateNestedManyWithoutClinicInput
   }
 
-  export type CabinetUpdateWithoutSpecialityInput = {
+  export type ClinicsCreateOrConnectWithoutPricingServicesInput = {
+    where: ClinicsWhereUniqueInput
+    create: XOR<ClinicsCreateWithoutPricingServicesInput, ClinicsUncheckedCreateWithoutPricingServicesInput>
+  }
+
+  export type ClinicsUpsertWithoutPricingServicesInput = {
+    update: XOR<ClinicsUpdateWithoutPricingServicesInput, ClinicsUncheckedUpdateWithoutPricingServicesInput>
+    create: XOR<ClinicsCreateWithoutPricingServicesInput, ClinicsUncheckedCreateWithoutPricingServicesInput>
+    where?: ClinicsWhereInput
+  }
+
+  export type ClinicsUpdateToOneWithWhereWithoutPricingServicesInput = {
+    where?: ClinicsWhereInput
+    data: XOR<ClinicsUpdateWithoutPricingServicesInput, ClinicsUncheckedUpdateWithoutPricingServicesInput>
+  }
+
+  export type ClinicsUpdateWithoutPricingServicesInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -14369,18 +12468,17 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
-    daysOff?: CabinetUpdatedaysOffInput | number[]
+    daysOff?: ClinicsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    images?: ImagesUpdateManyWithoutCabinetNestedInput
-    availabilities?: availabilitiesUpdateManyWithoutCabinetNestedInput
-    Reviews?: ReviewsUpdateManyWithoutCabinetNestedInput
-    PricingServices?: PricingServicesUpdateManyWithoutCabinetNestedInput
-    nonPricingServices?: NonPricingServicesUpdateManyWithoutCabinetNestedInput
+    images?: ImagesUpdateManyWithoutClinicNestedInput
+    availabilities?: availabilitiesUpdateManyWithoutClinicNestedInput
+    Reviews?: ReviewsUpdateManyWithoutClinicNestedInput
+    nonPricingServices?: NonPricingServicesUpdateManyWithoutClinicNestedInput
   }
 
-  export type CabinetUncheckedUpdateWithoutSpecialityInput = {
+  export type ClinicsUncheckedUpdateWithoutPricingServicesInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -14399,18 +12497,118 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
-    daysOff?: CabinetUpdatedaysOffInput | number[]
+    daysOff?: ClinicsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    images?: ImagesUncheckedUpdateManyWithoutCabinetNestedInput
-    availabilities?: availabilitiesUncheckedUpdateManyWithoutCabinetNestedInput
-    Reviews?: ReviewsUncheckedUpdateManyWithoutCabinetNestedInput
-    PricingServices?: PricingServicesUncheckedUpdateManyWithoutCabinetNestedInput
-    nonPricingServices?: NonPricingServicesUncheckedUpdateManyWithoutCabinetNestedInput
+    images?: ImagesUncheckedUpdateManyWithoutClinicNestedInput
+    availabilities?: availabilitiesUncheckedUpdateManyWithoutClinicNestedInput
+    Reviews?: ReviewsUncheckedUpdateManyWithoutClinicNestedInput
+    nonPricingServices?: NonPricingServicesUncheckedUpdateManyWithoutClinicNestedInput
   }
 
-  export type CabinetUncheckedUpdateManyWithoutSpecialityInput = {
+  export type ClinicsCreateWithoutNonPricingServicesInput = {
+    title: string
+    description: string
+    address: string
+    phone: string
+    totalViews?: number
+    totalRate?: number
+    numberOfRates?: number
+    averageRate?: number
+    ownerId: number
+    year: number
+    validated: boolean
+    blocked: boolean
+    rates: JsonNullValueInput | InputJsonValue
+    openTime: string
+    closeTime: string
+    latitude: string
+    longitude: string
+    daysOff?: ClinicsCreatedaysOffInput | number[]
+    reviewsCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    images?: ImagesCreateNestedManyWithoutClinicInput
+    availabilities?: availabilitiesCreateNestedManyWithoutClinicInput
+    Reviews?: ReviewsCreateNestedManyWithoutClinicInput
+    PricingServices?: PricingServicesCreateNestedManyWithoutClinicInput
+  }
+
+  export type ClinicsUncheckedCreateWithoutNonPricingServicesInput = {
+    id?: number
+    title: string
+    description: string
+    address: string
+    phone: string
+    totalViews?: number
+    totalRate?: number
+    numberOfRates?: number
+    averageRate?: number
+    ownerId: number
+    year: number
+    validated: boolean
+    blocked: boolean
+    rates: JsonNullValueInput | InputJsonValue
+    openTime: string
+    closeTime: string
+    latitude: string
+    longitude: string
+    daysOff?: ClinicsCreatedaysOffInput | number[]
+    reviewsCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    images?: ImagesUncheckedCreateNestedManyWithoutClinicInput
+    availabilities?: availabilitiesUncheckedCreateNestedManyWithoutClinicInput
+    Reviews?: ReviewsUncheckedCreateNestedManyWithoutClinicInput
+    PricingServices?: PricingServicesUncheckedCreateNestedManyWithoutClinicInput
+  }
+
+  export type ClinicsCreateOrConnectWithoutNonPricingServicesInput = {
+    where: ClinicsWhereUniqueInput
+    create: XOR<ClinicsCreateWithoutNonPricingServicesInput, ClinicsUncheckedCreateWithoutNonPricingServicesInput>
+  }
+
+  export type ClinicsUpsertWithoutNonPricingServicesInput = {
+    update: XOR<ClinicsUpdateWithoutNonPricingServicesInput, ClinicsUncheckedUpdateWithoutNonPricingServicesInput>
+    create: XOR<ClinicsCreateWithoutNonPricingServicesInput, ClinicsUncheckedCreateWithoutNonPricingServicesInput>
+    where?: ClinicsWhereInput
+  }
+
+  export type ClinicsUpdateToOneWithWhereWithoutNonPricingServicesInput = {
+    where?: ClinicsWhereInput
+    data: XOR<ClinicsUpdateWithoutNonPricingServicesInput, ClinicsUncheckedUpdateWithoutNonPricingServicesInput>
+  }
+
+  export type ClinicsUpdateWithoutNonPricingServicesInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    totalViews?: IntFieldUpdateOperationsInput | number
+    totalRate?: IntFieldUpdateOperationsInput | number
+    numberOfRates?: IntFieldUpdateOperationsInput | number
+    averageRate?: FloatFieldUpdateOperationsInput | number
+    ownerId?: IntFieldUpdateOperationsInput | number
+    year?: IntFieldUpdateOperationsInput | number
+    validated?: BoolFieldUpdateOperationsInput | boolean
+    blocked?: BoolFieldUpdateOperationsInput | boolean
+    rates?: JsonNullValueInput | InputJsonValue
+    openTime?: StringFieldUpdateOperationsInput | string
+    closeTime?: StringFieldUpdateOperationsInput | string
+    latitude?: StringFieldUpdateOperationsInput | string
+    longitude?: StringFieldUpdateOperationsInput | string
+    daysOff?: ClinicsUpdatedaysOffInput | number[]
+    reviewsCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: ImagesUpdateManyWithoutClinicNestedInput
+    availabilities?: availabilitiesUpdateManyWithoutClinicNestedInput
+    Reviews?: ReviewsUpdateManyWithoutClinicNestedInput
+    PricingServices?: PricingServicesUpdateManyWithoutClinicNestedInput
+  }
+
+  export type ClinicsUncheckedUpdateWithoutNonPricingServicesInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -14429,20 +12627,24 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
-    daysOff?: CabinetUpdatedaysOffInput | number[]
+    daysOff?: ClinicsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: ImagesUncheckedUpdateManyWithoutClinicNestedInput
+    availabilities?: availabilitiesUncheckedUpdateManyWithoutClinicNestedInput
+    Reviews?: ReviewsUncheckedUpdateManyWithoutClinicNestedInput
+    PricingServices?: PricingServicesUncheckedUpdateManyWithoutClinicNestedInput
   }
 
-  export type ImagesCreateManyCabinetInput = {
+  export type ImagesCreateManyClinicInput = {
     id?: number
     url: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type availabilitiesCreateManyCabinetInput = {
+  export type availabilitiesCreateManyClinicInput = {
     id?: number
     start_date: string
     end_date: string
@@ -14450,7 +12652,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type ReviewsCreateManyCabinetInput = {
+  export type ReviewsCreateManyClinicInput = {
     id?: number
     comment: string
     userId: number
@@ -14458,7 +12660,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type PricingServicesCreateManyCabinetInput = {
+  export type PricingServicesCreateManyClinicInput = {
     id?: number
     service_name: string
     price: number
@@ -14466,49 +12668,41 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type NonPricingServicesCreateManyCabinetInput = {
+  export type NonPricingServicesCreateManyClinicInput = {
     id?: number
     service_name: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type ImagesUpdateWithoutCabinetInput = {
+  export type ImagesUpdateWithoutClinicInput = {
     url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ImagesUncheckedUpdateWithoutCabinetInput = {
+  export type ImagesUncheckedUpdateWithoutClinicInput = {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ImagesUncheckedUpdateManyWithoutCabinetInput = {
+  export type ImagesUncheckedUpdateManyWithoutClinicInput = {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type availabilitiesUpdateWithoutCabinetInput = {
+  export type availabilitiesUpdateWithoutClinicInput = {
     start_date?: StringFieldUpdateOperationsInput | string
     end_date?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type availabilitiesUncheckedUpdateWithoutCabinetInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    start_date?: StringFieldUpdateOperationsInput | string
-    end_date?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type availabilitiesUncheckedUpdateManyWithoutCabinetInput = {
+  export type availabilitiesUncheckedUpdateWithoutClinicInput = {
     id?: IntFieldUpdateOperationsInput | number
     start_date?: StringFieldUpdateOperationsInput | string
     end_date?: StringFieldUpdateOperationsInput | string
@@ -14516,14 +12710,22 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ReviewsUpdateWithoutCabinetInput = {
+  export type availabilitiesUncheckedUpdateManyWithoutClinicInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    start_date?: StringFieldUpdateOperationsInput | string
+    end_date?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReviewsUpdateWithoutClinicInput = {
     comment?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ReviewsUncheckedUpdateWithoutCabinetInput = {
+  export type ReviewsUncheckedUpdateWithoutClinicInput = {
     id?: IntFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
@@ -14531,7 +12733,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ReviewsUncheckedUpdateManyWithoutCabinetInput = {
+  export type ReviewsUncheckedUpdateManyWithoutClinicInput = {
     id?: IntFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
@@ -14539,14 +12741,14 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PricingServicesUpdateWithoutCabinetInput = {
+  export type PricingServicesUpdateWithoutClinicInput = {
     service_name?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PricingServicesUncheckedUpdateWithoutCabinetInput = {
+  export type PricingServicesUncheckedUpdateWithoutClinicInput = {
     id?: IntFieldUpdateOperationsInput | number
     service_name?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
@@ -14554,7 +12756,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PricingServicesUncheckedUpdateManyWithoutCabinetInput = {
+  export type PricingServicesUncheckedUpdateManyWithoutClinicInput = {
     id?: IntFieldUpdateOperationsInput | number
     service_name?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
@@ -14562,20 +12764,20 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type NonPricingServicesUpdateWithoutCabinetInput = {
+  export type NonPricingServicesUpdateWithoutClinicInput = {
     service_name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type NonPricingServicesUncheckedUpdateWithoutCabinetInput = {
+  export type NonPricingServicesUncheckedUpdateWithoutClinicInput = {
     id?: IntFieldUpdateOperationsInput | number
     service_name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type NonPricingServicesUncheckedUpdateManyWithoutCabinetInput = {
+  export type NonPricingServicesUncheckedUpdateManyWithoutClinicInput = {
     id?: IntFieldUpdateOperationsInput | number
     service_name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

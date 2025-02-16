@@ -153,6 +153,7 @@ exports.Prisma.ReviewsScalarFieldEnum = {
 exports.Prisma.SpecialitiesScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  image: 'image',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

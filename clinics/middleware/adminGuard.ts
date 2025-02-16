@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { PrismaClient } from '@prisma/client';
+// import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '../generated/clinics-client';
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import axios from "axios";

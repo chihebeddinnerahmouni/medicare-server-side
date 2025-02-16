@@ -47,6 +47,7 @@ model Reviews {
 model specialities {
   id        Int       @id @default(autoincrement())
   name      String
+  image     String    @default("")
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   Cabinets  Cabinet[]

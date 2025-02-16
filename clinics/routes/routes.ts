@@ -3,15 +3,13 @@ import { authGuard } from "../middleware/authGuard";
 import { adminGuard } from "../middleware/adminGuard";
 import   {uploadArray} from "../middleware/multer";
 import {
-  addCabinet,
+  getClinics,
   addService,
   getServices,
-  getCabinets,
-  // addSpeciality,
-  // getSpecialities,
-  getCabinetById,
-  deleteCabinet,
-  getLandingDoctors,
+  addClinic,
+  getClinicById,
+  deleteClinic,
+  getLandingClinics
 } from "../controllers/controllers";
 
 
@@ -19,13 +17,13 @@ import {
 const router = Router();
 
 router.get("/get-services", getServices);
-router.get("/get-cabinets", getCabinets);
-router.get("/get-cabinet/:id", getCabinetById);
-router.get("/get-landing-dentists", getLandingDoctors);
+router.get("/get-clinics", getClinics);
+router.get("/get-clinic/:id", getClinicById);
+router.get("/get-landing-clinics", getLandingClinics);
 
 // user
-router.delete("/delete-cabinet/:id",authGuard, deleteCabinet);
-router.post("/add-cabinet/:demandeId?", authGuard, uploadArray, addCabinet);
+router.delete("/delete-clinic/:id",authGuard, deleteClinic);
+router.post("/add-clinic/:demandeId?", authGuard, uploadArray, addClinic);
 
 // admin
 router.post("/add-service", adminGuard, addService);

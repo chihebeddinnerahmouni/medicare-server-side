@@ -1,6 +1,5 @@
 import { prisma } from "../db/index";
 import { Request, Response } from "express";
-// import {validateBody} from "../helper/validateBody";
 import axios from "axios";
 import fs from "fs";
 import path from "path";
@@ -53,7 +52,7 @@ export const getServices = async (req: Request, res: Response) => {
 
 // _____________________________________________________________________________
 
-export const addCabinet = async (req: Request, res: Response) => {
+export const addClinic = async (req: Request, res: Response) => {
   const userId = req.user?.userId;
   const demandeId = Number(req.params.demandeId);
   const {
@@ -80,7 +79,7 @@ export const addCabinet = async (req: Request, res: Response) => {
       );
     } catch (error: any) {
       res.status(500).json({
-        error: "Erreur lors de la création d'un cabinet from user service",
+        error: "Erreur lors de la création d'un clinic from user service",
         message: error.message,
       });
       return;
@@ -102,7 +101,7 @@ export const addCabinet = async (req: Request, res: Response) => {
       ? JSON.parse(nonPricingServices)
       : [JSON.parse(nonPricingServices)];
 
-    const newCabinet = await prisma.dentists.create({
+    const newclinic = await prisma.clinics.create({
       data: {
         title,
         description,
@@ -174,10 +173,10 @@ export const addCabinet = async (req: Request, res: Response) => {
       },
     });
 
-    res.json(newCabinet);
+    res.json(newclinic);
   } catch (error: any) {
     res.status(500).json({
-      error: "Erreur lors de la création d'un cabinet",
+      error: "Erreur lors de la création d'un clinic",
       message: error.message,
     });
   }
@@ -185,13 +184,13 @@ export const addCabinet = async (req: Request, res: Response) => {
 
 // _____________________________________________________________________________
 
-export const getCabinets = async (req: Request, res: Response) => {
+export const getClinics = async (req: Request, res: Response) => {
   const page = parseInt(req.query.page as string) || 1;
   const limit = parseInt(req.query.limit as string) || 3;
   const skip = (page - 1) * limit;
 
   try {
-    const cabinets = await prisma.dentists.findMany({
+    const clinics = await prisma.clinics.findMany({
       skip: skip,
       take: limit,
       include: {
@@ -200,21 +199,22 @@ export const getCabinets = async (req: Request, res: Response) => {
         PricingServices: true,
         // speciality: true,
         nonPricingServices: true,
+        Reviews: true,
       },
     });
-    const totalCabinets = await prisma.dentists.count();
+    const totalclinics = await prisma.clinics.count();
     res.json({
-      data: cabinets,
+      data: clinics,
       pagination: {
-        total: totalCabinets,
+        total: totalclinics,
         page: page,
         limit: limit,
-        totalPages: Math.ceil(totalCabinets / limit),
+        totalPages: Math.ceil(totalclinics / limit),
       },
     });
   } catch (error: any) {
     res.status(500).json({
-      error: "Erreur lors de la récupération des cabinets",
+      error: "Erreur lors de la récupération des clinics",
       message: error.message,
     });
   }
@@ -222,12 +222,12 @@ export const getCabinets = async (req: Request, res: Response) => {
 
 // _____________________________________________________________________________
 
-export const getCabinetById = async (req: Request, res: Response) => {
+export const getClinicById = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   try {
 
 
-    const cabinet = await prisma.dentists.findUnique({
+    const clinic = await prisma.clinics.findUnique({
       where: { id },
       include: {
         images: true,
@@ -238,12 +238,12 @@ export const getCabinetById = async (req: Request, res: Response) => {
         nonPricingServices: true,
       },
     });
-    if (!cabinet) {
-      res.status(404).json({ message: "Cabinet non trouvé" });
+    if (!clinic) {
+      res.status(404).json({ message: "clinic non trouvé" });
       return;
     }
 
-     await prisma.dentists.update({
+     await prisma.clinics.update({
        where: { id },
        data: {
          reviewsCount: {
@@ -252,17 +252,17 @@ export const getCabinetById = async (req: Request, res: Response) => {
        },
      });
 
-    const owner = await axios.get(process.env.USERS_URL + "/get-user/" + cabinet.ownerId);
+    const owner = await axios.get(process.env.USERS_URL + "/get-user/" + clinic.ownerId);
      
-    const cabinetWithOwner = {
-      ...cabinet,
+    const clinicWithOwner = {
+      ...clinic,
       owner: owner.data,
     };
 
-    res.json(cabinetWithOwner);
+    res.json(clinicWithOwner);
   } catch (error: any) {
     res.status(500).json({
-      error: "Erreur lors de la récupération du cabinet",
+      error: "Erreur lors de la récupération du clinic",
       message: error.message,
     });
   }
@@ -270,7 +270,7 @@ export const getCabinetById = async (req: Request, res: Response) => {
 
 // _____________________________________________________________________________
 
-export const deleteCabinet = async (req: Request, res: Response) => {
+export const deleteClinic = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   const userId = Number(req.user?.userId);
   let user: any;
@@ -286,26 +286,26 @@ export const deleteCabinet = async (req: Request, res: Response) => {
   }
 
   try {
-    const cabinet = await prisma.dentists.findUnique({
+    const clinic = await prisma.clinics.findUnique({
       where: { id },
     });
-    if (!cabinet) {
-      res.status(404).json({ error: "Cabinet non trouvé" });
+    if (!clinic) {
+      res.status(404).json({ error: "clinic non trouvé" });
       return;
     }
-    if (cabinet?.ownerId !== userId && user.data.role !== "admin") {
+    if (clinic?.ownerId !== userId && user.data.role !== "admin") {
       res.status(403).json({
-        message: "Vous n'êtes pas autorisé à supprimer ce cabinet",
+        message: "Vous n'êtes pas autorisé à supprimer ce clinic",
       })
       return; 
     }
-   const images = await prisma.images.findMany({ where: { dentistId: id } });
+   const images = await prisma.images.findMany({ where: { clinicId: id } });
    await prisma.$transaction([
-     prisma.images.deleteMany({ where: { dentistId: id } }),
-     prisma.availabilities.deleteMany({ where: { dentistId: id } }),
-     prisma.pricingServices.deleteMany({ where: { dentistId: id } }),
-     prisma.nonPricingServices.deleteMany({ where: { dentistId: id } }),
-     prisma.dentists.delete({ where: { id } }),
+     prisma.images.deleteMany({ where: { clinicId: id } }),
+     prisma.availabilities.deleteMany({ where: { clinicId: id } }),
+     prisma.pricingServices.deleteMany({ where: { clinicId: id } }),
+     prisma.nonPricingServices.deleteMany({ where: { clinicId: id } }),
+     prisma.clinics.delete({ where: { id } }),
    ]);
     images.forEach((image) => {
       const imagePath = path.join(__dirname, "..", "public", image.url);
@@ -316,7 +316,7 @@ export const deleteCabinet = async (req: Request, res: Response) => {
     res.json({ message: "Suppression effectuée" });
       } catch (error: any) {
     res.status(500).json({
-      error: "Erreur lors de la suppression du cabinet",
+      error: "Erreur lors de la suppression du clinic",
       message: error.message,
     });
   }
@@ -324,12 +324,12 @@ export const deleteCabinet = async (req: Request, res: Response) => {
 
 // _____________________________________________________________________________
 
-export const getLandingDoctors = async (req: Request, res: Response) => {
+export const getLandingClinics = async (req: Request, res: Response) => {
 
   const take = parseInt(req.query.take as string) || 3;
 
   try {
-    const doctors = await prisma.dentists.findMany({
+    const clinics = await prisma.clinics.findMany({
       take,
       orderBy: {
         createdAt: "desc",
@@ -341,7 +341,7 @@ export const getLandingDoctors = async (req: Request, res: Response) => {
         nonPricingServices: true,
       },
     });
-    res.json(doctors);
+    res.json(clinics);
   } catch (error: any) {
     res.status(500).json({
       error: "Erreur lors de la récupération des médecins",

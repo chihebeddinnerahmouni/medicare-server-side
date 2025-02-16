@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { authGuard } from "../middleware/authGuard";
 import { adminGuard } from "../middleware/adminGuard";
-import { uploadArray } from "../middleware/multer";
+import { uploadArray, uploadSingle } from "../middleware/multer";
 import {
   addCabinet,
   addService,
@@ -13,7 +13,8 @@ import {
   deleteCabinet,
   getLandingDoctors,
   deleteService,
-  updateService
+  updateService,
+  deleteSpeciality
 } from "../controllers/controllers";
 
 
@@ -32,9 +33,10 @@ router.post("/add-cabinet/:demandeId?", authGuard, uploadArray, addCabinet);
 
 // admin
 router.post("/add-service", adminGuard, addService);
-router.post("/add-speciality", adminGuard, addSpeciality);
+router.post("/add-speciality", adminGuard,uploadSingle, addSpeciality);
 router.delete("/delete-service/:id", adminGuard, deleteService);
 router.put("/update-service/:id", adminGuard, updateService);
+router.delete("/delete-speciality/:id", adminGuard, deleteSpeciality);
 
 
 // Middleware to handle non-existent routes

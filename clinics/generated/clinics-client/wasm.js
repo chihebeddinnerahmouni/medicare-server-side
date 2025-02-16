@@ -120,14 +120,14 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.ImagesScalarFieldEnum = {
   id: 'id',
   url: 'url',
-  cabinetId: 'cabinetId',
+  clinicId: 'clinicId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
 exports.Prisma.AvailabilitiesScalarFieldEnum = {
   id: 'id',
-  cabinetId: 'cabinetId',
+  clinicId: 'clinicId',
   start_date: 'start_date',
   end_date: 'end_date',
   createdAt: 'createdAt',
@@ -145,23 +145,14 @@ exports.Prisma.ReviewsScalarFieldEnum = {
   id: 'id',
   comment: 'comment',
   userId: 'userId',
-  cabinetId: 'cabinetId',
+  clinicId: 'clinicId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.SpecialitiesScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  image: 'image',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.CabinetScalarFieldEnum = {
+exports.Prisma.ClinicsScalarFieldEnum = {
   id: 'id',
   title: 'title',
-  specialityId: 'specialityId',
   description: 'description',
   address: 'address',
   phone: 'phone',
@@ -186,7 +177,7 @@ exports.Prisma.CabinetScalarFieldEnum = {
 
 exports.Prisma.PricingServicesScalarFieldEnum = {
   id: 'id',
-  cabinetId: 'cabinetId',
+  clinicId: 'clinicId',
   service_name: 'service_name',
   price: 'price',
   createdAt: 'createdAt',
@@ -195,7 +186,7 @@ exports.Prisma.PricingServicesScalarFieldEnum = {
 
 exports.Prisma.NonPricingServicesScalarFieldEnum = {
   id: 'id',
-  cabinetId: 'cabinetId',
+  clinicId: 'clinicId',
   service_name: 'service_name',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -227,8 +218,7 @@ exports.Prisma.ModelName = {
   availabilities: 'availabilities',
   Services: 'Services',
   Reviews: 'Reviews',
-  specialities: 'specialities',
-  Cabinet: 'Cabinet',
+  Clinics: 'Clinics',
   PricingServices: 'PricingServices',
   NonPricingServices: 'NonPricingServices'
 };

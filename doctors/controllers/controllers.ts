@@ -55,10 +55,18 @@ export const getServices = async (req: Request, res: Response) => {
 
 export const addSpeciality = async (req: Request, res: Response) => {
   const { name } = req.body;
+  const file = req.file as Express.Multer.File;
+
+  if (!file) {
+    res.status(400).json({ message: "Image de la spécialité est requise" });
+    return;
+  }
+
   try {
     const newSpeciality = await prisma.specialities.create({
       data: {
         name,
+        image: `/images/${file.filename}`,
       },
     });
     res.json({ data: newSpeciality });
@@ -334,7 +342,6 @@ export const deleteCabinet = async (req: Request, res: Response) => {
       prisma.pricingServices.deleteMany({ where: { cabinetId: id } }),
       prisma.nonPricingServices.deleteMany({ where: { cabinetId: id } }),
       prisma.cabinet.delete({ where: { id } }),
-
     ]);
 
     images.forEach((image: any) => {
@@ -419,3 +426,45 @@ export const updateService = async (req: Request, res: Response) => {
     });
   }
 };
+
+// _____________________________________________________________________________
+
+export const deleteSpeciality = async (req: Request, res: Response) => { 
+  const id = parseInt(req.params.id);
+  try {
+    const speciality = await prisma.specialities.findUnique({ where: { id } });
+    if (!speciality) {
+      res.status(404).json({ error: "Speciality not found" });
+      return;
+    }
+    const cabinets = await prisma.cabinet.findMany({
+      where: { specialityId: id },
+    });
+    for (const cabinet of cabinets) {
+      const images = await prisma.images.findMany({
+        where: { cabinetId: cabinet.id },
+      });
+      await prisma.$transaction([
+        prisma.images.deleteMany({ where: { cabinetId: cabinet.id } }),
+        prisma.availabilities.deleteMany({ where: { cabinetId: cabinet.id } }),
+        prisma.pricingServices.deleteMany({ where: { cabinetId: cabinet.id } }),
+        prisma.nonPricingServices.deleteMany({ where: { cabinetId: cabinet.id } }),
+        prisma.cabinet.delete({ where: { id: cabinet.id } }),
+      ]);
+      images.forEach((image: any) => {
+        const imagePath = path.join(__dirname, "..", "public", image.url);
+        if (fs.existsSync(imagePath)) {
+          fs.unlinkSync(imagePath);
+        }
+      }
+      );
+    }
+    await prisma.specialities.delete({ where: { id } });
+    res.json({ message: "Speciality and related cabinets deleted" });
+  } catch (error: any) {
+    res.status(500).json({
+      error: "Error while deleting speciality and related cabinets",
+      message: error.message,
+    });
+  }
+}
