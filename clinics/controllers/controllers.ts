@@ -173,6 +173,18 @@ export const addClinic = async (req: Request, res: Response) => {
       },
     });
 
+    try {
+      axios.put(usersUrl + "/users/set-has-something/" + userId, {
+        hasSomething: true,
+      });
+    } catch (error: any) {
+      res.status(500).json({
+        error: "Erreur lors de la création d'un cabinet from user service",
+        message: error.message,
+      });
+      return;
+    }
+
     res.json(newclinic);
   } catch (error: any) {
     res.status(500).json({

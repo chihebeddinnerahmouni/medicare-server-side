@@ -21,7 +21,8 @@ import {
   updateUserImage,
   NumberOfUsers,
   getMyDemandes,
-  setDemandeOnWork
+  setDemandeOnWork,
+  setHasSomething,
 } from "../controllers/controllers";
 
 
@@ -34,6 +35,8 @@ router.get("/users", getUsers);
 router.get("/get-user/:id", getUserById);
 router.get("/number-of-users", NumberOfUsers);
 router.put("/set-demande-working/:demandeId/:userId", setDemandeOnWork);
+router.put("/set-has-something/:userId", setHasSomething);
+
 
 
 //user

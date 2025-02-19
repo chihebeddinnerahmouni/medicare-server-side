@@ -15,6 +15,7 @@ model Users {
   lastName    String
   password    String
   role        String
+  hasSomething Boolean  @default(false)
   profilePic     String  @default("")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

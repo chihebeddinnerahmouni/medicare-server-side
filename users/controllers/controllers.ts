@@ -516,7 +516,30 @@ export const setDemandeOnWork = async (req: Request, res: Response) => {
   }
 }
 
+//_______________________________________________________________
 
+export const setHasSomething = async (req: Request, res: Response) => { 
+  const userId = Number(req.params.userId);
+  const { hasSomething } = req.body;
+  try {
+
+    const user = await prisma.users.findUnique({
+      where: { id: userId },
+    });
+    if (!user) {
+      res.status(404).json({ message: "Utilisateur introuvable" });
+      return;
+    }
+
+    const updatedUser = await prisma.users.update({
+      where: { id: userId },
+      data: { hasSomething },
+    });
+    res.json(updatedUser);
+  } catch (error: any) {
+    res.status(500).json({ error: "Erreur lors de la mise à jour de l'utilisateur", message: error.message });
+  }
+}
 
 
 
