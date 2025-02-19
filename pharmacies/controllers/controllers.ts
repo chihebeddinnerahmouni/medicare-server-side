@@ -266,3 +266,24 @@ export const getLandingPharmacies = async (req: Request, res: Response) => {
     });
   }
 }
+
+//_____________________________________________________________________________
+
+export const getMyPharmacies = async (req: Request, res: Response) => { 
+  const userId = Number(req.user?.userId);
+  try {
+    const pharmacies = await prisma.pharmacies.findMany({
+      where: { ownerId: userId },
+      include: {
+        images: true,
+        availabilities: true,
+      },
+    });
+    res.json(pharmacies);
+  } catch (error: any) {
+    res.status(500).json({
+      error: "Erreur lors de la récupération des pharmacies",
+      message: error.message,
+    });
+  }
+}

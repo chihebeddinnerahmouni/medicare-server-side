@@ -361,3 +361,26 @@ export const getLandingClinics = async (req: Request, res: Response) => {
     });
   }
 }
+
+// _____________________________________________________________________________
+
+export const getMyClinics = async (req: Request, res: Response) => { 
+  const userId = Number(req.user?.userId);
+  try {
+    const clinics = await prisma.clinics.findMany({
+      where: { ownerId: userId },
+      include: {
+        images: true,
+        // availabilities: true,
+        // PricingServices: true,
+        // nonPricingServices: true,
+      },
+    });
+    res.json(clinics);
+  } catch (error: any) {
+    res.status(500).json({
+      error: "Erreur lors de la récupération des clinics",
+      message: error.message,
+    });
+  }
+}

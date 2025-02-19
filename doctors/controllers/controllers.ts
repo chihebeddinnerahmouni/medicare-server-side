@@ -485,3 +485,27 @@ export const deleteSpeciality = async (req: Request, res: Response) => {
     });
   }
 }
+
+// _____________________________________________________________________________
+
+export const getMyCabinets = async (req: Request, res: Response) => { 
+  const userId = Number(req.user?.userId);
+  try {
+    const cabinets = await prisma.cabinet.findMany({
+      where: { ownerId: userId },
+      include: {
+        images: true,
+        // availabilities: true,
+        // PricingServices: true,
+        speciality: true,
+        // nonPricingServices: true,
+      },
+    });
+    res.json(cabinets);
+  } catch (error: any) {
+    res.status(500).json({
+      error: "Error while getting my cabinets",
+      message: error.message,
+    });
+  }
+}

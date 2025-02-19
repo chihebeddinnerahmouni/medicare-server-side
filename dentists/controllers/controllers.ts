@@ -336,12 +336,12 @@ export const deleteCabinet = async (req: Request, res: Response) => {
 
 // _____________________________________________________________________________
 
-export const getLandingDoctors = async (req: Request, res: Response) => {
+export const getLandingDentists = async (req: Request, res: Response) => {
 
   const take = parseInt(req.query.take as string) || 3;
 
   try {
-    const doctors = await prisma.dentists.findMany({
+    const dentists = await prisma.dentists.findMany({
       take,
       orderBy: {
         createdAt: "desc",
@@ -353,10 +353,34 @@ export const getLandingDoctors = async (req: Request, res: Response) => {
         nonPricingServices: true,
       },
     });
-    res.json(doctors);
+    res.json(dentists);
   } catch (error: any) {
     res.status(500).json({
       error: "Erreur lors de la récupération des médecins",
+      message: error.message,
+    });
+  }
+}
+
+// _____________________________________________________________________________
+
+export const getMydentists = async (req: Request, res: Response) => { 
+  const userId = Number(req.user?.userId);
+
+  try {
+    const cabinets = await prisma.dentists.findMany({
+      where: { ownerId: userId },
+      include: {
+        images: true,
+        // availabilities: true,
+        // PricingServices: true,
+        // nonPricingServices: true,
+      },
+    });
+    res.json(cabinets);
+  } catch (error: any) {
+    res.status(500).json({
+      error: "Erreur lors de la récupération des cabinets",
       message: error.message,
     });
   }

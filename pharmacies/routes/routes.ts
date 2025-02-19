@@ -7,7 +7,8 @@ import {
   getPharmacies,
   getPharmacyById,
   deletePharmacy,
-  getLandingPharmacies
+  getLandingPharmacies,
+  getMyPharmacies
   
 } from "../controllers/controllers";
 
@@ -22,6 +23,7 @@ router.get("/get-landing-pharmacies", getLandingPharmacies);
 // user
 router.delete("/delete-pharmacy/:id",authGuard, deletePharmacy);
 router.post("/add-pharmacy/:demandeId?", authGuard, uploadArray, addPharmacy);
+router.get("/get-my-pharmacies", authGuard, getMyPharmacies);
 
 // admin
 

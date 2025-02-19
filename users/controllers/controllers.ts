@@ -139,6 +139,7 @@ const searchUser = async (userId: number, res: Response) => {
         profilePic: true,
         hasDemandes: true,
         role: true,
+        hasSomething: true,
       },
     });
     return user;
@@ -147,6 +148,7 @@ const searchUser = async (userId: number, res: Response) => {
   }
 };
 
+// get auth user
 export const getAuthUser = async (req: Request, res: Response) => {
   const user = req.user;
   try {
