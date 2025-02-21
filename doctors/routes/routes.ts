@@ -16,6 +16,7 @@ import {
   updateService,
   deleteSpeciality,
   getMyCabinets,
+  updateCabinet,
 } from "../controllers/controllers";
 
 
@@ -32,6 +33,7 @@ router.get("/get-landing-doctors", getLandingDoctors);
 router.delete("/delete-cabinet/:id",authGuard, deleteCabinet);
 router.post("/add-cabinet/:demandeId?", authGuard, uploadArray, addCabinet);
 router.get("/get-my-cabinets", authGuard, getMyCabinets);
+router.put("/update-cabinet/:cabinetId", authGuard, uploadArray, updateCabinet);
 
 
 // admin

@@ -521,3 +521,36 @@ export const getMyCabinets = async (req: Request, res: Response) => {
     });
   }
 }
+
+// _____________________________________________________________________________
+
+export const updateCabinet = async (req: Request, res: Response) => {
+
+  const { title, description, openTime, closeTime } = req.body;
+  const userId = req.user?.userId;
+  const cabinetId = Number(req.params.cabinetId);
+  
+  const updateData: any = {}
+  if (title) updateData.title = title;
+  if (description) updateData.description = description;
+  if (openTime) updateData.openTime = openTime;
+  if (closeTime) updateData.closeTime = closeTime;
+
+  try {
+
+    // Update clinic in the database
+    const updatedCabinet = await prisma.cabinet.update({
+      where: { id: cabinetId },
+      data: {
+        ...updateData    
+      },
+    });
+    res
+      .status(200)
+      .json({ message: "Cabinét mise a jour avec succés", data: updatedCabinet });
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({ error: "Erreur lors de la mise à jour du cabinet", message: error.message });
+  }
+};
