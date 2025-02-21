@@ -38,7 +38,13 @@ export const addPharmacy = async (req: Request, res: Response) => {
     longitude,
     daysOff,
   } = req.body;
+
   const images = req.files as Express.Multer.File[];
+   if (images.length < 5) {
+     res.status(400).json({ error: "Veuillez ajouter au moins 5 images" });
+     return;
+  }
+  
   const parsedAvailabilities = JSON.parse(availabilities);
   const parsedDaysOff = JSON.parse(daysOff);
 

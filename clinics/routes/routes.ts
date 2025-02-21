@@ -31,5 +31,12 @@ router.get("/get-my-clinics", authGuard, getMyClinics);
 router.post("/add-service", adminGuard, addService);
 
 
+// Middleware to handle non-existent routes
+router.use((req, res) => {
+  res.status(450).json({
+    message: `Route does not exist ${req.originalUrl}`,
+  });
+});
+
 
 module.exports = router;

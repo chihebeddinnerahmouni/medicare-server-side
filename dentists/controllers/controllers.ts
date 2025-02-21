@@ -71,8 +71,13 @@ export const addCabinet = async (req: Request, res: Response) => {
     longitude,
     daysOff,
   } = req.body;
-  const images = Array.isArray(req.files) ? req.files : [];
 
+  const images = Array.isArray(req.files) ? req.files : [];
+   if (images.length < 5) {
+     res.status(400).json({ error: "Veuillez ajouter au moins 5 images" });
+     return;
+  }
+  
   if (demandeId) {
     try {
       await axios.put(

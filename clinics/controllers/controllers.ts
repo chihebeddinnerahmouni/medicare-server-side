@@ -52,7 +52,7 @@ export const getServices = async (req: Request, res: Response) => {
 
 // _____________________________________________________________________________
 
-export const addClinic = async (req: Request, res: Response) => {
+export const addClinic = async (req: Request, res: Response) => {  
   const userId = req.user?.userId;
   const demandeId = Number(req.params.demandeId);
   const {
@@ -71,6 +71,10 @@ export const addClinic = async (req: Request, res: Response) => {
     daysOff,
   } = req.body;
   const images = Array.isArray(req.files) ? req.files : [];
+  if (images.length < 5) {
+    res.status(400).json({ error: "Veuillez ajouter au moins 5 images" });
+    return;
+  }
 
   if (demandeId) {
     try {
