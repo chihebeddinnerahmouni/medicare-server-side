@@ -158,6 +158,7 @@ model Dentists {
   closeTime       String
   latitude        String
   longitude       String
+    type            String             @default("dentist")
   daysOff         Int[]              @default([])
   reviewsCount    Int                @default(0)
   createdAt       DateTime           @default(now())

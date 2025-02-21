@@ -164,6 +164,7 @@ exports.Prisma.ClinicsScalarFieldEnum = {
   year: 'year',
   validated: 'validated',
   blocked: 'blocked',
+  type: 'type',
   rates: 'rates',
   openTime: 'openTime',
   closeTime: 'closeTime',

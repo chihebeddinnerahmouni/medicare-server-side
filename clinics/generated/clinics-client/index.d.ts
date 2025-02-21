@@ -5862,6 +5862,7 @@ export namespace Prisma {
     year: number | null
     validated: boolean | null
     blocked: boolean | null
+    type: string | null
     openTime: string | null
     closeTime: string | null
     latitude: string | null
@@ -5885,6 +5886,7 @@ export namespace Prisma {
     year: number | null
     validated: boolean | null
     blocked: boolean | null
+    type: string | null
     openTime: string | null
     closeTime: string | null
     latitude: string | null
@@ -5908,6 +5910,7 @@ export namespace Prisma {
     year: number
     validated: number
     blocked: number
+    type: number
     rates: number
     openTime: number
     closeTime: number
@@ -5959,6 +5962,7 @@ export namespace Prisma {
     year?: true
     validated?: true
     blocked?: true
+    type?: true
     openTime?: true
     closeTime?: true
     latitude?: true
@@ -5982,6 +5986,7 @@ export namespace Prisma {
     year?: true
     validated?: true
     blocked?: true
+    type?: true
     openTime?: true
     closeTime?: true
     latitude?: true
@@ -6005,6 +6010,7 @@ export namespace Prisma {
     year?: true
     validated?: true
     blocked?: true
+    type?: true
     rates?: true
     openTime?: true
     closeTime?: true
@@ -6117,6 +6123,7 @@ export namespace Prisma {
     year: number
     validated: boolean
     blocked: boolean
+    type: string
     rates: JsonValue
     openTime: string
     closeTime: string
@@ -6161,6 +6168,7 @@ export namespace Prisma {
     year?: boolean
     validated?: boolean
     blocked?: boolean
+    type?: boolean
     rates?: boolean
     openTime?: boolean
     closeTime?: boolean
@@ -6192,6 +6200,7 @@ export namespace Prisma {
     year?: boolean
     validated?: boolean
     blocked?: boolean
+    type?: boolean
     rates?: boolean
     openTime?: boolean
     closeTime?: boolean
@@ -6217,6 +6226,7 @@ export namespace Prisma {
     year?: boolean
     validated?: boolean
     blocked?: boolean
+    type?: boolean
     rates?: boolean
     openTime?: boolean
     closeTime?: boolean
@@ -6242,6 +6252,7 @@ export namespace Prisma {
     year?: boolean
     validated?: boolean
     blocked?: boolean
+    type?: boolean
     rates?: boolean
     openTime?: boolean
     closeTime?: boolean
@@ -6253,7 +6264,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type ClinicsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "address" | "phone" | "totalViews" | "totalRate" | "numberOfRates" | "averageRate" | "ownerId" | "year" | "validated" | "blocked" | "rates" | "openTime" | "closeTime" | "latitude" | "longitude" | "daysOff" | "reviewsCount" | "createdAt" | "updatedAt", ExtArgs["result"]["clinics"]>
+  export type ClinicsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "address" | "phone" | "totalViews" | "totalRate" | "numberOfRates" | "averageRate" | "ownerId" | "year" | "validated" | "blocked" | "type" | "rates" | "openTime" | "closeTime" | "latitude" | "longitude" | "daysOff" | "reviewsCount" | "createdAt" | "updatedAt", ExtArgs["result"]["clinics"]>
   export type ClinicsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     images?: boolean | Clinics$imagesArgs<ExtArgs>
     availabilities?: boolean | Clinics$availabilitiesArgs<ExtArgs>
@@ -6288,6 +6299,7 @@ export namespace Prisma {
       year: number
       validated: boolean
       blocked: boolean
+      type: string
       rates: Prisma.JsonValue
       openTime: string
       closeTime: string
@@ -6738,6 +6750,7 @@ export namespace Prisma {
     readonly year: FieldRef<"Clinics", 'Int'>
     readonly validated: FieldRef<"Clinics", 'Boolean'>
     readonly blocked: FieldRef<"Clinics", 'Boolean'>
+    readonly type: FieldRef<"Clinics", 'String'>
     readonly rates: FieldRef<"Clinics", 'Json'>
     readonly openTime: FieldRef<"Clinics", 'String'>
     readonly closeTime: FieldRef<"Clinics", 'String'>
@@ -9555,6 +9568,7 @@ export namespace Prisma {
     year: 'year',
     validated: 'validated',
     blocked: 'blocked',
+    type: 'type',
     rates: 'rates',
     openTime: 'openTime',
     closeTime: 'closeTime',
@@ -9949,6 +9963,7 @@ export namespace Prisma {
     year?: IntFilter<"Clinics"> | number
     validated?: BoolFilter<"Clinics"> | boolean
     blocked?: BoolFilter<"Clinics"> | boolean
+    type?: StringFilter<"Clinics"> | string
     rates?: JsonFilter<"Clinics">
     openTime?: StringFilter<"Clinics"> | string
     closeTime?: StringFilter<"Clinics"> | string
@@ -9979,6 +9994,7 @@ export namespace Prisma {
     year?: SortOrder
     validated?: SortOrder
     blocked?: SortOrder
+    type?: SortOrder
     rates?: SortOrder
     openTime?: SortOrder
     closeTime?: SortOrder
@@ -10012,6 +10028,7 @@ export namespace Prisma {
     year?: IntFilter<"Clinics"> | number
     validated?: BoolFilter<"Clinics"> | boolean
     blocked?: BoolFilter<"Clinics"> | boolean
+    type?: StringFilter<"Clinics"> | string
     rates?: JsonFilter<"Clinics">
     openTime?: StringFilter<"Clinics"> | string
     closeTime?: StringFilter<"Clinics"> | string
@@ -10042,6 +10059,7 @@ export namespace Prisma {
     year?: SortOrder
     validated?: SortOrder
     blocked?: SortOrder
+    type?: SortOrder
     rates?: SortOrder
     openTime?: SortOrder
     closeTime?: SortOrder
@@ -10075,6 +10093,7 @@ export namespace Prisma {
     year?: IntWithAggregatesFilter<"Clinics"> | number
     validated?: BoolWithAggregatesFilter<"Clinics"> | boolean
     blocked?: BoolWithAggregatesFilter<"Clinics"> | boolean
+    type?: StringWithAggregatesFilter<"Clinics"> | string
     rates?: JsonWithAggregatesFilter<"Clinics">
     openTime?: StringWithAggregatesFilter<"Clinics"> | string
     closeTime?: StringWithAggregatesFilter<"Clinics"> | string
@@ -10434,6 +10453,7 @@ export namespace Prisma {
     year: number
     validated: boolean
     blocked: boolean
+    type?: string
     rates: JsonNullValueInput | InputJsonValue
     openTime: string
     closeTime: string
@@ -10464,6 +10484,7 @@ export namespace Prisma {
     year: number
     validated: boolean
     blocked: boolean
+    type?: string
     rates: JsonNullValueInput | InputJsonValue
     openTime: string
     closeTime: string
@@ -10493,6 +10514,7 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     validated?: BoolFieldUpdateOperationsInput | boolean
     blocked?: BoolFieldUpdateOperationsInput | boolean
+    type?: StringFieldUpdateOperationsInput | string
     rates?: JsonNullValueInput | InputJsonValue
     openTime?: StringFieldUpdateOperationsInput | string
     closeTime?: StringFieldUpdateOperationsInput | string
@@ -10523,6 +10545,7 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     validated?: BoolFieldUpdateOperationsInput | boolean
     blocked?: BoolFieldUpdateOperationsInput | boolean
+    type?: StringFieldUpdateOperationsInput | string
     rates?: JsonNullValueInput | InputJsonValue
     openTime?: StringFieldUpdateOperationsInput | string
     closeTime?: StringFieldUpdateOperationsInput | string
@@ -10553,6 +10576,7 @@ export namespace Prisma {
     year: number
     validated: boolean
     blocked: boolean
+    type?: string
     rates: JsonNullValueInput | InputJsonValue
     openTime: string
     closeTime: string
@@ -10577,6 +10601,7 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     validated?: BoolFieldUpdateOperationsInput | boolean
     blocked?: BoolFieldUpdateOperationsInput | boolean
+    type?: StringFieldUpdateOperationsInput | string
     rates?: JsonNullValueInput | InputJsonValue
     openTime?: StringFieldUpdateOperationsInput | string
     closeTime?: StringFieldUpdateOperationsInput | string
@@ -10602,6 +10627,7 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     validated?: BoolFieldUpdateOperationsInput | boolean
     blocked?: BoolFieldUpdateOperationsInput | boolean
+    type?: StringFieldUpdateOperationsInput | string
     rates?: JsonNullValueInput | InputJsonValue
     openTime?: StringFieldUpdateOperationsInput | string
     closeTime?: StringFieldUpdateOperationsInput | string
@@ -11063,6 +11089,7 @@ export namespace Prisma {
     year?: SortOrder
     validated?: SortOrder
     blocked?: SortOrder
+    type?: SortOrder
     rates?: SortOrder
     openTime?: SortOrder
     closeTime?: SortOrder
@@ -11100,6 +11127,7 @@ export namespace Prisma {
     year?: SortOrder
     validated?: SortOrder
     blocked?: SortOrder
+    type?: SortOrder
     openTime?: SortOrder
     closeTime?: SortOrder
     latitude?: SortOrder
@@ -11123,6 +11151,7 @@ export namespace Prisma {
     year?: SortOrder
     validated?: SortOrder
     blocked?: SortOrder
+    type?: SortOrder
     openTime?: SortOrder
     closeTime?: SortOrder
     latitude?: SortOrder
@@ -11741,6 +11770,7 @@ export namespace Prisma {
     year: number
     validated: boolean
     blocked: boolean
+    type?: string
     rates: JsonNullValueInput | InputJsonValue
     openTime: string
     closeTime: string
@@ -11770,6 +11800,7 @@ export namespace Prisma {
     year: number
     validated: boolean
     blocked: boolean
+    type?: string
     rates: JsonNullValueInput | InputJsonValue
     openTime: string
     closeTime: string
@@ -11814,6 +11845,7 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     validated?: BoolFieldUpdateOperationsInput | boolean
     blocked?: BoolFieldUpdateOperationsInput | boolean
+    type?: StringFieldUpdateOperationsInput | string
     rates?: JsonNullValueInput | InputJsonValue
     openTime?: StringFieldUpdateOperationsInput | string
     closeTime?: StringFieldUpdateOperationsInput | string
@@ -11843,6 +11875,7 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     validated?: BoolFieldUpdateOperationsInput | boolean
     blocked?: BoolFieldUpdateOperationsInput | boolean
+    type?: StringFieldUpdateOperationsInput | string
     rates?: JsonNullValueInput | InputJsonValue
     openTime?: StringFieldUpdateOperationsInput | string
     closeTime?: StringFieldUpdateOperationsInput | string
@@ -11871,6 +11904,7 @@ export namespace Prisma {
     year: number
     validated: boolean
     blocked: boolean
+    type?: string
     rates: JsonNullValueInput | InputJsonValue
     openTime: string
     closeTime: string
@@ -11900,6 +11934,7 @@ export namespace Prisma {
     year: number
     validated: boolean
     blocked: boolean
+    type?: string
     rates: JsonNullValueInput | InputJsonValue
     openTime: string
     closeTime: string
@@ -11944,6 +11979,7 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     validated?: BoolFieldUpdateOperationsInput | boolean
     blocked?: BoolFieldUpdateOperationsInput | boolean
+    type?: StringFieldUpdateOperationsInput | string
     rates?: JsonNullValueInput | InputJsonValue
     openTime?: StringFieldUpdateOperationsInput | string
     closeTime?: StringFieldUpdateOperationsInput | string
@@ -11973,6 +12009,7 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     validated?: BoolFieldUpdateOperationsInput | boolean
     blocked?: BoolFieldUpdateOperationsInput | boolean
+    type?: StringFieldUpdateOperationsInput | string
     rates?: JsonNullValueInput | InputJsonValue
     openTime?: StringFieldUpdateOperationsInput | string
     closeTime?: StringFieldUpdateOperationsInput | string
@@ -12001,6 +12038,7 @@ export namespace Prisma {
     year: number
     validated: boolean
     blocked: boolean
+    type?: string
     rates: JsonNullValueInput | InputJsonValue
     openTime: string
     closeTime: string
@@ -12030,6 +12068,7 @@ export namespace Prisma {
     year: number
     validated: boolean
     blocked: boolean
+    type?: string
     rates: JsonNullValueInput | InputJsonValue
     openTime: string
     closeTime: string
@@ -12074,6 +12113,7 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     validated?: BoolFieldUpdateOperationsInput | boolean
     blocked?: BoolFieldUpdateOperationsInput | boolean
+    type?: StringFieldUpdateOperationsInput | string
     rates?: JsonNullValueInput | InputJsonValue
     openTime?: StringFieldUpdateOperationsInput | string
     closeTime?: StringFieldUpdateOperationsInput | string
@@ -12103,6 +12143,7 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     validated?: BoolFieldUpdateOperationsInput | boolean
     blocked?: BoolFieldUpdateOperationsInput | boolean
+    type?: StringFieldUpdateOperationsInput | string
     rates?: JsonNullValueInput | InputJsonValue
     openTime?: StringFieldUpdateOperationsInput | string
     closeTime?: StringFieldUpdateOperationsInput | string
@@ -12390,6 +12431,7 @@ export namespace Prisma {
     year: number
     validated: boolean
     blocked: boolean
+    type?: string
     rates: JsonNullValueInput | InputJsonValue
     openTime: string
     closeTime: string
@@ -12419,6 +12461,7 @@ export namespace Prisma {
     year: number
     validated: boolean
     blocked: boolean
+    type?: string
     rates: JsonNullValueInput | InputJsonValue
     openTime: string
     closeTime: string
@@ -12463,6 +12506,7 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     validated?: BoolFieldUpdateOperationsInput | boolean
     blocked?: BoolFieldUpdateOperationsInput | boolean
+    type?: StringFieldUpdateOperationsInput | string
     rates?: JsonNullValueInput | InputJsonValue
     openTime?: StringFieldUpdateOperationsInput | string
     closeTime?: StringFieldUpdateOperationsInput | string
@@ -12492,6 +12536,7 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     validated?: BoolFieldUpdateOperationsInput | boolean
     blocked?: BoolFieldUpdateOperationsInput | boolean
+    type?: StringFieldUpdateOperationsInput | string
     rates?: JsonNullValueInput | InputJsonValue
     openTime?: StringFieldUpdateOperationsInput | string
     closeTime?: StringFieldUpdateOperationsInput | string
@@ -12520,6 +12565,7 @@ export namespace Prisma {
     year: number
     validated: boolean
     blocked: boolean
+    type?: string
     rates: JsonNullValueInput | InputJsonValue
     openTime: string
     closeTime: string
@@ -12549,6 +12595,7 @@ export namespace Prisma {
     year: number
     validated: boolean
     blocked: boolean
+    type?: string
     rates: JsonNullValueInput | InputJsonValue
     openTime: string
     closeTime: string
@@ -12593,6 +12640,7 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     validated?: BoolFieldUpdateOperationsInput | boolean
     blocked?: BoolFieldUpdateOperationsInput | boolean
+    type?: StringFieldUpdateOperationsInput | string
     rates?: JsonNullValueInput | InputJsonValue
     openTime?: StringFieldUpdateOperationsInput | string
     closeTime?: StringFieldUpdateOperationsInput | string
@@ -12622,6 +12670,7 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     validated?: BoolFieldUpdateOperationsInput | boolean
     blocked?: BoolFieldUpdateOperationsInput | boolean
+    type?: StringFieldUpdateOperationsInput | string
     rates?: JsonNullValueInput | InputJsonValue
     openTime?: StringFieldUpdateOperationsInput | string
     closeTime?: StringFieldUpdateOperationsInput | string

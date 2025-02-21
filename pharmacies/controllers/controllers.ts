@@ -24,10 +24,23 @@ const usersUrl = process.env.USERS_URL as string;
 
 export const addPharmacy = async (req: Request, res: Response) => {
   const userId = req.user?.userId;
-     const demandeId = Number(req.params.demandeId);
-  const { title, description, address, phone, year, availabilities, openTime, closeTime, latitude, longitude } = req.body;
+  const demandeId = Number(req.params.demandeId);
+  const {
+    title,
+    description,
+    address,
+    phone,
+    year,
+    availabilities,
+    openTime,
+    closeTime,
+    latitude,
+    longitude,
+    daysOff,
+  } = req.body;
   const images = req.files as Express.Multer.File[];
   const parsedAvailabilities = JSON.parse(availabilities);
+  const parsedDaysOff = JSON.parse(daysOff);
 
   if (demandeId) {
     try {
@@ -58,6 +71,7 @@ export const addPharmacy = async (req: Request, res: Response) => {
         longitude,
         validated: false,
         blocked: false,
+        daysOff: parsedDaysOff,
         images: {
           create: images.map((file) => ({ url: `/images/${file.filename}` })),
         },
@@ -89,14 +103,21 @@ export const addPharmacy = async (req: Request, res: Response) => {
     });
 
     try {
-      axios.put(usersUrl + "/users/set-has-something/" + userId, {
+      await axios.put(usersUrl + "/set-has-something/" + userId, {
         hasSomething: true,
       });
     } catch (error: any) {
-      res.status(500).json({
-        error: "Erreur lors de la création d'un cabinet from user service",
-        message: error.message,
-      });
+      if (axios.isAxiosError(error)) {
+        res.status(500).json({
+          error: "Erreur lors de la création d'un cabinet from user service",
+          message: error.response?.data.message || error.message,
+        });
+      } else {
+        res.status(500).json({
+          error: "Erreur lors de la création d'un cabinet from user service",
+          message: error.message,
+        });
+      }
       return;
     }
 

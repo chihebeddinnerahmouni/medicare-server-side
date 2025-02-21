@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/pharmacies-client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Images {
+  id         Int        @id @default(autoincrement())
+  url        String
+  pharmacyId Int
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  Pharmacy   Pharmacies @relation(fields: [pharmacyId], references: [id])
+}
+
+model availabilities {
+  id         Int        @id @default(autoincrement())
+  pharmacyId Int
+  start_date String
+  end_date   String
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  Pharmacy   Pharmacies @relation(fields: [pharmacyId], references: [id])
+}
+
+model Reviews {
+  id         Int        @id @default(autoincrement())
+  comment    String
+  userId     Int
+  pharmacyId Int
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  Pharmacy   Pharmacies @relation(fields: [pharmacyId], references: [id])
+}
+
+model Pharmacies {
+  id             Int              @id @default(autoincrement())
+  title          String
+  images         Images[]
+  description    String
+  address        String
+  phone          String
+  totalViews     Int              @default(0)
+  totalRate      Int              @default(0)
+  numberOfRates  Int              @default(0)
+  averageRate    Float            @default(0)
+  availabilities availabilities[]
+  ownerId        Int
+  year           Int
+  validated      Boolean
+  blocked        Boolean
+  Reviews        Reviews[]
+  rates          Json
+  openTime       String
+  closeTime      String
+  latitude       String
+  longitude      String
+  daysOff        Int[]            @default([])
+  type           String           @default("pharmacy")
+  reviewsCount   Int              @default(0)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+}

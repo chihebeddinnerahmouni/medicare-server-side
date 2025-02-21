@@ -316,7 +316,7 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.3.1
+   * Prisma Client JS version: 6.4.0
    * Query Engine version: acc0b9dd43eb689cbd20c9470515d719db10d0b0
    */
   export type PrismaVersion = {
@@ -7095,6 +7095,7 @@ export namespace Prisma {
     closeTime: string | null
     latitude: string | null
     longitude: string | null
+    type: string | null
     reviewsCount: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -7119,6 +7120,7 @@ export namespace Prisma {
     closeTime: string | null
     latitude: string | null
     longitude: string | null
+    type: string | null
     reviewsCount: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -7144,6 +7146,7 @@ export namespace Prisma {
     closeTime: number
     latitude: number
     longitude: number
+    type: number
     daysOff: number
     reviewsCount: number
     createdAt: number
@@ -7197,6 +7200,7 @@ export namespace Prisma {
     closeTime?: true
     latitude?: true
     longitude?: true
+    type?: true
     reviewsCount?: true
     createdAt?: true
     updatedAt?: true
@@ -7221,6 +7225,7 @@ export namespace Prisma {
     closeTime?: true
     latitude?: true
     longitude?: true
+    type?: true
     reviewsCount?: true
     createdAt?: true
     updatedAt?: true
@@ -7246,6 +7251,7 @@ export namespace Prisma {
     closeTime?: true
     latitude?: true
     longitude?: true
+    type?: true
     daysOff?: true
     reviewsCount?: true
     createdAt?: true
@@ -7359,6 +7365,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type: string
     daysOff: number[]
     reviewsCount: number
     createdAt: Date
@@ -7404,6 +7411,7 @@ export namespace Prisma {
     closeTime?: boolean
     latitude?: boolean
     longitude?: boolean
+    type?: boolean
     daysOff?: boolean
     reviewsCount?: boolean
     createdAt?: boolean
@@ -7437,6 +7445,7 @@ export namespace Prisma {
     closeTime?: boolean
     latitude?: boolean
     longitude?: boolean
+    type?: boolean
     daysOff?: boolean
     reviewsCount?: boolean
     createdAt?: boolean
@@ -7464,6 +7473,7 @@ export namespace Prisma {
     closeTime?: boolean
     latitude?: boolean
     longitude?: boolean
+    type?: boolean
     daysOff?: boolean
     reviewsCount?: boolean
     createdAt?: boolean
@@ -7491,13 +7501,14 @@ export namespace Prisma {
     closeTime?: boolean
     latitude?: boolean
     longitude?: boolean
+    type?: boolean
     daysOff?: boolean
     reviewsCount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CabinetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "specialityId" | "description" | "address" | "phone" | "totalViews" | "totalRate" | "numberOfRates" | "averageRate" | "ownerId" | "year" | "validated" | "blocked" | "rates" | "openTime" | "closeTime" | "latitude" | "longitude" | "daysOff" | "reviewsCount" | "createdAt" | "updatedAt", ExtArgs["result"]["cabinet"]>
+  export type CabinetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "specialityId" | "description" | "address" | "phone" | "totalViews" | "totalRate" | "numberOfRates" | "averageRate" | "ownerId" | "year" | "validated" | "blocked" | "rates" | "openTime" | "closeTime" | "latitude" | "longitude" | "type" | "daysOff" | "reviewsCount" | "createdAt" | "updatedAt", ExtArgs["result"]["cabinet"]>
   export type CabinetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     images?: boolean | Cabinet$imagesArgs<ExtArgs>
     availabilities?: boolean | Cabinet$availabilitiesArgs<ExtArgs>
@@ -7544,6 +7555,7 @@ export namespace Prisma {
       closeTime: string
       latitude: string
       longitude: string
+      type: string
       daysOff: number[]
       reviewsCount: number
       createdAt: Date
@@ -7996,6 +8008,7 @@ export namespace Prisma {
     readonly closeTime: FieldRef<"Cabinet", 'String'>
     readonly latitude: FieldRef<"Cabinet", 'String'>
     readonly longitude: FieldRef<"Cabinet", 'String'>
+    readonly type: FieldRef<"Cabinet", 'String'>
     readonly daysOff: FieldRef<"Cabinet", 'Int[]'>
     readonly reviewsCount: FieldRef<"Cabinet", 'Int'>
     readonly createdAt: FieldRef<"Cabinet", 'DateTime'>
@@ -10833,6 +10846,7 @@ export namespace Prisma {
     closeTime: 'closeTime',
     latitude: 'latitude',
     longitude: 'longitude',
+    type: 'type',
     daysOff: 'daysOff',
     reviewsCount: 'reviewsCount',
     createdAt: 'createdAt',
@@ -11285,6 +11299,7 @@ export namespace Prisma {
     closeTime?: StringFilter<"Cabinet"> | string
     latitude?: StringFilter<"Cabinet"> | string
     longitude?: StringFilter<"Cabinet"> | string
+    type?: StringFilter<"Cabinet"> | string
     daysOff?: IntNullableListFilter<"Cabinet">
     reviewsCount?: IntFilter<"Cabinet"> | number
     createdAt?: DateTimeFilter<"Cabinet"> | Date | string
@@ -11317,6 +11332,7 @@ export namespace Prisma {
     closeTime?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    type?: SortOrder
     daysOff?: SortOrder
     reviewsCount?: SortOrder
     createdAt?: SortOrder
@@ -11352,6 +11368,7 @@ export namespace Prisma {
     closeTime?: StringFilter<"Cabinet"> | string
     latitude?: StringFilter<"Cabinet"> | string
     longitude?: StringFilter<"Cabinet"> | string
+    type?: StringFilter<"Cabinet"> | string
     daysOff?: IntNullableListFilter<"Cabinet">
     reviewsCount?: IntFilter<"Cabinet"> | number
     createdAt?: DateTimeFilter<"Cabinet"> | Date | string
@@ -11384,6 +11401,7 @@ export namespace Prisma {
     closeTime?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    type?: SortOrder
     daysOff?: SortOrder
     reviewsCount?: SortOrder
     createdAt?: SortOrder
@@ -11418,6 +11436,7 @@ export namespace Prisma {
     closeTime?: StringWithAggregatesFilter<"Cabinet"> | string
     latitude?: StringWithAggregatesFilter<"Cabinet"> | string
     longitude?: StringWithAggregatesFilter<"Cabinet"> | string
+    type?: StringWithAggregatesFilter<"Cabinet"> | string
     daysOff?: IntNullableListFilter<"Cabinet">
     reviewsCount?: IntWithAggregatesFilter<"Cabinet"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Cabinet"> | Date | string
@@ -11834,6 +11853,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: CabinetCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -11866,6 +11886,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: CabinetCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -11895,6 +11916,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: CabinetUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11927,6 +11949,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: CabinetUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11958,6 +11981,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: CabinetCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -11982,6 +12006,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: CabinetUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12008,6 +12033,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: CabinetUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12517,6 +12543,7 @@ export namespace Prisma {
     closeTime?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    type?: SortOrder
     daysOff?: SortOrder
     reviewsCount?: SortOrder
     createdAt?: SortOrder
@@ -12555,6 +12582,7 @@ export namespace Prisma {
     closeTime?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    type?: SortOrder
     reviewsCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12579,6 +12607,7 @@ export namespace Prisma {
     closeTime?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    type?: SortOrder
     reviewsCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13255,6 +13284,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: CabinetCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -13286,6 +13316,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: CabinetCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -13330,6 +13361,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: CabinetUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13361,6 +13393,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: CabinetUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13389,6 +13422,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: CabinetCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -13420,6 +13454,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: CabinetCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -13464,6 +13499,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: CabinetUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13495,6 +13531,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: CabinetUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13523,6 +13560,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: CabinetCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -13554,6 +13592,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: CabinetCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -13598,6 +13637,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: CabinetUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13629,6 +13669,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: CabinetUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13657,6 +13698,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: CabinetCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -13687,6 +13729,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: CabinetCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -13747,6 +13790,7 @@ export namespace Prisma {
     closeTime?: StringFilter<"Cabinet"> | string
     latitude?: StringFilter<"Cabinet"> | string
     longitude?: StringFilter<"Cabinet"> | string
+    type?: StringFilter<"Cabinet"> | string
     daysOff?: IntNullableListFilter<"Cabinet">
     reviewsCount?: IntFilter<"Cabinet"> | number
     createdAt?: DateTimeFilter<"Cabinet"> | Date | string
@@ -14076,6 +14120,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: CabinetCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -14107,6 +14152,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: CabinetCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -14151,6 +14197,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: CabinetUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14182,6 +14229,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: CabinetUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14210,6 +14258,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: CabinetCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -14241,6 +14290,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: CabinetCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -14285,6 +14335,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: CabinetUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14316,6 +14367,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: CabinetUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14345,6 +14397,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: CabinetCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -14369,6 +14422,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: CabinetUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14399,6 +14453,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: CabinetUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14429,6 +14484,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: CabinetUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

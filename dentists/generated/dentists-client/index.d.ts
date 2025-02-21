@@ -5866,6 +5866,7 @@ export namespace Prisma {
     closeTime: string | null
     latitude: string | null
     longitude: string | null
+    type: string | null
     reviewsCount: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5889,6 +5890,7 @@ export namespace Prisma {
     closeTime: string | null
     latitude: string | null
     longitude: string | null
+    type: string | null
     reviewsCount: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5913,6 +5915,7 @@ export namespace Prisma {
     closeTime: number
     latitude: number
     longitude: number
+    type: number
     daysOff: number
     reviewsCount: number
     createdAt: number
@@ -5963,6 +5966,7 @@ export namespace Prisma {
     closeTime?: true
     latitude?: true
     longitude?: true
+    type?: true
     reviewsCount?: true
     createdAt?: true
     updatedAt?: true
@@ -5986,6 +5990,7 @@ export namespace Prisma {
     closeTime?: true
     latitude?: true
     longitude?: true
+    type?: true
     reviewsCount?: true
     createdAt?: true
     updatedAt?: true
@@ -6010,6 +6015,7 @@ export namespace Prisma {
     closeTime?: true
     latitude?: true
     longitude?: true
+    type?: true
     daysOff?: true
     reviewsCount?: true
     createdAt?: true
@@ -6122,6 +6128,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type: string
     daysOff: number[]
     reviewsCount: number
     createdAt: Date
@@ -6166,6 +6173,7 @@ export namespace Prisma {
     closeTime?: boolean
     latitude?: boolean
     longitude?: boolean
+    type?: boolean
     daysOff?: boolean
     reviewsCount?: boolean
     createdAt?: boolean
@@ -6197,6 +6205,7 @@ export namespace Prisma {
     closeTime?: boolean
     latitude?: boolean
     longitude?: boolean
+    type?: boolean
     daysOff?: boolean
     reviewsCount?: boolean
     createdAt?: boolean
@@ -6222,6 +6231,7 @@ export namespace Prisma {
     closeTime?: boolean
     latitude?: boolean
     longitude?: boolean
+    type?: boolean
     daysOff?: boolean
     reviewsCount?: boolean
     createdAt?: boolean
@@ -6247,13 +6257,14 @@ export namespace Prisma {
     closeTime?: boolean
     latitude?: boolean
     longitude?: boolean
+    type?: boolean
     daysOff?: boolean
     reviewsCount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type DentistsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "address" | "phone" | "totalViews" | "totalRate" | "numberOfRates" | "averageRate" | "ownerId" | "year" | "validated" | "blocked" | "rates" | "openTime" | "closeTime" | "latitude" | "longitude" | "daysOff" | "reviewsCount" | "createdAt" | "updatedAt", ExtArgs["result"]["dentists"]>
+  export type DentistsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "address" | "phone" | "totalViews" | "totalRate" | "numberOfRates" | "averageRate" | "ownerId" | "year" | "validated" | "blocked" | "rates" | "openTime" | "closeTime" | "latitude" | "longitude" | "type" | "daysOff" | "reviewsCount" | "createdAt" | "updatedAt", ExtArgs["result"]["dentists"]>
   export type DentistsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     images?: boolean | Dentists$imagesArgs<ExtArgs>
     availabilities?: boolean | Dentists$availabilitiesArgs<ExtArgs>
@@ -6293,6 +6304,7 @@ export namespace Prisma {
       closeTime: string
       latitude: string
       longitude: string
+      type: string
       daysOff: number[]
       reviewsCount: number
       createdAt: Date
@@ -6743,6 +6755,7 @@ export namespace Prisma {
     readonly closeTime: FieldRef<"Dentists", 'String'>
     readonly latitude: FieldRef<"Dentists", 'String'>
     readonly longitude: FieldRef<"Dentists", 'String'>
+    readonly type: FieldRef<"Dentists", 'String'>
     readonly daysOff: FieldRef<"Dentists", 'Int[]'>
     readonly reviewsCount: FieldRef<"Dentists", 'Int'>
     readonly createdAt: FieldRef<"Dentists", 'DateTime'>
@@ -9560,6 +9573,7 @@ export namespace Prisma {
     closeTime: 'closeTime',
     latitude: 'latitude',
     longitude: 'longitude',
+    type: 'type',
     daysOff: 'daysOff',
     reviewsCount: 'reviewsCount',
     createdAt: 'createdAt',
@@ -9954,6 +9968,7 @@ export namespace Prisma {
     closeTime?: StringFilter<"Dentists"> | string
     latitude?: StringFilter<"Dentists"> | string
     longitude?: StringFilter<"Dentists"> | string
+    type?: StringFilter<"Dentists"> | string
     daysOff?: IntNullableListFilter<"Dentists">
     reviewsCount?: IntFilter<"Dentists"> | number
     createdAt?: DateTimeFilter<"Dentists"> | Date | string
@@ -9984,6 +9999,7 @@ export namespace Prisma {
     closeTime?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    type?: SortOrder
     daysOff?: SortOrder
     reviewsCount?: SortOrder
     createdAt?: SortOrder
@@ -10017,6 +10033,7 @@ export namespace Prisma {
     closeTime?: StringFilter<"Dentists"> | string
     latitude?: StringFilter<"Dentists"> | string
     longitude?: StringFilter<"Dentists"> | string
+    type?: StringFilter<"Dentists"> | string
     daysOff?: IntNullableListFilter<"Dentists">
     reviewsCount?: IntFilter<"Dentists"> | number
     createdAt?: DateTimeFilter<"Dentists"> | Date | string
@@ -10047,6 +10064,7 @@ export namespace Prisma {
     closeTime?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    type?: SortOrder
     daysOff?: SortOrder
     reviewsCount?: SortOrder
     createdAt?: SortOrder
@@ -10080,6 +10098,7 @@ export namespace Prisma {
     closeTime?: StringWithAggregatesFilter<"Dentists"> | string
     latitude?: StringWithAggregatesFilter<"Dentists"> | string
     longitude?: StringWithAggregatesFilter<"Dentists"> | string
+    type?: StringWithAggregatesFilter<"Dentists"> | string
     daysOff?: IntNullableListFilter<"Dentists">
     reviewsCount?: IntWithAggregatesFilter<"Dentists"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Dentists"> | Date | string
@@ -10439,6 +10458,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: DentistsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -10469,6 +10489,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: DentistsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -10498,6 +10519,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: DentistsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10528,6 +10550,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: DentistsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10558,6 +10581,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: DentistsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -10582,6 +10606,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: DentistsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10607,6 +10632,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: DentistsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11068,6 +11094,7 @@ export namespace Prisma {
     closeTime?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    type?: SortOrder
     daysOff?: SortOrder
     reviewsCount?: SortOrder
     createdAt?: SortOrder
@@ -11104,6 +11131,7 @@ export namespace Prisma {
     closeTime?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    type?: SortOrder
     reviewsCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11127,6 +11155,7 @@ export namespace Prisma {
     closeTime?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    type?: SortOrder
     reviewsCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11746,6 +11775,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: DentistsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -11775,6 +11805,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: DentistsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -11819,6 +11850,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: DentistsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11848,6 +11880,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: DentistsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11876,6 +11909,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: DentistsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -11905,6 +11939,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: DentistsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -11949,6 +11984,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: DentistsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11978,6 +12014,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: DentistsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12006,6 +12043,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: DentistsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -12035,6 +12073,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: DentistsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -12079,6 +12118,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: DentistsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12108,6 +12148,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: DentistsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12395,6 +12436,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: DentistsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -12424,6 +12466,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: DentistsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -12468,6 +12511,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: DentistsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12497,6 +12541,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: DentistsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12525,6 +12570,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: DentistsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -12554,6 +12600,7 @@ export namespace Prisma {
     closeTime: string
     latitude: string
     longitude: string
+    type?: string
     daysOff?: DentistsCreatedaysOffInput | number[]
     reviewsCount?: number
     createdAt?: Date | string
@@ -12598,6 +12645,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: DentistsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12627,6 +12675,7 @@ export namespace Prisma {
     closeTime?: StringFieldUpdateOperationsInput | string
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     daysOff?: DentistsUpdatedaysOffInput | number[]
     reviewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

@@ -169,6 +169,7 @@ exports.Prisma.DentistsScalarFieldEnum = {
   closeTime: 'closeTime',
   latitude: 'latitude',
   longitude: 'longitude',
+  type: 'type',
   daysOff: 'daysOff',
   reviewsCount: 'reviewsCount',
   createdAt: 'createdAt',

@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "../generated/pharmacies-client"
 }
 
 datasource db {
@@ -60,6 +61,8 @@ model Pharmacies {
   closeTime       String
   latitude        String
   longitude       String
+  daysOff         Int[]             @default([])
+  type           String             @default("pharmacy")
   reviewsCount    Int                @default(0)
   createdAt       DateTime           @default(now())
   updatedAt       DateTime           @updatedAt
