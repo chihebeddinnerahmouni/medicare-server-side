@@ -4,7 +4,8 @@ import { Request, Response } from "express";
 import fs from "fs";
 import path from "path";
 import axios from "axios";
-import {Multer} from "multer";
+import { Multer } from "multer";
+import { formatISO, parseISO } from "date-fns";
 
 declare global {
   namespace Express {
@@ -295,6 +296,8 @@ export const getCabinets = async (req: Request, res: Response) => {
 
 export const getCabinetById = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
+  const today = formatISO(new Date(), { representation: "date" });
+  
   try {
     const cabinet = await prisma.cabinet.findUnique({
       where: { id },
@@ -312,6 +315,16 @@ export const getCabinetById = async (req: Request, res: Response) => {
       return;
     }
 
+    // Delete old availabilities
+    await prisma.availabilities.deleteMany({
+      where: {
+        cabinetId: id,
+        end_date: {
+          lt: today,
+        },
+      },
+    });
+
     await prisma.cabinet.update({
       where: { id },
       data: {
@@ -320,6 +333,9 @@ export const getCabinetById = async (req: Request, res: Response) => {
         },
       },
     });
+    const filteredAvailabilities = cabinet.availabilities.filter(
+      (availability) => availability.end_date >= today
+    );
 
     const owner = await axios.get(
       process.env.USERS_URL + "/get-user/" + cabinet.ownerId
@@ -328,6 +344,7 @@ export const getCabinetById = async (req: Request, res: Response) => {
     const cabinetWithOwner = {
       ...cabinet,
       owner: owner.data,
+      availabilities: filteredAvailabilities,
     };
 
     res.json(cabinetWithOwner);
@@ -526,23 +543,85 @@ export const getMyCabinets = async (req: Request, res: Response) => {
 
 export const updateCabinet = async (req: Request, res: Response) => {
 
-  const { title, description, openTime, closeTime } = req.body;
+  const { title, description, openTime, closeTime, phone, address, pricingServices, nonPricingServices, daysOff, availabilities, latitude, longitude, year } = req.body;
   const userId = req.user?.userId;
   const cabinetId = Number(req.params.cabinetId);
+
+  const cabinet = await prisma.cabinet.findUnique({
+    where: { id: cabinetId },
+  });
+  if (!cabinet) {
+    res.status(404).json({ message: "Cabinét non trouvé" });
+    return;
+  }
+  if (cabinet.ownerId !== userId) {
+    res.status(403).json({ message: "Vous n'êtes pas autorisé à mettre à jour ce cabinet" });
+    return;
+  }
+
   
   const updateData: any = {}
   if (title) updateData.title = title;
   if (description) updateData.description = description;
   if (openTime) updateData.openTime = openTime;
   if (closeTime) updateData.closeTime = closeTime;
+  if (phone) updateData.phone = phone;
+  if (address) updateData.address = address;
+  if (latitude) updateData.latitude = latitude;
+  if (longitude) updateData.longitude = longitude;
+  if (daysOff) updateData.daysOff = daysOff;
+  if (year) updateData.year = year;
+  if (nonPricingServices) {
+    await prisma.nonPricingServices.deleteMany({ where: { cabinetId } });
+    await prisma.nonPricingServices.createMany({
+      data: nonPricingServices.map((service_name: string) => ({
+        service_name,
+        cabinetId,
+      })),
+    }
+    );
+  }
+  if (availabilities) {
+    await prisma.availabilities.deleteMany({ where: { cabinetId } });
+    await prisma.availabilities.createMany({
+      data: availabilities.map(
+        ({ start_date, end_date }: { start_date: string; end_date: string }) => ({
+          start_date,
+          end_date,
+          cabinetId,
+        })
+        ),
+      }
+      );
+    }
+  if (pricingServices) {
+    await prisma.pricingServices.deleteMany({ where: { cabinetId } });
+    await prisma.pricingServices.createMany({
+      data: pricingServices.map(
+        ({ price, service_name }: { price: number; service_name: string }) => ({
+          price,
+          service_name,
+          cabinetId,
+        })
+      ),
+    }
+    );
+  }
+
+
 
   try {
-
-    // Update clinic in the database
     const updatedCabinet = await prisma.cabinet.update({
       where: { id: cabinetId },
       data: {
         ...updateData    
+      },
+      include: {
+        images: true,
+        availabilities: true,
+        PricingServices: true,
+        speciality: true,
+        nonPricingServices: true,
       },
     });
     res
