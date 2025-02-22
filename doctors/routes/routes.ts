@@ -17,6 +17,8 @@ import {
   deleteSpeciality,
   getMyCabinets,
   updateCabinet,
+  UpdateImages,
+  deleteImage
 } from "../controllers/controllers";
 
 
@@ -34,6 +36,8 @@ router.delete("/delete-cabinet/:id",authGuard, deleteCabinet);
 router.post("/add-cabinet/:demandeId?", authGuard, uploadArray, addCabinet);
 router.get("/get-my-cabinets", authGuard, getMyCabinets);
 router.put("/update-cabinet/:cabinetId", authGuard, uploadArray, updateCabinet);
+router.put("/update-images/:cabinetId", authGuard, uploadArray, UpdateImages);
+router.delete("/delete-image/:cabinetId/:imageId", authGuard, deleteImage);
 
 
 // admin

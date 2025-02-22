@@ -654,3 +654,80 @@ export const updateCabinet = async (req: Request, res: Response) => {
       });
   }
 };
+
+// _____________________________________________________________________________
+
+export const UpdateImages = async (req: Request, res: Response) => { 
+
+  const userId = req.user?.userId;
+  const cabinetId = Number(req.params.cabinetId);
+  const images = Array.isArray(req.files) ? req.files : [];
+
+  const cabinet = await prisma.cabinet.findUnique({
+    where: { id: cabinetId },
+  });
+  if (!cabinet) {
+    res.status(404).json({ message: "Cabinet non trouvé" });
+    return;
+  }
+  if (cabinet.ownerId !== userId) {
+    res
+      .status(403)
+      .json({ message: "Vous n'êtes pas autorisé à mettre à jour ce cabinet" });
+    return;
+  }
+  try {
+    const newImages = await prisma.images.createMany({
+      data: images.map((file: Express.Multer.File) => ({
+        url: `/images/${file.filename}`,
+        cabinetId,
+      })),
+    });
+    res.json(newImages);
+  } catch (error: any) {
+    res.status(500).json({
+      error: "Erreur lors de la mise à jour des images",
+      message: error.message,
+    });
+  }
+}
+
+// _____________________________________________________________________________
+
+export const deleteImage = async (req: Request, res: Response) => {
+  const userId = req.user?.userId;
+  const cabinetId = Number(req.params.cabinetId);
+  const imageId = Number(req.params.imageId);
+
+  const cabinet = await prisma.cabinet.findUnique({
+    where: { id: cabinetId },
+  });
+  if (!cabinet) {
+    res.status(404).json({ message: "Cabinet non trouvé" });
+    return;
+  }
+  if (cabinet.ownerId !== userId) {
+    res
+      .status(403)
+      .json({ message: "Vous n'êtes pas autorisé à supprimer cette image" });
+    return;
+  }
+  try {
+    const image = await prisma.images.findUnique({ where: { id: imageId } });
+    if (!image) {
+      res.status(404).json({ message: "Image non trouvée" });
+      return;
+    }
+    await prisma.images.delete({ where: { id: imageId } });
+    const imagePath = path.join(__dirname, "..", "public", image.url);
+    if (fs.existsSync(imagePath)) {
+      fs.unlinkSync(imagePath);
+    }
+    res.json({ message: "Image supprimée" });
+  } catch (error: any) {
+    res.status(500).json({
+      error: "Erreur lors de la suppression de l'image",
+      message: error.message,
+    });
+  }
+}
