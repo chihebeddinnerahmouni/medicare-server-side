@@ -687,7 +687,6 @@ export const UpdateImages = async (req: Request, res: Response) => {
   }
 
   try {
-    /** 🛑 1️⃣ DELETE IMAGE (If provided) */
     if (delete_image) {
       const imageToDelete = await prisma.images.findUnique({
         where: { id: Number(delete_image) },
@@ -696,7 +695,6 @@ export const UpdateImages = async (req: Request, res: Response) => {
       if (imageToDelete) {
         await prisma.images.delete({ where: { id: Number(delete_image) } });
 
-        // Remove file from folder
         const imagePath = path.join(
           __dirname,
           "..",
@@ -704,10 +702,21 @@ export const UpdateImages = async (req: Request, res: Response) => {
           imageToDelete.url
         );
         if (fs.existsSync(imagePath)) fs.unlinkSync(imagePath);
+
+        const remainingImages = await prisma.images.findMany({
+          where: { cabinetId },
+          orderBy: { order: "asc" },
+        });
+
+        for (let i = 0; i < remainingImages.length; i++) {
+          await prisma.images.update({
+            where: { id: remainingImages[i].id },
+            data: { order: i + 1 },
+          });
+        }
       }
     }
 
-    /** 🔄 2️⃣ UPDATE EXISTING IMAGES ORDER */
     if (parsedUpdateIndexes.length && parsedUpdateIds.length) {
       for (let i = 0; i < parsedUpdateIds.length; i++) {
         await prisma.images.update({
@@ -717,25 +726,20 @@ export const UpdateImages = async (req: Request, res: Response) => {
       }
     }
 
-    /** 📥 3️⃣ ADD NEW IMAGES & SHIFT EXISTING */
     if (newImages.length > 0) {
-      // Fetch all existing images and sort them by order
       const existingImages = await prisma.images.findMany({
         where: { cabinetId },
         orderBy: { order: "asc" },
       });
 
-      // Adjust orders for existing images based on new insertions
       for (let i = 0; i < parsedNewImagesIndexes.length; i++) {
         const newOrder = parsedNewImagesIndexes[i];
 
-        // Shift existing images to make space for new images
         await prisma.images.updateMany({
           where: { cabinetId, order: { gte: newOrder } },
           data: { order: { increment: 1 } },
         });
 
-        // Insert new image
         await prisma.images.create({
           data: {
             url: `/images/${newImages[i].filename}`,
