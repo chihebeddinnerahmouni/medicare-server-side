@@ -18,7 +18,6 @@ import {
   getMyCabinets,
   updateCabinet,
   UpdateImages,
-  deleteImage
 } from "../controllers/controllers";
 
 
@@ -37,7 +36,6 @@ router.post("/add-cabinet/:demandeId?", authGuard, uploadArray, addCabinet);
 router.get("/get-my-cabinets", authGuard, getMyCabinets);
 router.put("/update-cabinet/:cabinetId", authGuard, uploadArray, updateCabinet);
 router.put("/update-images/:cabinetId", authGuard, uploadArray, UpdateImages);
-router.delete("/delete-image/:cabinetId/:imageId", authGuard, deleteImage);
 
 
 // admin
@@ -50,8 +48,9 @@ router.delete("/delete-speciality/:id", adminGuard, deleteSpeciality);
 
 // Middleware to handle non-existent routes
 router.use((req, res) => {
+  console.log(req.originalUrl);
   res.status(450).json({
-    message: `Route does not exist ${req.originalUrl}`,
+    message: `Route does not exist in doctors server ${req.originalUrl}`,
   });
 });
 

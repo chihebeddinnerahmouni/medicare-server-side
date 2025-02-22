@@ -668,16 +668,34 @@ export const UpdateImages = async (req: Request, res: Response) => {
   const { new_images_indexes, update_indexes, update_ids, delete_image } =
     req.body;
 
-  const parsedNewImagesIndexes = JSON.parse(new_images_indexes || "[]");
-  const parsedUpdateIndexes = JSON.parse(update_indexes || "[]");
-  const parsedUpdateIds = JSON.parse(update_ids || "[]");
+  // Normalize the data to ensure they are arrays of numbers
+  const parseArray = (data: any) => {
+    if (Array.isArray(data)) {
+      return data.map((item) => Number(item));
+    }
+    if (typeof data === "string") {
+      try {
+        return JSON.parse(data).map((item: any) => Number(item));
+      } catch (error) {
+        console.log(data);
+        console.error("Error parsing data:", error);
+        return [];
+      }
+    }
+    return [];
+  };
+
+  const parsedNewImagesIndexes = parseArray(new_images_indexes);
+  const parsedUpdateIndexes = parseArray(update_indexes);
+  const parsedUpdateIds = parseArray(update_ids);
 
   const cabinet = await prisma.cabinet.findUnique({
     where: { id: cabinetId },
   });
 
   if (!cabinet) {
-     res.status(404).json({ message: "Cabinet non trouvé" }); return;
+    res.status(404).json({ message: "Cabinet non trouvé" });
+    return;
   }
   if (cabinet.ownerId !== userId) {
     res
@@ -760,42 +778,3 @@ export const UpdateImages = async (req: Request, res: Response) => {
 };
 
 
-// _____________________________________________________________________________
-
-export const deleteImage = async (req: Request, res: Response) => {
-  const userId = req.user?.userId;
-  const cabinetId = Number(req.params.cabinetId);
-  const imageId = Number(req.params.imageId);
-
-  const cabinet = await prisma.cabinet.findUnique({
-    where: { id: cabinetId },
-  });
-  if (!cabinet) {
-    res.status(404).json({ message: "Cabinet non trouvé" });
-    return;
-  }
-  if (cabinet.ownerId !== userId) {
-    res
-      .status(403)
-      .json({ message: "Vous n'êtes pas autorisé à supprimer cette image" });
-    return;
-  }
-  try {
-    const image = await prisma.images.findUnique({ where: { id: imageId } });
-    if (!image) {
-      res.status(404).json({ message: "Image non trouvée" });
-      return;
-    }
-    await prisma.images.delete({ where: { id: imageId } });
-    const imagePath = path.join(__dirname, "..", "public", image.url);
-    if (fs.existsSync(imagePath)) {
-      fs.unlinkSync(imagePath);
-    }
-    res.json({ message: "Image supprimée" });
-  } catch (error: any) {
-    res.status(500).json({
-      error: "Erreur lors de la suppression de l'image",
-      message: error.message,
-    });
-  }
-}
