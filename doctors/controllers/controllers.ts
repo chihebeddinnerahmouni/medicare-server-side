@@ -324,6 +324,9 @@ export const getCabinetById = async (req: Request, res: Response) => {
         },
       },
     });
+    const filteredAvailabilities = cabinet.availabilities.filter(
+      (availability) => availability.end_date >= today
+    );
 
     await prisma.cabinet.update({
       where: { id },
@@ -333,9 +336,6 @@ export const getCabinetById = async (req: Request, res: Response) => {
         },
       },
     });
-    const filteredAvailabilities = cabinet.availabilities.filter(
-      (availability) => availability.end_date >= today
-    );
 
     const owner = await axios.get(
       process.env.USERS_URL + "/get-user/" + cabinet.ownerId
@@ -542,8 +542,21 @@ export const getMyCabinets = async (req: Request, res: Response) => {
 // _____________________________________________________________________________
 
 export const updateCabinet = async (req: Request, res: Response) => {
-
-  const { title, description, openTime, closeTime, phone, address, pricingServices, nonPricingServices, daysOff, availabilities, latitude, longitude, year } = req.body;
+  const {
+    title,
+    description,
+    openTime,
+    closeTime,
+    phone,
+    address,
+    pricingServices,
+    nonPricingServices,
+    daysOff,
+    availabilities,
+    latitude,
+    longitude,
+    year,
+  } = req.body;
   const userId = req.user?.userId;
   const cabinetId = Number(req.params.cabinetId);
 
@@ -555,22 +568,23 @@ export const updateCabinet = async (req: Request, res: Response) => {
     return;
   }
   if (cabinet.ownerId !== userId) {
-    res.status(403).json({ message: "Vous n'êtes pas autorisé à mettre à jour ce cabinet" });
+    res
+      .status(403)
+      .json({ message: "Vous n'êtes pas autorisé à mettre à jour ce cabinet" });
     return;
   }
-
-  
-  const updateData: any = {}
-  if (title) updateData.title = title;
-  if (description) updateData.description = description;
-  if (openTime) updateData.openTime = openTime;
-  if (closeTime) updateData.closeTime = closeTime;
-  if (phone) updateData.phone = phone;
-  if (address) updateData.address = address;
-  if (latitude) updateData.latitude = latitude;
-  if (longitude) updateData.longitude = longitude;
-  if (daysOff) updateData.daysOff = daysOff;
-  if (year) updateData.year = year;
+  const updateData: Record<string, any> = {
+    ...(title && { title }),
+    ...(description && { description }),
+    ...(openTime && { openTime }),
+    ...(closeTime && { closeTime }),
+    ...(phone && { phone }),
+    ...(address && { address }),
+    ...(latitude && { latitude }),
+    ...(longitude && { longitude }),
+    ...(daysOff && { daysOff }),
+    ...(year && { year }),
+  };
   if (nonPricingServices) {
     await prisma.nonPricingServices.deleteMany({ where: { cabinetId } });
     await prisma.nonPricingServices.createMany({
@@ -578,22 +592,26 @@ export const updateCabinet = async (req: Request, res: Response) => {
         service_name,
         cabinetId,
       })),
-    }
-    );
+    });
   }
   if (availabilities) {
     await prisma.availabilities.deleteMany({ where: { cabinetId } });
     await prisma.availabilities.createMany({
       data: availabilities.map(
-        ({ start_date, end_date }: { start_date: string; end_date: string }) => ({
+        ({
+          start_date,
+          end_date,
+        }: {
+          start_date: string;
+          end_date: string;
+        }) => ({
           start_date,
           end_date,
           cabinetId,
         })
-        ),
-      }
-      );
-    }
+      ),
+    });
+  }
   if (pricingServices) {
     await prisma.pricingServices.deleteMany({ where: { cabinetId } });
     await prisma.pricingServices.createMany({
@@ -604,17 +622,14 @@ export const updateCabinet = async (req: Request, res: Response) => {
           cabinetId,
         })
       ),
-    }
-    );
+    });
   }
-
-
 
   try {
     const updatedCabinet = await prisma.cabinet.update({
       where: { id: cabinetId },
       data: {
-        ...updateData    
+        ...updateData,
       },
       include: {
         images: true,
@@ -626,10 +641,16 @@ export const updateCabinet = async (req: Request, res: Response) => {
     });
     res
       .status(200)
-      .json({ message: "Cabinét mise a jour avec succés", data: updatedCabinet });
+      .json({
+        message: "Cabinét mise a jour avec succés",
+        data: updatedCabinet,
+      });
   } catch (error: any) {
     res
       .status(500)
-      .json({ error: "Erreur lors de la mise à jour du cabinet", message: error.message });
+      .json({
+        error: "Erreur lors de la mise à jour du cabinet",
+        message: error.message,
+      });
   }
 };

@@ -17,6 +17,7 @@ declare global {
   }
 }
 const usersUrl = process.env.USERS_URL;
+const today = new Date().toISOString().split("T")[0];
 
 // _____________________________________________________________________________
 
@@ -249,8 +250,6 @@ export const getCabinets = async (req: Request, res: Response) => {
 export const getCabinetById = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   try {
-
-
     const cabinet = await prisma.dentists.findUnique({
       where: { id },
       include: {
@@ -267,20 +266,36 @@ export const getCabinetById = async (req: Request, res: Response) => {
       return;
     }
 
-     await prisma.dentists.update({
-       where: { id },
-       data: {
-         reviewsCount: {
-           increment: 1,
-         },
-       },
-     });
+    // Delete old availabilities
+    await prisma.availabilities.deleteMany({
+      where: {
+        dentistId: id,
+        end_date: {
+          lt: today,
+        },
+      },
+    });
+     const filteredAvailabilities = cabinet.availabilities.filter(
+       (availability) => availability.end_date >= today
+     );
 
-    const owner = await axios.get(process.env.USERS_URL + "/get-user/" + cabinet.ownerId);
-     
+    await prisma.dentists.update({
+      where: { id },
+      data: {
+        reviewsCount: {
+          increment: 1,
+        },
+      },
+    });
+
+    const owner = await axios.get(
+      process.env.USERS_URL + "/get-user/" + cabinet.ownerId
+    );
+
     const cabinetWithOwner = {
       ...cabinet,
       owner: owner.data,
+      availabilities: filteredAvailabilities,
     };
 
     res.json(cabinetWithOwner);
@@ -397,3 +412,120 @@ export const getMydentists = async (req: Request, res: Response) => {
     });
   }
 }
+
+// _____________________________________________________________________________
+
+export const updateCabinet = async (req: Request, res: Response) => {
+  const {
+    title,
+    description,
+    openTime,
+    closeTime,
+    phone,
+    address,
+    pricingServices,
+    nonPricingServices,
+    daysOff,
+    availabilities,
+    latitude,
+    longitude,
+    year,
+  } = req.body;
+  const userId = req.user?.userId;
+  const cabinetId = Number(req.params.cabinetId);
+
+  const dentist = await prisma.dentists.findUnique({
+    where: { id: cabinetId },
+  });
+  if (!dentist) {
+    res.status(404).json({ message: "Cabinét non trouvé" });
+    return;
+  }
+  if (dentist.ownerId !== userId) {
+    res
+      .status(403)
+      .json({ message: "Vous n'êtes pas autorisé à mettre à jour ce cabinet" });
+    return;
+  }
+  const updateData: Record<string, any> = {
+    ...(title && { title }),
+    ...(description && { description }),
+    ...(openTime && { openTime }),
+    ...(closeTime && { closeTime }),
+    ...(phone && { phone }),
+    ...(address && { address }),
+    ...(latitude && { latitude }),
+    ...(longitude && { longitude }),
+    ...(daysOff && { daysOff }),
+    ...(year && { year }),
+  };
+  if (nonPricingServices) {
+    await prisma.nonPricingServices.deleteMany({
+      where: { dentistId: dentist.id },
+    });
+    await prisma.nonPricingServices.createMany({
+      data: nonPricingServices.map((service_name: string) => ({
+        service_name,
+        dentistId: dentist.id,
+      })),
+    });
+  }
+  if (availabilities) {
+    await prisma.availabilities.deleteMany({
+      where: { dentistId: dentist.id },
+    });
+    await prisma.availabilities.createMany({
+      data: availabilities.map(
+        ({
+          start_date,
+          end_date,
+        }: {
+          start_date: string;
+          end_date: string;
+        }) => ({
+          start_date,
+          end_date,
+          dentistId: dentist.id,
+        })
+      ),
+    });
+  }
+  if (pricingServices) {
+    await prisma.pricingServices.deleteMany({
+      where: { dentistId: dentist.id },
+    });
+    await prisma.pricingServices.createMany({
+      data: pricingServices.map(
+        ({ price, service_name }: { price: number; service_name: string }) => ({
+          price,
+          service_name,
+          dentistId: dentist.id,
+        })
+      ),
+    });
+  }
+
+  try {
+    const updatedCabinet = await prisma.dentists.update({
+      where: { id: cabinetId },
+      data: {
+        ...updateData,
+      },
+      include: {
+        images: true,
+        availabilities: true,
+        PricingServices: true,
+        nonPricingServices: true,
+      },
+    });
+    res.status(200).json({
+      message: "Dentiste mise a jour avec succés",
+      data: updatedCabinet,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      error: "Erreur lors de la mise à jour du dentiste",
+      message: error.message,
+    });
+  }
+};
