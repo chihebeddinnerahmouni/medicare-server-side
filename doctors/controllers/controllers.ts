@@ -165,7 +165,10 @@ export const addCabinet = async (req: Request, res: Response) => {
         blocked: false,
         daysOff: parsedDaysOff,
         images: {
-          create: images!.map((file) => ({ url: `/images/${file.filename}` })),
+          create: images!.map((file, index) => ({
+            url: `/images/${file.filename}`,
+            order: index + 1,
+          })),
         },
         availabilities: {
           create: parsedAvailabilities.map(
@@ -658,10 +661,12 @@ export const updateCabinet = async (req: Request, res: Response) => {
 // _____________________________________________________________________________
 
 export const UpdateImages = async (req: Request, res: Response) => { 
-
   const userId = req.user?.userId;
   const cabinetId = Number(req.params.cabinetId);
   const images = Array.isArray(req.files) ? req.files : [];
+  const { update_indexes, update_ids } = req.body;
+  const parsed_update_indexes = JSON.parse(update_indexes);
+  const parsed_update_ids = JSON.parse(update_ids);
 
   const cabinet = await prisma.cabinet.findUnique({
     where: { id: cabinetId },
@@ -671,26 +676,43 @@ export const UpdateImages = async (req: Request, res: Response) => {
     return;
   }
   if (cabinet.ownerId !== userId) {
-    res
-      .status(403)
-      .json({ message: "Vous n'êtes pas autorisé à mettre à jour ce cabinet" });
+    res.status(403).json({ message: "Vous n'êtes pas autorisé à mettre à jour ce cabinet" });
     return;
   }
+
   try {
+    // Update existing images' order
+    if (parsed_update_indexes && parsed_update_ids) {
+      for (let i = 0; i < parsed_update_indexes.length; i++) {
+        await prisma.images.update({
+          where: { id: parsed_update_ids[i] },
+          data: { order: parsed_update_indexes[i] },
+        });
+      }
+    }
+
+    // Count existing images to determine the starting order for new images
+    const countingExistingImages = await prisma.images.count({
+      where: { cabinetId },
+    });
+
+    // Add new images
     const newImages = await prisma.images.createMany({
-      data: images.map((file: Express.Multer.File) => ({
+      data: images.map((file: Express.Multer.File, index: number) => ({
         url: `/images/${file.filename}`,
         cabinetId,
+        order: countingExistingImages + index + 1, // Start order from the count of existing images
       })),
     });
-    res.json(newImages);
+
+    res.json({ message: "Images mises à jour avec succès", data: newImages });
   } catch (error: any) {
     res.status(500).json({
       error: "Erreur lors de la mise à jour des images",
       message: error.message,
     });
   }
-}
+};
 
 // _____________________________________________________________________________
 

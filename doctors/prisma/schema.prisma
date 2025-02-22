@@ -13,6 +13,7 @@ model Images {
   url       String
   cabinetId Int
   createdAt DateTime @default(now())
+  order    Int      
   updatedAt DateTime @updatedAt
   Cabinet   Cabinet  @relation(fields: [cabinetId], references: [id])
 }

@@ -316,8 +316,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.4.0
-   * Query Engine version: acc0b9dd43eb689cbd20c9470515d719db10d0b0
+   * Prisma Client JS version: 6.4.1
+   * Query Engine version: a9055b89e58b4b5bfb59600785423b1db3d0e75d
    */
   export type PrismaVersion = {
     client: string
@@ -1615,11 +1615,13 @@ export namespace Prisma {
   export type ImagesAvgAggregateOutputType = {
     id: number | null
     cabinetId: number | null
+    order: number | null
   }
 
   export type ImagesSumAggregateOutputType = {
     id: number | null
     cabinetId: number | null
+    order: number | null
   }
 
   export type ImagesMinAggregateOutputType = {
@@ -1627,6 +1629,7 @@ export namespace Prisma {
     url: string | null
     cabinetId: number | null
     createdAt: Date | null
+    order: number | null
     updatedAt: Date | null
   }
 
@@ -1635,6 +1638,7 @@ export namespace Prisma {
     url: string | null
     cabinetId: number | null
     createdAt: Date | null
+    order: number | null
     updatedAt: Date | null
   }
 
@@ -1643,6 +1647,7 @@ export namespace Prisma {
     url: number
     cabinetId: number
     createdAt: number
+    order: number
     updatedAt: number
     _all: number
   }
@@ -1651,11 +1656,13 @@ export namespace Prisma {
   export type ImagesAvgAggregateInputType = {
     id?: true
     cabinetId?: true
+    order?: true
   }
 
   export type ImagesSumAggregateInputType = {
     id?: true
     cabinetId?: true
+    order?: true
   }
 
   export type ImagesMinAggregateInputType = {
@@ -1663,6 +1670,7 @@ export namespace Prisma {
     url?: true
     cabinetId?: true
     createdAt?: true
+    order?: true
     updatedAt?: true
   }
 
@@ -1671,6 +1679,7 @@ export namespace Prisma {
     url?: true
     cabinetId?: true
     createdAt?: true
+    order?: true
     updatedAt?: true
   }
 
@@ -1679,6 +1688,7 @@ export namespace Prisma {
     url?: true
     cabinetId?: true
     createdAt?: true
+    order?: true
     updatedAt?: true
     _all?: true
   }
@@ -1774,6 +1784,7 @@ export namespace Prisma {
     url: string
     cabinetId: number
     createdAt: Date
+    order: number
     updatedAt: Date
     _count: ImagesCountAggregateOutputType | null
     _avg: ImagesAvgAggregateOutputType | null
@@ -1801,6 +1812,7 @@ export namespace Prisma {
     url?: boolean
     cabinetId?: boolean
     createdAt?: boolean
+    order?: boolean
     updatedAt?: boolean
     Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["images"]>
@@ -1810,6 +1822,7 @@ export namespace Prisma {
     url?: boolean
     cabinetId?: boolean
     createdAt?: boolean
+    order?: boolean
     updatedAt?: boolean
     Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["images"]>
@@ -1819,6 +1832,7 @@ export namespace Prisma {
     url?: boolean
     cabinetId?: boolean
     createdAt?: boolean
+    order?: boolean
     updatedAt?: boolean
     Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["images"]>
@@ -1828,10 +1842,11 @@ export namespace Prisma {
     url?: boolean
     cabinetId?: boolean
     createdAt?: boolean
+    order?: boolean
     updatedAt?: boolean
   }
 
-  export type ImagesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "cabinetId" | "createdAt" | "updatedAt", ExtArgs["result"]["images"]>
+  export type ImagesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "cabinetId" | "createdAt" | "order" | "updatedAt", ExtArgs["result"]["images"]>
   export type ImagesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Cabinet?: boolean | CabinetDefaultArgs<ExtArgs>
   }
@@ -1852,6 +1867,7 @@ export namespace Prisma {
       url: string
       cabinetId: number
       createdAt: Date
+      order: number
       updatedAt: Date
     }, ExtArgs["result"]["images"]>
     composites: {}
@@ -2281,6 +2297,7 @@ export namespace Prisma {
     readonly url: FieldRef<"Images", 'String'>
     readonly cabinetId: FieldRef<"Images", 'Int'>
     readonly createdAt: FieldRef<"Images", 'DateTime'>
+    readonly order: FieldRef<"Images", 'Int'>
     readonly updatedAt: FieldRef<"Images", 'DateTime'>
   }
     
@@ -10775,6 +10792,7 @@ export namespace Prisma {
     url: 'url',
     cabinetId: 'cabinetId',
     createdAt: 'createdAt',
+    order: 'order',
     updatedAt: 'updatedAt'
   };
 
@@ -10984,6 +11002,13 @@ export namespace Prisma {
    */
   export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
     
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
   /**
    * Deep Input Types
    */
@@ -10997,6 +11022,7 @@ export namespace Prisma {
     url?: StringFilter<"Images"> | string
     cabinetId?: IntFilter<"Images"> | number
     createdAt?: DateTimeFilter<"Images"> | Date | string
+    order?: IntFilter<"Images"> | number
     updatedAt?: DateTimeFilter<"Images"> | Date | string
     Cabinet?: XOR<CabinetScalarRelationFilter, CabinetWhereInput>
   }
@@ -11006,6 +11032,7 @@ export namespace Prisma {
     url?: SortOrder
     cabinetId?: SortOrder
     createdAt?: SortOrder
+    order?: SortOrder
     updatedAt?: SortOrder
     Cabinet?: CabinetOrderByWithRelationInput
   }
@@ -11018,6 +11045,7 @@ export namespace Prisma {
     url?: StringFilter<"Images"> | string
     cabinetId?: IntFilter<"Images"> | number
     createdAt?: DateTimeFilter<"Images"> | Date | string
+    order?: IntFilter<"Images"> | number
     updatedAt?: DateTimeFilter<"Images"> | Date | string
     Cabinet?: XOR<CabinetScalarRelationFilter, CabinetWhereInput>
   }, "id">
@@ -11027,6 +11055,7 @@ export namespace Prisma {
     url?: SortOrder
     cabinetId?: SortOrder
     createdAt?: SortOrder
+    order?: SortOrder
     updatedAt?: SortOrder
     _count?: ImagesCountOrderByAggregateInput
     _avg?: ImagesAvgOrderByAggregateInput
@@ -11043,6 +11072,7 @@ export namespace Prisma {
     url?: StringWithAggregatesFilter<"Images"> | string
     cabinetId?: IntWithAggregatesFilter<"Images"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Images"> | Date | string
+    order?: IntWithAggregatesFilter<"Images"> | number
     updatedAt?: DateTimeWithAggregatesFilter<"Images"> | Date | string
   }
 
@@ -11565,6 +11595,7 @@ export namespace Prisma {
   export type ImagesCreateInput = {
     url: string
     createdAt?: Date | string
+    order: number
     updatedAt?: Date | string
     Cabinet: CabinetCreateNestedOneWithoutImagesInput
   }
@@ -11574,12 +11605,14 @@ export namespace Prisma {
     url: string
     cabinetId: number
     createdAt?: Date | string
+    order: number
     updatedAt?: Date | string
   }
 
   export type ImagesUpdateInput = {
     url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    order?: IntFieldUpdateOperationsInput | number
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Cabinet?: CabinetUpdateOneRequiredWithoutImagesNestedInput
   }
@@ -11589,6 +11622,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     cabinetId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    order?: IntFieldUpdateOperationsInput | number
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -11597,12 +11631,14 @@ export namespace Prisma {
     url: string
     cabinetId: number
     createdAt?: Date | string
+    order: number
     updatedAt?: Date | string
   }
 
   export type ImagesUpdateManyMutationInput = {
     url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    order?: IntFieldUpdateOperationsInput | number
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -11611,6 +11647,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     cabinetId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    order?: IntFieldUpdateOperationsInput | number
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12198,12 +12235,14 @@ export namespace Prisma {
     url?: SortOrder
     cabinetId?: SortOrder
     createdAt?: SortOrder
+    order?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type ImagesAvgOrderByAggregateInput = {
     id?: SortOrder
     cabinetId?: SortOrder
+    order?: SortOrder
   }
 
   export type ImagesMaxOrderByAggregateInput = {
@@ -12211,6 +12250,7 @@ export namespace Prisma {
     url?: SortOrder
     cabinetId?: SortOrder
     createdAt?: SortOrder
+    order?: SortOrder
     updatedAt?: SortOrder
   }
 
@@ -12219,12 +12259,14 @@ export namespace Prisma {
     url?: SortOrder
     cabinetId?: SortOrder
     createdAt?: SortOrder
+    order?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type ImagesSumOrderByAggregateInput = {
     id?: SortOrder
     cabinetId?: SortOrder
+    order?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -12447,6 +12489,7 @@ export namespace Prisma {
   export type JsonFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
     string_contains?: string | StringFieldRefInput<$PrismaModel>
     string_starts_with?: string | StringFieldRefInput<$PrismaModel>
     string_ends_with?: string | StringFieldRefInput<$PrismaModel>
@@ -12659,6 +12702,7 @@ export namespace Prisma {
   export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
     string_contains?: string | StringFieldRefInput<$PrismaModel>
     string_starts_with?: string | StringFieldRefInput<$PrismaModel>
     string_ends_with?: string | StringFieldRefInput<$PrismaModel>
@@ -12762,20 +12806,20 @@ export namespace Prisma {
     set?: Date | string
   }
 
-  export type CabinetUpdateOneRequiredWithoutImagesNestedInput = {
-    create?: XOR<CabinetCreateWithoutImagesInput, CabinetUncheckedCreateWithoutImagesInput>
-    connectOrCreate?: CabinetCreateOrConnectWithoutImagesInput
-    upsert?: CabinetUpsertWithoutImagesInput
-    connect?: CabinetWhereUniqueInput
-    update?: XOR<XOR<CabinetUpdateToOneWithWhereWithoutImagesInput, CabinetUpdateWithoutImagesInput>, CabinetUncheckedUpdateWithoutImagesInput>
-  }
-
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type CabinetUpdateOneRequiredWithoutImagesNestedInput = {
+    create?: XOR<CabinetCreateWithoutImagesInput, CabinetUncheckedCreateWithoutImagesInput>
+    connectOrCreate?: CabinetCreateOrConnectWithoutImagesInput
+    upsert?: CabinetUpsertWithoutImagesInput
+    connect?: CabinetWhereUniqueInput
+    update?: XOR<XOR<CabinetUpdateToOneWithWhereWithoutImagesInput, CabinetUpdateWithoutImagesInput>, CabinetUncheckedUpdateWithoutImagesInput>
   }
 
   export type CabinetCreateNestedOneWithoutAvailabilitiesInput = {
@@ -13253,6 +13297,7 @@ export namespace Prisma {
   export type NestedJsonFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
     string_contains?: string | StringFieldRefInput<$PrismaModel>
     string_starts_with?: string | StringFieldRefInput<$PrismaModel>
     string_ends_with?: string | StringFieldRefInput<$PrismaModel>
@@ -13800,6 +13845,7 @@ export namespace Prisma {
   export type ImagesCreateWithoutCabinetInput = {
     url: string
     createdAt?: Date | string
+    order: number
     updatedAt?: Date | string
   }
 
@@ -13807,6 +13853,7 @@ export namespace Prisma {
     id?: number
     url: string
     createdAt?: Date | string
+    order: number
     updatedAt?: Date | string
   }
 
@@ -13962,6 +14009,7 @@ export namespace Prisma {
     url?: StringFilter<"Images"> | string
     cabinetId?: IntFilter<"Images"> | number
     createdAt?: DateTimeFilter<"Images"> | Date | string
+    order?: IntFilter<"Images"> | number
     updatedAt?: DateTimeFilter<"Images"> | Date | string
   }
 
@@ -14495,6 +14543,7 @@ export namespace Prisma {
     id?: number
     url: string
     createdAt?: Date | string
+    order: number
     updatedAt?: Date | string
   }
 
@@ -14532,6 +14581,7 @@ export namespace Prisma {
   export type ImagesUpdateWithoutCabinetInput = {
     url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    order?: IntFieldUpdateOperationsInput | number
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14539,6 +14589,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    order?: IntFieldUpdateOperationsInput | number
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14546,6 +14597,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    order?: IntFieldUpdateOperationsInput | number
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
