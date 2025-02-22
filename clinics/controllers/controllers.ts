@@ -4,6 +4,7 @@ import axios from "axios";
 import fs from "fs";
 import path from "path";
 import { Multer } from "multer";
+import { formatISO } from "date-fns";
 
 declare global {
   namespace Express {
@@ -16,6 +17,7 @@ declare global {
   }
 }
 const usersUrl = process.env.USERS_URL;
+const today = formatISO(new Date(), { representation: "date" });
 
 // _____________________________________________________________________________
 
@@ -248,8 +250,6 @@ export const getClinics = async (req: Request, res: Response) => {
 export const getClinicById = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   try {
-
-
     const clinic = await prisma.clinics.findUnique({
       where: { id },
       include: {
@@ -266,20 +266,36 @@ export const getClinicById = async (req: Request, res: Response) => {
       return;
     }
 
-     await prisma.clinics.update({
-       where: { id },
-       data: {
-         reviewsCount: {
-           increment: 1,
-         },
-       },
-     });
+    // Delete old availabilities
+    await prisma.availabilities.deleteMany({
+      where: {
+        clinicId: id,
+        end_date: {
+          lt: today,
+        },
+      },
+    });
+    const filteredAvailabilities = clinic.availabilities.filter(
+      (availability) => availability.end_date >= today
+    );
 
-    const owner = await axios.get(process.env.USERS_URL + "/get-user/" + clinic.ownerId);
-     
+    await prisma.clinics.update({
+      where: { id },
+      data: {
+        reviewsCount: {
+          increment: 1,
+        },
+      },
+    });
+
+    const owner = await axios.get(
+      process.env.USERS_URL + "/get-user/" + clinic.ownerId
+    );
+
     const clinicWithOwner = {
       ...clinic,
       owner: owner.data,
+      availabilities: filteredAvailabilities,
     };
 
     res.json(clinicWithOwner);
@@ -395,3 +411,114 @@ export const getMyClinics = async (req: Request, res: Response) => {
     });
   }
 }
+
+// _____________________________________________________________________________
+
+export const updateClinic = async (req: Request, res: Response) => {
+  const {
+    title,
+    description,
+    openTime,
+    closeTime,
+    phone,
+    address,
+    pricingServices,
+    nonPricingServices,
+    daysOff,
+    availabilities,
+    latitude,
+    longitude,
+    year,
+  } = req.body;
+  const userId = req.user?.userId;
+  const clinicId = Number(req.params.clinicId);
+
+  const clinic = await prisma.clinics.findUnique({
+    where: { id: clinicId },
+  });
+  if (!clinic) {
+    res.status(404).json({ message: "Cabinét non trouvé" });
+    return;
+  }
+  if (clinic.ownerId !== userId) {
+    res
+      .status(403)
+      .json({ message: "Vous n'êtes pas autorisé à mettre à jour cette clinique" });
+    return;
+  }
+  const updateData: Record<string, any> = {
+    ...(title && { title }),
+    ...(description && { description }),
+    ...(openTime && { openTime }),
+    ...(closeTime && { closeTime }),
+    ...(phone && { phone }),
+    ...(address && { address }),
+    ...(latitude && { latitude }),
+    ...(longitude && { longitude }),
+    ...(daysOff && { daysOff }),
+    ...(year && { year }),
+  };
+  if (nonPricingServices) {
+    await prisma.nonPricingServices.deleteMany({ where: { clinicId } });
+    await prisma.nonPricingServices.createMany({
+      data: nonPricingServices.map((service_name: string) => ({
+        service_name,
+        clinicId,
+      })),
+    });
+  }
+  if (availabilities) {
+    await prisma.availabilities.deleteMany({ where: { clinicId } });
+    await prisma.availabilities.createMany({
+      data: availabilities.map(
+        ({
+          start_date,
+          end_date,
+        }: {
+          start_date: string;
+          end_date: string;
+        }) => ({
+          start_date,
+          end_date,
+          clinicId,
+        })
+      ),
+    });
+  }
+  if (pricingServices) {
+    await prisma.pricingServices.deleteMany({ where: { clinicId } });
+    await prisma.pricingServices.createMany({
+      data: pricingServices.map(
+        ({ price, service_name }: { price: number; service_name: string }) => ({
+          price,
+          service_name,
+          clinicId,
+        })
+      ),
+    });
+  }
+
+  try {
+    const updatedClinic = await prisma.clinics.update({
+      where: { id: clinicId },
+      data: {
+        ...updateData,
+      },
+      include: {
+        images: true,
+        availabilities: true,
+        PricingServices: true,
+        nonPricingServices: true,
+      },
+    });
+    res.status(200).json({
+      message: "Clinique mise a jour avec succés",
+      data:  updatedClinic,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      error: "Erreur lors de la mise à jour du clinique",
+      message: error.message,
+    });
+  }
+};

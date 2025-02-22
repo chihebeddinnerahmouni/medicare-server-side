@@ -5,6 +5,7 @@ import axios from "axios";
 import fs from "fs";
 import path from "path";
 import { Multer } from "multer";
+import { formatISO } from "date-fns";
 
 declare global {
   namespace Express {
@@ -18,6 +19,7 @@ declare global {
 }
 
 const usersUrl = process.env.USERS_URL as string;
+const today = formatISO(new Date(), { representation: "date" });
 
 // _____________________________________________________________________________
 
@@ -176,8 +178,6 @@ export const getPharmacies = async (req: Request, res: Response) => {
 export const getPharmacyById = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   try {
-
-
     const cabinet = await prisma.pharmacies.findUnique({
       where: { id },
       include: {
@@ -191,20 +191,36 @@ export const getPharmacyById = async (req: Request, res: Response) => {
       return;
     }
 
-     await prisma.pharmacies.update({
-       where: { id },
-       data: {
-         reviewsCount: {
-           increment: 1,
-         },
-       },
-     });
+    // Delete old availabilities
+    await prisma.availabilities.deleteMany({
+      where: {
+        pharmacyId: id,
+        end_date: {
+          lt: today,
+        },
+      },
+    });
+    const filteredAvailabilities = cabinet.availabilities.filter(
+      (availability) => availability.end_date >= today
+    );
 
-    const owner = await axios.get(process.env.USERS_URL + "/get-user/" + cabinet.ownerId);
-     
+    await prisma.pharmacies.update({
+      where: { id },
+      data: {
+        reviewsCount: {
+          increment: 1,
+        },
+      },
+    });
+
+    const owner = await axios.get(
+      process.env.USERS_URL + "/get-user/" + cabinet.ownerId
+    );
+
     const cabinetWithOwner = {
       ...cabinet,
       owner: owner.data,
+      availabilities: filteredAvailabilities,
     };
 
     res.json(cabinetWithOwner);
@@ -314,3 +330,91 @@ export const getMyPharmacies = async (req: Request, res: Response) => {
     });
   }
 }
+
+// _____________________________________________________________________________
+
+export const updatePharmacy = async (req: Request, res: Response) => {
+  const {
+    title,
+    description,
+    openTime,
+    closeTime,
+    phone,
+    address,
+    daysOff,
+    availabilities,
+    latitude,
+    longitude,
+    year,
+  } = req.body;
+  const userId = req.user?.userId;
+  const pharmacyId = Number(req.params.pharmacyId);
+
+  const pharmacy = await prisma.pharmacies.findUnique({
+    where: { id: pharmacyId },
+  });
+  if (!pharmacy) {
+    res.status(404).json({ message: "Pharmacie non trouvé" });
+    return;
+  }
+  if (pharmacy.ownerId !== userId) {
+    res
+      .status(403)
+      .json({ message: "Vous n'êtes pas autorisé à mettre à jour ce pharmacie" });
+    return;
+  }
+  const updateData: Record<string, any> = {
+    ...(title && { title }),
+    ...(description && { description }),
+    ...(openTime && { openTime }),
+    ...(closeTime && { closeTime }),
+    ...(phone && { phone }),
+    ...(address && { address }),
+    ...(latitude && { latitude }),
+    ...(longitude && { longitude }),
+    ...(daysOff && { daysOff }),
+    ...(year && { year }),
+  };
+  if (availabilities) {
+    await prisma.availabilities.deleteMany({ where: { pharmacyId } });
+    await prisma.availabilities.createMany({
+      data: availabilities.map(
+        ({
+          start_date,
+          end_date,
+        }: {
+          start_date: string;
+          end_date: string;
+        }) => ({
+          start_date,
+          end_date,
+          pharmacyId,
+        })
+      ),
+    });
+  }
+
+  try {
+    const updatedPharmacy = await prisma.pharmacies.update({
+      where: { id: pharmacyId },
+      data: {
+        ...updateData,
+      },
+      include: {
+        images: true,
+        availabilities: true,
+      },
+    });
+    res
+      .status(200)
+      .json({
+        message: "Pharmacie mise a jour avec succés",
+        data: updatedPharmacy,
+      });
+  } catch (error: any) {
+    res.status(500).json({
+      error: "Erreur lors de la mise à jour du pharmacie",
+      message: error.message,
+    });
+  }
+};
