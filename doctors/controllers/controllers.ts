@@ -660,52 +660,93 @@ export const updateCabinet = async (req: Request, res: Response) => {
 
 // _____________________________________________________________________________
 
-export const UpdateImages = async (req: Request, res: Response) => { 
+export const UpdateImages = async (req: Request, res: Response) => {
   const userId = req.user?.userId;
   const cabinetId = Number(req.params.cabinetId);
-  const images = Array.isArray(req.files) ? req.files : [];
-  const { update_indexes, update_ids } = req.body;
-  const parsed_update_indexes = JSON.parse(update_indexes);
-  const parsed_update_ids = JSON.parse(update_ids);
+  const newImages = Array.isArray(req.files) ? req.files : [];
+
+  const { new_images_indexes, update_indexes, update_ids, delete_image } =
+    req.body;
+
+  const parsedNewImagesIndexes = JSON.parse(new_images_indexes || "[]");
+  const parsedUpdateIndexes = JSON.parse(update_indexes || "[]");
+  const parsedUpdateIds = JSON.parse(update_ids || "[]");
 
   const cabinet = await prisma.cabinet.findUnique({
     where: { id: cabinetId },
   });
+
   if (!cabinet) {
-    res.status(404).json({ message: "Cabinet non trouvé" });
-    return;
+     res.status(404).json({ message: "Cabinet non trouvé" }); return;
   }
   if (cabinet.ownerId !== userId) {
-    res.status(403).json({ message: "Vous n'êtes pas autorisé à mettre à jour ce cabinet" });
+    res
+      .status(403)
+      .json({ message: "Vous n'êtes pas autorisé à modifier ce cabinet" });
     return;
   }
 
   try {
-    // Update existing images' order
-    if (parsed_update_indexes && parsed_update_ids) {
-      for (let i = 0; i < parsed_update_indexes.length; i++) {
+    /** 🛑 1️⃣ DELETE IMAGE (If provided) */
+    if (delete_image) {
+      const imageToDelete = await prisma.images.findUnique({
+        where: { id: Number(delete_image) },
+      });
+
+      if (imageToDelete) {
+        await prisma.images.delete({ where: { id: Number(delete_image) } });
+
+        // Remove file from folder
+        const imagePath = path.join(
+          __dirname,
+          "..",
+          "public",
+          imageToDelete.url
+        );
+        if (fs.existsSync(imagePath)) fs.unlinkSync(imagePath);
+      }
+    }
+
+    /** 🔄 2️⃣ UPDATE EXISTING IMAGES ORDER */
+    if (parsedUpdateIndexes.length && parsedUpdateIds.length) {
+      for (let i = 0; i < parsedUpdateIds.length; i++) {
         await prisma.images.update({
-          where: { id: parsed_update_ids[i] },
-          data: { order: parsed_update_indexes[i] },
+          where: { id: parsedUpdateIds[i] },
+          data: { order: parsedUpdateIndexes[i] },
         });
       }
     }
 
-    // Count existing images to determine the starting order for new images
-    const countingExistingImages = await prisma.images.count({
-      where: { cabinetId },
-    });
+    /** 📥 3️⃣ ADD NEW IMAGES & SHIFT EXISTING */
+    if (newImages.length > 0) {
+      // Fetch all existing images and sort them by order
+      const existingImages = await prisma.images.findMany({
+        where: { cabinetId },
+        orderBy: { order: "asc" },
+      });
 
-    // Add new images
-    const newImages = await prisma.images.createMany({
-      data: images.map((file: Express.Multer.File, index: number) => ({
-        url: `/images/${file.filename}`,
-        cabinetId,
-        order: countingExistingImages + index + 1, // Start order from the count of existing images
-      })),
-    });
+      // Adjust orders for existing images based on new insertions
+      for (let i = 0; i < parsedNewImagesIndexes.length; i++) {
+        const newOrder = parsedNewImagesIndexes[i];
 
-    res.json({ message: "Images mises à jour avec succès", data: newImages });
+        // Shift existing images to make space for new images
+        await prisma.images.updateMany({
+          where: { cabinetId, order: { gte: newOrder } },
+          data: { order: { increment: 1 } },
+        });
+
+        // Insert new image
+        await prisma.images.create({
+          data: {
+            url: `/images/${newImages[i].filename}`,
+            cabinetId,
+            order: newOrder,
+          },
+        });
+      }
+    }
+
+    res.json({ message: "Images mises à jour avec succès" });
   } catch (error: any) {
     res.status(500).json({
       error: "Erreur lors de la mise à jour des images",
@@ -713,6 +754,7 @@ export const UpdateImages = async (req: Request, res: Response) => {
     });
   }
 };
+
 
 // _____________________________________________________________________________
 
