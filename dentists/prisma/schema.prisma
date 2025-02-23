@@ -12,6 +12,7 @@ model Images {
   id        Int      @id @default(autoincrement())
   url       String
   dentistId Int
+  order     Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Dentist   Dentists  @relation(fields: [dentistId], references: [id])

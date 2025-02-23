@@ -13,7 +13,8 @@ import {
   deleteCabinet,
   getLandingDentists,
   getMydentists,
-  updateCabinet
+  updateCabinet,
+  UpdateImages
 } from "../controllers/controllers";
 
 
@@ -30,6 +31,7 @@ router.delete("/delete-cabinet/:id",authGuard, deleteCabinet);
 router.post("/add-cabinet/:demandeId?", authGuard, uploadArray, addCabinet);
 router.get("/get-my-dentists", authGuard, getMydentists);
 router.put("/update-cabinet/:cabinetId", authGuard, uploadArray, updateCabinet);
+router.put("/update-images/:dentistId", authGuard, uploadArray, UpdateImages);
 
 
 // admin

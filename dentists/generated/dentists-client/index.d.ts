@@ -301,8 +301,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.3.1
-   * Query Engine version: acc0b9dd43eb689cbd20c9470515d719db10d0b0
+   * Prisma Client JS version: 6.4.1
+   * Query Engine version: a9055b89e58b4b5bfb59600785423b1db3d0e75d
    */
   export type PrismaVersion = {
     client: string
@@ -1493,17 +1493,20 @@ export namespace Prisma {
   export type ImagesAvgAggregateOutputType = {
     id: number | null
     dentistId: number | null
+    order: number | null
   }
 
   export type ImagesSumAggregateOutputType = {
     id: number | null
     dentistId: number | null
+    order: number | null
   }
 
   export type ImagesMinAggregateOutputType = {
     id: number | null
     url: string | null
     dentistId: number | null
+    order: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1512,6 +1515,7 @@ export namespace Prisma {
     id: number | null
     url: string | null
     dentistId: number | null
+    order: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1520,6 +1524,7 @@ export namespace Prisma {
     id: number
     url: number
     dentistId: number
+    order: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1529,17 +1534,20 @@ export namespace Prisma {
   export type ImagesAvgAggregateInputType = {
     id?: true
     dentistId?: true
+    order?: true
   }
 
   export type ImagesSumAggregateInputType = {
     id?: true
     dentistId?: true
+    order?: true
   }
 
   export type ImagesMinAggregateInputType = {
     id?: true
     url?: true
     dentistId?: true
+    order?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1548,6 +1556,7 @@ export namespace Prisma {
     id?: true
     url?: true
     dentistId?: true
+    order?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1556,6 +1565,7 @@ export namespace Prisma {
     id?: true
     url?: true
     dentistId?: true
+    order?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1651,6 +1661,7 @@ export namespace Prisma {
     id: number
     url: string
     dentistId: number
+    order: number
     createdAt: Date
     updatedAt: Date
     _count: ImagesCountAggregateOutputType | null
@@ -1678,6 +1689,7 @@ export namespace Prisma {
     id?: boolean
     url?: boolean
     dentistId?: boolean
+    order?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     Dentist?: boolean | DentistsDefaultArgs<ExtArgs>
@@ -1687,6 +1699,7 @@ export namespace Prisma {
     id?: boolean
     url?: boolean
     dentistId?: boolean
+    order?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     Dentist?: boolean | DentistsDefaultArgs<ExtArgs>
@@ -1696,6 +1709,7 @@ export namespace Prisma {
     id?: boolean
     url?: boolean
     dentistId?: boolean
+    order?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     Dentist?: boolean | DentistsDefaultArgs<ExtArgs>
@@ -1705,11 +1719,12 @@ export namespace Prisma {
     id?: boolean
     url?: boolean
     dentistId?: boolean
+    order?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ImagesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "dentistId" | "createdAt" | "updatedAt", ExtArgs["result"]["images"]>
+  export type ImagesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "dentistId" | "order" | "createdAt" | "updatedAt", ExtArgs["result"]["images"]>
   export type ImagesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Dentist?: boolean | DentistsDefaultArgs<ExtArgs>
   }
@@ -1729,6 +1744,7 @@ export namespace Prisma {
       id: number
       url: string
       dentistId: number
+      order: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["images"]>
@@ -2158,6 +2174,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Images", 'Int'>
     readonly url: FieldRef<"Images", 'String'>
     readonly dentistId: FieldRef<"Images", 'Int'>
+    readonly order: FieldRef<"Images", 'Int'>
     readonly createdAt: FieldRef<"Images", 'DateTime'>
     readonly updatedAt: FieldRef<"Images", 'DateTime'>
   }
@@ -9513,6 +9530,7 @@ export namespace Prisma {
     id: 'id',
     url: 'url',
     dentistId: 'dentistId',
+    order: 'order',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -9711,6 +9729,13 @@ export namespace Prisma {
    */
   export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
     
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
   /**
    * Deep Input Types
    */
@@ -9723,6 +9748,7 @@ export namespace Prisma {
     id?: IntFilter<"Images"> | number
     url?: StringFilter<"Images"> | string
     dentistId?: IntFilter<"Images"> | number
+    order?: IntFilter<"Images"> | number
     createdAt?: DateTimeFilter<"Images"> | Date | string
     updatedAt?: DateTimeFilter<"Images"> | Date | string
     Dentist?: XOR<DentistsScalarRelationFilter, DentistsWhereInput>
@@ -9732,6 +9758,7 @@ export namespace Prisma {
     id?: SortOrder
     url?: SortOrder
     dentistId?: SortOrder
+    order?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     Dentist?: DentistsOrderByWithRelationInput
@@ -9744,6 +9771,7 @@ export namespace Prisma {
     NOT?: ImagesWhereInput | ImagesWhereInput[]
     url?: StringFilter<"Images"> | string
     dentistId?: IntFilter<"Images"> | number
+    order?: IntFilter<"Images"> | number
     createdAt?: DateTimeFilter<"Images"> | Date | string
     updatedAt?: DateTimeFilter<"Images"> | Date | string
     Dentist?: XOR<DentistsScalarRelationFilter, DentistsWhereInput>
@@ -9753,6 +9781,7 @@ export namespace Prisma {
     id?: SortOrder
     url?: SortOrder
     dentistId?: SortOrder
+    order?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ImagesCountOrderByAggregateInput
@@ -9769,6 +9798,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Images"> | number
     url?: StringWithAggregatesFilter<"Images"> | string
     dentistId?: IntWithAggregatesFilter<"Images"> | number
+    order?: IntWithAggregatesFilter<"Images"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Images"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Images"> | Date | string
   }
@@ -10226,6 +10256,7 @@ export namespace Prisma {
 
   export type ImagesCreateInput = {
     url: string
+    order: number
     createdAt?: Date | string
     updatedAt?: Date | string
     Dentist: DentistsCreateNestedOneWithoutImagesInput
@@ -10235,12 +10266,14 @@ export namespace Prisma {
     id?: number
     url: string
     dentistId: number
+    order: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type ImagesUpdateInput = {
     url?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Dentist?: DentistsUpdateOneRequiredWithoutImagesNestedInput
@@ -10250,6 +10283,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
     dentistId?: IntFieldUpdateOperationsInput | number
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10258,12 +10292,14 @@ export namespace Prisma {
     id?: number
     url: string
     dentistId: number
+    order: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type ImagesUpdateManyMutationInput = {
     url?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10272,6 +10308,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
     dentistId?: IntFieldUpdateOperationsInput | number
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10796,6 +10833,7 @@ export namespace Prisma {
     id?: SortOrder
     url?: SortOrder
     dentistId?: SortOrder
+    order?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -10803,12 +10841,14 @@ export namespace Prisma {
   export type ImagesAvgOrderByAggregateInput = {
     id?: SortOrder
     dentistId?: SortOrder
+    order?: SortOrder
   }
 
   export type ImagesMaxOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
     dentistId?: SortOrder
+    order?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -10817,6 +10857,7 @@ export namespace Prisma {
     id?: SortOrder
     url?: SortOrder
     dentistId?: SortOrder
+    order?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -10824,6 +10865,7 @@ export namespace Prisma {
   export type ImagesSumOrderByAggregateInput = {
     id?: SortOrder
     dentistId?: SortOrder
+    order?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -11004,6 +11046,7 @@ export namespace Prisma {
   export type JsonFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
     string_contains?: string | StringFieldRefInput<$PrismaModel>
     string_starts_with?: string | StringFieldRefInput<$PrismaModel>
     string_ends_with?: string | StringFieldRefInput<$PrismaModel>
@@ -11206,6 +11249,7 @@ export namespace Prisma {
   export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
     string_contains?: string | StringFieldRefInput<$PrismaModel>
     string_starts_with?: string | StringFieldRefInput<$PrismaModel>
     string_ends_with?: string | StringFieldRefInput<$PrismaModel>
@@ -11305,6 +11349,14 @@ export namespace Prisma {
     set?: string
   }
 
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -11315,14 +11367,6 @@ export namespace Prisma {
     upsert?: DentistsUpsertWithoutImagesInput
     connect?: DentistsWhereUniqueInput
     update?: XOR<XOR<DentistsUpdateToOneWithWhereWithoutImagesInput, DentistsUpdateWithoutImagesInput>, DentistsUncheckedUpdateWithoutImagesInput>
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type DentistsCreateNestedOneWithoutAvailabilitiesInput = {
@@ -11744,6 +11788,7 @@ export namespace Prisma {
   export type NestedJsonFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
     string_contains?: string | StringFieldRefInput<$PrismaModel>
     string_starts_with?: string | StringFieldRefInput<$PrismaModel>
     string_ends_with?: string | StringFieldRefInput<$PrismaModel>
@@ -12161,6 +12206,7 @@ export namespace Prisma {
 
   export type ImagesCreateWithoutDentistInput = {
     url: string
+    order: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12168,6 +12214,7 @@ export namespace Prisma {
   export type ImagesUncheckedCreateWithoutDentistInput = {
     id?: number
     url: string
+    order: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12303,6 +12350,7 @@ export namespace Prisma {
     id?: IntFilter<"Images"> | number
     url?: StringFilter<"Images"> | string
     dentistId?: IntFilter<"Images"> | number
+    order?: IntFilter<"Images"> | number
     createdAt?: DateTimeFilter<"Images"> | Date | string
     updatedAt?: DateTimeFilter<"Images"> | Date | string
   }
@@ -12689,6 +12737,7 @@ export namespace Prisma {
   export type ImagesCreateManyDentistInput = {
     id?: number
     url: string
+    order: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12726,6 +12775,7 @@ export namespace Prisma {
 
   export type ImagesUpdateWithoutDentistInput = {
     url?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12733,6 +12783,7 @@ export namespace Prisma {
   export type ImagesUncheckedUpdateWithoutDentistInput = {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12740,6 +12791,7 @@ export namespace Prisma {
   export type ImagesUncheckedUpdateManyWithoutDentistInput = {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

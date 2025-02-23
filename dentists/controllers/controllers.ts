@@ -124,7 +124,7 @@ export const addCabinet = async (req: Request, res: Response) => {
         blocked: false,
         daysOff: parsedDaysOff,
         images: {
-          create: images!.map((file) => ({ url: `/images/${file.filename}` })),
+          create: images!.map((file, index) => ({ url: `/images/${file.filename}`, order: index + 1 })),
         },
         availabilities: {
           create: parsedAvailabilities.map(
@@ -529,3 +529,123 @@ export const updateCabinet = async (req: Request, res: Response) => {
     });
   }
 };
+
+// _____________________________________________________________________________
+
+export const UpdateImages = async (req: Request, res: Response) => {
+  const userId = req.user?.userId;
+  const dentistId = Number(req.params.dentistId);
+  const newImages = Array.isArray(req.files) ? req.files : [];
+
+  const { new_images_indexes, update_indexes, update_ids, delete_image } =
+    req.body;
+  
+  // Normalize the data to ensure they are arrays of numbers
+  const parseArray = (data: any) => {
+    if (Array.isArray(data)) {
+      return data.map((item) => Number(item));
+    }
+    if (typeof data === "string") {
+      try {
+        return JSON.parse(data).map((item: any) => Number(item));
+      } catch (error) {
+        console.error("Error parsing data:", error);
+        return [];
+      }
+    }
+    return [];
+  };
+
+  const parsedNewImagesIndexes = parseArray(new_images_indexes);
+  const parsedUpdateIndexes = parseArray(update_indexes);
+  const parsedUpdateIds = parseArray(update_ids);
+
+  const dentist = await prisma.dentists.findUnique({
+    where: { id: dentistId },
+  });
+
+  if (!dentist) {
+    res.status(404).json({ message: "dentist non trouvé" });
+    return;
+  }
+  if (dentist.ownerId !== userId) {
+    res
+      .status(403)
+      .json({ message: "Vous n'êtes pas autorisé à modifier ce dentist" });
+    return;
+  }
+
+  try {
+    if (delete_image) {
+      const imageToDelete = await prisma.images.findUnique({
+        where: { id: Number(delete_image) },
+      });
+
+      if (imageToDelete) {
+        await prisma.images.delete({ where: { id: Number(delete_image) } });
+
+        const imagePath = path.join(
+          __dirname,
+          "..",
+          "public",
+          imageToDelete.url
+        );
+        if (fs.existsSync(imagePath)) fs.unlinkSync(imagePath);
+
+        const remainingImages = await prisma.images.findMany({
+          where: { dentistId },
+          orderBy: { order: "asc" },
+        });
+
+        for (let i = 0; i < remainingImages.length; i++) {
+          await prisma.images.update({
+            where: { id: remainingImages[i].id },
+            data: { order: i + 1 },
+          });
+        }
+      }
+    }
+
+    if (parsedUpdateIndexes.length && parsedUpdateIds.length) {
+      for (let i = 0; i < parsedUpdateIds.length; i++) {
+        await prisma.images.update({
+          where: { id: parsedUpdateIds[i] },
+          data: { order: parsedUpdateIndexes[i] },
+        });
+      }
+    }
+
+    if (newImages.length > 0) {
+      const existingImages = await prisma.images.findMany({
+        where: { dentistId },
+        orderBy: { order: "asc" },
+      });
+
+      for (let i = 0; i < parsedNewImagesIndexes.length; i++) {
+        const newOrder = parsedNewImagesIndexes[i];
+
+        await prisma.images.updateMany({
+          where: { dentistId, order: { gte: newOrder } },
+          data: { order: { increment: 1 } },
+        });
+
+        await prisma.images.create({
+          data: {
+            url: `/images/${newImages[i].filename}`,
+            dentistId,
+            order: newOrder,
+          },
+        });
+      }
+    }
+
+    res.json({ message: "Images mises à jour avec succès" });
+  } catch (error: any) {
+    res.status(500).json({
+      error: "Erreur lors de la mise à jour des images",
+      message: error.message,
+    });
+  }
+};
+
+
