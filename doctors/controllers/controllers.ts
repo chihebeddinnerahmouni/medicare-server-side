@@ -677,7 +677,6 @@ export const UpdateImages = async (req: Request, res: Response) => {
       try {
         return JSON.parse(data).map((item: any) => Number(item));
       } catch (error) {
-        console.log(data);
         console.error("Error parsing data:", error);
         return [];
       }

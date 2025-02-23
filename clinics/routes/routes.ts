@@ -11,7 +11,8 @@ import {
   deleteClinic,
   getLandingClinics,
   getMyClinics,
-  updateClinic
+  updateClinic,
+  UpdateImages
 } from "../controllers/controllers";
 
 
@@ -28,6 +29,7 @@ router.delete("/delete-clinic/:id",authGuard, deleteClinic);
 router.post("/add-clinic/:demandeId?", authGuard, uploadArray, addClinic);
 router.get("/get-my-clinics", authGuard, getMyClinics);
 router.put("/update-clinic/:clinicId", authGuard, uploadArray, updateClinic);
+router.put("/update-images/:clinicId", authGuard, uploadArray, UpdateImages);
 
 
 // admin

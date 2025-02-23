@@ -12,6 +12,7 @@ model Images {
   id        Int      @id @default(autoincrement())
   url       String
   clinicId  Int
+  order     Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   clinic    Clinics  @relation(fields: [clinicId], references: [id])
@@ -60,6 +61,7 @@ model Clinics {
   year               Int
   validated          Boolean
   blocked            Boolean
+  type               String               @default("clinic")
   Reviews            Reviews[]
   rates              Json
   openTime           String

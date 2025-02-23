@@ -5,14 +5,10 @@ import { v4 as uuidv4 } from "uuid";
 // Set storage engine
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-        console.log("Destination function called");
-        console.log("File details:", file);
     cb(null, path.join(__dirname, "../public/images"));
   },
   filename: function (req, file, cb) {
     const uniqueName = uuidv4() + path.extname(file.originalname);
-        console.log("Filename function called");
-        console.log("Generated filename:", uniqueName);
     cb(null, uniqueName);
   },
 });
@@ -31,8 +27,6 @@ const uploadArray = multer({
   storage: storage,
   limits: { fileSize: 4000000 }, // Limit file size to 1MB per file
   fileFilter: function (req, file, cb) {
-        console.log("File filter function called for multiple files");
-        console.log("File details:", file);
     checkFileType(file, cb);
   },
 }).array("images");
@@ -43,9 +37,6 @@ function checkFileType(file: any, cb: any) {
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
   const mimetype = filetypes.test(file.mimetype);
 
-    console.log("Check file type function called");
-    console.log("File extension valid:", extname);
-    console.log("File mimetype valid:", mimetype);
 
   if (extname && mimetype) {
     return cb(null, true);
