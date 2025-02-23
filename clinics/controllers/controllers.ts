@@ -230,9 +230,15 @@ export const getClinics = async (req: Request, res: Response) => {
         Reviews: true,
       },
     });
+
+    const clinicsWithSortedImages = clinics.map((clinic) => {
+      clinic.images = clinic.images.sort((a, b) => a.order - b.order);
+      return clinic;
+    });
+
     const totalclinics = await prisma.clinics.count();
     res.json({
-      data: clinics,
+      data: clinicsWithSortedImages,
       pagination: {
         total: totalclinics,
         page: page,
@@ -281,6 +287,8 @@ export const getClinicById = async (req: Request, res: Response) => {
     const filteredAvailabilities = clinic.availabilities.filter(
       (availability) => availability.end_date >= today
     );
+        const sortedImages = clinic.images.sort((a, b) => a.order - b.order);
+
 
     await prisma.clinics.update({
       where: { id },
@@ -299,6 +307,7 @@ export const getClinicById = async (req: Request, res: Response) => {
       ...clinic,
       owner: owner.data,
       availabilities: filteredAvailabilities,
+      images: sortedImages,
     };
 
     res.json(clinicWithOwner);
@@ -383,7 +392,13 @@ export const getLandingClinics = async (req: Request, res: Response) => {
         nonPricingServices: true,
       },
     });
-    res.json(clinics);
+
+    const clinicsWithSortedImages = clinics.map((clinic) => {
+      clinic.images = clinic.images.sort((a, b) => a.order - b.order);
+      return clinic;
+    });
+
+    res.json(clinicsWithSortedImages);
   } catch (error: any) {
     res.status(500).json({
       error: "Erreur lors de la récupération des médecins",
@@ -406,7 +421,12 @@ export const getMyClinics = async (req: Request, res: Response) => {
         // nonPricingServices: true,
       },
     });
-    res.json(clinics);
+
+    const clinicsWithSortedImages = clinics.map((clinic) => {
+      clinic.images = clinic.images.sort((a, b) => a.order - b.order);
+      return clinic;
+    });
+    res.json(clinicsWithSortedImages);
   } catch (error: any) {
     res.status(500).json({
       error: "Erreur lors de la récupération des clinics",

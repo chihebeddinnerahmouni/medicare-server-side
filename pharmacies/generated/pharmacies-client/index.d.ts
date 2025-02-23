@@ -1202,17 +1202,20 @@ export namespace Prisma {
   export type ImagesAvgAggregateOutputType = {
     id: number | null
     pharmacyId: number | null
+    order: number | null
   }
 
   export type ImagesSumAggregateOutputType = {
     id: number | null
     pharmacyId: number | null
+    order: number | null
   }
 
   export type ImagesMinAggregateOutputType = {
     id: number | null
     url: string | null
     pharmacyId: number | null
+    order: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1221,6 +1224,7 @@ export namespace Prisma {
     id: number | null
     url: string | null
     pharmacyId: number | null
+    order: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1229,6 +1233,7 @@ export namespace Prisma {
     id: number
     url: number
     pharmacyId: number
+    order: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1238,17 +1243,20 @@ export namespace Prisma {
   export type ImagesAvgAggregateInputType = {
     id?: true
     pharmacyId?: true
+    order?: true
   }
 
   export type ImagesSumAggregateInputType = {
     id?: true
     pharmacyId?: true
+    order?: true
   }
 
   export type ImagesMinAggregateInputType = {
     id?: true
     url?: true
     pharmacyId?: true
+    order?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1257,6 +1265,7 @@ export namespace Prisma {
     id?: true
     url?: true
     pharmacyId?: true
+    order?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1265,6 +1274,7 @@ export namespace Prisma {
     id?: true
     url?: true
     pharmacyId?: true
+    order?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1360,6 +1370,7 @@ export namespace Prisma {
     id: number
     url: string
     pharmacyId: number
+    order: number
     createdAt: Date
     updatedAt: Date
     _count: ImagesCountAggregateOutputType | null
@@ -1387,6 +1398,7 @@ export namespace Prisma {
     id?: boolean
     url?: boolean
     pharmacyId?: boolean
+    order?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     Pharmacy?: boolean | PharmaciesDefaultArgs<ExtArgs>
@@ -1396,6 +1408,7 @@ export namespace Prisma {
     id?: boolean
     url?: boolean
     pharmacyId?: boolean
+    order?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     Pharmacy?: boolean | PharmaciesDefaultArgs<ExtArgs>
@@ -1405,6 +1418,7 @@ export namespace Prisma {
     id?: boolean
     url?: boolean
     pharmacyId?: boolean
+    order?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     Pharmacy?: boolean | PharmaciesDefaultArgs<ExtArgs>
@@ -1414,11 +1428,12 @@ export namespace Prisma {
     id?: boolean
     url?: boolean
     pharmacyId?: boolean
+    order?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ImagesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "pharmacyId" | "createdAt" | "updatedAt", ExtArgs["result"]["images"]>
+  export type ImagesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "pharmacyId" | "order" | "createdAt" | "updatedAt", ExtArgs["result"]["images"]>
   export type ImagesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Pharmacy?: boolean | PharmaciesDefaultArgs<ExtArgs>
   }
@@ -1438,6 +1453,7 @@ export namespace Prisma {
       id: number
       url: string
       pharmacyId: number
+      order: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["images"]>
@@ -1867,6 +1883,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Images", 'Int'>
     readonly url: FieldRef<"Images", 'String'>
     readonly pharmacyId: FieldRef<"Images", 'Int'>
+    readonly order: FieldRef<"Images", 'Int'>
     readonly createdAt: FieldRef<"Images", 'DateTime'>
     readonly updatedAt: FieldRef<"Images", 'DateTime'>
   }
@@ -5941,6 +5958,7 @@ export namespace Prisma {
     id: 'id',
     url: 'url',
     pharmacyId: 'pharmacyId',
+    order: 'order',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -6125,6 +6143,7 @@ export namespace Prisma {
     id?: IntFilter<"Images"> | number
     url?: StringFilter<"Images"> | string
     pharmacyId?: IntFilter<"Images"> | number
+    order?: IntFilter<"Images"> | number
     createdAt?: DateTimeFilter<"Images"> | Date | string
     updatedAt?: DateTimeFilter<"Images"> | Date | string
     Pharmacy?: XOR<PharmaciesScalarRelationFilter, PharmaciesWhereInput>
@@ -6134,6 +6153,7 @@ export namespace Prisma {
     id?: SortOrder
     url?: SortOrder
     pharmacyId?: SortOrder
+    order?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     Pharmacy?: PharmaciesOrderByWithRelationInput
@@ -6146,6 +6166,7 @@ export namespace Prisma {
     NOT?: ImagesWhereInput | ImagesWhereInput[]
     url?: StringFilter<"Images"> | string
     pharmacyId?: IntFilter<"Images"> | number
+    order?: IntFilter<"Images"> | number
     createdAt?: DateTimeFilter<"Images"> | Date | string
     updatedAt?: DateTimeFilter<"Images"> | Date | string
     Pharmacy?: XOR<PharmaciesScalarRelationFilter, PharmaciesWhereInput>
@@ -6155,6 +6176,7 @@ export namespace Prisma {
     id?: SortOrder
     url?: SortOrder
     pharmacyId?: SortOrder
+    order?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ImagesCountOrderByAggregateInput
@@ -6171,6 +6193,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Images"> | number
     url?: StringWithAggregatesFilter<"Images"> | string
     pharmacyId?: IntWithAggregatesFilter<"Images"> | number
+    order?: IntWithAggregatesFilter<"Images"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Images"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Images"> | Date | string
   }
@@ -6454,6 +6477,7 @@ export namespace Prisma {
 
   export type ImagesCreateInput = {
     url: string
+    order: number
     createdAt?: Date | string
     updatedAt?: Date | string
     Pharmacy: PharmaciesCreateNestedOneWithoutImagesInput
@@ -6463,12 +6487,14 @@ export namespace Prisma {
     id?: number
     url: string
     pharmacyId: number
+    order: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type ImagesUpdateInput = {
     url?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Pharmacy?: PharmaciesUpdateOneRequiredWithoutImagesNestedInput
@@ -6478,6 +6504,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
     pharmacyId?: IntFieldUpdateOperationsInput | number
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6486,12 +6513,14 @@ export namespace Prisma {
     id?: number
     url: string
     pharmacyId: number
+    order: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type ImagesUpdateManyMutationInput = {
     url?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6500,6 +6529,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
     pharmacyId?: IntFieldUpdateOperationsInput | number
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6859,6 +6889,7 @@ export namespace Prisma {
     id?: SortOrder
     url?: SortOrder
     pharmacyId?: SortOrder
+    order?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6866,12 +6897,14 @@ export namespace Prisma {
   export type ImagesAvgOrderByAggregateInput = {
     id?: SortOrder
     pharmacyId?: SortOrder
+    order?: SortOrder
   }
 
   export type ImagesMaxOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
     pharmacyId?: SortOrder
+    order?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6880,6 +6913,7 @@ export namespace Prisma {
     id?: SortOrder
     url?: SortOrder
     pharmacyId?: SortOrder
+    order?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6887,6 +6921,7 @@ export namespace Prisma {
   export type ImagesSumOrderByAggregateInput = {
     id?: SortOrder
     pharmacyId?: SortOrder
+    order?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -7248,6 +7283,14 @@ export namespace Prisma {
     set?: string
   }
 
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -7258,14 +7301,6 @@ export namespace Prisma {
     upsert?: PharmaciesUpsertWithoutImagesInput
     connect?: PharmaciesWhereUniqueInput
     update?: XOR<XOR<PharmaciesUpdateToOneWithWhereWithoutImagesInput, PharmaciesUpdateWithoutImagesInput>, PharmaciesUncheckedUpdateWithoutImagesInput>
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type PharmaciesCreateNestedOneWithoutAvailabilitiesInput = {
@@ -7969,6 +8004,7 @@ export namespace Prisma {
 
   export type ImagesCreateWithoutPharmacyInput = {
     url: string
+    order: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -7976,6 +8012,7 @@ export namespace Prisma {
   export type ImagesUncheckedCreateWithoutPharmacyInput = {
     id?: number
     url: string
+    order: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -8063,6 +8100,7 @@ export namespace Prisma {
     id?: IntFilter<"Images"> | number
     url?: StringFilter<"Images"> | string
     pharmacyId?: IntFilter<"Images"> | number
+    order?: IntFilter<"Images"> | number
     createdAt?: DateTimeFilter<"Images"> | Date | string
     updatedAt?: DateTimeFilter<"Images"> | Date | string
   }
@@ -8126,6 +8164,7 @@ export namespace Prisma {
   export type ImagesCreateManyPharmacyInput = {
     id?: number
     url: string
+    order: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -8148,6 +8187,7 @@ export namespace Prisma {
 
   export type ImagesUpdateWithoutPharmacyInput = {
     url?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8155,6 +8195,7 @@ export namespace Prisma {
   export type ImagesUncheckedUpdateWithoutPharmacyInput = {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8162,6 +8203,7 @@ export namespace Prisma {
   export type ImagesUncheckedUpdateManyWithoutPharmacyInput = {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

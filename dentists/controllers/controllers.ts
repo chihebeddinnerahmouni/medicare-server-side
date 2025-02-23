@@ -228,8 +228,19 @@ export const getCabinets = async (req: Request, res: Response) => {
       },
     });
     const totalCabinets = await prisma.dentists.count();
+
+    const cabinetsWithSortedImages = cabinets.map((cabinet) => {
+      const sortedImages = cabinet.images.sort(
+        (a, b) => a.order - b.order
+      );
+      return {
+        ...cabinet,
+        images: sortedImages,
+      };
+    });
+
     res.json({
-      data: cabinets,
+      data: cabinetsWithSortedImages,
       pagination: {
         total: totalCabinets,
         page: page,
@@ -277,7 +288,8 @@ export const getCabinetById = async (req: Request, res: Response) => {
     });
      const filteredAvailabilities = cabinet.availabilities.filter(
        (availability) => availability.end_date >= today
-     );
+    );
+    const sortedImages = cabinet.images.sort((a, b) => a.order - b.order);
 
     await prisma.dentists.update({
       where: { id },
@@ -296,6 +308,7 @@ export const getCabinetById = async (req: Request, res: Response) => {
       ...cabinet,
       owner: owner.data,
       availabilities: filteredAvailabilities,
+      images: sortedImages,
     };
 
     res.json(cabinetWithOwner);
@@ -380,7 +393,14 @@ export const getLandingDentists = async (req: Request, res: Response) => {
         nonPricingServices: true,
       },
     });
-    res.json(dentists);
+    const cabinetsWithSortedImages = dentists.map((cabinet) => {
+      const sortedImages = cabinet.images.sort((a, b) => a.order - b.order);
+      return {
+        ...cabinet,
+        images: sortedImages,
+      };
+    });
+    res.json(cabinetsWithSortedImages);
   } catch (error: any) {
     res.status(500).json({
       error: "Erreur lors de la récupération des médecins",
@@ -404,7 +424,14 @@ export const getMydentists = async (req: Request, res: Response) => {
         // nonPricingServices: true,
       },
     });
-    res.json(cabinets);
+    const cabinetsWithSortedImages = cabinets.map((cabinet) => {
+      const sortedImages = cabinet.images.sort((a, b) => a.order - b.order);
+      return {
+        ...cabinet,
+        images: sortedImages,
+      };
+    });
+    res.json(cabinetsWithSortedImages);
   } catch (error: any) {
     res.status(500).json({
       error: "Erreur lors de la récupération des cabinets",

@@ -81,7 +81,7 @@ export const addPharmacy = async (req: Request, res: Response) => {
         blocked: false,
         daysOff: parsedDaysOff,
         images: {
-          create: images.map((file) => ({ url: `/images/${file.filename}` })),
+          create: images.map((file, index) => ({ url: `/images/${file.filename}`, order: index + 1 })),
         },
         availabilities: {
           create: parsedAvailabilities.map(
@@ -156,8 +156,18 @@ export const getPharmacies = async (req: Request, res: Response) => {
       },
     });
     const totalCabinets = await prisma.pharmacies.count();
+
+    const cabinetsWithSortedImages = cabinets.map((cabinet) => {
+      const sortedImages = cabinet.images.sort(
+        (a, b) => a.order - b.order
+      );
+      return {
+        ...cabinet,
+        images: sortedImages,
+      };
+    });
     res.json({
-      data: cabinets,
+      data: cabinetsWithSortedImages,
       pagination: {
         total: totalCabinets,
         page: page,
@@ -203,6 +213,7 @@ export const getPharmacyById = async (req: Request, res: Response) => {
     const filteredAvailabilities = cabinet.availabilities.filter(
       (availability) => availability.end_date >= today
     );
+    const sortedImages = cabinet.images.sort((a, b) => a.order - b.order);
 
     await prisma.pharmacies.update({
       where: { id },
@@ -221,6 +232,7 @@ export const getPharmacyById = async (req: Request, res: Response) => {
       ...cabinet,
       owner: owner.data,
       availabilities: filteredAvailabilities,
+      images: sortedImages,
     };
 
     res.json(cabinetWithOwner);
@@ -292,7 +304,7 @@ export const getLandingPharmacies = async (req: Request, res: Response) => {
   const take = parseInt(req.query.take as string) || 3;
 
   try {
-    const doctors = await prisma.pharmacies.findMany({
+    const pharmacies = await prisma.pharmacies.findMany({
       take,
       orderBy: {
         createdAt: "desc",
@@ -301,7 +313,14 @@ export const getLandingPharmacies = async (req: Request, res: Response) => {
         images: true,
       },
     });
-    res.json(doctors);
+    const sortedPharmacies = pharmacies.map((pharmacy) => {
+      const sortedImages = pharmacy.images.sort((a, b) => a.order - b.order);
+      return {
+        ...pharmacy,
+        images: sortedImages,
+      };
+    });
+    res.json(sortedPharmacies);
   } catch (error: any) {
     res.status(500).json({
       error: "Erreur lors de la récupération des médecins",
@@ -322,7 +341,15 @@ export const getMyPharmacies = async (req: Request, res: Response) => {
         availabilities: true,
       },
     });
-    res.json(pharmacies);
+
+    const sortedPharmacies = pharmacies.map((pharmacy) => {
+      const sortedImages = pharmacy.images.sort((a, b) => a.order - b.order);
+      return {
+        ...pharmacy,
+        images: sortedImages,
+      };
+    });
+    res.json(sortedPharmacies);
   } catch (error: any) {
     res.status(500).json({
       error: "Erreur lors de la récupération des pharmacies",
@@ -418,3 +445,123 @@ export const updatePharmacy = async (req: Request, res: Response) => {
     });
   }
 };
+
+// _____________________________________________________________________________
+
+export const UpdateImages = async (req: Request, res: Response) => {
+  const userId = req.user?.userId;
+  const pharmacyId = Number(req.params.pharmacyId);
+  const newImages = Array.isArray(req.files) ? req.files : [];
+
+  const { new_images_indexes, update_indexes, update_ids, delete_image } =
+    req.body;
+
+  // Normalize the data to ensure they are arrays of numbers
+  const parseArray = (data: any) => {
+    if (Array.isArray(data)) {
+      return data.map((item) => Number(item));
+    }
+    if (typeof data === "string") {
+      try {
+        return JSON.parse(data).map((item: any) => Number(item));
+      } catch (error) {
+        console.error("Error parsing data:", error);
+        return [];
+      }
+    }
+    return [];
+  };
+
+  const parsedNewImagesIndexes = parseArray(new_images_indexes);
+  const parsedUpdateIndexes = parseArray(update_indexes);
+  const parsedUpdateIds = parseArray(update_ids);
+
+  const pharmacy = await prisma.pharmacies.findUnique({
+    where: { id: pharmacyId },
+  });
+
+  if (!pharmacy) {
+    res.status(404).json({ message: "pharmacy non trouvé" });
+    return;
+  }
+  if (pharmacy.ownerId !== userId) {
+    res
+      .status(403)
+      .json({ message: "Vous n'êtes pas autorisé à modifier ce pharmacie" });
+    return;
+  }
+
+  try {
+    if (delete_image) {
+      const imageToDelete = await prisma.images.findUnique({
+        where: { id: Number(delete_image) },
+      });
+
+      if (imageToDelete) {
+        await prisma.images.delete({ where: { id: Number(delete_image) } });
+
+        const imagePath = path.join(
+          __dirname,
+          "..",
+          "public",
+          imageToDelete.url
+        );
+        if (fs.existsSync(imagePath)) fs.unlinkSync(imagePath);
+
+        const remainingImages = await prisma.images.findMany({
+          where: { pharmacyId },
+          orderBy: { order: "asc" },
+        });
+
+        for (let i = 0; i < remainingImages.length; i++) {
+          await prisma.images.update({
+            where: { id: remainingImages[i].id },
+            data: { order: i + 1 },
+          });
+        }
+      }
+    }
+
+    if (parsedUpdateIndexes.length && parsedUpdateIds.length) {
+      for (let i = 0; i < parsedUpdateIds.length; i++) {
+        await prisma.images.update({
+          where: { id: parsedUpdateIds[i] },
+          data: { order: parsedUpdateIndexes[i] },
+        });
+      }
+    }
+
+    if (newImages.length > 0) {
+      const existingImages = await prisma.images.findMany({
+        where: { pharmacyId },
+        orderBy: { order: "asc" },
+      });
+
+      for (let i = 0; i < parsedNewImagesIndexes.length; i++) {
+        const newOrder = parsedNewImagesIndexes[i];
+
+        await prisma.images.updateMany({
+          where: { pharmacyId, order: { gte: newOrder } },
+          data: { order: { increment: 1 } },
+        });
+
+        await prisma.images.create({
+          data: {
+            url: `/images/${newImages[i].filename}`,
+            pharmacyId,
+            order: newOrder,
+          },
+        });
+      }
+    }
+
+    res.json({ message: "Images mises à jour avec succès" });
+  } catch (error: any) {
+    res.status(500).json({
+      error: "Erreur lors de la mise à jour des images",
+      message: error.message,
+    });
+  }
+};
+
+

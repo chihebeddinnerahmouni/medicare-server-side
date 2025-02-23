@@ -274,12 +274,16 @@ export const getCabinets = async (req: Request, res: Response) => {
         nonPricingServices: true,
       },
     });
+     const cabinetsWithSortedImages = cabinets.map((cabinet) => ({
+       ...cabinet,
+       images: cabinet.images.sort((a, b) => a.order - b.order),
+     }));
     const totalCabinets = await prisma.cabinet.count({
       where: speciality ? { specialityId: speciality } : {},
     });
       
     res.json({
-      data: cabinets,
+      data: cabinetsWithSortedImages,
       pagination: {
         total: totalCabinets,
         page: page,
@@ -327,6 +331,7 @@ export const getCabinetById = async (req: Request, res: Response) => {
         },
       },
     });
+    const sortedImages = cabinet.images.sort((a, b) => a.order - b.order);
     const filteredAvailabilities = cabinet.availabilities.filter(
       (availability) => availability.end_date >= today
     );
@@ -348,6 +353,7 @@ export const getCabinetById = async (req: Request, res: Response) => {
       ...cabinet,
       owner: owner.data,
       availabilities: filteredAvailabilities,
+      images: sortedImages,
     };
 
     res.json(cabinetWithOwner);
@@ -426,7 +432,12 @@ export const getLandingDoctors = async (req: Request, res: Response) => {
         nonPricingServices: true,
       },
     });
-    res.json(doctors);
+
+    const doctorsWithSortedImages = doctors.map((doctor) => ({
+      ...doctor,
+      images: doctor.images.sort((a, b) => a.order - b.order),
+    }));
+    res.json(doctorsWithSortedImages);
   } catch (error: any) {
     res.status(500).json({
       error: "Erreur lors de la récupération des médecins",
@@ -533,7 +544,11 @@ export const getMyCabinets = async (req: Request, res: Response) => {
         // nonPricingServices: true,
       },
     });
-    res.json(cabinets);
+     const cabinetsWithSortedImages = cabinets.map((cabinet) => ({
+       ...cabinet,
+       images: cabinet.images.sort((a, b) => a.order - b.order),
+     }));
+    res.json(cabinetsWithSortedImages);
   } catch (error: any) {
     res.status(500).json({
       error: "Error while getting my cabinets",

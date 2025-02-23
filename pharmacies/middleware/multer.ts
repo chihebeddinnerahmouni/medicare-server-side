@@ -1,5 +1,6 @@
 import multer from "multer";
 import path from "path";
+import { v4 as uuidv4 } from "uuid";
 
 // Set storage engine
 const storage = multer.diskStorage({
@@ -7,17 +8,15 @@ const storage = multer.diskStorage({
     cb(null, path.join(__dirname, "../public/images"));
   },
   filename: function (req, file, cb) {
-    cb(
-      null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-    );
+    const uniqueName = uuidv4() + path.extname(file.originalname);
+    cb(null, uniqueName);
   },
 });
 
 // Initialize upload for single file
 const uploadSingle = multer({
   storage: storage,
-  limits: { fileSize: 4000000 }, // Limit file size to 1MB
+  limits: { fileSize: 1000000 }, // Limit file size to 1MB
   fileFilter: function (req, file, cb) {
     checkFileType(file, cb);
   },
@@ -26,11 +25,11 @@ const uploadSingle = multer({
 // Initialize upload for multiple files
 const uploadArray = multer({
   storage: storage,
-  limits: { fileSize: 4000000 }, // Limit file size to 1MB per file
+  limits: { fileSize: 1000000 }, // Limit file size to 1MB per file
   fileFilter: function (req, file, cb) {
     checkFileType(file, cb);
   },
-}).array("images", 10); // 'images' is the field name for the files, limit to 10 files
+}).array("images", 10);
 
 // Check file type
 function checkFileType(file: any, cb: any) {
@@ -46,3 +45,4 @@ function checkFileType(file: any, cb: any) {
 }
 
 export { uploadSingle, uploadArray };
+

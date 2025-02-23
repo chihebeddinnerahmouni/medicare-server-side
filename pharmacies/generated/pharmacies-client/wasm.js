@@ -121,6 +121,7 @@ exports.Prisma.ImagesScalarFieldEnum = {
   id: 'id',
   url: 'url',
   pharmacyId: 'pharmacyId',
+  order: 'order',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

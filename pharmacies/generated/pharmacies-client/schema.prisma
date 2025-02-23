@@ -12,6 +12,7 @@ model Images {
   id         Int        @id @default(autoincrement())
   url        String
   pharmacyId Int
+  order      Int
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
   Pharmacy   Pharmacies @relation(fields: [pharmacyId], references: [id])

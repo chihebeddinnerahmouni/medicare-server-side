@@ -9,7 +9,8 @@ import {
   deletePharmacy,
   getLandingPharmacies,
   getMyPharmacies,
-  updatePharmacy
+  updatePharmacy,
+  UpdateImages
   
 } from "../controllers/controllers";
 
@@ -26,6 +27,7 @@ router.delete("/delete-pharmacy/:id",authGuard, deletePharmacy);
 router.post("/add-pharmacy/:demandeId?", authGuard, uploadArray, addPharmacy);
 router.get("/get-my-pharmacies", authGuard, getMyPharmacies);
 router.put("/update-pharmacy/:pharmacyId", authGuard, uploadArray, updatePharmacy);
+router.put("/update-images/:pharmacyId", authGuard, uploadArray, UpdateImages);
 
 
 // admin
