@@ -71,16 +71,24 @@ export const getUsers = async (req: Request, res: Response) => {
 //______________________________________________________________________________________
 
 export const createUser = async (req: Request, res: Response) => {
-  const { email, phoneNumber, firstName, lastName, password, role } = req.body;
+  const { email, phoneNumber, firstName, lastName, password } = req.body;
   
-  const errors = validateBody({ email, phoneNumber, firstName, lastName, password, role });
+  const errors = validateBody({ email, phoneNumber, firstName, lastName, password });
   if (errors.length !== 0) {
     res.status(400).json({ error: "Error creating user", message: errors });
     return;
   }
   const hashedPassword = await bcrypt.hash(password, 10);
+  const existingUser = await prisma.users.findFirst({
+    where: {
+      OR: [{ email }, { phoneNumber: "+213" + phoneNumber }],
+    },
+  });
+  if (existingUser) {
+    res.status(400).json({ message: "L'utilisateur existe déjà" });
+    return;
+  }
   try {
-
     const newuser = await prisma.users.create({
       data: {
         email,
@@ -88,7 +96,6 @@ export const createUser = async (req: Request, res: Response) => {
         firstName,
         lastName,
         password: hashedPassword,
-        role,
       },
     });
 
@@ -140,6 +147,9 @@ const searchUser = async (userId: number, res: Response) => {
         hasDemandes: true,
         role: true,
         hasSomething: true,
+        isProvider: true,
+        providerType: true,
+        providerSpeciality: true,
       },
     });
     return user;
@@ -543,6 +553,37 @@ export const setHasSomething = async (req: Request, res: Response) => {
   }
 }
 
+// _________________________________________________________________
+
+export const toProvider = async (req: Request, res: Response) => { 
+  const userId = Number(req.params.userId);
+  const { providerType, speciality } = req.body;
+  const errors = validateBody({ providerType, speciality });
+  if (errors.length !== 0) {
+    res.status(400).json({ error: "Erreur lors de la mise à jour de l'utilisateur", message: errors });
+    return;
+  }
+  try {
+    const user = await prisma.users.findUnique({
+      where: { id: userId },
+    });
+    if (!user) {
+      res.status(404).json({ message: "Utilisateur introuvable" });
+      return;
+    }
+    const updatedUser = await prisma.users.update({
+      where: { id: userId },
+      data: {
+        isProvider: true,
+        providerType,
+        providerSpeciality: speciality,
+      },
+    });
+    res.json(updatedUser);
+  } catch (error: any) {
+    res.status(500).json({ error: "Erreur lors de la mise à jour de l'utilisateur", message: error.message });
+  }
+}
 
 
 

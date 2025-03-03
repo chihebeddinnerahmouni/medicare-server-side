@@ -23,6 +23,7 @@ import {
   getMyDemandes,
   setDemandeOnWork,
   setHasSomething,
+  toProvider
 } from "../controllers/controllers";
 
 
@@ -53,6 +54,7 @@ router.get("/demandes", adminGuard, getDemandes);
 router.put("/accept-demande/:id", adminGuard, acceptDemande);
 router.get("/get-documents/:demandeId", adminGuard, getDocuments);
 router.put("/accept-documents/:demandeId", adminGuard, acceptDocuments);
+router.put("/to-provider/:userId", adminGuard, toProvider);
 
 
 // Middleware to handle non-existent routes

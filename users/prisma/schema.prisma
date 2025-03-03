@@ -7,41 +7,59 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Users {
-  id          Int      @id @default(autoincrement())
-  email       String   @unique
-  phoneNumber String   @unique
-  firstName   String
-  lastName    String
-  password    String
-  role        String
-  hasSomething Boolean  @default(false)
-  profilePic     String  @default("")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  demandes    Demandes[]
-  documents   Documents[]
-  hasDemandes Boolean  @default(false)
+enum Role {
+  admin
+  user
 }
 
+enum ProviderType {
+  nurse
+  doctor
+}
+
+model Users {
+  id           Int              @id @default(autoincrement())
+  email        String           @unique
+  phoneNumber  String           @unique
+  firstName    String
+  lastName     String
+  password     String
+  isProvider   Boolean          @default(false)
+  role         Role             @default(user)
+  hasSomething Boolean          @default(false)
+  profilePic   String           @default("")
+  hasDemandes  Boolean          @default(false)
+  blocked      Boolean          @default(false)
+  demandes     Demandes[]
+  documents    Documents[]
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  
+  // Provider
+  providerType ProviderType?  
+  providerSpeciality String?
+  providerServiceCount Int?   @default(0)
+}
+
+
 model Demandes {
-  id          Int    @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   userId      Int
   userType    String
   serviceType String
   status      String
-  user        Users  @relation(fields: [userId], references: [id])
+  user        Users       @relation(fields: [userId], references: [id])
   documents   Documents[]
 }
 
 model Documents {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  description      String
-  url       String
-  demandeId Int     
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  demande   Demandes @relation(fields: [demandeId], references: [id])   
-  user      Users    @relation(fields: [userId], references: [id])
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  description String
+  url         String
+  demandeId   Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  demande     Demandes @relation(fields: [demandeId], references: [id])
+  user        Users    @relation(fields: [userId], references: [id])
 }
