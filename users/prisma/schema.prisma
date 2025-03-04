@@ -12,10 +12,6 @@ enum Role {
   user
 }
 
-enum ProviderType {
-  nurse
-  doctor
-}
 
 enum demandeType {
   doc
@@ -45,7 +41,7 @@ model Users {
   updatedAt    DateTime         @updatedAt
   
   // Provider
-  providerType ProviderType?  
+  providerType String?  
   providerSpeciality String?
   providerServiceCount Int?   @default(0)
 }

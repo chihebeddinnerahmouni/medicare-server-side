@@ -266,12 +266,23 @@ export const createDemande = async (req: Request, res: Response) => {
       res.status(404).json({ message: "Utilisateur introuvable" });
       return;
     }
+
+    const existingDomDemande = await prisma.demandes.findFirst({
+      where: {
+        userId: id,
+        type: demandeType.dom,
+      },
+    });
+    if (existingDomDemande) {
+      res.status(400).json({ message: "Vous avez déjà une demande de ce type" });
+      return;
+    }
     const newDemande = await prisma.demandes.create({
       data: {
         serviceType,
         userType,
         userId: id,
-        status: "pending",
+        status: user.hasSomething ? "documents" : "pending",
         type: getTypeFromServiceType(serviceType),
       },
     });
@@ -590,7 +601,8 @@ export const setHasSomething = async (req: Request, res: Response) => {
 
 export const toProvider = async (req: Request, res: Response) => { 
   const userId = Number(req.params.userId);
-  const { providerType, speciality } = req.body;
+  const demandeId = Number(req.params.demandeId);
+  const { providerType, speciality, value } = req.body;
   const errors = validateBody({ providerType, speciality });
   if (errors.length !== 0) {
     res.status(400).json({ error: "Erreur lors de la mise à jour de l'utilisateur", message: errors });
@@ -604,10 +616,16 @@ export const toProvider = async (req: Request, res: Response) => {
       res.status(404).json({ message: "Utilisateur introuvable" });
       return;
     }
+
+    if (demandeId) {
+      const updateDemande = await updateDemandeStatus(demandeId, "working", res);
+      if (!updateDemande) return;
+    }
+    
     const updatedUser = await prisma.users.update({
       where: { id: userId },
       data: {
-        isProvider: true,
+        isProvider: value,
         providerType,
         providerSpeciality: speciality,
       },
