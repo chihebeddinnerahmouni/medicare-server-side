@@ -17,6 +17,15 @@ enum ProviderType {
   doctor
 }
 
+enum demandeType {
+  doc
+  pha
+  cli
+  den
+  dom
+  oth
+}
+
 model Users {
   id           Int              @id @default(autoincrement())
   email        String           @unique
@@ -48,6 +57,7 @@ model Demandes {
   userType    String
   serviceType String
   status      String
+  type        demandeType 
   user        Users       @relation(fields: [userId], references: [id])
   documents   Documents[]
 }

@@ -1,11 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
+  output   = "../generated/nurses-client"
 }
 
 datasource db {
@@ -13,13 +8,49 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Nurses {
-  id           Int      @id @default(autoincrement())
-  email        String   @unique
-  phoneNumber  String   
-  firstName    String
-  lastName     String
-  specialty    String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+enum Status {
+  pending
+  inProgress
+  completed
+  cancelled
+  cancelledByPatient
+  cancelledByProviders
+  autoCancelled
+}
+
+
+
+model HomeServices {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  services  Services[]
+}
+
+model Services {
+  id            Int          @id @default(autoincrement())
+  serviceTypeId Int
+  patientId     Int
+  latitude      Float
+  longitude     Float
+  address       String
+  description   String
+  patient       Json
+  providers     Json[]
+  serviceType   HomeServices @relation(fields: [serviceTypeId], references: [id])
+  status        Status       @default(pending)
+  providersId   Int[]        @default([])
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+model Counts {
+  id                   Int @id @default(autoincrement())
+  completed            Int @default(0)
+  pending              Int @default(0)
+  inProgress           Int @default(0)
+  cancelled            Int @default(0)
+  cancelledByPatient   Int @default(0)
+  cancelledByProviders Int @default(0)
 }

@@ -683,8 +683,7 @@ export const UpdateImages = async (req: Request, res: Response) => {
   const { new_images_indexes, update_indexes, update_ids, delete_image } =
     req.body;
 
-  // Normalize the data to ensure they are arrays of numbers
-  const parseArray = (data: any) => {
+  const parseArray = (data: string[] | string) => {
     if (Array.isArray(data)) {
       return data.map((item) => Number(item));
     }

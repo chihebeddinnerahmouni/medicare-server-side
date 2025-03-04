@@ -8,6 +8,7 @@ import jwt from "jsonwebtoken";
 import { Multer } from "multer";
 import fs from "fs";
 import path from "path";
+import { demandeType } from "@prisma/client";
 
 declare global {
   namespace Express {
@@ -220,6 +221,31 @@ export const updateUser = async (req: Request, res: Response) => {
 
 //______________________________________________________________________________________
 
+const getTypeFromServiceType = (serviceType: string) => { 
+  let type :any;
+  switch (serviceType) {
+    case "Ajouter un cabinet médical":
+      // type = "doc";
+      type = demandeType.doc;
+      break;
+    case "Ajouter un cabinet dentaire":
+      type = demandeType.den;
+      break;
+    case "Offrir des services de soins à domicile":
+      type = demandeType.dom;
+      break;
+    case "Ajouter une clinique":
+      type = demandeType.cli;
+      break;
+    case "Ajouter une pharmacie":
+      type = demandeType.pha;
+      break;
+    default:
+      type = demandeType.oth;
+  }
+  return type;
+}
+
 // create demande
 export const createDemande = async (req: Request, res: Response) => { 
   const id = Number(req.user?.userId);
@@ -246,6 +272,7 @@ export const createDemande = async (req: Request, res: Response) => {
         userType,
         userId: id,
         status: "pending",
+        type: getTypeFromServiceType(serviceType),
       },
     });
 
@@ -270,12 +297,18 @@ export const createDemande = async (req: Request, res: Response) => {
 // get demandes
 export const getDemandes = async (req: Request, res: Response) => {
 
-  const type = req.query.type ? req.query.type as string : "pending";
+  const status = req.query.status ? (req.query.status as string) : "";
+  const type = req.query.type ? (req.query.type as demandeType) : undefined;
 
   try {
     const demandes = await prisma.demandes.findMany({
+      // where: {
+      //   status,
+      //   type,
+      // },
       where: {
-        status: type,
+        ...(status && { status }),
+        ...(type && { type }),
       },
       include: {
         user: {
