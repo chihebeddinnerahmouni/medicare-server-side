@@ -19,11 +19,11 @@ import {
   getUserById,
   acceptDocuments,
   updateUserImage,
-  NumberOfUsers,
+  getlandingInfos,
   getMyDemandes,
   setDemandeOnWork,
   setHasSomething,
-  toProvider
+  toProvider,
 } from "../controllers/controllers";
 
 
@@ -34,7 +34,7 @@ router.post("/add-user", createUser);
 router.post("/login", login);
 router.get("/users", getUsers);
 router.get("/get-user/:id", getUserById);
-router.get("/number-of-users", NumberOfUsers);
+router.get("/landing-infos", getlandingInfos);
 router.put("/set-demande-working/:demandeId/:userId", setDemandeOnWork);
 router.put("/set-has-something/:userId", setHasSomething);
 

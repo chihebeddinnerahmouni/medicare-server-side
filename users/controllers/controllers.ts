@@ -514,10 +514,33 @@ export const updateUserImage = async (req: Request, res: Response) => {
 
 // _________________________________________________________________
 
-export const NumberOfUsers = async (req: Request, res: Response) => {
+export const getlandingInfos = async (req: Request, res: Response) => {
   try {
+    const take = Number(req.query.take) || 6;
+    const providers = await prisma.users.findMany({
+      where: {
+        isProvider: true,
+      },
+      take,
+      orderBy: {
+        id: "desc",
+      },
+      select: {
+        id: true,
+        email: true,
+        phoneNumber: true,
+        firstName: true,
+        lastName: true,
+        profilePic: true,
+        providerType: true,
+        providerSpeciality: true,
+        providerServiceCount: true
+      },
+    });
+
+
     const users = await prisma.users.count();
-    res.json({ users });
+    res.json({ users, providers });
   } catch (error: any) {
     res.status(500).json({ error: "Erreur lors de la récupération du nombre d'utilisateurs", message: error.message });
   }
