@@ -1,12 +1,18 @@
 import { Router } from "express";
 import {
-    getDoctors,
-    createNurse,
+    createService,
+    getServices,
 } from "../controllers/controllers";
+import {adminGuard} from "../middleware/adminGuard";
 
 const router = Router();
 
-router.get("/nurses", getDoctors);
-router.post("/add-nurse", createNurse);
+router.get("/home-services", getServices);
+
+// admin
+router.post("/home-services", adminGuard, createService);
+
+
+
 
 module.exports = router;

@@ -120,11 +120,13 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.HomeServicesScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  description: 'description',
+  price: 'price',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.ServicesScalarFieldEnum = {
+exports.Prisma.VisitesScalarFieldEnum = {
   id: 'id',
   serviceTypeId: 'serviceTypeId',
   patientId: 'patientId',
@@ -183,7 +185,7 @@ exports.Status = exports.$Enums.Status = {
 
 exports.Prisma.ModelName = {
   HomeServices: 'HomeServices',
-  Services: 'Services',
+  Visites: 'Visites',
   Counts: 'Counts'
 };
 

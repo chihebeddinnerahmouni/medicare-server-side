@@ -19,10 +19,10 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type HomeServices = $Result.DefaultSelection<Prisma.$HomeServicesPayload>
 /**
- * Model Services
+ * Model Visites
  * 
  */
-export type Services = $Result.DefaultSelection<Prisma.$ServicesPayload>
+export type Visites = $Result.DefaultSelection<Prisma.$VisitesPayload>
 /**
  * Model Counts
  * 
@@ -187,14 +187,14 @@ export class PrismaClient<
   get homeServices(): Prisma.HomeServicesDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.services`: Exposes CRUD operations for the **Services** model.
+   * `prisma.visites`: Exposes CRUD operations for the **Visites** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Services
-    * const services = await prisma.services.findMany()
+    * // Fetch zero or more Visites
+    * const visites = await prisma.visites.findMany()
     * ```
     */
-  get services(): Prisma.ServicesDelegate<ExtArgs, ClientOptions>;
+  get visites(): Prisma.VisitesDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.counts`: Exposes CRUD operations for the **Counts** model.
@@ -646,7 +646,7 @@ export namespace Prisma {
 
   export const ModelName: {
     HomeServices: 'HomeServices',
-    Services: 'Services',
+    Visites: 'Visites',
     Counts: 'Counts'
   };
 
@@ -663,7 +663,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "homeServices" | "services" | "counts"
+      modelProps: "homeServices" | "visites" | "counts"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -741,77 +741,77 @@ export namespace Prisma {
           }
         }
       }
-      Services: {
-        payload: Prisma.$ServicesPayload<ExtArgs>
-        fields: Prisma.ServicesFieldRefs
+      Visites: {
+        payload: Prisma.$VisitesPayload<ExtArgs>
+        fields: Prisma.VisitesFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.ServicesFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicesPayload> | null
+            args: Prisma.VisitesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VisitesPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.ServicesFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicesPayload>
+            args: Prisma.VisitesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VisitesPayload>
           }
           findFirst: {
-            args: Prisma.ServicesFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicesPayload> | null
+            args: Prisma.VisitesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VisitesPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.ServicesFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicesPayload>
+            args: Prisma.VisitesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VisitesPayload>
           }
           findMany: {
-            args: Prisma.ServicesFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicesPayload>[]
+            args: Prisma.VisitesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VisitesPayload>[]
           }
           create: {
-            args: Prisma.ServicesCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicesPayload>
+            args: Prisma.VisitesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VisitesPayload>
           }
           createMany: {
-            args: Prisma.ServicesCreateManyArgs<ExtArgs>
+            args: Prisma.VisitesCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.ServicesCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicesPayload>[]
+            args: Prisma.VisitesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VisitesPayload>[]
           }
           delete: {
-            args: Prisma.ServicesDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicesPayload>
+            args: Prisma.VisitesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VisitesPayload>
           }
           update: {
-            args: Prisma.ServicesUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicesPayload>
+            args: Prisma.VisitesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VisitesPayload>
           }
           deleteMany: {
-            args: Prisma.ServicesDeleteManyArgs<ExtArgs>
+            args: Prisma.VisitesDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.ServicesUpdateManyArgs<ExtArgs>
+            args: Prisma.VisitesUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.ServicesUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicesPayload>[]
+            args: Prisma.VisitesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VisitesPayload>[]
           }
           upsert: {
-            args: Prisma.ServicesUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicesPayload>
+            args: Prisma.VisitesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VisitesPayload>
           }
           aggregate: {
-            args: Prisma.ServicesAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateServices>
+            args: Prisma.VisitesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateVisites>
           }
           groupBy: {
-            args: Prisma.ServicesGroupByArgs<ExtArgs>
-            result: $Utils.Optional<ServicesGroupByOutputType>[]
+            args: Prisma.VisitesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<VisitesGroupByOutputType>[]
           }
           count: {
-            args: Prisma.ServicesCountArgs<ExtArgs>
-            result: $Utils.Optional<ServicesCountAggregateOutputType> | number
+            args: Prisma.VisitesCountArgs<ExtArgs>
+            result: $Utils.Optional<VisitesCountAggregateOutputType> | number
           }
         }
       }
@@ -974,7 +974,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     homeServices?: HomeServicesOmit
-    services?: ServicesOmit
+    visites?: VisitesOmit
     counts?: CountsOmit
   }
 
@@ -1070,11 +1070,11 @@ export namespace Prisma {
    */
 
   export type HomeServicesCountOutputType = {
-    services: number
+    visites: number
   }
 
   export type HomeServicesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    services?: boolean | HomeServicesCountOutputTypeCountServicesArgs
+    visites?: boolean | HomeServicesCountOutputTypeCountVisitesArgs
   }
 
   // Custom InputTypes
@@ -1091,8 +1091,8 @@ export namespace Prisma {
   /**
    * HomeServicesCountOutputType without action
    */
-  export type HomeServicesCountOutputTypeCountServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ServicesWhereInput
+  export type HomeServicesCountOutputTypeCountVisitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VisitesWhereInput
   }
 
 
@@ -1114,15 +1114,19 @@ export namespace Prisma {
 
   export type HomeServicesAvgAggregateOutputType = {
     id: number | null
+    price: number | null
   }
 
   export type HomeServicesSumAggregateOutputType = {
     id: number | null
+    price: number | null
   }
 
   export type HomeServicesMinAggregateOutputType = {
     id: number | null
     name: string | null
+    description: string | null
+    price: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1130,6 +1134,8 @@ export namespace Prisma {
   export type HomeServicesMaxAggregateOutputType = {
     id: number | null
     name: string | null
+    description: string | null
+    price: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1137,6 +1143,8 @@ export namespace Prisma {
   export type HomeServicesCountAggregateOutputType = {
     id: number
     name: number
+    description: number
+    price: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1145,15 +1153,19 @@ export namespace Prisma {
 
   export type HomeServicesAvgAggregateInputType = {
     id?: true
+    price?: true
   }
 
   export type HomeServicesSumAggregateInputType = {
     id?: true
+    price?: true
   }
 
   export type HomeServicesMinAggregateInputType = {
     id?: true
     name?: true
+    description?: true
+    price?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1161,6 +1173,8 @@ export namespace Prisma {
   export type HomeServicesMaxAggregateInputType = {
     id?: true
     name?: true
+    description?: true
+    price?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1168,6 +1182,8 @@ export namespace Prisma {
   export type HomeServicesCountAggregateInputType = {
     id?: true
     name?: true
+    description?: true
+    price?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1262,6 +1278,8 @@ export namespace Prisma {
   export type HomeServicesGroupByOutputType = {
     id: number
     name: string
+    description: string
+    price: number
     createdAt: Date
     updatedAt: Date
     _count: HomeServicesCountAggregateOutputType | null
@@ -1288,15 +1306,19 @@ export namespace Prisma {
   export type HomeServicesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    description?: boolean
+    price?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    services?: boolean | HomeServices$servicesArgs<ExtArgs>
+    visites?: boolean | HomeServices$visitesArgs<ExtArgs>
     _count?: boolean | HomeServicesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["homeServices"]>
 
   export type HomeServicesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    description?: boolean
+    price?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["homeServices"]>
@@ -1304,6 +1326,8 @@ export namespace Prisma {
   export type HomeServicesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    description?: boolean
+    price?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["homeServices"]>
@@ -1311,13 +1335,15 @@ export namespace Prisma {
   export type HomeServicesSelectScalar = {
     id?: boolean
     name?: boolean
+    description?: boolean
+    price?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type HomeServicesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt", ExtArgs["result"]["homeServices"]>
+  export type HomeServicesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "price" | "createdAt" | "updatedAt", ExtArgs["result"]["homeServices"]>
   export type HomeServicesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    services?: boolean | HomeServices$servicesArgs<ExtArgs>
+    visites?: boolean | HomeServices$visitesArgs<ExtArgs>
     _count?: boolean | HomeServicesCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type HomeServicesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1326,11 +1352,13 @@ export namespace Prisma {
   export type $HomeServicesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "HomeServices"
     objects: {
-      services: Prisma.$ServicesPayload<ExtArgs>[]
+      visites: Prisma.$VisitesPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
+      description: string
+      price: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["homeServices"]>
@@ -1727,7 +1755,7 @@ export namespace Prisma {
    */
   export interface Prisma__HomeServicesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    services<T extends HomeServices$servicesArgs<ExtArgs> = {}>(args?: Subset<T, HomeServices$servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    visites<T extends HomeServices$visitesArgs<ExtArgs> = {}>(args?: Subset<T, HomeServices$visitesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitesPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1759,6 +1787,8 @@ export namespace Prisma {
   interface HomeServicesFieldRefs {
     readonly id: FieldRef<"HomeServices", 'Int'>
     readonly name: FieldRef<"HomeServices", 'String'>
+    readonly description: FieldRef<"HomeServices", 'String'>
+    readonly price: FieldRef<"HomeServices", 'Float'>
     readonly createdAt: FieldRef<"HomeServices", 'DateTime'>
     readonly updatedAt: FieldRef<"HomeServices", 'DateTime'>
   }
@@ -2149,27 +2179,27 @@ export namespace Prisma {
   }
 
   /**
-   * HomeServices.services
+   * HomeServices.visites
    */
-  export type HomeServices$servicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type HomeServices$visitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Visites
      */
-    select?: ServicesSelect<ExtArgs> | null
+    select?: VisitesSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Visites
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: VisitesOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesInclude<ExtArgs> | null
-    where?: ServicesWhereInput
-    orderBy?: ServicesOrderByWithRelationInput | ServicesOrderByWithRelationInput[]
-    cursor?: ServicesWhereUniqueInput
+    include?: VisitesInclude<ExtArgs> | null
+    where?: VisitesWhereInput
+    orderBy?: VisitesOrderByWithRelationInput | VisitesOrderByWithRelationInput[]
+    cursor?: VisitesWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: ServicesScalarFieldEnum | ServicesScalarFieldEnum[]
+    distinct?: VisitesScalarFieldEnum | VisitesScalarFieldEnum[]
   }
 
   /**
@@ -2192,18 +2222,18 @@ export namespace Prisma {
 
 
   /**
-   * Model Services
+   * Model Visites
    */
 
-  export type AggregateServices = {
-    _count: ServicesCountAggregateOutputType | null
-    _avg: ServicesAvgAggregateOutputType | null
-    _sum: ServicesSumAggregateOutputType | null
-    _min: ServicesMinAggregateOutputType | null
-    _max: ServicesMaxAggregateOutputType | null
+  export type AggregateVisites = {
+    _count: VisitesCountAggregateOutputType | null
+    _avg: VisitesAvgAggregateOutputType | null
+    _sum: VisitesSumAggregateOutputType | null
+    _min: VisitesMinAggregateOutputType | null
+    _max: VisitesMaxAggregateOutputType | null
   }
 
-  export type ServicesAvgAggregateOutputType = {
+  export type VisitesAvgAggregateOutputType = {
     id: number | null
     serviceTypeId: number | null
     patientId: number | null
@@ -2212,7 +2242,7 @@ export namespace Prisma {
     providersId: number | null
   }
 
-  export type ServicesSumAggregateOutputType = {
+  export type VisitesSumAggregateOutputType = {
     id: number | null
     serviceTypeId: number | null
     patientId: number | null
@@ -2221,7 +2251,7 @@ export namespace Prisma {
     providersId: number[]
   }
 
-  export type ServicesMinAggregateOutputType = {
+  export type VisitesMinAggregateOutputType = {
     id: number | null
     serviceTypeId: number | null
     patientId: number | null
@@ -2236,7 +2266,7 @@ export namespace Prisma {
     updatedAt: Date | null
   }
 
-  export type ServicesMaxAggregateOutputType = {
+  export type VisitesMaxAggregateOutputType = {
     id: number | null
     serviceTypeId: number | null
     patientId: number | null
@@ -2251,7 +2281,7 @@ export namespace Prisma {
     updatedAt: Date | null
   }
 
-  export type ServicesCountAggregateOutputType = {
+  export type VisitesCountAggregateOutputType = {
     id: number
     serviceTypeId: number
     patientId: number
@@ -2271,7 +2301,7 @@ export namespace Prisma {
   }
 
 
-  export type ServicesAvgAggregateInputType = {
+  export type VisitesAvgAggregateInputType = {
     id?: true
     serviceTypeId?: true
     patientId?: true
@@ -2280,7 +2310,7 @@ export namespace Prisma {
     providersId?: true
   }
 
-  export type ServicesSumAggregateInputType = {
+  export type VisitesSumAggregateInputType = {
     id?: true
     serviceTypeId?: true
     patientId?: true
@@ -2289,7 +2319,7 @@ export namespace Prisma {
     providersId?: true
   }
 
-  export type ServicesMinAggregateInputType = {
+  export type VisitesMinAggregateInputType = {
     id?: true
     serviceTypeId?: true
     patientId?: true
@@ -2304,7 +2334,7 @@ export namespace Prisma {
     updatedAt?: true
   }
 
-  export type ServicesMaxAggregateInputType = {
+  export type VisitesMaxAggregateInputType = {
     id?: true
     serviceTypeId?: true
     patientId?: true
@@ -2319,7 +2349,7 @@ export namespace Prisma {
     updatedAt?: true
   }
 
-  export type ServicesCountAggregateInputType = {
+  export type VisitesCountAggregateInputType = {
     id?: true
     serviceTypeId?: true
     patientId?: true
@@ -2338,93 +2368,93 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type ServicesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type VisitesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Services to aggregate.
+     * Filter which Visites to aggregate.
      */
-    where?: ServicesWhereInput
+    where?: VisitesWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Services to fetch.
+     * Determine the order of Visites to fetch.
      */
-    orderBy?: ServicesOrderByWithRelationInput | ServicesOrderByWithRelationInput[]
+    orderBy?: VisitesOrderByWithRelationInput | VisitesOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: ServicesWhereUniqueInput
+    cursor?: VisitesWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Services from the position of the cursor.
+     * Take `±n` Visites from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Services.
+     * Skip the first `n` Visites.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Services
+     * Count returned Visites
     **/
-    _count?: true | ServicesCountAggregateInputType
+    _count?: true | VisitesCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: ServicesAvgAggregateInputType
+    _avg?: VisitesAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: ServicesSumAggregateInputType
+    _sum?: VisitesSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ServicesMinAggregateInputType
+    _min?: VisitesMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ServicesMaxAggregateInputType
+    _max?: VisitesMaxAggregateInputType
   }
 
-  export type GetServicesAggregateType<T extends ServicesAggregateArgs> = {
-        [P in keyof T & keyof AggregateServices]: P extends '_count' | 'count'
+  export type GetVisitesAggregateType<T extends VisitesAggregateArgs> = {
+        [P in keyof T & keyof AggregateVisites]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateServices[P]>
-      : GetScalarType<T[P], AggregateServices[P]>
+        : GetScalarType<T[P], AggregateVisites[P]>
+      : GetScalarType<T[P], AggregateVisites[P]>
   }
 
 
 
 
-  export type ServicesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ServicesWhereInput
-    orderBy?: ServicesOrderByWithAggregationInput | ServicesOrderByWithAggregationInput[]
-    by: ServicesScalarFieldEnum[] | ServicesScalarFieldEnum
-    having?: ServicesScalarWhereWithAggregatesInput
+  export type VisitesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VisitesWhereInput
+    orderBy?: VisitesOrderByWithAggregationInput | VisitesOrderByWithAggregationInput[]
+    by: VisitesScalarFieldEnum[] | VisitesScalarFieldEnum
+    having?: VisitesScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ServicesCountAggregateInputType | true
-    _avg?: ServicesAvgAggregateInputType
-    _sum?: ServicesSumAggregateInputType
-    _min?: ServicesMinAggregateInputType
-    _max?: ServicesMaxAggregateInputType
+    _count?: VisitesCountAggregateInputType | true
+    _avg?: VisitesAvgAggregateInputType
+    _sum?: VisitesSumAggregateInputType
+    _min?: VisitesMinAggregateInputType
+    _max?: VisitesMaxAggregateInputType
   }
 
-  export type ServicesGroupByOutputType = {
+  export type VisitesGroupByOutputType = {
     id: number
     serviceTypeId: number
     patientId: number
@@ -2440,28 +2470,28 @@ export namespace Prisma {
     providersId: number[]
     createdAt: Date
     updatedAt: Date
-    _count: ServicesCountAggregateOutputType | null
-    _avg: ServicesAvgAggregateOutputType | null
-    _sum: ServicesSumAggregateOutputType | null
-    _min: ServicesMinAggregateOutputType | null
-    _max: ServicesMaxAggregateOutputType | null
+    _count: VisitesCountAggregateOutputType | null
+    _avg: VisitesAvgAggregateOutputType | null
+    _sum: VisitesSumAggregateOutputType | null
+    _min: VisitesMinAggregateOutputType | null
+    _max: VisitesMaxAggregateOutputType | null
   }
 
-  type GetServicesGroupByPayload<T extends ServicesGroupByArgs> = Prisma.PrismaPromise<
+  type GetVisitesGroupByPayload<T extends VisitesGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<ServicesGroupByOutputType, T['by']> &
+      PickEnumerable<VisitesGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ServicesGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof VisitesGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ServicesGroupByOutputType[P]>
-            : GetScalarType<T[P], ServicesGroupByOutputType[P]>
+              : GetScalarType<T[P], VisitesGroupByOutputType[P]>
+            : GetScalarType<T[P], VisitesGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type ServicesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type VisitesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     serviceTypeId?: boolean
     patientId?: boolean
@@ -2478,9 +2508,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     serviceType?: boolean | HomeServicesDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["services"]>
+  }, ExtArgs["result"]["visites"]>
 
-  export type ServicesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type VisitesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     serviceTypeId?: boolean
     patientId?: boolean
@@ -2497,9 +2527,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     serviceType?: boolean | HomeServicesDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["services"]>
+  }, ExtArgs["result"]["visites"]>
 
-  export type ServicesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type VisitesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     serviceTypeId?: boolean
     patientId?: boolean
@@ -2516,9 +2546,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     serviceType?: boolean | HomeServicesDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["services"]>
+  }, ExtArgs["result"]["visites"]>
 
-  export type ServicesSelectScalar = {
+  export type VisitesSelectScalar = {
     id?: boolean
     serviceTypeId?: boolean
     patientId?: boolean
@@ -2536,19 +2566,19 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type ServicesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "serviceTypeId" | "patientId" | "latitude" | "longitude" | "address" | "description" | "patient" | "providers" | "date" | "hour" | "status" | "providersId" | "createdAt" | "updatedAt", ExtArgs["result"]["services"]>
-  export type ServicesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type VisitesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "serviceTypeId" | "patientId" | "latitude" | "longitude" | "address" | "description" | "patient" | "providers" | "date" | "hour" | "status" | "providersId" | "createdAt" | "updatedAt", ExtArgs["result"]["visites"]>
+  export type VisitesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     serviceType?: boolean | HomeServicesDefaultArgs<ExtArgs>
   }
-  export type ServicesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type VisitesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     serviceType?: boolean | HomeServicesDefaultArgs<ExtArgs>
   }
-  export type ServicesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type VisitesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     serviceType?: boolean | HomeServicesDefaultArgs<ExtArgs>
   }
 
-  export type $ServicesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Services"
+  export type $VisitesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Visites"
     objects: {
       serviceType: Prisma.$HomeServicesPayload<ExtArgs>
     }
@@ -2568,136 +2598,136 @@ export namespace Prisma {
       providersId: number[]
       createdAt: Date
       updatedAt: Date
-    }, ExtArgs["result"]["services"]>
+    }, ExtArgs["result"]["visites"]>
     composites: {}
   }
 
-  type ServicesGetPayload<S extends boolean | null | undefined | ServicesDefaultArgs> = $Result.GetResult<Prisma.$ServicesPayload, S>
+  type VisitesGetPayload<S extends boolean | null | undefined | VisitesDefaultArgs> = $Result.GetResult<Prisma.$VisitesPayload, S>
 
-  type ServicesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<ServicesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: ServicesCountAggregateInputType | true
+  type VisitesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<VisitesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: VisitesCountAggregateInputType | true
     }
 
-  export interface ServicesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Services'], meta: { name: 'Services' } }
+  export interface VisitesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Visites'], meta: { name: 'Visites' } }
     /**
-     * Find zero or one Services that matches the filter.
-     * @param {ServicesFindUniqueArgs} args - Arguments to find a Services
+     * Find zero or one Visites that matches the filter.
+     * @param {VisitesFindUniqueArgs} args - Arguments to find a Visites
      * @example
-     * // Get one Services
-     * const services = await prisma.services.findUnique({
+     * // Get one Visites
+     * const visites = await prisma.visites.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends ServicesFindUniqueArgs>(args: SelectSubset<T, ServicesFindUniqueArgs<ExtArgs>>): Prisma__ServicesClient<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findUnique<T extends VisitesFindUniqueArgs>(args: SelectSubset<T, VisitesFindUniqueArgs<ExtArgs>>): Prisma__VisitesClient<$Result.GetResult<Prisma.$VisitesPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one Services that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Visites that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {ServicesFindUniqueOrThrowArgs} args - Arguments to find a Services
+     * @param {VisitesFindUniqueOrThrowArgs} args - Arguments to find a Visites
      * @example
-     * // Get one Services
-     * const services = await prisma.services.findUniqueOrThrow({
+     * // Get one Visites
+     * const visites = await prisma.visites.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends ServicesFindUniqueOrThrowArgs>(args: SelectSubset<T, ServicesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ServicesClient<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findUniqueOrThrow<T extends VisitesFindUniqueOrThrowArgs>(args: SelectSubset<T, VisitesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__VisitesClient<$Result.GetResult<Prisma.$VisitesPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
 
     /**
-     * Find the first Services that matches the filter.
+     * Find the first Visites that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServicesFindFirstArgs} args - Arguments to find a Services
+     * @param {VisitesFindFirstArgs} args - Arguments to find a Visites
      * @example
-     * // Get one Services
-     * const services = await prisma.services.findFirst({
+     * // Get one Visites
+     * const visites = await prisma.visites.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends ServicesFindFirstArgs>(args?: SelectSubset<T, ServicesFindFirstArgs<ExtArgs>>): Prisma__ServicesClient<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findFirst<T extends VisitesFindFirstArgs>(args?: SelectSubset<T, VisitesFindFirstArgs<ExtArgs>>): Prisma__VisitesClient<$Result.GetResult<Prisma.$VisitesPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find the first Services that matches the filter or
+     * Find the first Visites that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServicesFindFirstOrThrowArgs} args - Arguments to find a Services
+     * @param {VisitesFindFirstOrThrowArgs} args - Arguments to find a Visites
      * @example
-     * // Get one Services
-     * const services = await prisma.services.findFirstOrThrow({
+     * // Get one Visites
+     * const visites = await prisma.visites.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends ServicesFindFirstOrThrowArgs>(args?: SelectSubset<T, ServicesFindFirstOrThrowArgs<ExtArgs>>): Prisma__ServicesClient<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findFirstOrThrow<T extends VisitesFindFirstOrThrowArgs>(args?: SelectSubset<T, VisitesFindFirstOrThrowArgs<ExtArgs>>): Prisma__VisitesClient<$Result.GetResult<Prisma.$VisitesPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
 
     /**
-     * Find zero or more Services that matches the filter.
+     * Find zero or more Visites that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServicesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {VisitesFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Services
-     * const services = await prisma.services.findMany()
+     * // Get all Visites
+     * const visites = await prisma.visites.findMany()
      * 
-     * // Get first 10 Services
-     * const services = await prisma.services.findMany({ take: 10 })
+     * // Get first 10 Visites
+     * const visites = await prisma.visites.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const servicesWithIdOnly = await prisma.services.findMany({ select: { id: true } })
+     * const visitesWithIdOnly = await prisma.visites.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends ServicesFindManyArgs>(args?: SelectSubset<T, ServicesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "findMany", ClientOptions>>
+    findMany<T extends VisitesFindManyArgs>(args?: SelectSubset<T, VisitesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitesPayload<ExtArgs>, T, "findMany", ClientOptions>>
 
     /**
-     * Create a Services.
-     * @param {ServicesCreateArgs} args - Arguments to create a Services.
+     * Create a Visites.
+     * @param {VisitesCreateArgs} args - Arguments to create a Visites.
      * @example
-     * // Create one Services
-     * const Services = await prisma.services.create({
+     * // Create one Visites
+     * const Visites = await prisma.visites.create({
      *   data: {
-     *     // ... data to create a Services
+     *     // ... data to create a Visites
      *   }
      * })
      * 
      */
-    create<T extends ServicesCreateArgs>(args: SelectSubset<T, ServicesCreateArgs<ExtArgs>>): Prisma__ServicesClient<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+    create<T extends VisitesCreateArgs>(args: SelectSubset<T, VisitesCreateArgs<ExtArgs>>): Prisma__VisitesClient<$Result.GetResult<Prisma.$VisitesPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
     /**
-     * Create many Services.
-     * @param {ServicesCreateManyArgs} args - Arguments to create many Services.
+     * Create many Visites.
+     * @param {VisitesCreateManyArgs} args - Arguments to create many Visites.
      * @example
-     * // Create many Services
-     * const services = await prisma.services.createMany({
+     * // Create many Visites
+     * const visites = await prisma.visites.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends ServicesCreateManyArgs>(args?: SelectSubset<T, ServicesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends VisitesCreateManyArgs>(args?: SelectSubset<T, VisitesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Services and returns the data saved in the database.
-     * @param {ServicesCreateManyAndReturnArgs} args - Arguments to create many Services.
+     * Create many Visites and returns the data saved in the database.
+     * @param {VisitesCreateManyAndReturnArgs} args - Arguments to create many Visites.
      * @example
-     * // Create many Services
-     * const services = await prisma.services.createManyAndReturn({
+     * // Create many Visites
+     * const visites = await prisma.visites.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many Services and only return the `id`
-     * const servicesWithIdOnly = await prisma.services.createManyAndReturn({
+     * // Create many Visites and only return the `id`
+     * const visitesWithIdOnly = await prisma.visites.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -2707,28 +2737,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends ServicesCreateManyAndReturnArgs>(args?: SelectSubset<T, ServicesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+    createManyAndReturn<T extends VisitesCreateManyAndReturnArgs>(args?: SelectSubset<T, VisitesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitesPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
     /**
-     * Delete a Services.
-     * @param {ServicesDeleteArgs} args - Arguments to delete one Services.
+     * Delete a Visites.
+     * @param {VisitesDeleteArgs} args - Arguments to delete one Visites.
      * @example
-     * // Delete one Services
-     * const Services = await prisma.services.delete({
+     * // Delete one Visites
+     * const Visites = await prisma.visites.delete({
      *   where: {
-     *     // ... filter to delete one Services
+     *     // ... filter to delete one Visites
      *   }
      * })
      * 
      */
-    delete<T extends ServicesDeleteArgs>(args: SelectSubset<T, ServicesDeleteArgs<ExtArgs>>): Prisma__ServicesClient<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+    delete<T extends VisitesDeleteArgs>(args: SelectSubset<T, VisitesDeleteArgs<ExtArgs>>): Prisma__VisitesClient<$Result.GetResult<Prisma.$VisitesPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
     /**
-     * Update one Services.
-     * @param {ServicesUpdateArgs} args - Arguments to update one Services.
+     * Update one Visites.
+     * @param {VisitesUpdateArgs} args - Arguments to update one Visites.
      * @example
-     * // Update one Services
-     * const services = await prisma.services.update({
+     * // Update one Visites
+     * const visites = await prisma.visites.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2738,30 +2768,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends ServicesUpdateArgs>(args: SelectSubset<T, ServicesUpdateArgs<ExtArgs>>): Prisma__ServicesClient<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+    update<T extends VisitesUpdateArgs>(args: SelectSubset<T, VisitesUpdateArgs<ExtArgs>>): Prisma__VisitesClient<$Result.GetResult<Prisma.$VisitesPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
     /**
-     * Delete zero or more Services.
-     * @param {ServicesDeleteManyArgs} args - Arguments to filter Services to delete.
+     * Delete zero or more Visites.
+     * @param {VisitesDeleteManyArgs} args - Arguments to filter Visites to delete.
      * @example
-     * // Delete a few Services
-     * const { count } = await prisma.services.deleteMany({
+     * // Delete a few Visites
+     * const { count } = await prisma.visites.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends ServicesDeleteManyArgs>(args?: SelectSubset<T, ServicesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends VisitesDeleteManyArgs>(args?: SelectSubset<T, VisitesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Services.
+     * Update zero or more Visites.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServicesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {VisitesUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Services
-     * const services = await prisma.services.updateMany({
+     * // Update many Visites
+     * const visites = await prisma.visites.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2771,14 +2801,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends ServicesUpdateManyArgs>(args: SelectSubset<T, ServicesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends VisitesUpdateManyArgs>(args: SelectSubset<T, VisitesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Services and returns the data updated in the database.
-     * @param {ServicesUpdateManyAndReturnArgs} args - Arguments to update many Services.
+     * Update zero or more Visites and returns the data updated in the database.
+     * @param {VisitesUpdateManyAndReturnArgs} args - Arguments to update many Visites.
      * @example
-     * // Update many Services
-     * const services = await prisma.services.updateManyAndReturn({
+     * // Update many Visites
+     * const visites = await prisma.visites.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2787,8 +2817,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Services and only return the `id`
-     * const servicesWithIdOnly = await prisma.services.updateManyAndReturn({
+     * // Update zero or more Visites and only return the `id`
+     * const visitesWithIdOnly = await prisma.visites.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -2801,56 +2831,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends ServicesUpdateManyAndReturnArgs>(args: SelectSubset<T, ServicesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+    updateManyAndReturn<T extends VisitesUpdateManyAndReturnArgs>(args: SelectSubset<T, VisitesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitesPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
 
     /**
-     * Create or update one Services.
-     * @param {ServicesUpsertArgs} args - Arguments to update or create a Services.
+     * Create or update one Visites.
+     * @param {VisitesUpsertArgs} args - Arguments to update or create a Visites.
      * @example
-     * // Update or create a Services
-     * const services = await prisma.services.upsert({
+     * // Update or create a Visites
+     * const visites = await prisma.visites.upsert({
      *   create: {
-     *     // ... data to create a Services
+     *     // ... data to create a Visites
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Services we want to update
+     *     // ... the filter for the Visites we want to update
      *   }
      * })
      */
-    upsert<T extends ServicesUpsertArgs>(args: SelectSubset<T, ServicesUpsertArgs<ExtArgs>>): Prisma__ServicesClient<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+    upsert<T extends VisitesUpsertArgs>(args: SelectSubset<T, VisitesUpsertArgs<ExtArgs>>): Prisma__VisitesClient<$Result.GetResult<Prisma.$VisitesPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
 
 
     /**
-     * Count the number of Services.
+     * Count the number of Visites.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServicesCountArgs} args - Arguments to filter Services to count.
+     * @param {VisitesCountArgs} args - Arguments to filter Visites to count.
      * @example
-     * // Count the number of Services
-     * const count = await prisma.services.count({
+     * // Count the number of Visites
+     * const count = await prisma.visites.count({
      *   where: {
-     *     // ... the filter for the Services we want to count
+     *     // ... the filter for the Visites we want to count
      *   }
      * })
     **/
-    count<T extends ServicesCountArgs>(
-      args?: Subset<T, ServicesCountArgs>,
+    count<T extends VisitesCountArgs>(
+      args?: Subset<T, VisitesCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ServicesCountAggregateOutputType>
+          : GetScalarType<T['select'], VisitesCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Services.
+     * Allows you to perform aggregations operations on a Visites.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServicesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {VisitesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -2870,13 +2900,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ServicesAggregateArgs>(args: Subset<T, ServicesAggregateArgs>): Prisma.PrismaPromise<GetServicesAggregateType<T>>
+    aggregate<T extends VisitesAggregateArgs>(args: Subset<T, VisitesAggregateArgs>): Prisma.PrismaPromise<GetVisitesAggregateType<T>>
 
     /**
-     * Group by Services.
+     * Group by Visites.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServicesGroupByArgs} args - Group by arguments.
+     * @param {VisitesGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -2891,14 +2921,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends ServicesGroupByArgs,
+      T extends VisitesGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ServicesGroupByArgs['orderBy'] }
-        : { orderBy?: ServicesGroupByArgs['orderBy'] },
+        ? { orderBy: VisitesGroupByArgs['orderBy'] }
+        : { orderBy?: VisitesGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -2947,20 +2977,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, ServicesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetServicesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, VisitesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVisitesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Services model
+   * Fields of the Visites model
    */
-  readonly fields: ServicesFieldRefs;
+  readonly fields: VisitesFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Services.
+   * The delegate class that acts as a "Promise-like" for Visites.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__ServicesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__VisitesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     serviceType<T extends HomeServicesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HomeServicesDefaultArgs<ExtArgs>>): Prisma__HomeServicesClient<$Result.GetResult<Prisma.$HomeServicesPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
     /**
@@ -2989,435 +3019,435 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Services model
+   * Fields of the Visites model
    */ 
-  interface ServicesFieldRefs {
-    readonly id: FieldRef<"Services", 'Int'>
-    readonly serviceTypeId: FieldRef<"Services", 'Int'>
-    readonly patientId: FieldRef<"Services", 'Int'>
-    readonly latitude: FieldRef<"Services", 'Float'>
-    readonly longitude: FieldRef<"Services", 'Float'>
-    readonly address: FieldRef<"Services", 'String'>
-    readonly description: FieldRef<"Services", 'String'>
-    readonly patient: FieldRef<"Services", 'Json'>
-    readonly providers: FieldRef<"Services", 'Json[]'>
-    readonly date: FieldRef<"Services", 'DateTime'>
-    readonly hour: FieldRef<"Services", 'String'>
-    readonly status: FieldRef<"Services", 'Status'>
-    readonly providersId: FieldRef<"Services", 'Int[]'>
-    readonly createdAt: FieldRef<"Services", 'DateTime'>
-    readonly updatedAt: FieldRef<"Services", 'DateTime'>
+  interface VisitesFieldRefs {
+    readonly id: FieldRef<"Visites", 'Int'>
+    readonly serviceTypeId: FieldRef<"Visites", 'Int'>
+    readonly patientId: FieldRef<"Visites", 'Int'>
+    readonly latitude: FieldRef<"Visites", 'Float'>
+    readonly longitude: FieldRef<"Visites", 'Float'>
+    readonly address: FieldRef<"Visites", 'String'>
+    readonly description: FieldRef<"Visites", 'String'>
+    readonly patient: FieldRef<"Visites", 'Json'>
+    readonly providers: FieldRef<"Visites", 'Json[]'>
+    readonly date: FieldRef<"Visites", 'DateTime'>
+    readonly hour: FieldRef<"Visites", 'String'>
+    readonly status: FieldRef<"Visites", 'Status'>
+    readonly providersId: FieldRef<"Visites", 'Int[]'>
+    readonly createdAt: FieldRef<"Visites", 'DateTime'>
+    readonly updatedAt: FieldRef<"Visites", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * Services findUnique
+   * Visites findUnique
    */
-  export type ServicesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type VisitesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Visites
      */
-    select?: ServicesSelect<ExtArgs> | null
+    select?: VisitesSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Visites
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: VisitesOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesInclude<ExtArgs> | null
+    include?: VisitesInclude<ExtArgs> | null
     /**
-     * Filter, which Services to fetch.
+     * Filter, which Visites to fetch.
      */
-    where: ServicesWhereUniqueInput
+    where: VisitesWhereUniqueInput
   }
 
   /**
-   * Services findUniqueOrThrow
+   * Visites findUniqueOrThrow
    */
-  export type ServicesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type VisitesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Visites
      */
-    select?: ServicesSelect<ExtArgs> | null
+    select?: VisitesSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Visites
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: VisitesOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesInclude<ExtArgs> | null
+    include?: VisitesInclude<ExtArgs> | null
     /**
-     * Filter, which Services to fetch.
+     * Filter, which Visites to fetch.
      */
-    where: ServicesWhereUniqueInput
+    where: VisitesWhereUniqueInput
   }
 
   /**
-   * Services findFirst
+   * Visites findFirst
    */
-  export type ServicesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type VisitesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Visites
      */
-    select?: ServicesSelect<ExtArgs> | null
+    select?: VisitesSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Visites
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: VisitesOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesInclude<ExtArgs> | null
+    include?: VisitesInclude<ExtArgs> | null
     /**
-     * Filter, which Services to fetch.
+     * Filter, which Visites to fetch.
      */
-    where?: ServicesWhereInput
+    where?: VisitesWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Services to fetch.
+     * Determine the order of Visites to fetch.
      */
-    orderBy?: ServicesOrderByWithRelationInput | ServicesOrderByWithRelationInput[]
+    orderBy?: VisitesOrderByWithRelationInput | VisitesOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Services.
+     * Sets the position for searching for Visites.
      */
-    cursor?: ServicesWhereUniqueInput
+    cursor?: VisitesWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Services from the position of the cursor.
+     * Take `±n` Visites from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Services.
+     * Skip the first `n` Visites.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Services.
+     * Filter by unique combinations of Visites.
      */
-    distinct?: ServicesScalarFieldEnum | ServicesScalarFieldEnum[]
+    distinct?: VisitesScalarFieldEnum | VisitesScalarFieldEnum[]
   }
 
   /**
-   * Services findFirstOrThrow
+   * Visites findFirstOrThrow
    */
-  export type ServicesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type VisitesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Visites
      */
-    select?: ServicesSelect<ExtArgs> | null
+    select?: VisitesSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Visites
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: VisitesOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesInclude<ExtArgs> | null
+    include?: VisitesInclude<ExtArgs> | null
     /**
-     * Filter, which Services to fetch.
+     * Filter, which Visites to fetch.
      */
-    where?: ServicesWhereInput
+    where?: VisitesWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Services to fetch.
+     * Determine the order of Visites to fetch.
      */
-    orderBy?: ServicesOrderByWithRelationInput | ServicesOrderByWithRelationInput[]
+    orderBy?: VisitesOrderByWithRelationInput | VisitesOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Services.
+     * Sets the position for searching for Visites.
      */
-    cursor?: ServicesWhereUniqueInput
+    cursor?: VisitesWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Services from the position of the cursor.
+     * Take `±n` Visites from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Services.
+     * Skip the first `n` Visites.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Services.
+     * Filter by unique combinations of Visites.
      */
-    distinct?: ServicesScalarFieldEnum | ServicesScalarFieldEnum[]
+    distinct?: VisitesScalarFieldEnum | VisitesScalarFieldEnum[]
   }
 
   /**
-   * Services findMany
+   * Visites findMany
    */
-  export type ServicesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type VisitesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Visites
      */
-    select?: ServicesSelect<ExtArgs> | null
+    select?: VisitesSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Visites
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: VisitesOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesInclude<ExtArgs> | null
+    include?: VisitesInclude<ExtArgs> | null
     /**
-     * Filter, which Services to fetch.
+     * Filter, which Visites to fetch.
      */
-    where?: ServicesWhereInput
+    where?: VisitesWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Services to fetch.
+     * Determine the order of Visites to fetch.
      */
-    orderBy?: ServicesOrderByWithRelationInput | ServicesOrderByWithRelationInput[]
+    orderBy?: VisitesOrderByWithRelationInput | VisitesOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Services.
+     * Sets the position for listing Visites.
      */
-    cursor?: ServicesWhereUniqueInput
+    cursor?: VisitesWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Services from the position of the cursor.
+     * Take `±n` Visites from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Services.
+     * Skip the first `n` Visites.
      */
     skip?: number
-    distinct?: ServicesScalarFieldEnum | ServicesScalarFieldEnum[]
+    distinct?: VisitesScalarFieldEnum | VisitesScalarFieldEnum[]
   }
 
   /**
-   * Services create
+   * Visites create
    */
-  export type ServicesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type VisitesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Visites
      */
-    select?: ServicesSelect<ExtArgs> | null
+    select?: VisitesSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Visites
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: VisitesOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesInclude<ExtArgs> | null
+    include?: VisitesInclude<ExtArgs> | null
     /**
-     * The data needed to create a Services.
+     * The data needed to create a Visites.
      */
-    data: XOR<ServicesCreateInput, ServicesUncheckedCreateInput>
+    data: XOR<VisitesCreateInput, VisitesUncheckedCreateInput>
   }
 
   /**
-   * Services createMany
+   * Visites createMany
    */
-  export type ServicesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type VisitesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Services.
+     * The data used to create many Visites.
      */
-    data: ServicesCreateManyInput | ServicesCreateManyInput[]
+    data: VisitesCreateManyInput | VisitesCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Services createManyAndReturn
+   * Visites createManyAndReturn
    */
-  export type ServicesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type VisitesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Visites
      */
-    select?: ServicesSelectCreateManyAndReturn<ExtArgs> | null
+    select?: VisitesSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Visites
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: VisitesOmit<ExtArgs> | null
     /**
-     * The data used to create many Services.
+     * The data used to create many Visites.
      */
-    data: ServicesCreateManyInput | ServicesCreateManyInput[]
+    data: VisitesCreateManyInput | VisitesCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: VisitesIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Services update
+   * Visites update
    */
-  export type ServicesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type VisitesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Visites
      */
-    select?: ServicesSelect<ExtArgs> | null
+    select?: VisitesSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Visites
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: VisitesOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesInclude<ExtArgs> | null
+    include?: VisitesInclude<ExtArgs> | null
     /**
-     * The data needed to update a Services.
+     * The data needed to update a Visites.
      */
-    data: XOR<ServicesUpdateInput, ServicesUncheckedUpdateInput>
+    data: XOR<VisitesUpdateInput, VisitesUncheckedUpdateInput>
     /**
-     * Choose, which Services to update.
+     * Choose, which Visites to update.
      */
-    where: ServicesWhereUniqueInput
+    where: VisitesWhereUniqueInput
   }
 
   /**
-   * Services updateMany
+   * Visites updateMany
    */
-  export type ServicesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type VisitesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Services.
+     * The data used to update Visites.
      */
-    data: XOR<ServicesUpdateManyMutationInput, ServicesUncheckedUpdateManyInput>
+    data: XOR<VisitesUpdateManyMutationInput, VisitesUncheckedUpdateManyInput>
     /**
-     * Filter which Services to update
+     * Filter which Visites to update
      */
-    where?: ServicesWhereInput
+    where?: VisitesWhereInput
     /**
-     * Limit how many Services to update.
+     * Limit how many Visites to update.
      */
     limit?: number
   }
 
   /**
-   * Services updateManyAndReturn
+   * Visites updateManyAndReturn
    */
-  export type ServicesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type VisitesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Visites
      */
-    select?: ServicesSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: VisitesSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Visites
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: VisitesOmit<ExtArgs> | null
     /**
-     * The data used to update Services.
+     * The data used to update Visites.
      */
-    data: XOR<ServicesUpdateManyMutationInput, ServicesUncheckedUpdateManyInput>
+    data: XOR<VisitesUpdateManyMutationInput, VisitesUncheckedUpdateManyInput>
     /**
-     * Filter which Services to update
+     * Filter which Visites to update
      */
-    where?: ServicesWhereInput
+    where?: VisitesWhereInput
     /**
-     * Limit how many Services to update.
+     * Limit how many Visites to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: VisitesIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Services upsert
+   * Visites upsert
    */
-  export type ServicesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type VisitesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Visites
      */
-    select?: ServicesSelect<ExtArgs> | null
+    select?: VisitesSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Visites
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: VisitesOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesInclude<ExtArgs> | null
+    include?: VisitesInclude<ExtArgs> | null
     /**
-     * The filter to search for the Services to update in case it exists.
+     * The filter to search for the Visites to update in case it exists.
      */
-    where: ServicesWhereUniqueInput
+    where: VisitesWhereUniqueInput
     /**
-     * In case the Services found by the `where` argument doesn't exist, create a new Services with this data.
+     * In case the Visites found by the `where` argument doesn't exist, create a new Visites with this data.
      */
-    create: XOR<ServicesCreateInput, ServicesUncheckedCreateInput>
+    create: XOR<VisitesCreateInput, VisitesUncheckedCreateInput>
     /**
-     * In case the Services was found with the provided `where` argument, update it with this data.
+     * In case the Visites was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<ServicesUpdateInput, ServicesUncheckedUpdateInput>
+    update: XOR<VisitesUpdateInput, VisitesUncheckedUpdateInput>
   }
 
   /**
-   * Services delete
+   * Visites delete
    */
-  export type ServicesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type VisitesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Visites
      */
-    select?: ServicesSelect<ExtArgs> | null
+    select?: VisitesSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Visites
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: VisitesOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesInclude<ExtArgs> | null
+    include?: VisitesInclude<ExtArgs> | null
     /**
-     * Filter which Services to delete.
+     * Filter which Visites to delete.
      */
-    where: ServicesWhereUniqueInput
+    where: VisitesWhereUniqueInput
   }
 
   /**
-   * Services deleteMany
+   * Visites deleteMany
    */
-  export type ServicesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type VisitesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Services to delete
+     * Filter which Visites to delete
      */
-    where?: ServicesWhereInput
+    where?: VisitesWhereInput
     /**
-     * Limit how many Services to delete.
+     * Limit how many Visites to delete.
      */
     limit?: number
   }
 
   /**
-   * Services without action
+   * Visites without action
    */
-  export type ServicesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type VisitesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Visites
      */
-    select?: ServicesSelect<ExtArgs> | null
+    select?: VisitesSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Visites
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: VisitesOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesInclude<ExtArgs> | null
+    include?: VisitesInclude<ExtArgs> | null
   }
 
 
@@ -4517,6 +4547,8 @@ export namespace Prisma {
   export const HomeServicesScalarFieldEnum: {
     id: 'id',
     name: 'name',
+    description: 'description',
+    price: 'price',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -4524,7 +4556,7 @@ export namespace Prisma {
   export type HomeServicesScalarFieldEnum = (typeof HomeServicesScalarFieldEnum)[keyof typeof HomeServicesScalarFieldEnum]
 
 
-  export const ServicesScalarFieldEnum: {
+  export const VisitesScalarFieldEnum: {
     id: 'id',
     serviceTypeId: 'serviceTypeId',
     patientId: 'patientId',
@@ -4542,7 +4574,7 @@ export namespace Prisma {
     updatedAt: 'updatedAt'
   };
 
-  export type ServicesScalarFieldEnum = (typeof ServicesScalarFieldEnum)[keyof typeof ServicesScalarFieldEnum]
+  export type VisitesScalarFieldEnum = (typeof VisitesScalarFieldEnum)[keyof typeof VisitesScalarFieldEnum]
 
 
   export const CountsScalarFieldEnum: {
@@ -4624,20 +4656,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'DateTime'
-   */
-  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-  /**
-   * Reference to a field of type 'DateTime[]'
-   */
-  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -4648,6 +4666,20 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -4695,17 +4727,21 @@ export namespace Prisma {
     NOT?: HomeServicesWhereInput | HomeServicesWhereInput[]
     id?: IntFilter<"HomeServices"> | number
     name?: StringFilter<"HomeServices"> | string
+    description?: StringFilter<"HomeServices"> | string
+    price?: FloatFilter<"HomeServices"> | number
     createdAt?: DateTimeFilter<"HomeServices"> | Date | string
     updatedAt?: DateTimeFilter<"HomeServices"> | Date | string
-    services?: ServicesListRelationFilter
+    visites?: VisitesListRelationFilter
   }
 
   export type HomeServicesOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
+    price?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    services?: ServicesOrderByRelationAggregateInput
+    visites?: VisitesOrderByRelationAggregateInput
   }
 
   export type HomeServicesWhereUniqueInput = Prisma.AtLeast<{
@@ -4714,14 +4750,18 @@ export namespace Prisma {
     AND?: HomeServicesWhereInput | HomeServicesWhereInput[]
     OR?: HomeServicesWhereInput[]
     NOT?: HomeServicesWhereInput | HomeServicesWhereInput[]
+    description?: StringFilter<"HomeServices"> | string
+    price?: FloatFilter<"HomeServices"> | number
     createdAt?: DateTimeFilter<"HomeServices"> | Date | string
     updatedAt?: DateTimeFilter<"HomeServices"> | Date | string
-    services?: ServicesListRelationFilter
+    visites?: VisitesListRelationFilter
   }, "id" | "name">
 
   export type HomeServicesOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
+    price?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: HomeServicesCountOrderByAggregateInput
@@ -4737,33 +4777,35 @@ export namespace Prisma {
     NOT?: HomeServicesScalarWhereWithAggregatesInput | HomeServicesScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"HomeServices"> | number
     name?: StringWithAggregatesFilter<"HomeServices"> | string
+    description?: StringWithAggregatesFilter<"HomeServices"> | string
+    price?: FloatWithAggregatesFilter<"HomeServices"> | number
     createdAt?: DateTimeWithAggregatesFilter<"HomeServices"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"HomeServices"> | Date | string
   }
 
-  export type ServicesWhereInput = {
-    AND?: ServicesWhereInput | ServicesWhereInput[]
-    OR?: ServicesWhereInput[]
-    NOT?: ServicesWhereInput | ServicesWhereInput[]
-    id?: IntFilter<"Services"> | number
-    serviceTypeId?: IntFilter<"Services"> | number
-    patientId?: IntFilter<"Services"> | number
-    latitude?: FloatFilter<"Services"> | number
-    longitude?: FloatFilter<"Services"> | number
-    address?: StringFilter<"Services"> | string
-    description?: StringFilter<"Services"> | string
-    patient?: JsonFilter<"Services">
-    providers?: JsonNullableListFilter<"Services">
-    date?: DateTimeFilter<"Services"> | Date | string
-    hour?: StringFilter<"Services"> | string
-    status?: EnumStatusFilter<"Services"> | $Enums.Status
-    providersId?: IntNullableListFilter<"Services">
-    createdAt?: DateTimeFilter<"Services"> | Date | string
-    updatedAt?: DateTimeFilter<"Services"> | Date | string
+  export type VisitesWhereInput = {
+    AND?: VisitesWhereInput | VisitesWhereInput[]
+    OR?: VisitesWhereInput[]
+    NOT?: VisitesWhereInput | VisitesWhereInput[]
+    id?: IntFilter<"Visites"> | number
+    serviceTypeId?: IntFilter<"Visites"> | number
+    patientId?: IntFilter<"Visites"> | number
+    latitude?: FloatFilter<"Visites"> | number
+    longitude?: FloatFilter<"Visites"> | number
+    address?: StringFilter<"Visites"> | string
+    description?: StringFilter<"Visites"> | string
+    patient?: JsonFilter<"Visites">
+    providers?: JsonNullableListFilter<"Visites">
+    date?: DateTimeFilter<"Visites"> | Date | string
+    hour?: StringFilter<"Visites"> | string
+    status?: EnumStatusFilter<"Visites"> | $Enums.Status
+    providersId?: IntNullableListFilter<"Visites">
+    createdAt?: DateTimeFilter<"Visites"> | Date | string
+    updatedAt?: DateTimeFilter<"Visites"> | Date | string
     serviceType?: XOR<HomeServicesScalarRelationFilter, HomeServicesWhereInput>
   }
 
-  export type ServicesOrderByWithRelationInput = {
+  export type VisitesOrderByWithRelationInput = {
     id?: SortOrder
     serviceTypeId?: SortOrder
     patientId?: SortOrder
@@ -4782,29 +4824,29 @@ export namespace Prisma {
     serviceType?: HomeServicesOrderByWithRelationInput
   }
 
-  export type ServicesWhereUniqueInput = Prisma.AtLeast<{
+  export type VisitesWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    AND?: ServicesWhereInput | ServicesWhereInput[]
-    OR?: ServicesWhereInput[]
-    NOT?: ServicesWhereInput | ServicesWhereInput[]
-    serviceTypeId?: IntFilter<"Services"> | number
-    patientId?: IntFilter<"Services"> | number
-    latitude?: FloatFilter<"Services"> | number
-    longitude?: FloatFilter<"Services"> | number
-    address?: StringFilter<"Services"> | string
-    description?: StringFilter<"Services"> | string
-    patient?: JsonFilter<"Services">
-    providers?: JsonNullableListFilter<"Services">
-    date?: DateTimeFilter<"Services"> | Date | string
-    hour?: StringFilter<"Services"> | string
-    status?: EnumStatusFilter<"Services"> | $Enums.Status
-    providersId?: IntNullableListFilter<"Services">
-    createdAt?: DateTimeFilter<"Services"> | Date | string
-    updatedAt?: DateTimeFilter<"Services"> | Date | string
+    AND?: VisitesWhereInput | VisitesWhereInput[]
+    OR?: VisitesWhereInput[]
+    NOT?: VisitesWhereInput | VisitesWhereInput[]
+    serviceTypeId?: IntFilter<"Visites"> | number
+    patientId?: IntFilter<"Visites"> | number
+    latitude?: FloatFilter<"Visites"> | number
+    longitude?: FloatFilter<"Visites"> | number
+    address?: StringFilter<"Visites"> | string
+    description?: StringFilter<"Visites"> | string
+    patient?: JsonFilter<"Visites">
+    providers?: JsonNullableListFilter<"Visites">
+    date?: DateTimeFilter<"Visites"> | Date | string
+    hour?: StringFilter<"Visites"> | string
+    status?: EnumStatusFilter<"Visites"> | $Enums.Status
+    providersId?: IntNullableListFilter<"Visites">
+    createdAt?: DateTimeFilter<"Visites"> | Date | string
+    updatedAt?: DateTimeFilter<"Visites"> | Date | string
     serviceType?: XOR<HomeServicesScalarRelationFilter, HomeServicesWhereInput>
   }, "id">
 
-  export type ServicesOrderByWithAggregationInput = {
+  export type VisitesOrderByWithAggregationInput = {
     id?: SortOrder
     serviceTypeId?: SortOrder
     patientId?: SortOrder
@@ -4820,32 +4862,32 @@ export namespace Prisma {
     providersId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    _count?: ServicesCountOrderByAggregateInput
-    _avg?: ServicesAvgOrderByAggregateInput
-    _max?: ServicesMaxOrderByAggregateInput
-    _min?: ServicesMinOrderByAggregateInput
-    _sum?: ServicesSumOrderByAggregateInput
+    _count?: VisitesCountOrderByAggregateInput
+    _avg?: VisitesAvgOrderByAggregateInput
+    _max?: VisitesMaxOrderByAggregateInput
+    _min?: VisitesMinOrderByAggregateInput
+    _sum?: VisitesSumOrderByAggregateInput
   }
 
-  export type ServicesScalarWhereWithAggregatesInput = {
-    AND?: ServicesScalarWhereWithAggregatesInput | ServicesScalarWhereWithAggregatesInput[]
-    OR?: ServicesScalarWhereWithAggregatesInput[]
-    NOT?: ServicesScalarWhereWithAggregatesInput | ServicesScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Services"> | number
-    serviceTypeId?: IntWithAggregatesFilter<"Services"> | number
-    patientId?: IntWithAggregatesFilter<"Services"> | number
-    latitude?: FloatWithAggregatesFilter<"Services"> | number
-    longitude?: FloatWithAggregatesFilter<"Services"> | number
-    address?: StringWithAggregatesFilter<"Services"> | string
-    description?: StringWithAggregatesFilter<"Services"> | string
-    patient?: JsonWithAggregatesFilter<"Services">
-    providers?: JsonNullableListFilter<"Services">
-    date?: DateTimeWithAggregatesFilter<"Services"> | Date | string
-    hour?: StringWithAggregatesFilter<"Services"> | string
-    status?: EnumStatusWithAggregatesFilter<"Services"> | $Enums.Status
-    providersId?: IntNullableListFilter<"Services">
-    createdAt?: DateTimeWithAggregatesFilter<"Services"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Services"> | Date | string
+  export type VisitesScalarWhereWithAggregatesInput = {
+    AND?: VisitesScalarWhereWithAggregatesInput | VisitesScalarWhereWithAggregatesInput[]
+    OR?: VisitesScalarWhereWithAggregatesInput[]
+    NOT?: VisitesScalarWhereWithAggregatesInput | VisitesScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Visites"> | number
+    serviceTypeId?: IntWithAggregatesFilter<"Visites"> | number
+    patientId?: IntWithAggregatesFilter<"Visites"> | number
+    latitude?: FloatWithAggregatesFilter<"Visites"> | number
+    longitude?: FloatWithAggregatesFilter<"Visites"> | number
+    address?: StringWithAggregatesFilter<"Visites"> | string
+    description?: StringWithAggregatesFilter<"Visites"> | string
+    patient?: JsonWithAggregatesFilter<"Visites">
+    providers?: JsonNullableListFilter<"Visites">
+    date?: DateTimeWithAggregatesFilter<"Visites"> | Date | string
+    hour?: StringWithAggregatesFilter<"Visites"> | string
+    status?: EnumStatusWithAggregatesFilter<"Visites"> | $Enums.Status
+    providersId?: IntNullableListFilter<"Visites">
+    createdAt?: DateTimeWithAggregatesFilter<"Visites"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Visites"> | Date | string
   }
 
   export type CountsWhereInput = {
@@ -4914,43 +4956,55 @@ export namespace Prisma {
 
   export type HomeServicesCreateInput = {
     name: string
+    description: string
+    price: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    services?: ServicesCreateNestedManyWithoutServiceTypeInput
+    visites?: VisitesCreateNestedManyWithoutServiceTypeInput
   }
 
   export type HomeServicesUncheckedCreateInput = {
     id?: number
     name: string
+    description: string
+    price: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    services?: ServicesUncheckedCreateNestedManyWithoutServiceTypeInput
+    visites?: VisitesUncheckedCreateNestedManyWithoutServiceTypeInput
   }
 
   export type HomeServicesUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    services?: ServicesUpdateManyWithoutServiceTypeNestedInput
+    visites?: VisitesUpdateManyWithoutServiceTypeNestedInput
   }
 
   export type HomeServicesUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    services?: ServicesUncheckedUpdateManyWithoutServiceTypeNestedInput
+    visites?: VisitesUncheckedUpdateManyWithoutServiceTypeNestedInput
   }
 
   export type HomeServicesCreateManyInput = {
     id?: number
     name: string
+    description: string
+    price: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type HomeServicesUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4958,28 +5012,30 @@ export namespace Prisma {
   export type HomeServicesUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ServicesCreateInput = {
+  export type VisitesCreateInput = {
     patientId: number
     latitude: number
     longitude: number
     address: string
     description: string
     patient: JsonNullValueInput | InputJsonValue
-    providers?: ServicesCreateprovidersInput | InputJsonValue[]
+    providers?: VisitesCreateprovidersInput | InputJsonValue[]
     date: Date | string
     hour: string
     status?: $Enums.Status
-    providersId?: ServicesCreateprovidersIdInput | number[]
+    providersId?: VisitesCreateprovidersIdInput | number[]
     createdAt?: Date | string
     updatedAt?: Date | string
-    serviceType: HomeServicesCreateNestedOneWithoutServicesInput
+    serviceType: HomeServicesCreateNestedOneWithoutVisitesInput
   }
 
-  export type ServicesUncheckedCreateInput = {
+  export type VisitesUncheckedCreateInput = {
     id?: number
     serviceTypeId: number
     patientId: number
@@ -4988,33 +5044,33 @@ export namespace Prisma {
     address: string
     description: string
     patient: JsonNullValueInput | InputJsonValue
-    providers?: ServicesCreateprovidersInput | InputJsonValue[]
+    providers?: VisitesCreateprovidersInput | InputJsonValue[]
     date: Date | string
     hour: string
     status?: $Enums.Status
-    providersId?: ServicesCreateprovidersIdInput | number[]
+    providersId?: VisitesCreateprovidersIdInput | number[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type ServicesUpdateInput = {
+  export type VisitesUpdateInput = {
     patientId?: IntFieldUpdateOperationsInput | number
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     patient?: JsonNullValueInput | InputJsonValue
-    providers?: ServicesUpdateprovidersInput | InputJsonValue[]
+    providers?: VisitesUpdateprovidersInput | InputJsonValue[]
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     hour?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    providersId?: ServicesUpdateprovidersIdInput | number[]
+    providersId?: VisitesUpdateprovidersIdInput | number[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    serviceType?: HomeServicesUpdateOneRequiredWithoutServicesNestedInput
+    serviceType?: HomeServicesUpdateOneRequiredWithoutVisitesNestedInput
   }
 
-  export type ServicesUncheckedUpdateInput = {
+  export type VisitesUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     serviceTypeId?: IntFieldUpdateOperationsInput | number
     patientId?: IntFieldUpdateOperationsInput | number
@@ -5023,16 +5079,16 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     patient?: JsonNullValueInput | InputJsonValue
-    providers?: ServicesUpdateprovidersInput | InputJsonValue[]
+    providers?: VisitesUpdateprovidersInput | InputJsonValue[]
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     hour?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    providersId?: ServicesUpdateprovidersIdInput | number[]
+    providersId?: VisitesUpdateprovidersIdInput | number[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ServicesCreateManyInput = {
+  export type VisitesCreateManyInput = {
     id?: number
     serviceTypeId: number
     patientId: number
@@ -5041,32 +5097,32 @@ export namespace Prisma {
     address: string
     description: string
     patient: JsonNullValueInput | InputJsonValue
-    providers?: ServicesCreateprovidersInput | InputJsonValue[]
+    providers?: VisitesCreateprovidersInput | InputJsonValue[]
     date: Date | string
     hour: string
     status?: $Enums.Status
-    providersId?: ServicesCreateprovidersIdInput | number[]
+    providersId?: VisitesCreateprovidersIdInput | number[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type ServicesUpdateManyMutationInput = {
+  export type VisitesUpdateManyMutationInput = {
     patientId?: IntFieldUpdateOperationsInput | number
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     patient?: JsonNullValueInput | InputJsonValue
-    providers?: ServicesUpdateprovidersInput | InputJsonValue[]
+    providers?: VisitesUpdateprovidersInput | InputJsonValue[]
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     hour?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    providersId?: ServicesUpdateprovidersIdInput | number[]
+    providersId?: VisitesUpdateprovidersIdInput | number[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ServicesUncheckedUpdateManyInput = {
+  export type VisitesUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     serviceTypeId?: IntFieldUpdateOperationsInput | number
     patientId?: IntFieldUpdateOperationsInput | number
@@ -5075,11 +5131,11 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     patient?: JsonNullValueInput | InputJsonValue
-    providers?: ServicesUpdateprovidersInput | InputJsonValue[]
+    providers?: VisitesUpdateprovidersInput | InputJsonValue[]
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     hour?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    providersId?: ServicesUpdateprovidersIdInput | number[]
+    providersId?: VisitesUpdateprovidersIdInput | number[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5177,6 +5233,17 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -5188,30 +5255,35 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type ServicesListRelationFilter = {
-    every?: ServicesWhereInput
-    some?: ServicesWhereInput
-    none?: ServicesWhereInput
+  export type VisitesListRelationFilter = {
+    every?: VisitesWhereInput
+    some?: VisitesWhereInput
+    none?: VisitesWhereInput
   }
 
-  export type ServicesOrderByRelationAggregateInput = {
+  export type VisitesOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type HomeServicesCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
+    price?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type HomeServicesAvgOrderByAggregateInput = {
     id?: SortOrder
+    price?: SortOrder
   }
 
   export type HomeServicesMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
+    price?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5219,12 +5291,15 @@ export namespace Prisma {
   export type HomeServicesMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
+    price?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type HomeServicesSumOrderByAggregateInput = {
     id?: SortOrder
+    price?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -5261,6 +5336,22 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -5273,17 +5364,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type FloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
   }
   export type JsonFilter<$PrismaModel = never> = 
     | PatchUndefined<
@@ -5343,7 +5423,7 @@ export namespace Prisma {
     isNot?: HomeServicesWhereInput
   }
 
-  export type ServicesCountOrderByAggregateInput = {
+  export type VisitesCountOrderByAggregateInput = {
     id?: SortOrder
     serviceTypeId?: SortOrder
     patientId?: SortOrder
@@ -5361,7 +5441,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type ServicesAvgOrderByAggregateInput = {
+  export type VisitesAvgOrderByAggregateInput = {
     id?: SortOrder
     serviceTypeId?: SortOrder
     patientId?: SortOrder
@@ -5370,7 +5450,7 @@ export namespace Prisma {
     providersId?: SortOrder
   }
 
-  export type ServicesMaxOrderByAggregateInput = {
+  export type VisitesMaxOrderByAggregateInput = {
     id?: SortOrder
     serviceTypeId?: SortOrder
     patientId?: SortOrder
@@ -5385,7 +5465,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type ServicesMinOrderByAggregateInput = {
+  export type VisitesMinOrderByAggregateInput = {
     id?: SortOrder
     serviceTypeId?: SortOrder
     patientId?: SortOrder
@@ -5400,29 +5480,13 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type ServicesSumOrderByAggregateInput = {
+  export type VisitesSumOrderByAggregateInput = {
     id?: SortOrder
     serviceTypeId?: SortOrder
     patientId?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     providersId?: SortOrder
-  }
-
-  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
   }
   export type JsonWithAggregatesFilter<$PrismaModel = never> = 
     | PatchUndefined<
@@ -5511,76 +5575,22 @@ export namespace Prisma {
     cancelledByProviders?: SortOrder
   }
 
-  export type ServicesCreateNestedManyWithoutServiceTypeInput = {
-    create?: XOR<ServicesCreateWithoutServiceTypeInput, ServicesUncheckedCreateWithoutServiceTypeInput> | ServicesCreateWithoutServiceTypeInput[] | ServicesUncheckedCreateWithoutServiceTypeInput[]
-    connectOrCreate?: ServicesCreateOrConnectWithoutServiceTypeInput | ServicesCreateOrConnectWithoutServiceTypeInput[]
-    createMany?: ServicesCreateManyServiceTypeInputEnvelope
-    connect?: ServicesWhereUniqueInput | ServicesWhereUniqueInput[]
+  export type VisitesCreateNestedManyWithoutServiceTypeInput = {
+    create?: XOR<VisitesCreateWithoutServiceTypeInput, VisitesUncheckedCreateWithoutServiceTypeInput> | VisitesCreateWithoutServiceTypeInput[] | VisitesUncheckedCreateWithoutServiceTypeInput[]
+    connectOrCreate?: VisitesCreateOrConnectWithoutServiceTypeInput | VisitesCreateOrConnectWithoutServiceTypeInput[]
+    createMany?: VisitesCreateManyServiceTypeInputEnvelope
+    connect?: VisitesWhereUniqueInput | VisitesWhereUniqueInput[]
   }
 
-  export type ServicesUncheckedCreateNestedManyWithoutServiceTypeInput = {
-    create?: XOR<ServicesCreateWithoutServiceTypeInput, ServicesUncheckedCreateWithoutServiceTypeInput> | ServicesCreateWithoutServiceTypeInput[] | ServicesUncheckedCreateWithoutServiceTypeInput[]
-    connectOrCreate?: ServicesCreateOrConnectWithoutServiceTypeInput | ServicesCreateOrConnectWithoutServiceTypeInput[]
-    createMany?: ServicesCreateManyServiceTypeInputEnvelope
-    connect?: ServicesWhereUniqueInput | ServicesWhereUniqueInput[]
+  export type VisitesUncheckedCreateNestedManyWithoutServiceTypeInput = {
+    create?: XOR<VisitesCreateWithoutServiceTypeInput, VisitesUncheckedCreateWithoutServiceTypeInput> | VisitesCreateWithoutServiceTypeInput[] | VisitesUncheckedCreateWithoutServiceTypeInput[]
+    connectOrCreate?: VisitesCreateOrConnectWithoutServiceTypeInput | VisitesCreateOrConnectWithoutServiceTypeInput[]
+    createMany?: VisitesCreateManyServiceTypeInputEnvelope
+    connect?: VisitesWhereUniqueInput | VisitesWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
-  }
-
-  export type ServicesUpdateManyWithoutServiceTypeNestedInput = {
-    create?: XOR<ServicesCreateWithoutServiceTypeInput, ServicesUncheckedCreateWithoutServiceTypeInput> | ServicesCreateWithoutServiceTypeInput[] | ServicesUncheckedCreateWithoutServiceTypeInput[]
-    connectOrCreate?: ServicesCreateOrConnectWithoutServiceTypeInput | ServicesCreateOrConnectWithoutServiceTypeInput[]
-    upsert?: ServicesUpsertWithWhereUniqueWithoutServiceTypeInput | ServicesUpsertWithWhereUniqueWithoutServiceTypeInput[]
-    createMany?: ServicesCreateManyServiceTypeInputEnvelope
-    set?: ServicesWhereUniqueInput | ServicesWhereUniqueInput[]
-    disconnect?: ServicesWhereUniqueInput | ServicesWhereUniqueInput[]
-    delete?: ServicesWhereUniqueInput | ServicesWhereUniqueInput[]
-    connect?: ServicesWhereUniqueInput | ServicesWhereUniqueInput[]
-    update?: ServicesUpdateWithWhereUniqueWithoutServiceTypeInput | ServicesUpdateWithWhereUniqueWithoutServiceTypeInput[]
-    updateMany?: ServicesUpdateManyWithWhereWithoutServiceTypeInput | ServicesUpdateManyWithWhereWithoutServiceTypeInput[]
-    deleteMany?: ServicesScalarWhereInput | ServicesScalarWhereInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type ServicesUncheckedUpdateManyWithoutServiceTypeNestedInput = {
-    create?: XOR<ServicesCreateWithoutServiceTypeInput, ServicesUncheckedCreateWithoutServiceTypeInput> | ServicesCreateWithoutServiceTypeInput[] | ServicesUncheckedCreateWithoutServiceTypeInput[]
-    connectOrCreate?: ServicesCreateOrConnectWithoutServiceTypeInput | ServicesCreateOrConnectWithoutServiceTypeInput[]
-    upsert?: ServicesUpsertWithWhereUniqueWithoutServiceTypeInput | ServicesUpsertWithWhereUniqueWithoutServiceTypeInput[]
-    createMany?: ServicesCreateManyServiceTypeInputEnvelope
-    set?: ServicesWhereUniqueInput | ServicesWhereUniqueInput[]
-    disconnect?: ServicesWhereUniqueInput | ServicesWhereUniqueInput[]
-    delete?: ServicesWhereUniqueInput | ServicesWhereUniqueInput[]
-    connect?: ServicesWhereUniqueInput | ServicesWhereUniqueInput[]
-    update?: ServicesUpdateWithWhereUniqueWithoutServiceTypeInput | ServicesUpdateWithWhereUniqueWithoutServiceTypeInput[]
-    updateMany?: ServicesUpdateManyWithWhereWithoutServiceTypeInput | ServicesUpdateManyWithWhereWithoutServiceTypeInput[]
-    deleteMany?: ServicesScalarWhereInput | ServicesScalarWhereInput[]
-  }
-
-  export type ServicesCreateprovidersInput = {
-    set: InputJsonValue[]
-  }
-
-  export type ServicesCreateprovidersIdInput = {
-    set: number[]
-  }
-
-  export type HomeServicesCreateNestedOneWithoutServicesInput = {
-    create?: XOR<HomeServicesCreateWithoutServicesInput, HomeServicesUncheckedCreateWithoutServicesInput>
-    connectOrCreate?: HomeServicesCreateOrConnectWithoutServicesInput
-    connect?: HomeServicesWhereUniqueInput
   }
 
   export type FloatFieldUpdateOperationsInput = {
@@ -5591,7 +5601,61 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type ServicesUpdateprovidersInput = {
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type VisitesUpdateManyWithoutServiceTypeNestedInput = {
+    create?: XOR<VisitesCreateWithoutServiceTypeInput, VisitesUncheckedCreateWithoutServiceTypeInput> | VisitesCreateWithoutServiceTypeInput[] | VisitesUncheckedCreateWithoutServiceTypeInput[]
+    connectOrCreate?: VisitesCreateOrConnectWithoutServiceTypeInput | VisitesCreateOrConnectWithoutServiceTypeInput[]
+    upsert?: VisitesUpsertWithWhereUniqueWithoutServiceTypeInput | VisitesUpsertWithWhereUniqueWithoutServiceTypeInput[]
+    createMany?: VisitesCreateManyServiceTypeInputEnvelope
+    set?: VisitesWhereUniqueInput | VisitesWhereUniqueInput[]
+    disconnect?: VisitesWhereUniqueInput | VisitesWhereUniqueInput[]
+    delete?: VisitesWhereUniqueInput | VisitesWhereUniqueInput[]
+    connect?: VisitesWhereUniqueInput | VisitesWhereUniqueInput[]
+    update?: VisitesUpdateWithWhereUniqueWithoutServiceTypeInput | VisitesUpdateWithWhereUniqueWithoutServiceTypeInput[]
+    updateMany?: VisitesUpdateManyWithWhereWithoutServiceTypeInput | VisitesUpdateManyWithWhereWithoutServiceTypeInput[]
+    deleteMany?: VisitesScalarWhereInput | VisitesScalarWhereInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type VisitesUncheckedUpdateManyWithoutServiceTypeNestedInput = {
+    create?: XOR<VisitesCreateWithoutServiceTypeInput, VisitesUncheckedCreateWithoutServiceTypeInput> | VisitesCreateWithoutServiceTypeInput[] | VisitesUncheckedCreateWithoutServiceTypeInput[]
+    connectOrCreate?: VisitesCreateOrConnectWithoutServiceTypeInput | VisitesCreateOrConnectWithoutServiceTypeInput[]
+    upsert?: VisitesUpsertWithWhereUniqueWithoutServiceTypeInput | VisitesUpsertWithWhereUniqueWithoutServiceTypeInput[]
+    createMany?: VisitesCreateManyServiceTypeInputEnvelope
+    set?: VisitesWhereUniqueInput | VisitesWhereUniqueInput[]
+    disconnect?: VisitesWhereUniqueInput | VisitesWhereUniqueInput[]
+    delete?: VisitesWhereUniqueInput | VisitesWhereUniqueInput[]
+    connect?: VisitesWhereUniqueInput | VisitesWhereUniqueInput[]
+    update?: VisitesUpdateWithWhereUniqueWithoutServiceTypeInput | VisitesUpdateWithWhereUniqueWithoutServiceTypeInput[]
+    updateMany?: VisitesUpdateManyWithWhereWithoutServiceTypeInput | VisitesUpdateManyWithWhereWithoutServiceTypeInput[]
+    deleteMany?: VisitesScalarWhereInput | VisitesScalarWhereInput[]
+  }
+
+  export type VisitesCreateprovidersInput = {
+    set: InputJsonValue[]
+  }
+
+  export type VisitesCreateprovidersIdInput = {
+    set: number[]
+  }
+
+  export type HomeServicesCreateNestedOneWithoutVisitesInput = {
+    create?: XOR<HomeServicesCreateWithoutVisitesInput, HomeServicesUncheckedCreateWithoutVisitesInput>
+    connectOrCreate?: HomeServicesCreateOrConnectWithoutVisitesInput
+    connect?: HomeServicesWhereUniqueInput
+  }
+
+  export type VisitesUpdateprovidersInput = {
     set?: InputJsonValue[]
     push?: InputJsonValue | InputJsonValue[]
   }
@@ -5600,17 +5664,17 @@ export namespace Prisma {
     set?: $Enums.Status
   }
 
-  export type ServicesUpdateprovidersIdInput = {
+  export type VisitesUpdateprovidersIdInput = {
     set?: number[]
     push?: number | number[]
   }
 
-  export type HomeServicesUpdateOneRequiredWithoutServicesNestedInput = {
-    create?: XOR<HomeServicesCreateWithoutServicesInput, HomeServicesUncheckedCreateWithoutServicesInput>
-    connectOrCreate?: HomeServicesCreateOrConnectWithoutServicesInput
-    upsert?: HomeServicesUpsertWithoutServicesInput
+  export type HomeServicesUpdateOneRequiredWithoutVisitesNestedInput = {
+    create?: XOR<HomeServicesCreateWithoutVisitesInput, HomeServicesUncheckedCreateWithoutVisitesInput>
+    connectOrCreate?: HomeServicesCreateOrConnectWithoutVisitesInput
+    upsert?: HomeServicesUpsertWithoutVisitesInput
     connect?: HomeServicesWhereUniqueInput
-    update?: XOR<XOR<HomeServicesUpdateToOneWithWhereWithoutServicesInput, HomeServicesUpdateWithoutServicesInput>, HomeServicesUncheckedUpdateWithoutServicesInput>
+    update?: XOR<XOR<HomeServicesUpdateToOneWithWhereWithoutVisitesInput, HomeServicesUpdateWithoutVisitesInput>, HomeServicesUncheckedUpdateWithoutVisitesInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -5636,6 +5700,17 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -5665,17 +5740,6 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -5691,6 +5755,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -5712,22 +5792,6 @@ export namespace Prisma {
     in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumStatusFilter<$PrismaModel> | $Enums.Status
-  }
-
-  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
   }
   export type NestedJsonFilter<$PrismaModel = never> = 
     | PatchUndefined<
@@ -5763,23 +5827,23 @@ export namespace Prisma {
     _max?: NestedEnumStatusFilter<$PrismaModel>
   }
 
-  export type ServicesCreateWithoutServiceTypeInput = {
+  export type VisitesCreateWithoutServiceTypeInput = {
     patientId: number
     latitude: number
     longitude: number
     address: string
     description: string
     patient: JsonNullValueInput | InputJsonValue
-    providers?: ServicesCreateprovidersInput | InputJsonValue[]
+    providers?: VisitesCreateprovidersInput | InputJsonValue[]
     date: Date | string
     hour: string
     status?: $Enums.Status
-    providersId?: ServicesCreateprovidersIdInput | number[]
+    providersId?: VisitesCreateprovidersIdInput | number[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type ServicesUncheckedCreateWithoutServiceTypeInput = {
+  export type VisitesUncheckedCreateWithoutServiceTypeInput = {
     id?: number
     patientId: number
     latitude: number
@@ -5787,105 +5851,113 @@ export namespace Prisma {
     address: string
     description: string
     patient: JsonNullValueInput | InputJsonValue
-    providers?: ServicesCreateprovidersInput | InputJsonValue[]
+    providers?: VisitesCreateprovidersInput | InputJsonValue[]
     date: Date | string
     hour: string
     status?: $Enums.Status
-    providersId?: ServicesCreateprovidersIdInput | number[]
+    providersId?: VisitesCreateprovidersIdInput | number[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type ServicesCreateOrConnectWithoutServiceTypeInput = {
-    where: ServicesWhereUniqueInput
-    create: XOR<ServicesCreateWithoutServiceTypeInput, ServicesUncheckedCreateWithoutServiceTypeInput>
+  export type VisitesCreateOrConnectWithoutServiceTypeInput = {
+    where: VisitesWhereUniqueInput
+    create: XOR<VisitesCreateWithoutServiceTypeInput, VisitesUncheckedCreateWithoutServiceTypeInput>
   }
 
-  export type ServicesCreateManyServiceTypeInputEnvelope = {
-    data: ServicesCreateManyServiceTypeInput | ServicesCreateManyServiceTypeInput[]
+  export type VisitesCreateManyServiceTypeInputEnvelope = {
+    data: VisitesCreateManyServiceTypeInput | VisitesCreateManyServiceTypeInput[]
     skipDuplicates?: boolean
   }
 
-  export type ServicesUpsertWithWhereUniqueWithoutServiceTypeInput = {
-    where: ServicesWhereUniqueInput
-    update: XOR<ServicesUpdateWithoutServiceTypeInput, ServicesUncheckedUpdateWithoutServiceTypeInput>
-    create: XOR<ServicesCreateWithoutServiceTypeInput, ServicesUncheckedCreateWithoutServiceTypeInput>
+  export type VisitesUpsertWithWhereUniqueWithoutServiceTypeInput = {
+    where: VisitesWhereUniqueInput
+    update: XOR<VisitesUpdateWithoutServiceTypeInput, VisitesUncheckedUpdateWithoutServiceTypeInput>
+    create: XOR<VisitesCreateWithoutServiceTypeInput, VisitesUncheckedCreateWithoutServiceTypeInput>
   }
 
-  export type ServicesUpdateWithWhereUniqueWithoutServiceTypeInput = {
-    where: ServicesWhereUniqueInput
-    data: XOR<ServicesUpdateWithoutServiceTypeInput, ServicesUncheckedUpdateWithoutServiceTypeInput>
+  export type VisitesUpdateWithWhereUniqueWithoutServiceTypeInput = {
+    where: VisitesWhereUniqueInput
+    data: XOR<VisitesUpdateWithoutServiceTypeInput, VisitesUncheckedUpdateWithoutServiceTypeInput>
   }
 
-  export type ServicesUpdateManyWithWhereWithoutServiceTypeInput = {
-    where: ServicesScalarWhereInput
-    data: XOR<ServicesUpdateManyMutationInput, ServicesUncheckedUpdateManyWithoutServiceTypeInput>
+  export type VisitesUpdateManyWithWhereWithoutServiceTypeInput = {
+    where: VisitesScalarWhereInput
+    data: XOR<VisitesUpdateManyMutationInput, VisitesUncheckedUpdateManyWithoutServiceTypeInput>
   }
 
-  export type ServicesScalarWhereInput = {
-    AND?: ServicesScalarWhereInput | ServicesScalarWhereInput[]
-    OR?: ServicesScalarWhereInput[]
-    NOT?: ServicesScalarWhereInput | ServicesScalarWhereInput[]
-    id?: IntFilter<"Services"> | number
-    serviceTypeId?: IntFilter<"Services"> | number
-    patientId?: IntFilter<"Services"> | number
-    latitude?: FloatFilter<"Services"> | number
-    longitude?: FloatFilter<"Services"> | number
-    address?: StringFilter<"Services"> | string
-    description?: StringFilter<"Services"> | string
-    patient?: JsonFilter<"Services">
-    providers?: JsonNullableListFilter<"Services">
-    date?: DateTimeFilter<"Services"> | Date | string
-    hour?: StringFilter<"Services"> | string
-    status?: EnumStatusFilter<"Services"> | $Enums.Status
-    providersId?: IntNullableListFilter<"Services">
-    createdAt?: DateTimeFilter<"Services"> | Date | string
-    updatedAt?: DateTimeFilter<"Services"> | Date | string
+  export type VisitesScalarWhereInput = {
+    AND?: VisitesScalarWhereInput | VisitesScalarWhereInput[]
+    OR?: VisitesScalarWhereInput[]
+    NOT?: VisitesScalarWhereInput | VisitesScalarWhereInput[]
+    id?: IntFilter<"Visites"> | number
+    serviceTypeId?: IntFilter<"Visites"> | number
+    patientId?: IntFilter<"Visites"> | number
+    latitude?: FloatFilter<"Visites"> | number
+    longitude?: FloatFilter<"Visites"> | number
+    address?: StringFilter<"Visites"> | string
+    description?: StringFilter<"Visites"> | string
+    patient?: JsonFilter<"Visites">
+    providers?: JsonNullableListFilter<"Visites">
+    date?: DateTimeFilter<"Visites"> | Date | string
+    hour?: StringFilter<"Visites"> | string
+    status?: EnumStatusFilter<"Visites"> | $Enums.Status
+    providersId?: IntNullableListFilter<"Visites">
+    createdAt?: DateTimeFilter<"Visites"> | Date | string
+    updatedAt?: DateTimeFilter<"Visites"> | Date | string
   }
 
-  export type HomeServicesCreateWithoutServicesInput = {
+  export type HomeServicesCreateWithoutVisitesInput = {
     name: string
+    description: string
+    price: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type HomeServicesUncheckedCreateWithoutServicesInput = {
+  export type HomeServicesUncheckedCreateWithoutVisitesInput = {
     id?: number
     name: string
+    description: string
+    price: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type HomeServicesCreateOrConnectWithoutServicesInput = {
+  export type HomeServicesCreateOrConnectWithoutVisitesInput = {
     where: HomeServicesWhereUniqueInput
-    create: XOR<HomeServicesCreateWithoutServicesInput, HomeServicesUncheckedCreateWithoutServicesInput>
+    create: XOR<HomeServicesCreateWithoutVisitesInput, HomeServicesUncheckedCreateWithoutVisitesInput>
   }
 
-  export type HomeServicesUpsertWithoutServicesInput = {
-    update: XOR<HomeServicesUpdateWithoutServicesInput, HomeServicesUncheckedUpdateWithoutServicesInput>
-    create: XOR<HomeServicesCreateWithoutServicesInput, HomeServicesUncheckedCreateWithoutServicesInput>
+  export type HomeServicesUpsertWithoutVisitesInput = {
+    update: XOR<HomeServicesUpdateWithoutVisitesInput, HomeServicesUncheckedUpdateWithoutVisitesInput>
+    create: XOR<HomeServicesCreateWithoutVisitesInput, HomeServicesUncheckedCreateWithoutVisitesInput>
     where?: HomeServicesWhereInput
   }
 
-  export type HomeServicesUpdateToOneWithWhereWithoutServicesInput = {
+  export type HomeServicesUpdateToOneWithWhereWithoutVisitesInput = {
     where?: HomeServicesWhereInput
-    data: XOR<HomeServicesUpdateWithoutServicesInput, HomeServicesUncheckedUpdateWithoutServicesInput>
+    data: XOR<HomeServicesUpdateWithoutVisitesInput, HomeServicesUncheckedUpdateWithoutVisitesInput>
   }
 
-  export type HomeServicesUpdateWithoutServicesInput = {
+  export type HomeServicesUpdateWithoutVisitesInput = {
     name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type HomeServicesUncheckedUpdateWithoutServicesInput = {
+  export type HomeServicesUncheckedUpdateWithoutVisitesInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ServicesCreateManyServiceTypeInput = {
+  export type VisitesCreateManyServiceTypeInput = {
     id?: number
     patientId: number
     latitude: number
@@ -5893,32 +5965,32 @@ export namespace Prisma {
     address: string
     description: string
     patient: JsonNullValueInput | InputJsonValue
-    providers?: ServicesCreateprovidersInput | InputJsonValue[]
+    providers?: VisitesCreateprovidersInput | InputJsonValue[]
     date: Date | string
     hour: string
     status?: $Enums.Status
-    providersId?: ServicesCreateprovidersIdInput | number[]
+    providersId?: VisitesCreateprovidersIdInput | number[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type ServicesUpdateWithoutServiceTypeInput = {
+  export type VisitesUpdateWithoutServiceTypeInput = {
     patientId?: IntFieldUpdateOperationsInput | number
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     patient?: JsonNullValueInput | InputJsonValue
-    providers?: ServicesUpdateprovidersInput | InputJsonValue[]
+    providers?: VisitesUpdateprovidersInput | InputJsonValue[]
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     hour?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    providersId?: ServicesUpdateprovidersIdInput | number[]
+    providersId?: VisitesUpdateprovidersIdInput | number[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ServicesUncheckedUpdateWithoutServiceTypeInput = {
+  export type VisitesUncheckedUpdateWithoutServiceTypeInput = {
     id?: IntFieldUpdateOperationsInput | number
     patientId?: IntFieldUpdateOperationsInput | number
     latitude?: FloatFieldUpdateOperationsInput | number
@@ -5926,16 +5998,16 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     patient?: JsonNullValueInput | InputJsonValue
-    providers?: ServicesUpdateprovidersInput | InputJsonValue[]
+    providers?: VisitesUpdateprovidersInput | InputJsonValue[]
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     hour?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    providersId?: ServicesUpdateprovidersIdInput | number[]
+    providersId?: VisitesUpdateprovidersIdInput | number[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ServicesUncheckedUpdateManyWithoutServiceTypeInput = {
+  export type VisitesUncheckedUpdateManyWithoutServiceTypeInput = {
     id?: IntFieldUpdateOperationsInput | number
     patientId?: IntFieldUpdateOperationsInput | number
     latitude?: FloatFieldUpdateOperationsInput | number
@@ -5943,11 +6015,11 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     patient?: JsonNullValueInput | InputJsonValue
-    providers?: ServicesUpdateprovidersInput | InputJsonValue[]
+    providers?: VisitesUpdateprovidersInput | InputJsonValue[]
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     hour?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    providersId?: ServicesUpdateprovidersIdInput | number[]
+    providersId?: VisitesUpdateprovidersIdInput | number[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

@@ -19,14 +19,16 @@ enum Status {
 }
 
 model HomeServices {
-  id        Int        @id @default(autoincrement())
-  name      String     @unique
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  services  Services[]
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  description String
+  price       Float
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  visites     Visites[]
 }
 
-model Services {
+model Visites {
   id            Int          @id @default(autoincrement())
   serviceTypeId Int
   patientId     Int
