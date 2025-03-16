@@ -134,6 +134,8 @@ exports.Prisma.ServicesScalarFieldEnum = {
   description: 'description',
   patient: 'patient',
   providers: 'providers',
+  date: 'date',
+  hour: 'hour',
   status: 'status',
   providersId: 'providersId',
   createdAt: 'createdAt',

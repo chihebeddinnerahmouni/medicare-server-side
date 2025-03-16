@@ -2229,6 +2229,8 @@ export namespace Prisma {
     longitude: number | null
     address: string | null
     description: string | null
+    date: Date | null
+    hour: string | null
     status: $Enums.Status | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2242,6 +2244,8 @@ export namespace Prisma {
     longitude: number | null
     address: string | null
     description: string | null
+    date: Date | null
+    hour: string | null
     status: $Enums.Status | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2257,6 +2261,8 @@ export namespace Prisma {
     description: number
     patient: number
     providers: number
+    date: number
+    hour: number
     status: number
     providersId: number
     createdAt: number
@@ -2291,6 +2297,8 @@ export namespace Prisma {
     longitude?: true
     address?: true
     description?: true
+    date?: true
+    hour?: true
     status?: true
     createdAt?: true
     updatedAt?: true
@@ -2304,6 +2312,8 @@ export namespace Prisma {
     longitude?: true
     address?: true
     description?: true
+    date?: true
+    hour?: true
     status?: true
     createdAt?: true
     updatedAt?: true
@@ -2319,6 +2329,8 @@ export namespace Prisma {
     description?: true
     patient?: true
     providers?: true
+    date?: true
+    hour?: true
     status?: true
     providersId?: true
     createdAt?: true
@@ -2422,6 +2434,8 @@ export namespace Prisma {
     description: string
     patient: JsonValue
     providers: JsonValue[]
+    date: Date
+    hour: string
     status: $Enums.Status
     providersId: number[]
     createdAt: Date
@@ -2457,6 +2471,8 @@ export namespace Prisma {
     description?: boolean
     patient?: boolean
     providers?: boolean
+    date?: boolean
+    hour?: boolean
     status?: boolean
     providersId?: boolean
     createdAt?: boolean
@@ -2474,6 +2490,8 @@ export namespace Prisma {
     description?: boolean
     patient?: boolean
     providers?: boolean
+    date?: boolean
+    hour?: boolean
     status?: boolean
     providersId?: boolean
     createdAt?: boolean
@@ -2491,6 +2509,8 @@ export namespace Prisma {
     description?: boolean
     patient?: boolean
     providers?: boolean
+    date?: boolean
+    hour?: boolean
     status?: boolean
     providersId?: boolean
     createdAt?: boolean
@@ -2508,13 +2528,15 @@ export namespace Prisma {
     description?: boolean
     patient?: boolean
     providers?: boolean
+    date?: boolean
+    hour?: boolean
     status?: boolean
     providersId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ServicesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "serviceTypeId" | "patientId" | "latitude" | "longitude" | "address" | "description" | "patient" | "providers" | "status" | "providersId" | "createdAt" | "updatedAt", ExtArgs["result"]["services"]>
+  export type ServicesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "serviceTypeId" | "patientId" | "latitude" | "longitude" | "address" | "description" | "patient" | "providers" | "date" | "hour" | "status" | "providersId" | "createdAt" | "updatedAt", ExtArgs["result"]["services"]>
   export type ServicesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     serviceType?: boolean | HomeServicesDefaultArgs<ExtArgs>
   }
@@ -2540,6 +2562,8 @@ export namespace Prisma {
       description: string
       patient: Prisma.JsonValue
       providers: Prisma.JsonValue[]
+      date: Date
+      hour: string
       status: $Enums.Status
       providersId: number[]
       createdAt: Date
@@ -2977,6 +3001,8 @@ export namespace Prisma {
     readonly description: FieldRef<"Services", 'String'>
     readonly patient: FieldRef<"Services", 'Json'>
     readonly providers: FieldRef<"Services", 'Json[]'>
+    readonly date: FieldRef<"Services", 'DateTime'>
+    readonly hour: FieldRef<"Services", 'String'>
     readonly status: FieldRef<"Services", 'Status'>
     readonly providersId: FieldRef<"Services", 'Int[]'>
     readonly createdAt: FieldRef<"Services", 'DateTime'>
@@ -4508,6 +4534,8 @@ export namespace Prisma {
     description: 'description',
     patient: 'patient',
     providers: 'providers',
+    date: 'date',
+    hour: 'hour',
     status: 'status',
     providersId: 'providersId',
     createdAt: 'createdAt',
@@ -4726,6 +4754,8 @@ export namespace Prisma {
     description?: StringFilter<"Services"> | string
     patient?: JsonFilter<"Services">
     providers?: JsonNullableListFilter<"Services">
+    date?: DateTimeFilter<"Services"> | Date | string
+    hour?: StringFilter<"Services"> | string
     status?: EnumStatusFilter<"Services"> | $Enums.Status
     providersId?: IntNullableListFilter<"Services">
     createdAt?: DateTimeFilter<"Services"> | Date | string
@@ -4743,6 +4773,8 @@ export namespace Prisma {
     description?: SortOrder
     patient?: SortOrder
     providers?: SortOrder
+    date?: SortOrder
+    hour?: SortOrder
     status?: SortOrder
     providersId?: SortOrder
     createdAt?: SortOrder
@@ -4763,6 +4795,8 @@ export namespace Prisma {
     description?: StringFilter<"Services"> | string
     patient?: JsonFilter<"Services">
     providers?: JsonNullableListFilter<"Services">
+    date?: DateTimeFilter<"Services"> | Date | string
+    hour?: StringFilter<"Services"> | string
     status?: EnumStatusFilter<"Services"> | $Enums.Status
     providersId?: IntNullableListFilter<"Services">
     createdAt?: DateTimeFilter<"Services"> | Date | string
@@ -4780,6 +4814,8 @@ export namespace Prisma {
     description?: SortOrder
     patient?: SortOrder
     providers?: SortOrder
+    date?: SortOrder
+    hour?: SortOrder
     status?: SortOrder
     providersId?: SortOrder
     createdAt?: SortOrder
@@ -4804,6 +4840,8 @@ export namespace Prisma {
     description?: StringWithAggregatesFilter<"Services"> | string
     patient?: JsonWithAggregatesFilter<"Services">
     providers?: JsonNullableListFilter<"Services">
+    date?: DateTimeWithAggregatesFilter<"Services"> | Date | string
+    hour?: StringWithAggregatesFilter<"Services"> | string
     status?: EnumStatusWithAggregatesFilter<"Services"> | $Enums.Status
     providersId?: IntNullableListFilter<"Services">
     createdAt?: DateTimeWithAggregatesFilter<"Services"> | Date | string
@@ -4932,6 +4970,8 @@ export namespace Prisma {
     description: string
     patient: JsonNullValueInput | InputJsonValue
     providers?: ServicesCreateprovidersInput | InputJsonValue[]
+    date: Date | string
+    hour: string
     status?: $Enums.Status
     providersId?: ServicesCreateprovidersIdInput | number[]
     createdAt?: Date | string
@@ -4949,6 +4989,8 @@ export namespace Prisma {
     description: string
     patient: JsonNullValueInput | InputJsonValue
     providers?: ServicesCreateprovidersInput | InputJsonValue[]
+    date: Date | string
+    hour: string
     status?: $Enums.Status
     providersId?: ServicesCreateprovidersIdInput | number[]
     createdAt?: Date | string
@@ -4963,6 +5005,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     patient?: JsonNullValueInput | InputJsonValue
     providers?: ServicesUpdateprovidersInput | InputJsonValue[]
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    hour?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     providersId?: ServicesUpdateprovidersIdInput | number[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4980,6 +5024,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     patient?: JsonNullValueInput | InputJsonValue
     providers?: ServicesUpdateprovidersInput | InputJsonValue[]
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    hour?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     providersId?: ServicesUpdateprovidersIdInput | number[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4996,6 +5042,8 @@ export namespace Prisma {
     description: string
     patient: JsonNullValueInput | InputJsonValue
     providers?: ServicesCreateprovidersInput | InputJsonValue[]
+    date: Date | string
+    hour: string
     status?: $Enums.Status
     providersId?: ServicesCreateprovidersIdInput | number[]
     createdAt?: Date | string
@@ -5010,6 +5058,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     patient?: JsonNullValueInput | InputJsonValue
     providers?: ServicesUpdateprovidersInput | InputJsonValue[]
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    hour?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     providersId?: ServicesUpdateprovidersIdInput | number[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5026,6 +5076,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     patient?: JsonNullValueInput | InputJsonValue
     providers?: ServicesUpdateprovidersInput | InputJsonValue[]
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    hour?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     providersId?: ServicesUpdateprovidersIdInput | number[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5301,6 +5353,8 @@ export namespace Prisma {
     description?: SortOrder
     patient?: SortOrder
     providers?: SortOrder
+    date?: SortOrder
+    hour?: SortOrder
     status?: SortOrder
     providersId?: SortOrder
     createdAt?: SortOrder
@@ -5324,6 +5378,8 @@ export namespace Prisma {
     longitude?: SortOrder
     address?: SortOrder
     description?: SortOrder
+    date?: SortOrder
+    hour?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -5337,6 +5393,8 @@ export namespace Prisma {
     longitude?: SortOrder
     address?: SortOrder
     description?: SortOrder
+    date?: SortOrder
+    hour?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -5713,6 +5771,8 @@ export namespace Prisma {
     description: string
     patient: JsonNullValueInput | InputJsonValue
     providers?: ServicesCreateprovidersInput | InputJsonValue[]
+    date: Date | string
+    hour: string
     status?: $Enums.Status
     providersId?: ServicesCreateprovidersIdInput | number[]
     createdAt?: Date | string
@@ -5728,6 +5788,8 @@ export namespace Prisma {
     description: string
     patient: JsonNullValueInput | InputJsonValue
     providers?: ServicesCreateprovidersInput | InputJsonValue[]
+    date: Date | string
+    hour: string
     status?: $Enums.Status
     providersId?: ServicesCreateprovidersIdInput | number[]
     createdAt?: Date | string
@@ -5773,6 +5835,8 @@ export namespace Prisma {
     description?: StringFilter<"Services"> | string
     patient?: JsonFilter<"Services">
     providers?: JsonNullableListFilter<"Services">
+    date?: DateTimeFilter<"Services"> | Date | string
+    hour?: StringFilter<"Services"> | string
     status?: EnumStatusFilter<"Services"> | $Enums.Status
     providersId?: IntNullableListFilter<"Services">
     createdAt?: DateTimeFilter<"Services"> | Date | string
@@ -5830,6 +5894,8 @@ export namespace Prisma {
     description: string
     patient: JsonNullValueInput | InputJsonValue
     providers?: ServicesCreateprovidersInput | InputJsonValue[]
+    date: Date | string
+    hour: string
     status?: $Enums.Status
     providersId?: ServicesCreateprovidersIdInput | number[]
     createdAt?: Date | string
@@ -5844,6 +5910,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     patient?: JsonNullValueInput | InputJsonValue
     providers?: ServicesUpdateprovidersInput | InputJsonValue[]
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    hour?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     providersId?: ServicesUpdateprovidersIdInput | number[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5859,6 +5927,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     patient?: JsonNullValueInput | InputJsonValue
     providers?: ServicesUpdateprovidersInput | InputJsonValue[]
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    hour?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     providersId?: ServicesUpdateprovidersIdInput | number[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5874,6 +5944,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     patient?: JsonNullValueInput | InputJsonValue
     providers?: ServicesUpdateprovidersInput | InputJsonValue[]
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    hour?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     providersId?: ServicesUpdateprovidersIdInput | number[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

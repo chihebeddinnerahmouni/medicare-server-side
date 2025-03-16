@@ -38,6 +38,8 @@ model Services {
   description   String
   patient       Json
   providers     Json[]
+  date          DateTime
+  hour          String
   serviceType   HomeServices @relation(fields: [serviceTypeId], references: [id])
   status        Status       @default(pending)
   providersId   Int[]        @default([])
@@ -45,6 +47,8 @@ model Services {
   updatedAt     DateTime     @updatedAt
 }
 
+
+// for the service
 model Counts {
   id                   Int @id @default(autoincrement())
   completed            Int @default(0)
