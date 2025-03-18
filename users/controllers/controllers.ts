@@ -8,7 +8,7 @@ import jwt from "jsonwebtoken";
 import { Multer } from "multer";
 import fs from "fs";
 import path from "path";
-import { demandeType } from "@prisma/client";
+import { Status, demandeType } from "@prisma/client";
 
 declare global {
   namespace Express {
@@ -313,10 +313,6 @@ export const getDemandes = async (req: Request, res: Response) => {
 
   try {
     const demandes = await prisma.demandes.findMany({
-      // where: {
-      //   status,
-      //   type,
-      // },
       where: {
         ...(status && { status }),
         ...(type && { type }),
@@ -625,7 +621,7 @@ export const setHasSomething = async (req: Request, res: Response) => {
 export const toProvider = async (req: Request, res: Response) => { 
   const userId = Number(req.params.userId);
   const demandeId = Number(req.params.demandeId);
-  const { providerType, speciality, value } = req.body;
+  const { providerType, speciality, toggle } = req.body;
   const errors = validateBody({ providerType, speciality });
   if (errors.length !== 0) {
     res.status(400).json({ error: "Erreur lors de la mise à jour de l'utilisateur", message: errors });
@@ -648,7 +644,7 @@ export const toProvider = async (req: Request, res: Response) => {
     const updatedUser = await prisma.users.update({
       where: { id: userId },
       data: {
-        isProvider: value,
+        isProvider: toggle,
         providerType,
         providerSpeciality: speciality,
       },
@@ -658,81 +654,6 @@ export const toProvider = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Erreur lors de la mise à jour de l'utilisateur", message: error.message });
   }
 }
-
-
-// home services _________________________________________________________________
-
-// _____________________________________________________________________________
-
-export const createService = async (req: Request, res: Response) => {
-  const { name, description, price } = req.body;
-  const errors = validateBody({ name, description, price });
-  if (errors.length > 0) {
-    res.status(400).json({ error: "Remplire tous les champs", message: errors });
-    return; 
-  }
-  try {
-    const service = await prisma.homeServices.create({
-      data: {
-        name,
-        description,
-        price,
-      },
-    });
-    res.json(service);
-  } catch (error: any) {
-    res.status(500).json({ message: error.message, error : "Erreur lors de la création du service" });
-  }
-}
-
-// _____________________________________________________________________________
-
-export const getServices = async (req: Request, res: Response) => {
-  try {
-    const services = await prisma.homeServices.findMany();
-    res.json(services);
-  } catch (error: any) {
-    res.status(500).json({ message: error.message, error : "Erreur lors de la récupération des services" });
-  }
-}
-
-// _____________________________________________________________________________
-
-export const createVisite = async (req: Request, res: Response) => { 
-  const userId = req.user.userId;
-  const { serviceId, latitude, longitude, description, date, hour } = req.body;
-  const errors = validateBody({ serviceId, latitude, longitude, date, hour });
-  if (errors.length > 0) {
-    res.status(400).json({ error: "Remplire tous les champs", message: errors });
-    return; 
-  }
-
-  try {
-    const visite = await prisma.visites.create({
-      data: {
-        serviceId,
-        userId,
-        latitude: Number(latitude),
-        longitude: Number(longitude),
-        description,
-        date,
-        hour,
-        // providers: {
-        //   connect: providers?.map((providerId) => ({ id: providerId })) || [], // Connect multiple providers
-        // },
-      },
-      include: {
-        patient: true,
-        service: true,
-        // providers: true, // Include provider details in response
-      },
-    });
-    res.json(visite);
-  } catch (error: any) {
-    res.status(500).json({ message: error.message, error: "Erreur lors de la création de la visite" });
-  }
-}
-
 
 
 
