@@ -24,6 +24,11 @@ import {
   setDemandeOnWork,
   setHasSomething,
   toProvider,
+
+  // home nursing
+  createService,
+  getServices,
+  createVisite,
 } from "../controllers/controllers";
 
 
@@ -32,11 +37,12 @@ const router = Router();
 
 router.post("/add-user", createUser);
 router.post("/login", login);
-router.get("/users", getUsers);
 router.get("/get-user/:id", getUserById);
 router.get("/landing-infos", getlandingInfos);
 router.put("/set-demande-working/:demandeId/:userId", setDemandeOnWork);
 router.put("/set-has-something/:userId", setHasSomething);
+router.get("/home-services", getServices);
+
 
 
 
@@ -47,14 +53,17 @@ router.put("/update-user", authGuard, updateUser);
 router.post("/add-document/:demandeId", authGuard, uploadSingleFile, addDocument);
 router.put("/update-image", authGuard, uploadSingle, updateUserImage);
 router.get("/my-demandes", authGuard, getMyDemandes);
+router.post("/create-visite", authGuard, createVisite);
 
 // admin
+router.get("/users",adminGuard, getUsers);
 router.delete("/delete-all-users", adminGuard, deleteAllUsers);
 router.get("/demandes", adminGuard, getDemandes);
 router.put("/accept-demande/:id", adminGuard, acceptDemande);
 router.get("/get-documents/:demandeId", adminGuard, getDocuments);
 router.put("/accept-documents/:demandeId", adminGuard, acceptDocuments);
 router.put("/to-provider/:userId/:demandeId", adminGuard, toProvider);
+router.post("/home-services", adminGuard, createService);
 
 
 // Middleware to handle non-existent routes

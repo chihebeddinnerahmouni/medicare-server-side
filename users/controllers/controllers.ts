@@ -660,6 +660,80 @@ export const toProvider = async (req: Request, res: Response) => {
 }
 
 
+// home services _________________________________________________________________
+
+// _____________________________________________________________________________
+
+export const createService = async (req: Request, res: Response) => {
+  const { name, description, price } = req.body;
+  const errors = validateBody({ name, description, price });
+  if (errors.length > 0) {
+    res.status(400).json({ error: "Remplire tous les champs", message: errors });
+    return; 
+  }
+  try {
+    const service = await prisma.homeServices.create({
+      data: {
+        name,
+        description,
+        price,
+      },
+    });
+    res.json(service);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message, error : "Erreur lors de la création du service" });
+  }
+}
+
+// _____________________________________________________________________________
+
+export const getServices = async (req: Request, res: Response) => {
+  try {
+    const services = await prisma.homeServices.findMany();
+    res.json(services);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message, error : "Erreur lors de la récupération des services" });
+  }
+}
+
+// _____________________________________________________________________________
+
+export const createVisite = async (req: Request, res: Response) => { 
+  const userId = req.user.userId;
+  const { serviceId, latitude, longitude, description, date, hour } = req.body;
+  const errors = validateBody({ serviceId, latitude, longitude, date, hour });
+  if (errors.length > 0) {
+    res.status(400).json({ error: "Remplire tous les champs", message: errors });
+    return; 
+  }
+
+  try {
+    const visite = await prisma.visites.create({
+      data: {
+        serviceId,
+        userId,
+        latitude: Number(latitude),
+        longitude: Number(longitude),
+        description,
+        date,
+        hour,
+        // providers: {
+        //   connect: providers?.map((providerId) => ({ id: providerId })) || [], // Connect multiple providers
+        // },
+      },
+      include: {
+        patient: true,
+        service: true,
+        // providers: true, // Include provider details in response
+      },
+    });
+    res.json(visite);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message, error: "Erreur lors de la création de la visite" });
+  }
+}
+
+
 
 
 

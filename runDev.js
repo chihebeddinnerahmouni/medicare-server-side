@@ -3,7 +3,7 @@ const path = require('path');
 
 // Define the main folder and the subfolders you want to open and run the command in
 const mainFolder = __dirname; // Assuming the script is in the main folder
-const subfolders = ['users', 'doctors', "dentists", "pharmacies", "clinics", "nurses"];
+const subfolders = ['users', 'doctors', "dentists", "pharmacies", "clinics"];
 
 // Function to run a command in a new terminal
 const runCommandInNewTerminal = (folder) => {

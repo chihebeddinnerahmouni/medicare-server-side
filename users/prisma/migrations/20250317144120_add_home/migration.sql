@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Visites" ALTER COLUMN "date" SET DATA TYPE TEXT;
