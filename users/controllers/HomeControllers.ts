@@ -142,6 +142,37 @@ export const getVisites = async (req: Request, res: Response) => {
 
 // _____________________________________________________________________________
 
+export const getVisiteById = async (req: Request, res: Response) => {
+  const visiteId = Number(req.params.visiteId);
+
+  try {
+    const visite = await prisma.visites.findUnique({
+      where: { id: visiteId },
+      include: {
+        patient: {
+          select: toInclude,
+        },
+        service: true,
+        providers: {
+          select: toInclude,
+        },
+      },
+    });
+    if (!visite) {
+      res.status(404).json({ error: "Visite n'existe pas" });
+      return;
+    }
+    res.json(visite);
+  } catch (error: any) {
+    res.status(500).json({
+      message: error.message,
+      error: "Erreur lors de la récupération de la visite",
+    });
+  }
+}
+
+// _____________________________________________________________________________
+
 export const acceptVisite = async (req: Request, res: Response) => {
   const visiteId = Number(req.params.visiteId);
   const { providersId } = req.body;
@@ -196,105 +227,90 @@ export const acceptVisite = async (req: Request, res: Response) => {
 
 export const finishVisite = async (req: Request, res: Response) => {
   const visiteId = Number(req.params.visiteId);
-  const userId = req.user.userId; // Assuming user info is available in req.user
+  const userId = req.user.userId;
 
   try {
-    const existingVisite = await prisma.visites.findUnique({
-      where: { id: visiteId },
-    });
+    const visite = await prisma.visites.findUnique({ where: { id: visiteId } });
 
-    if (!existingVisite) {
-      return res.status(404).json({ error: "Visite n'existe pas" });
-    }
-
-    if (existingVisite.status !== "inProgress") {
+    if (!visite) return res.status(404).json({ error: "Visite n'existe pas" });
+    if (visite.status !== "inProgress")
       return res.status(400).json({ error: "Visite n'est pas en cours" });
-    }
 
-    let updateData: any = {};
+    const isUser = visite.userId === userId;
+    const keyToUpdate = isUser ? "doneByUser" : "doneByProvider";
 
-    // If the current user is the patient
-    if (existingVisite.userId === userId) {
-      if (existingVisite.doneByUser) {
-        return res
-          .status(403)
-          .json({ error: "Vous avez déjà validé cette visite." });
-      }
-      updateData.doneByUser = true;
-    }
-    // If the current user is a provider
-    else {
-      if (existingVisite.doneByProvider) {
-        return res
-          .status(403)
-          .json({ error: "Vous avez déjà validé cette visite." });
-      }
-      updateData.doneByProvider = true;
-    }
+    if (visite[keyToUpdate])
+      return res
+        .status(403)
+        .json({ error: "Vous avez déjà validé cette visite." });
 
-    // If both the patient and the provider have marked it as done, complete the visit
-    if (existingVisite.doneByUser && updateData.doneByProvider) {
-      updateData.status = "completed" as Status;
-    } else if (existingVisite.doneByProvider && updateData.doneByUser) {
-      updateData.status = "completed" as Status;
-    }
+    const updateData: any = { [keyToUpdate]: true };
+
+    const check_1 = visite.doneByUser && visite.doneByProvider;
+    const check_2 = visite.doneByUser || visite.doneByProvider;
+    if (check_1 || check_2) updateData.status = "completed";
+    
 
     const updatedVisite = await prisma.visites.update({
       where: { id: visiteId },
       data: updateData,
     });
 
+    const messageToSend = updatedVisite.status === "completed"
+      ? "Visite terminée avec succès"
+      : "Validation enregistrée, en attente de l'autre partie";
+      
     res.json({
-      message:
-        updatedVisite.status === "completed"
-          ? "Visite terminée avec succès"
-          : "Validation enregistrée, en attente de l'autre partie",
+      message:messageToSend,
       data: updatedVisite,
     });
   } catch (error: any) {
-    res.status(500).json({
-      error: "Erreur lors de la fin de la visite",
-      message: error.message,
-    });
+    res
+      .status(500)
+      .json({
+        error: "Erreur lors de la fin de la visite",
+        message: error.message,
+      });
   }
 };
 
+// _____________________________________________________________________________
 
+export const cancelVisite = async (req: Request, res: Response) => {
+  const visiteId = Number(req.params.visiteId);
+  const userId = req.user.userId;
 
-
-
-
-
-
-
-
-// helpers
-const updateVisiteStatus = async (
-  id: number,
-  status: Status,
-  res: Response
-) => {
   try {
-    const existingVisite = await prisma.visites.findUnique({
-      where: { id },
+    const visite = await prisma.visites.findUnique({ where: { id: visiteId } });
+    if (!visite) return res.status(404).json({ error: "Visite n'existe pas" });
+    if (visite.status !== "inProgress")
+      return res.status(400).json({ error: "Visite n'est pas en cours" });
+
+    if (visite.userId === userId) await prisma.visites.update({
+      where: { id: visiteId },
+      data: { status: "cancelledByPatient" as Status },
     });
-
-    if (!existingVisite) {
-      res.status(404).json({ error: "Visite n'existe pas" });
-      return null;
-    }
-
-    const visite = await prisma.visites.update({
-      where: { id },
-      data: { status },
+    else await prisma.visites.update({
+        where: { id: visiteId },
+        data: { status: "cancelledByProvider" as Status },
     });
+    res.json({ message: "Visite annulée avec succès" });
 
-    return visite;
   } catch (error: any) {
     res.status(500).json({
-      error: "Erreur lors de la mise à jour de la visite",
+      error: "Erreur lors de l'annulation de la visite",
       message: error.message,
     });
-    return null;
   }
-};
+}
+
+
+
+
+
+
+
+
+
+
+

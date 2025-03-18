@@ -9,17 +9,23 @@ import {
     getVisites,
   acceptVisite,
   finishVisite,
+  cancelVisite,
+  getVisiteById
 } from "../controllers/HomeControllers";
 
 const router = Router();
 
 router.get("/home-services", getServices);
 router.get("/visites", getVisites);
+router.get("/visite/:visiteId", getVisiteById);
 
 //user
 router.post("/create-visite", authGuard, createVisite);
 router.put("/finish-visite/:visiteId", authGuard, (req, res) => { 
   finishVisite(req, res);
+});
+router.put("/cancel-visite/:visiteId", authGuard, (req, res) => {
+  cancelVisite(req, res);
 });
 
 // admin

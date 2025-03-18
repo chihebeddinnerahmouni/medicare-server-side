@@ -110,13 +110,3 @@ model Visites {
   providers      Users[]      @relation("VisiteProviders")
 }
 
-// for the service
-model Counts {
-  id                   Int @id @default(autoincrement())
-  completed            Int @default(0)
-  pending              Int @default(0)
-  inProgress           Int @default(0)
-  cancelled            Int @default(0)
-  cancelledByPatient   Int @default(0)
-  cancelledByProviders Int @default(0)
-}
