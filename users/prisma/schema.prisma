@@ -1,132 +1,3 @@
-// generator client {
-//   provider = "prisma-client-js"
-// }
-
-// datasource db {
-//   provider = "postgresql"
-//   url      = env("DATABASE_URL")
-// }
-
-// enum Role {
-//   admin
-//   user
-// }
-
-
-// enum demandeType {
-//   doc
-//   pha
-//   cli
-//   den
-//   dom
-//   oth
-// }
-
-// model Demandes {
-//   id          Int         @id @default(autoincrement())
-//   userId      Int
-//   userType    String
-//   serviceType String
-//   status      String
-//   type        demandeType 
-//   user        Users       @relation(fields: [userId], references: [id])
-//   documents   Documents[]
-// }
-
-// model Documents {
-//   id          Int      @id @default(autoincrement())
-//   userId      Int
-//   description String
-//   url         String
-//   demandeId   Int
-//   createdAt   DateTime @default(now())
-//   updatedAt   DateTime @updatedAt
-//   demande     Demandes @relation(fields: [demandeId], references: [id])
-//   user        Users    @relation(fields: [userId], references: [id])
-// }
-
-// model Users {
-//   id           Int              @id @default(autoincrement())
-//   email        String           @unique
-//   phoneNumber  String           @unique
-//   firstName    String
-//   lastName     String
-//   password     String
-//   isProvider   Boolean          @default(false)
-//   role         Role             @default(user)
-//   hasSomething Boolean          @default(false)
-//   profilePic   String           @default("")
-//   hasDemandes  Boolean          @default(false)
-//   blocked      Boolean          @default(false)
-//   demandes     Demandes[]
-//   documents    Documents[]
-//   createdAt    DateTime         @default(now())
-//   updatedAt    DateTime         @updatedAt
-  
-//   // Provider
-//   providerType String?  
-//   providerSpeciality String?
-//   providerServiceCount Int?   @default(0)
-//   visites Visites[]
-// }
-
-
-
-
-
-
-// // home services
-// enum Status {
-//   pending
-//   inProgress
-//   completed
-//   cancelled
-//   cancelledByPatient
-//   cancelledByProviders
-//   autoCancelled
-// }
-
-
-
-// model HomeServices {
-//   id        Int        @id @default(autoincrement())
-//   name      String     @unique
-//   description String
-//   price     Float
-//   createdAt DateTime   @default(now())
-//   updatedAt DateTime   @updatedAt
-//   visites  Visites[]
-// }
-
-// model Visites {
-//   id            Int          @id @default(autoincrement())
-//   serviceId     Int
-//   providersId   Int[]        @default([])
-//   patientId     Int
-//   latitude      Float?
-//   longitude     Float?
-//   address       String?
-//   description   String
-//   patient       Users        @relation(fields: [patientId], references: [id])
-//   date          DateTime
-//   hour          String
-//   service       HomeServices @relation(fields: [serviceId], references: [id])
-//   status        Status       @default(pending)
-//   createdAt     DateTime     @default(now())
-//   updatedAt     DateTime     @updatedAt
-// }
-
-
-// // for the service
-// model Counts {
-//   id                   Int @id @default(autoincrement())
-//   completed            Int @default(0)
-//   pending              Int @default(0)
-//   inProgress           Int @default(0)
-//   cancelled            Int @default(0)
-//   cancelledByPatient   Int @default(0)
-//   cancelledByProviders Int @default(0)
-// }
 generator client {
   provider = "prisma-client-js"
 }
@@ -140,7 +11,6 @@ enum Role {
   admin
   user
 }
-
 
 enum demandeType {
   doc
@@ -157,7 +27,7 @@ model Demandes {
   userType    String
   serviceType String
   status      String
-  type        demandeType 
+  type        demandeType
   user        Users       @relation(fields: [userId], references: [id])
   documents   Documents[]
 }
@@ -175,77 +45,70 @@ model Documents {
 }
 
 model Users {
-  id           Int              @id @default(autoincrement())
-  email        String           @unique
-  phoneNumber  String           @unique
+  id           Int         @id @default(autoincrement())
+  email        String      @unique
+  phoneNumber  String      @unique
   firstName    String
   lastName     String
   password     String
-  isProvider   Boolean          @default(false)
-  role         Role             @default(user)
-  hasSomething Boolean          @default(false)
-  profilePic   String           @default("")
-  hasDemandes  Boolean          @default(false)
-  blocked      Boolean          @default(false)
+  isProvider   Boolean     @default(false)
+  role         Role        @default(user)
+  hasSomething Boolean     @default(false)
+  profilePic   String      @default("")
+  hasDemandes  Boolean     @default(false)
+  blocked      Boolean     @default(false)
   demandes     Demandes[]
   documents    Documents[]
-  createdAt    DateTime         @default(now())
-  updatedAt    DateTime         @updatedAt
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
 
   // Provider Information
-  providerType String?  
-  providerSpeciality String?
-  providerServiceCount Int?   @default(0)
-  visites Visites[]
-  providersVisite       Visites[]       @relation("VisiteProviders")
+  providerType         String?
+  providerSpeciality   String?
+  providerServiceCount Int?      @default(0)
+  visites              Visites[]
+  providersVisite      Visites[] @relation("VisiteProviders")
 }
 
-
-
-
-
-
-// home services
+// home services _______________________________________________________________________________________________
 enum Status {
   pending
   inProgress
   completed
-  cancelled
   cancelledByPatient
   cancelledByProviders
   autoCancelled
 }
 
-
-
 model HomeServices {
-  id        Int        @id @default(autoincrement())
-  name      String     @unique
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
   description String
-  price     Float
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  visites  Visites[]
+  price       Float
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  visites     Visites[]
 }
 
 model Visites {
-  id            Int          @id @default(autoincrement())
-  serviceId     Int
-  userId     Int
-  latitude      Float?
-  longitude     Float?
-  address       String?
-  description   String
-  patient       Users        @relation(fields: [userId], references: [id])
-  date          String
-  hour          String
-  service       HomeServices @relation(fields: [serviceId], references: [id])
-  status        Status       @default(pending)
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  providers     Users[]      @relation("VisiteProviders") 
+  id             Int          @id @default(autoincrement())
+  serviceId      Int
+  userId         Int
+  latitude       Float?
+  longitude      Float?
+  address        String?
+  description    String
+  date           String
+  hour           String
+  doneByUser     Boolean      @default(false)
+  doneByProvider Boolean      @default(false)
+  patient        Users        @relation(fields: [userId], references: [id])
+  service        HomeServices @relation(fields: [serviceId], references: [id])
+  status         Status       @default(pending)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  providers      Users[]      @relation("VisiteProviders")
 }
-
 
 // for the service
 model Counts {

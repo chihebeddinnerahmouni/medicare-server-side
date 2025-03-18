@@ -192,6 +192,74 @@ export const acceptVisite = async (req: Request, res: Response) => {
   }
 };
 
+// _____________________________________________________________________________
+
+export const finishVisite = async (req: Request, res: Response) => {
+  const visiteId = Number(req.params.visiteId);
+  const userId = req.user.userId; // Assuming user info is available in req.user
+
+  try {
+    const existingVisite = await prisma.visites.findUnique({
+      where: { id: visiteId },
+    });
+
+    if (!existingVisite) {
+      return res.status(404).json({ error: "Visite n'existe pas" });
+    }
+
+    if (existingVisite.status !== "inProgress") {
+      return res.status(400).json({ error: "Visite n'est pas en cours" });
+    }
+
+    let updateData: any = {};
+
+    // If the current user is the patient
+    if (existingVisite.userId === userId) {
+      if (existingVisite.doneByUser) {
+        return res
+          .status(403)
+          .json({ error: "Vous avez déjà validé cette visite." });
+      }
+      updateData.doneByUser = true;
+    }
+    // If the current user is a provider
+    else {
+      if (existingVisite.doneByProvider) {
+        return res
+          .status(403)
+          .json({ error: "Vous avez déjà validé cette visite." });
+      }
+      updateData.doneByProvider = true;
+    }
+
+    // If both the patient and the provider have marked it as done, complete the visit
+    if (existingVisite.doneByUser && updateData.doneByProvider) {
+      updateData.status = "completed" as Status;
+    } else if (existingVisite.doneByProvider && updateData.doneByUser) {
+      updateData.status = "completed" as Status;
+    }
+
+    const updatedVisite = await prisma.visites.update({
+      where: { id: visiteId },
+      data: updateData,
+    });
+
+    res.json({
+      message:
+        updatedVisite.status === "completed"
+          ? "Visite terminée avec succès"
+          : "Validation enregistrée, en attente de l'autre partie",
+      data: updatedVisite,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      error: "Erreur lors de la fin de la visite",
+      message: error.message,
+    });
+  }
+};
+
+
 
 
 

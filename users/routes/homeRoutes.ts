@@ -7,7 +7,8 @@ import {
   getServices,
   createVisite,
     getVisites,
-  acceptVisite
+  acceptVisite,
+  finishVisite,
 } from "../controllers/HomeControllers";
 
 const router = Router();
@@ -17,6 +18,9 @@ router.get("/visites", getVisites);
 
 //user
 router.post("/create-visite", authGuard, createVisite);
+router.put("/finish-visite/:visiteId", authGuard, (req, res) => { 
+  finishVisite(req, res);
+});
 
 // admin
 router.post("/home-services", adminGuard, createService);
