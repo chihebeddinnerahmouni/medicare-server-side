@@ -45,22 +45,24 @@ model Documents {
 }
 
 model Users {
-  id           Int         @id @default(autoincrement())
-  email        String      @unique
-  phoneNumber  String      @unique
-  firstName    String
-  lastName     String
-  password     String
-  isProvider   Boolean     @default(false)
-  role         Role        @default(user)
-  hasSomething Boolean     @default(false)
-  profilePic   String      @default("")
-  hasDemandes  Boolean     @default(false)
-  blocked      Boolean     @default(false)
-  demandes     Demandes[]
-  documents    Documents[]
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
+  id                 Int         @id @default(autoincrement())
+  email              String      @unique
+  phoneNumber        String      @unique
+  firstName          String
+  lastName           String
+  password           String
+  visiteRequestCount Int         @default(0)
+  birthDate          DateTime    @default("2000-01-01T00:00:00.000Z")
+  isProvider         Boolean     @default(false)
+  role               Role        @default(user)
+  hasSomething       Boolean     @default(false)
+  profilePic         String      @default("")
+  hasDemandes        Boolean     @default(false)
+  blocked            Boolean     @default(false)
+  demandes           Demandes[]
+  documents          Documents[]
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
 
   // Provider Information
   providerType         String?
@@ -109,4 +111,3 @@ model Visites {
   updatedAt      DateTime     @updatedAt
   providers      Users[]      @relation("VisiteProviders")
 }
-

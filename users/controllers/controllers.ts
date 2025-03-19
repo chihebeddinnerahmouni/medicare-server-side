@@ -22,6 +22,23 @@ declare global {
   }
 }
 
+const toInclude = {
+  id: true,
+  email: true,
+  phoneNumber: true,
+  firstName: true,
+  lastName: true,
+  profilePic: true,
+  hasDemandes: true,
+  role: true,
+  hasSomething: true,
+  isProvider: true,
+  providerType: true,
+  providerSpeciality: true,
+  birthDate: true,
+};
+
+
 
 export const login = async (req: Request, res: Response) => {
 
@@ -72,9 +89,17 @@ export const getUsers = async (req: Request, res: Response) => {
 //______________________________________________________________________________________
 
 export const createUser = async (req: Request, res: Response) => {
-  const { email, phoneNumber, firstName, lastName, password } = req.body;
+  const { email, phoneNumber, firstName, lastName, password, birthDate } =
+    req.body;
   
-  const errors = validateBody({ email, phoneNumber, firstName, lastName, password });
+  const errors = validateBody({
+    email,
+    phoneNumber,
+    firstName,
+    lastName,
+    password,
+    birthDate,
+  });
   if (errors.length !== 0) {
     res.status(400).json({ error: "Error creating user", message: errors });
     return;
@@ -93,17 +118,17 @@ export const createUser = async (req: Request, res: Response) => {
     const newuser = await prisma.users.create({
       data: {
         email,
-        phoneNumber : "+213" + phoneNumber,
+        phoneNumber: "+213" + phoneNumber,
         firstName,
         lastName,
         password: hashedPassword,
+        birthDate,
       },
     });
 
     const token = jwt.sign(
       { userId: newuser.id },
       process.env.SECRET_KEY as string 
-      //, { expiresIn: "1h" }
     );
     
     res.status(201).json({data: newuser, token});
@@ -138,20 +163,7 @@ const searchUser = async (userId: number, res: Response) => {
       where: {
         id: userId,
       },
-      select: {
-        id: true,
-        email: true,
-        phoneNumber: true,
-        firstName: true,
-        lastName: true,
-        profilePic: true,
-        hasDemandes: true,
-        role: true,
-        hasSomething: true,
-        isProvider: true,
-        providerType: true,
-        providerSpeciality: true,
-      },
+      select: toInclude
     });
     return user;
   } catch (error: any) {

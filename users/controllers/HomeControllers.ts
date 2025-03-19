@@ -17,19 +17,19 @@ declare global {
 }
 
 const toInclude = {
-    firstName: true,
-    lastName: true,
-    phoneNumber: true,
-    email: true,
-    profilePic: true,
-    };
-
-
-
-
+  id: true,
+  firstName: true,
+  lastName: true,
+  phoneNumber: true,
+  email: true,
+  profilePic: true,
+  birthDate: true,
+  providerType: true,
+  providerSpeciality: true,
+  providerServiceCount: true,
+};
 
 // _____________________________________________________________________________
-
 
 export const createService = async (req: Request, res: Response) => {
   const { name, description, price } = req.body;
@@ -85,6 +85,19 @@ export const createVisite = async (req: Request, res: Response) => {
   }
 
   try {
+    // const iUserHavePendingVisite = await prisma.visites.findFirst({
+    //   where: {
+    //     userId,
+    //     status: "pending",
+    //   },
+    // });
+    // if (iUserHavePendingVisite) {
+    //   res.status(400).json({
+    //     message: "Vous avez déjà une visite en attente de validation",
+    //   });
+    //   return
+    // }
+
     const visite = await prisma.visites.create({
       data: {
         serviceId,
@@ -169,7 +182,7 @@ export const getVisiteById = async (req: Request, res: Response) => {
       error: "Erreur lors de la récupération de la visite",
     });
   }
-}
+};
 
 // _____________________________________________________________________________
 
@@ -188,11 +201,13 @@ export const acceptVisite = async (req: Request, res: Response) => {
     if (existingVisite.status !== "pending") {
       res.status(400).json({ error: "Visite n'est pas en attente" });
       return;
-      }
-      if (providersId.length === 0) {
-        res.status(400).json({ error: "Veuillez sélectionner un ou plusieurs prestataires" });
-        return;
-      }
+    }
+    if (providersId.length === 0) {
+      res
+        .status(400)
+        .json({ error: "Veuillez sélectionner un ou plusieurs prestataires" });
+      return;
+    }
     const updatedVisite = await prisma.visites.update({
       where: { id: visiteId },
       data: {
@@ -202,18 +217,18 @@ export const acceptVisite = async (req: Request, res: Response) => {
             id: providerId,
           })),
         },
+      },
+      include: {
+        patient: {
+          select: toInclude,
         },
-        include: {
-            patient: {
-                select: toInclude,
-            },
-            service: true,
-            providers: {
-                select: toInclude,
-            },
+        service: true,
+        providers: {
+          select: toInclude,
         },
-        });
-      
+      },
+    });
+
     res.json({ message: "Visite acceptée", data: updatedVisite });
   } catch (error: any) {
     res.status(500).json({
@@ -230,7 +245,14 @@ export const finishVisite = async (req: Request, res: Response) => {
   const userId = req.user.userId;
 
   try {
-    const visite = await prisma.visites.findUnique({ where: { id: visiteId } });
+    const visite = await prisma.visites.findUnique({
+      where: { id: visiteId },
+      include: {
+        providers: {
+          select: toInclude,
+        },
+      },
+      });
 
     if (!visite) return res.status(404).json({ error: "Visite n'existe pas" });
     if (visite.status !== "inProgress")
@@ -248,29 +270,51 @@ export const finishVisite = async (req: Request, res: Response) => {
 
     const check_1 = visite.doneByUser && visite.doneByProvider;
     const check_2 = visite.doneByUser || visite.doneByProvider;
-    if (check_1 || check_2) updateData.status = "completed";
-    
+    if (check_1 || check_2) {
+      updateData.status = "completed";
 
+    }
     const updatedVisite = await prisma.visites.update({
       where: { id: visiteId },
       data: updateData,
     });
 
-    const messageToSend = updatedVisite.status === "completed"
-      ? "Visite terminée avec succès"
-      : "Validation enregistrée, en attente de l'autre partie";
-      
+    if (updatedVisite.status === "completed") {
+      await prisma.users.update({
+        where: { id: visite.userId },
+        data: {
+          visiteRequestCount: {
+            increment: 1,
+          },
+        },
+      });
+      for (const provider of visite.providers) {
+        await prisma.users.update({
+          where: { id: provider.id },
+          data: {
+            providerServiceCount: {
+              increment: 1,
+            },
+          },
+        });
+      }
+    }
+    
+
+    const messageToSend =
+      updatedVisite.status === "completed"
+        ? "Visite terminée avec succès"
+        : "Validation enregistrée, en attente de l'autre partie";
+
     res.json({
-      message:messageToSend,
+      message: messageToSend,
       data: updatedVisite,
     });
   } catch (error: any) {
-    res
-      .status(500)
-      .json({
-        error: "Erreur lors de la fin de la visite",
-        message: error.message,
-      });
+    res.status(500).json({
+      error: "Erreur lors de la fin de la visite",
+      message: error.message,
+    });
   }
 };
 
@@ -283,34 +327,24 @@ export const cancelVisite = async (req: Request, res: Response) => {
   try {
     const visite = await prisma.visites.findUnique({ where: { id: visiteId } });
     if (!visite) return res.status(404).json({ error: "Visite n'existe pas" });
-    if (visite.status !== "inProgress")
+    if (visite.status !== "inProgress" && visite.status !== "pending")
       return res.status(400).json({ error: "Visite n'est pas en cours" });
 
-    if (visite.userId === userId) await prisma.visites.update({
-      where: { id: visiteId },
-      data: { status: "cancelledByPatient" as Status },
-    });
-    else await prisma.visites.update({
+    if (visite.userId === userId)
+      await prisma.visites.update({
+        where: { id: visiteId },
+        data: { status: "cancelledByPatient" as Status },
+      });
+    else
+      await prisma.visites.update({
         where: { id: visiteId },
         data: { status: "cancelledByProvider" as Status },
-    });
+      });
     res.json({ message: "Visite annulée avec succès" });
-
   } catch (error: any) {
     res.status(500).json({
       error: "Erreur lors de l'annulation de la visite",
       message: error.message,
     });
   }
-}
-
-
-
-
-
-
-
-
-
-
-
+};
