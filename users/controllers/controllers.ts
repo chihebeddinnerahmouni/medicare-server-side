@@ -36,6 +36,10 @@ const toInclude = {
   providerType: true,
   providerSpeciality: true,
   birthDate: true,
+  providerDescription: true,
+  providerDegrees: true,
+  providerExperiences: true,
+  providerAwards: true,
 };
 
 
@@ -468,6 +472,7 @@ export const getUserById = async (req: Request, res: Response) => {
       where: {
         id,
       },
+      select: toInclude
     });
     if (!user) {
       res.status(404).json({ message: "Utilisateur introuvable" });
@@ -659,6 +664,7 @@ export const toProvider = async (req: Request, res: Response) => {
         isProvider: toggle,
         providerType,
         providerSpeciality: speciality,
+        providerDescription: "Prestataires" + user.firstName + " " + user.lastName,
       },
     });
     res.json(updatedUser);

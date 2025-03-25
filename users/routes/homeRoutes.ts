@@ -6,11 +6,12 @@ import {
   createService,
   getServices,
   createVisite,
-    getVisites,
+  getVisites,
   acceptVisite,
   finishVisite,
   cancelVisite,
-  getVisiteById
+  getVisiteById,
+  updateProvider,
 } from "../controllers/HomeControllers";
 
 const router = Router();
@@ -21,21 +22,17 @@ router.get("/visite/:visiteId", getVisiteById);
 
 //user
 router.post("/create-visite", authGuard, createVisite);
-router.put("/finish-visite/:visiteId", authGuard, (req, res) => { 
+router.put("/finish-visite/:visiteId", authGuard, (req, res) => {
   finishVisite(req, res);
 });
 router.put("/cancel-visite/:visiteId", authGuard, (req, res) => {
   cancelVisite(req, res);
 });
+router.post("/update-provider", authGuard, updateProvider);
 
 // admin
 router.post("/home-services", adminGuard, createService);
 router.put("/accept-visite/:visiteId", adminGuard, acceptVisite);
-
-
-
-
-
 
 // Middleware to handle non-existent routes
 router.use((req, res) => {

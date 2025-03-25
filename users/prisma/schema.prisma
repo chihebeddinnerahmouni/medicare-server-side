@@ -70,6 +70,10 @@ model Users {
   providerServiceCount Int?      @default(0)
   visites              Visites[]
   providersVisite      Visites[] @relation("VisiteProviders")
+  providerDescription  String?  @default("")
+  providerDegrees      Degrees[]
+  providerExperiences  Experiences[]
+  providerAwards       Awards[]
 }
 
 // home services _______________________________________________________________________________________________
@@ -79,6 +83,7 @@ enum Status {
   completed
   cancelledByPatient
   cancelledByProviders
+  cancelledByAdmin
   autoCancelled
 }
 
@@ -111,3 +116,33 @@ model Visites {
   updatedAt      DateTime     @updatedAt
   providers      Users[]      @relation("VisiteProviders")
 }
+
+model Degrees {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  degree      String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        Users    @relation(fields: [userId], references: [id])
+}
+
+model Experiences {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        Users    @relation(fields: [userId], references: [id])
+}
+
+
+model Awards {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        Users    @relation(fields: [userId], references: [id])
+}
+

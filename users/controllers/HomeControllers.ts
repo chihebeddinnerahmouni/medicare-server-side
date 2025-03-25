@@ -27,6 +27,10 @@ const toInclude = {
   providerType: true,
   providerSpeciality: true,
   providerServiceCount: true,
+  providerDescription: true,
+  providerDegrees: true,
+  providerExperiences : true,
+  providerAwards : true,
 };
 
 // _____________________________________________________________________________
@@ -346,5 +350,62 @@ export const cancelVisite = async (req: Request, res: Response) => {
       error: "Erreur lors de l'annulation de la visite",
       message: error.message,
     });
+  }
+};
+
+// _____________________________________________________________________________
+
+export const updateProvider = async (req: Request, res: Response) => {
+  const userId = req.user.userId;
+  const { degrees, experiences, awards } = req.body;
+
+  try {
+    const transactions: any = []
+    if (degrees) {
+      transactions.push(
+        prisma.degrees.deleteMany({ where: { userId } }),
+        prisma.degrees.createMany({
+          data: degrees.map((d: any) => ({
+            description: d.description,
+            degree: d.degree,
+            userId,
+          })),
+        })
+      );
+    }
+
+    if (experiences) {
+      transactions.push(
+        prisma.experiences.deleteMany({ where: { userId } }),
+        prisma.experiences.createMany({
+          data: experiences.map((e: any) => ({
+            description: e,
+            userId
+          })),
+        })
+      );
+    }
+
+    if (awards) {
+      transactions.push(
+        prisma.awards.deleteMany({ where: { userId } }),
+        prisma.awards.createMany({
+          data: awards.map((a: any) => ({
+            description: a,
+            userId,
+          })),
+        })
+      );
+    }
+
+    await prisma.$transaction(transactions);
+    res.json({ message: "Mise à jour effectuée avec succès" });
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({
+        message: "Erreur lors de la mise à jour"
+        , error: error.message
+      });
   }
 };

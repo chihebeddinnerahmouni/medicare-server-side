@@ -13,11 +13,10 @@ interface CustomRequest extends Request {
 export const authGuard = (req: CustomRequest, res: Response, next: NextFunction): void => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
-
     if (!token) {
-        res.status(401).json({ message: 'Token est manquant ou invalide' });
+        res.status(401).json({ message: 'Token est manquant' });
         return;
-    }
+    } 
 
     try {
         const payload = jwt.verify(token, SECRET_KEY) as { userId: string };
