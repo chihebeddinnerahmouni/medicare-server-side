@@ -40,6 +40,10 @@ const toInclude = {
   providerDegrees: true,
   providerExperiences: true,
   providerAwards: true,
+  providerServiceCount: true,
+  visiteRequestCount: true,
+  createdAt: true,
+  updatedAt: true,
 };
 
 

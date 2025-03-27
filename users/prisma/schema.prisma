@@ -67,10 +67,10 @@ model Users {
   // Provider Information
   providerType         String?
   providerSpeciality   String?
-  providerServiceCount Int?      @default(0)
+  providerServiceCount Int?          @default(0)
   visites              Visites[]
-  providersVisite      Visites[] @relation("VisiteProviders")
-  providerDescription  String?  @default("")
+  providersVisite      Visites[]     @relation("VisiteProviders")
+  providerDescription  String?       @default("")
   providerDegrees      Degrees[]
   providerExperiences  Experiences[]
   providerAwards       Awards[]
@@ -122,6 +122,7 @@ model Degrees {
   userId      Int
   degree      String
   description String
+  date        String   @default("2000-01-01")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   user        Users    @relation(fields: [userId], references: [id])
@@ -136,13 +137,12 @@ model Experiences {
   user        Users    @relation(fields: [userId], references: [id])
 }
 
-
 model Awards {
   id          Int      @id @default(autoincrement())
   userId      Int
   description String
+  date        String   @default("2000-01-01")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   user        Users    @relation(fields: [userId], references: [id])
 }
-

@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Awards" ADD COLUMN     "date" TEXT NOT NULL DEFAULT '2000-01';
+
+-- AlterTable
+ALTER TABLE "Degrees" ADD COLUMN     "date" TEXT NOT NULL DEFAULT '2000-01';

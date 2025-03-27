@@ -29,8 +29,9 @@ const toInclude = {
   providerServiceCount: true,
   providerDescription: true,
   providerDegrees: true,
-  providerExperiences : true,
-  providerAwards : true,
+  providerExperiences: true,
+  providerAwards: true,
+  visiteRequestCount: true,
 };
 
 // _____________________________________________________________________________
@@ -366,6 +367,7 @@ export const updateProvider = async (req: Request, res: Response) => {
         prisma.degrees.deleteMany({ where: { userId } }),
         prisma.degrees.createMany({
           data: degrees.map((d: any) => ({
+            date: d.date,
             description: d.description,
             degree: d.degree,
             userId,
@@ -379,7 +381,7 @@ export const updateProvider = async (req: Request, res: Response) => {
         prisma.experiences.deleteMany({ where: { userId } }),
         prisma.experiences.createMany({
           data: experiences.map((e: any) => ({
-            description: e,
+            description: e.description,
             userId
           })),
         })
@@ -391,7 +393,8 @@ export const updateProvider = async (req: Request, res: Response) => {
         prisma.awards.deleteMany({ where: { userId } }),
         prisma.awards.createMany({
           data: awards.map((a: any) => ({
-            description: a,
+            date: a.date,
+            description: a.description,
             userId,
           })),
         })

@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Awards" ALTER COLUMN "date" SET DEFAULT '2000-01-01';
+
+-- AlterTable
+ALTER TABLE "Degrees" ALTER COLUMN "date" SET DEFAULT '2000-01-01';
