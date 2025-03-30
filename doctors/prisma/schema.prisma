@@ -13,7 +13,7 @@ model Images {
   url       String
   cabinetId Int
   createdAt DateTime @default(now())
-  order    Int      
+  order     Int
   updatedAt DateTime @updatedAt
   Cabinet   Cabinet  @relation(fields: [cabinetId], references: [id])
 }
@@ -77,7 +77,7 @@ model Cabinet {
   closeTime          String
   latitude           String
   longitude          String
-  type              String                @default("cabinet")
+  type               String               @default("cabinet")
   daysOff            Int[]                @default([])
   reviewsCount       Int                  @default(0)
   createdAt          DateTime             @default(now())

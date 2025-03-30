@@ -791,3 +791,57 @@ export const UpdateImages = async (req: Request, res: Response) => {
 };
 
 
+// _____________________________________________________________________________
+
+export const getMapCabinets = async (req: Request, res: Response) => {
+   const { ne, sw } = req.body as {
+     ne: [string, string];
+     sw: [string, string];
+   };
+    
+try {
+    const cabinets = await prisma.cabinet.findMany({
+      where: {
+        AND: [
+          {
+            latitude: {
+              gte: sw[0],
+              lte: ne[0],
+            },
+          },
+          {
+            longitude: {
+              gte: sw[1],
+              lte: ne[1],
+            },
+          },
+        ],
+      },
+      include: {
+        images: {
+          orderBy: {
+            order: "asc", 
+          },
+          take: 1, 
+        },
+        speciality: true,
+      },
+    });
+  
+  const count = cabinets.length;
+  const totalcabinets = await prisma.cabinet.count();
+  
+  res.json({
+    count,
+    totalcabinets,
+    data: cabinets
+  });
+  } catch (error: any) {
+    res.status(500).json({
+      error: "Erreur lors de la récupération des cabinets",
+      message: error.message,
+    });
+  }
+}
+
+ 

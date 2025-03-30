@@ -18,6 +18,7 @@ import {
   getMyCabinets,
   updateCabinet,
   UpdateImages,
+  getMapCabinets,
 } from "../controllers/controllers";
 
 
@@ -29,6 +30,7 @@ router.get("/get-cabinets", getCabinets);
 router.get("/get-specialities", getSpecialities);
 router.get("/get-cabinet/:id", getCabinetById);
 router.get("/get-landing-doctors", getLandingDoctors);
+router.get("/get-map-cabinets", getMapCabinets);
 
 // user
 router.delete("/delete-cabinet/:id",authGuard, deleteCabinet);
