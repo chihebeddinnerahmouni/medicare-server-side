@@ -30,7 +30,9 @@ router.get("/get-cabinets", getCabinets);
 router.get("/get-specialities", getSpecialities);
 router.get("/get-cabinet/:id", getCabinetById);
 router.get("/get-landing-doctors", getLandingDoctors);
-router.get("/get-map-cabinets", getMapCabinets);
+router.post("/get-map-cabinets", (req, res) => {
+  getMapCabinets(req, res);
+});
 
 // user
 router.delete("/delete-cabinet/:id",authGuard, deleteCabinet);

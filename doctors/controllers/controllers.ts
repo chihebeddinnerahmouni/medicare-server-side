@@ -793,55 +793,116 @@ export const UpdateImages = async (req: Request, res: Response) => {
 
 // _____________________________________________________________________________
 
+
+interface Coordinates {
+  ne: [string, string];
+  sw: [string, string];
+}
+
+interface QueryParams {
+  speciality?: string;
+  name?: string;
+  days?: string;
+}
+
+const parseDaysFilter = (days: string | undefined): number[] | null => {
+  if (!days) return null;
+  try {
+    return JSON.parse(days).map(Number);
+  } catch (error) {
+    console.error("Failed to parse days filter:", error);
+    return null;
+  }
+};
+
+const buildBaseFilters = (params: QueryParams) => {
+  const filters: any = {};
+
+  if (params.speciality && params.speciality !== "null") {
+    filters.specialityId = Number(params.speciality);
+  }
+
+  if (params.name && params.name !== "null") {
+    filters.title = {
+      contains: params.name,
+      mode: "insensitive",
+    };
+  }
+
+  return filters;
+};
+
+const filterByDaysOff = (cabinets: any[], daysFilter: number[] | null) => {
+  if (!daysFilter || daysFilter.length === 0) return cabinets;
+
+  return cabinets.filter(
+    (cabinet) =>
+      !cabinet.daysOff?.some((day: number) => daysFilter.includes(day))
+  );
+};
+
 export const getMapCabinets = async (req: Request, res: Response) => {
-   const { ne, sw } = req.body as {
-     ne: [string, string];
-     sw: [string, string];
-   };
-    
-try {
+  const coordinates = req.body as Coordinates;
+  const queryParams = req.query as QueryParams;
+
+  if (!coordinates.ne || !coordinates.sw) {
+    return res
+      .status(400)
+      .json({ message: "Veuillez fournir les coordonnées" });
+  }
+
+  try {
+    // Parse and validate inputs
+    const daysFilter = parseDaysFilter(queryParams.days);
+    const baseFilters = buildBaseFilters(queryParams);
+
+    // Fetch cabinets from database
     const cabinets = await prisma.cabinet.findMany({
       where: {
+        ...baseFilters,
         AND: [
           {
             latitude: {
-              gte: sw[0],
-              lte: ne[0],
+              gte: coordinates.sw[0],
+              lte: coordinates.ne[0],
             },
           },
           {
             longitude: {
-              gte: sw[1],
-              lte: ne[1],
+              gte: coordinates.sw[1],
+              lte: coordinates.ne[1],
             },
           },
         ],
       },
-      include: {
-        images: {
-          orderBy: {
-            order: "asc", 
-          },
-          take: 1, 
-        },
+      select: {
+        title: true,
+        latitude: true,
+        longitude: true,
+        specialityId: true,
+        daysOff: true,
+        openTime: true,
+        closeTime: true,
+        address: true,
+        phone: true,
+        year: true,
         speciality: true,
-      },
+        images: {
+          orderBy: { order: "asc" },
+          take: 1,
+        },
+      }
     });
-  
-  const count = cabinets.length;
-  const totalcabinets = await prisma.cabinet.count();
-  
-  res.json({
-    count,
-    totalcabinets,
-    data: cabinets
-  });
+
+    const filteredCabinets = filterByDaysOff(cabinets, daysFilter);
+
+    return res.json(filteredCabinets);
   } catch (error: any) {
-    res.status(500).json({
+    console.error("Error fetching cabinets:", error);
+    return res.status(500).json({
       error: "Erreur lors de la récupération des cabinets",
       message: error.message,
     });
   }
-}
-
+};
  
