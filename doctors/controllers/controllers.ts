@@ -2,7 +2,7 @@ import { prisma } from "../db/index";
 import { Request, Response } from "express";
 // import {validateBody} from "../helper/validateBody";
 import fs from "fs";
-import path from "path";
+import path, { parse } from "path";
 import axios from "axios";
 import { Multer } from "multer";
 import { formatISO, parseISO } from "date-fns";
@@ -32,8 +32,8 @@ export const addService = async (req: Request, res: Response) => {
     res.json({ data: newService });
   } catch (error: any) {
     res.status(500).json({
-      error: "Erreur l'or de la creastion d'un service",
-      message: error.message,
+      message: "Erreur l'or de la creastion d'un service",
+      error: error.message,
     });
   }
 };
@@ -46,8 +46,8 @@ export const getServices = async (req: Request, res: Response) => {
     res.json(services);
   } catch (error: any) {
     res.status(500).json({
-      error: "Erreur lors de la récupération des services",
-      message: error.message,
+      message: "Erreur lors de la récupération des services",
+      error: error.message,
     });
   }
 };
@@ -59,7 +59,7 @@ export const addSpeciality = async (req: Request, res: Response) => {
   const file = req.file as Express.Multer.File;
 
   if (!file) {
-    res.status(400).json({ message: "Image de la spécialité est requise" });
+    res.status(400).json({ error: "Image de la spécialité est requise" });
     return;
   }
 
@@ -73,8 +73,8 @@ export const addSpeciality = async (req: Request, res: Response) => {
     res.json({ data: newSpeciality });
   } catch (error: any) {
     res.status(500).json({
-      error: "Erreur lors de la création d'une spécialité",
-      message: error.message,
+      message: "Erreur lors de la création d'une spécialité",
+      error: error.message,
     });
   }
 };
@@ -87,8 +87,8 @@ export const getSpecialities = async (req: Request, res: Response) => {
     res.json(specialities);
   } catch (error: any) {
     res.status(500).json({
-      error: "Erreur lors de la récupération des spécialités",
-      message: error.message,
+      message: "Erreur lors de la récupération des spécialités",
+      error: error.message,
     });
   }
 };
@@ -117,7 +117,7 @@ export const addCabinet = async (req: Request, res: Response) => {
   
   const images = Array.isArray(req.files) ? req.files : [];
  if (images.length < 5) {
-   res.status(400).json({ error: "Veuillez ajouter au moins 5 images" });
+   res.status(400).json({ message: "Veuillez ajouter au moins 5 images" });
    return;
   }
   
@@ -126,8 +126,8 @@ export const addCabinet = async (req: Request, res: Response) => {
       await axios.put(usersUrl + "/set-demande-working/" + demandeId + "/" + userId);
     } catch (error: any) {
       res.status(500).json({
-        error: "Erreur lors de la création d'un cabinet from user service",
-        message: error.message,
+        message: "Erreur lors de la création d'un cabinet from user service",
+        error: error.message,
       });
       return;
     }
@@ -232,13 +232,13 @@ export const addCabinet = async (req: Request, res: Response) => {
     } catch (error: any) {
       if (axios.isAxiosError(error)) {
         res.status(500).json({
-          error: "Erreur lors de la création d'un cabinet from user service",
-          message: error.response?.data.message || error.message,
+          message: "Erreur lors de la création d'un cabinet from user service",
+          error: error.response?.data.message || error.message,
         });
       } else {
         res.status(500).json({
-          error: "Erreur lors de la création d'un cabinet from user service",
-          message: error.message,
+          message: "Erreur lors de la création d'un cabinet from user service",
+          error: error.message,
         });
       }
       return;
@@ -247,8 +247,8 @@ export const addCabinet = async (req: Request, res: Response) => {
     res.json(newCabinet);
   } catch (error: any) {
     res.status(500).json({
-      error: "Erreur lors de la création d'un cabinet",
-      message: error.message,
+      message: "Erreur lors de la création d'un cabinet",
+      error: error.message,
     });
   }
 };
@@ -293,8 +293,8 @@ export const getCabinets = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     res.status(500).json({
-      error: "Erreur lors de la récupération des cabinets",
-      message: error.message,
+      message: "Erreur lors de la récupération des cabinets",
+      error: error.message,
     });
   }
 };
@@ -318,7 +318,7 @@ export const getCabinetById = async (req: Request, res: Response) => {
       },
     });
     if (!cabinet) {
-      res.status(404).json({ message: "Cabinet non trouvé" });
+      res.status(404).json({ error: "Cabinet non trouvé" });
       return;
     }
 
@@ -359,8 +359,8 @@ export const getCabinetById = async (req: Request, res: Response) => {
     res.json(cabinetWithOwner);
   } catch (error: any) {
     res.status(500).json({
-      error: "Erreur lors de la récupération du cabinet",
-      message: error.message,
+      message: "Erreur lors de la récupération du cabinet",
+      error: error.message,
     });
   }
 };
@@ -379,13 +379,13 @@ export const deleteCabinet = async (req: Request, res: Response) => {
 
     const cabinet = await prisma.cabinet.findUnique({ where: { id } });
     if (!cabinet) {
-      res.status(404).json({ error: "Cabinet non trouvé" });
+      res.status(404).json({ message: "Cabinet non trouvé" });
       return;
     }
     if (cabinet.ownerId !== userId && user.role !== "admin") {
       res
         .status(403)
-        .json({ message: "Vous n'êtes pas autorisé à supprimer ce cabinet" });
+        .json({ error: "Vous n'êtes pas autorisé à supprimer ce cabinet" });
       return;
     }
 
@@ -405,11 +405,11 @@ export const deleteCabinet = async (req: Request, res: Response) => {
         fs.unlinkSync(imagePath);
       }
     });
-    res.json({ message: "Suppression effectuée" });
+    res.json({ error: "Suppression effectuée" });
   } catch (error: any) {
     res.status(500).json({
-      error: "Erreur lors de la suppression du cabinet",
-      message: error.message,
+      message: "Erreur lors de la suppression du cabinet",
+      error: error.message,
     });
   }
 };
@@ -440,8 +440,8 @@ export const getLandingDoctors = async (req: Request, res: Response) => {
     res.json(doctorsWithSortedImages);
   } catch (error: any) {
     res.status(500).json({
-      error: "Erreur lors de la récupération des médecins",
-      message: error.message,
+      message: "Erreur lors de la récupération des médecins",
+      error: error.message,
     });
   }
 };
@@ -453,15 +453,15 @@ export const deleteService = async (req: Request, res: Response) => {
   try {
     const service = await prisma.services.findUnique({ where: { id } });
     if (!service) {
-      res.status(404).json({ error: "Service non trouvé" });
+      res.status(404).json({ message: "Service non trouvé" });
       return;
     }
     await prisma.services.delete({ where: { id } });
-    res.json({ message: "Service supprimé" });
+    res.json({ error: "Service supprimé" });
   } catch (error: any) {
     res.status(500).json({
-      error: "Erreur lors de la suppression du service",
-      message: error.message,
+      message: "Erreur lors de la suppression du service",
+      error: error.message,
     });
   }
 };
@@ -481,8 +481,8 @@ export const updateService = async (req: Request, res: Response) => {
     res.json({ data: updatedService });
   } catch (error: any) {
     res.status(500).json({
-      error: "Erreur lors de la mise à jour du service",
-      message: error.message,
+      message: "Erreur lors de la mise à jour du service",
+      error: error.message,
     });
   }
 };
@@ -494,7 +494,7 @@ export const deleteSpeciality = async (req: Request, res: Response) => {
   try {
     const speciality = await prisma.specialities.findUnique({ where: { id } });
     if (!speciality) {
-      res.status(404).json({ error: "Speciality not found" });
+      res.status(404).json({ message: "Speciality not found" });
       return;
     }
     const cabinets = await prisma.cabinet.findMany({
@@ -520,11 +520,11 @@ export const deleteSpeciality = async (req: Request, res: Response) => {
       );
     }
     await prisma.specialities.delete({ where: { id } });
-    res.json({ message: "Speciality and related cabinets deleted" });
+    res.json({ error: "Speciality and related cabinets deleted" });
   } catch (error: any) {
     res.status(500).json({
-      error: "Error while deleting speciality and related cabinets",
-      message: error.message,
+      message: "Error while deleting speciality and related cabinets",
+      error: error.message,
     });
   }
 }
@@ -551,8 +551,8 @@ export const getMyCabinets = async (req: Request, res: Response) => {
     res.json(cabinetsWithSortedImages);
   } catch (error: any) {
     res.status(500).json({
-      error: "Error while getting my cabinets",
-      message: error.message,
+      message: "Error while getting my cabinets",
+      error: error.message,
     });
   }
 }
@@ -582,13 +582,13 @@ export const updateCabinet = async (req: Request, res: Response) => {
     where: { id: cabinetId },
   });
   if (!cabinet) {
-    res.status(404).json({ message: "Cabinét non trouvé" });
+    res.status(404).json({ error: "Cabinét non trouvé" });
     return;
   }
   if (cabinet.ownerId !== userId) {
     res
       .status(403)
-      .json({ message: "Vous n'êtes pas autorisé à mettre à jour ce cabinet" });
+      .json({ error: "Vous n'êtes pas autorisé à mettre à jour ce cabinet" });
     return;
   }
   const updateData: Record<string, any> = {
@@ -667,8 +667,8 @@ export const updateCabinet = async (req: Request, res: Response) => {
     res
       .status(500)
       .json({
-        error: "Erreur lors de la mise à jour du cabinet",
-        message: error.message,
+        message: "Erreur lors de la mise à jour du cabinet",
+        error: error.message,
       });
   }
 };
@@ -707,13 +707,13 @@ export const UpdateImages = async (req: Request, res: Response) => {
   });
 
   if (!cabinet) {
-    res.status(404).json({ message: "Cabinet non trouvé" });
+    res.status(404).json({ error: "Cabinet non trouvé" });
     return;
   }
   if (cabinet.ownerId !== userId) {
     res
       .status(403)
-      .json({ message: "Vous n'êtes pas autorisé à modifier ce cabinet" });
+      .json({ error: "Vous n'êtes pas autorisé à modifier ce cabinet" });
     return;
   }
 
@@ -784,8 +784,8 @@ export const UpdateImages = async (req: Request, res: Response) => {
     res.json({ message: "Images mises à jour avec succès" });
   } catch (error: any) {
     res.status(500).json({
-      error: "Erreur lors de la mise à jour des images",
-      message: error.message,
+      message: "Erreur lors de la mise à jour des images",
+      error: error.message,
     });
   }
 };
@@ -803,6 +803,7 @@ interface QueryParams {
   speciality?: string;
   name?: string;
   days?: string;
+  jour_specifier?: string[];
 }
 
 const parseDaysFilter = (days: string | undefined): number[] | null => {
@@ -813,6 +814,11 @@ const parseDaysFilter = (days: string | undefined): number[] | null => {
     console.error("Failed to parse days filter:", error);
     return null;
   }
+};
+
+const parseSpeceficDaysFilter = (jour_specifier: string | string[] | undefined): string[] | null => {
+  if (!jour_specifier || jour_specifier.length === 0) return null;
+  return Array.isArray(jour_specifier) ? jour_specifier : [jour_specifier];
 };
 
 const buildBaseFilters = (params: QueryParams) => {
@@ -841,6 +847,28 @@ const filterByDaysOff = (cabinets: any[], daysFilter: number[] | null) => {
   );
 };
 
+const filteredAvailabilities = (
+  cabinets: any[],
+  jour_specifier: string[] | null
+) => {
+  if (!jour_specifier || jour_specifier.length === 0) return cabinets;
+
+  return cabinets.filter((cabinet) => {
+    if (!cabinet.availabilities || cabinet.availabilities.length === 0) {
+      return true;
+    }
+
+    return jour_specifier.every((jour) => {
+      const jourDate = parseISO(jour);
+      return !cabinet.availabilities.some((availability: any) => {
+        const startDate = parseISO(availability.start_date);
+        const endDate = parseISO(availability.end_date);
+        return jourDate >= startDate && jourDate <= endDate;
+      });
+    });
+  });
+};
+
 export const getMapCabinets = async (req: Request, res: Response) => {
   const coordinates = req.body as Coordinates;
   const queryParams = req.query as QueryParams;
@@ -848,12 +876,13 @@ export const getMapCabinets = async (req: Request, res: Response) => {
   if (!coordinates.ne || !coordinates.sw) {
     return res
       .status(400)
-      .json({ message: "Veuillez fournir les coordonnées" });
+      .json({ error: "Veuillez fournir les coordonnées" });
   }
 
   try {
     // Parse and validate inputs
     const daysFilter = parseDaysFilter(queryParams.days);
+    const speceficDaysFilter = parseSpeceficDaysFilter(queryParams.jour_specifier);
     const baseFilters = buildBaseFilters(queryParams);
 
     // Fetch cabinets from database
@@ -876,6 +905,7 @@ export const getMapCabinets = async (req: Request, res: Response) => {
         ],
       },
       select: {
+        id: true,
         title: true,
         latitude: true,
         longitude: true,
@@ -887,6 +917,12 @@ export const getMapCabinets = async (req: Request, res: Response) => {
         phone: true,
         year: true,
         speciality: true,
+        availabilities: {
+          select: {
+            start_date: true,
+            end_date: true,
+          },
+        },
         images: {
           orderBy: { order: "asc" },
           take: 1,
@@ -894,14 +930,16 @@ export const getMapCabinets = async (req: Request, res: Response) => {
       }
     });
 
-    const filteredCabinets = filterByDaysOff(cabinets, daysFilter);
+    const filteredDaysOff = filterByDaysOff(cabinets, daysFilter);
+    const filteredSpeceficDates = filteredAvailabilities(filteredDaysOff, speceficDaysFilter);
+    
 
-    return res.json(filteredCabinets);
+    return res.json(filteredSpeceficDates);
   } catch (error: any) {
     console.error("Error fetching cabinets:", error);
     return res.status(500).json({
-      error: "Erreur lors de la récupération des cabinets",
-      message: error.message,
+      message: "Erreur lors de la récupération des cabinets",
+      error: error.message,
     });
   }
 };
