@@ -803,32 +803,29 @@ interface QueryParams {
   speciality?: string;
   name?: string;
   days?: string;
-  jour_specifier?: string[];
+  specefic_date?: string;
 }
 
-const parseDaysFilter = (days: string | undefined): number[] | null => {
+const parseDaysFilter = (
+  days: string | string[] | undefined
+): number[] | null => {
   if (!days) return null;
-  try {
-    return JSON.parse(days).map(Number);
-  } catch (error) {
-    console.error("Failed to parse days filter:", error);
-    return null;
-  }
+  const daysArray = typeof days === "string" ? [days] : days;
+
+  return daysArray
+    .map((day) => parseInt(day, 10))
+    .filter((day) => !isNaN(day) && day >= 0 && day <= 6); 
 };
 
-const parseSpeceficDaysFilter = (jour_specifier: string | string[] | undefined): string[] | null => {
-  if (!jour_specifier || jour_specifier.length === 0) return null;
-  return Array.isArray(jour_specifier) ? jour_specifier : [jour_specifier];
-};
 
 const buildBaseFilters = (params: QueryParams) => {
   const filters: any = {};
 
-  if (params.speciality && params.speciality !== "null") {
+  if (params.speciality) {
     filters.specialityId = Number(params.speciality);
   }
 
-  if (params.name && params.name !== "null") {
+  if (params.name) {
     filters.title = {
       contains: params.name,
       mode: "insensitive",
@@ -838,36 +835,55 @@ const buildBaseFilters = (params: QueryParams) => {
   return filters;
 };
 
-const filterByDaysOff = (cabinets: any[], daysFilter: number[] | null) => {
-  if (!daysFilter || daysFilter.length === 0) return cabinets;
+// const filterByDaysOff = (cabinets: any[], daysFilter: number[] | null) => {
+//   if (!daysFilter || daysFilter.length === 0) return cabinets;
 
-  return cabinets.filter(
-    (cabinet) =>
-      !cabinet.daysOff?.some((day: number) => daysFilter.includes(day))
-  );
-};
+//   return cabinets.filter(
+//     (cabinet) =>
+//       !cabinet.daysOff?.some((day: number) => daysFilter.includes(day))
+//   );
+// };
 
 const filteredAvailabilities = (
   cabinets: any[],
-  jour_specifier: string[] | null
+  jours_speifier: string | undefined,
+  daysFilter: number[] | null
 ) => {
-  if (!jour_specifier || jour_specifier.length === 0) return cabinets;
 
-  return cabinets.filter((cabinet) => {
+  let newCabinets = cabinets;
+  
+  if (daysFilter) {
+    newCabinets = cabinets.filter(
+      (cabinet) =>
+        !cabinet.daysOff?.some((day: number) => daysFilter.includes(day))
+    );
+  }
+
+  // console.log(newCabinets[0]?.title);
+  if (!jours_speifier) return newCabinets;
+
+  const jourDate = parseISO(jours_speifier);
+  const weekDay = jourDate.getDay();
+  const days_of_week_start_sunday = [0, 1, 2, 3, 4, 5, 6];
+  const weekDayIndex = days_of_week_start_sunday.indexOf(weekDay);
+
+  return newCabinets.filter((cabinet) => {
     if (!cabinet.availabilities || cabinet.availabilities.length === 0) {
       return true;
     }
 
-    return jour_specifier.every((jour) => {
-      const jourDate = parseISO(jour);
-      return !cabinet.availabilities.some((availability: any) => {
-        const startDate = parseISO(availability.start_date);
-        const endDate = parseISO(availability.end_date);
-        return jourDate >= startDate && jourDate <= endDate;
-      });
+    const isAvailable = !cabinet.availabilities.some((availability: any) => {
+      const startDate = parseISO(availability.start_date);
+      const endDate = parseISO(availability.end_date);
+      return jourDate >= startDate && jourDate <= endDate;
     });
+
+    const isNotDayOff = !cabinet.daysOff.includes(weekDayIndex);
+
+    return isAvailable && isNotDayOff;
   });
 };
+
 
 export const getMapCabinets = async (req: Request, res: Response) => {
   const coordinates = req.body as Coordinates;
@@ -882,8 +898,8 @@ export const getMapCabinets = async (req: Request, res: Response) => {
   try {
     // Parse and validate inputs
     const daysFilter = parseDaysFilter(queryParams.days);
-    const speceficDaysFilter = parseSpeceficDaysFilter(queryParams.jour_specifier);
     const baseFilters = buildBaseFilters(queryParams);
+
 
     // Fetch cabinets from database
     const cabinets = await prisma.cabinet.findMany({
@@ -930,8 +946,11 @@ export const getMapCabinets = async (req: Request, res: Response) => {
       }
     });
 
-    const filteredDaysOff = filterByDaysOff(cabinets, daysFilter);
-    const filteredSpeceficDates = filteredAvailabilities(filteredDaysOff, speceficDaysFilter);
+    const filteredSpeceficDates = filteredAvailabilities(
+      cabinets,
+      queryParams.specefic_date,
+      daysFilter
+    );
     
 
     return res.json(filteredSpeceficDates);
