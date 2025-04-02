@@ -802,120 +802,77 @@ interface Coordinates {
 interface QueryParams {
   speciality?: string;
   name?: string;
-  days?: string;
+  days?: string | string[];
   specefic_date?: string;
 }
 
-const parseDaysFilter = (
-  days: string | string[] | undefined
-): number[] | null => {
+// Simplified day parsing
+const parseDaysFilter = (days?: string | string[]): number[] | null => {
   if (!days) return null;
-  const daysArray = typeof days === "string" ? [days] : days;
-
-  return daysArray
-    .map((day) => parseInt(day, 10))
-    .filter((day) => !isNaN(day) && day >= 0 && day <= 6); 
+  return (Array.isArray(days) ? days : [days])
+    .map(Number)
+    .filter(day => !isNaN(day) && day >= 0 && day <= 6);
 };
 
+// More focused base filters builder
+const buildBaseFilters = ({ speciality, name }: QueryParams) => ({
+  ...(speciality && { specialityId: Number(speciality) }),
+  ...(name && { 
+    title: { 
+      contains: name, 
+      mode: "insensitive" as const 
+    } 
+  })
+});
 
-const buildBaseFilters = (params: QueryParams) => {
-  const filters: any = {};
-
-  if (params.speciality) {
-    filters.specialityId = Number(params.speciality);
-  }
-
-  if (params.name) {
-    filters.title = {
-      contains: params.name,
-      mode: "insensitive",
-    };
-  }
-
-  return filters;
-};
-
-// const filterByDaysOff = (cabinets: any[], daysFilter: number[] | null) => {
-//   if (!daysFilter || daysFilter.length === 0) return cabinets;
-
-//   return cabinets.filter(
-//     (cabinet) =>
-//       !cabinet.daysOff?.some((day: number) => daysFilter.includes(day))
-//   );
-// };
-
-const filteredAvailabilities = (
-  cabinets: any[],
-  jours_speifier: string | undefined,
-  daysFilter: number[] | null
-) => {
-
-  let newCabinets = cabinets;
-  
+// Simplified availability filtering
+const filterByAvailability = (cabinets: any[], specificDate?: string, daysFilter?: number[] | null) => {
   if (daysFilter) {
-    newCabinets = cabinets.filter(
-      (cabinet) =>
-        !cabinet.daysOff?.some((day: number) => daysFilter.includes(day))
-    );
+    cabinets = cabinets.filter(cabinet =>
+      !cabinet.daysOff?.some((day: number) => daysFilter.includes(day))
+    )
   }
 
-  // console.log(newCabinets[0]?.title);
-  if (!jours_speifier) return newCabinets;
+  if (!specificDate) return cabinets;
 
-  const jourDate = parseISO(jours_speifier);
-  const weekDay = jourDate.getDay();
-  const days_of_week_start_sunday = [0, 1, 2, 3, 4, 5, 6];
-  const weekDayIndex = days_of_week_start_sunday.indexOf(weekDay);
+  const date = parseISO(specificDate);
+  const weekDay = date.getDay();
 
-  return newCabinets.filter((cabinet) => {
-    if (!cabinet.availabilities || cabinet.availabilities.length === 0) {
-      return true;
-    }
-
-    const isAvailable = !cabinet.availabilities.some((availability: any) => {
-      const startDate = parseISO(availability.start_date);
-      const endDate = parseISO(availability.end_date);
-      return jourDate >= startDate && jourDate <= endDate;
+  return cabinets.filter(cabinet => {
+    const hasNoConflictingAvailability = !cabinet.availabilities?.some((avail: any) => {
+      const start = parseISO(avail.start_date);
+      const end = parseISO(avail.end_date);
+      return date >= start && date <= end;
     });
 
-    const isNotDayOff = !cabinet.daysOff.includes(weekDayIndex);
-
-    return isAvailable && isNotDayOff;
+    const isNotDayOff = !cabinet.daysOff?.includes(weekDay);
+    return hasNoConflictingAvailability && isNotDayOff;
   });
 };
 
-
 export const getMapCabinets = async (req: Request, res: Response) => {
-  const coordinates = req.body as Coordinates;
-  const queryParams = req.query as QueryParams;
-
-  if (!coordinates.ne || !coordinates.sw) {
-    return res
-      .status(400)
-      .json({ error: "Veuillez fournir les coordonnées" });
-  }
+  const { ne, sw } = req.body as Coordinates;
+  if (!ne || !sw) return res.status(400).json({ error: "Missing coordinates" });
 
   try {
-    // Parse and validate inputs
-    const daysFilter = parseDaysFilter(queryParams.days);
-    const baseFilters = buildBaseFilters(queryParams);
+    const query = req.query as QueryParams;
+    const filters = buildBaseFilters(query);
+    const daysFilter = parseDaysFilter(query.days);
 
-
-    // Fetch cabinets from database
-    const cabinets = await prisma.cabinet.findMany({
+        const cabinets = await prisma.cabinet.findMany({
       where: {
-        ...baseFilters,
+        ...filters,
         AND: [
           {
             latitude: {
-              gte: coordinates.sw[0],
-              lte: coordinates.ne[0],
+              gte: sw[0],
+              lte: ne[0],
             },
           },
           {
             longitude: {
-              gte: coordinates.sw[1],
-              lte: coordinates.ne[1],
+              gte: sw[1],
+              lte: ne[1],
             },
           },
         ],
@@ -946,20 +903,11 @@ export const getMapCabinets = async (req: Request, res: Response) => {
       }
     });
 
-    const filteredSpeceficDates = filteredAvailabilities(
-      cabinets,
-      queryParams.specefic_date,
-      daysFilter
-    );
-    
-
-    return res.json(filteredSpeceficDates);
+    return res.json(filterByAvailability(cabinets, query.specefic_date, daysFilter));
   } catch (error: any) {
-    console.error("Error fetching cabinets:", error);
-    return res.status(500).json({
-      message: "Erreur lors de la récupération des cabinets",
-      error: error.message,
+    return res.status(500).json({ 
+      message: "Failed to fetch cabinets",
+      error: error.message
     });
   }
 };
- 
