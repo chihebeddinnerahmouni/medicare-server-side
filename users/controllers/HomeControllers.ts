@@ -1,4 +1,4 @@
-import { prisma } from "../db/index";
+import { prisma } from "../db/prisma/prismaConfig";
 import { Request, Response } from "express";
 import { validateBody } from "../helper/validateBody";
 import { Status } from "@prisma/client";

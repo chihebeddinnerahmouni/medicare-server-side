@@ -1,4 +1,4 @@
-import { prisma } from "../db/index";
+import { prisma } from "../db/prisma/prismaConfig";
 import { Request, Response } from "express";
 import { validateBody } from "../helper/validateBody";
 import bcrypt from "bcrypt";
@@ -8,7 +8,7 @@ import jwt from "jsonwebtoken";
 import { Multer } from "multer";
 import fs from "fs";
 import path from "path";
-import { Status, demandeType } from "@prisma/client";
+import { demandeType } from "@prisma/client";
 
 declare global {
   namespace Express {
