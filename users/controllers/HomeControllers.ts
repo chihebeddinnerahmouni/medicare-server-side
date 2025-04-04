@@ -32,6 +32,10 @@ const toInclude = {
   providerExperiences: true,
   providerAwards: true,
   visiteRequestCount: true,
+  providerServices: true,
+  providerWorking: true,
+  createdAt: true,
+  updatedAt: true,
 };
 
 // _____________________________________________________________________________
@@ -257,7 +261,7 @@ export const finishVisite = async (req: Request, res: Response) => {
           select: toInclude,
         },
       },
-      });
+    });
 
     if (!visite) return res.status(404).json({ error: "Visite n'existe pas" });
     if (visite.status !== "inProgress")
@@ -277,7 +281,6 @@ export const finishVisite = async (req: Request, res: Response) => {
     const check_2 = visite.doneByUser || visite.doneByProvider;
     if (check_1 || check_2) {
       updateData.status = "completed";
-
     }
     const updatedVisite = await prisma.visites.update({
       where: { id: visiteId },
@@ -304,7 +307,6 @@ export const finishVisite = async (req: Request, res: Response) => {
         });
       }
     }
-    
 
     const messageToSend =
       updatedVisite.status === "completed"
@@ -358,10 +360,10 @@ export const cancelVisite = async (req: Request, res: Response) => {
 
 export const updateProvider = async (req: Request, res: Response) => {
   const userId = req.user.userId;
-  const { degrees, experiences, awards } = req.body;
+  const { degrees, experiences, awards, services } = req.body;
 
   try {
-    const transactions: any = []
+    const transactions: any = [];
     if (degrees) {
       transactions.push(
         prisma.degrees.deleteMany({ where: { userId } }),
@@ -382,7 +384,7 @@ export const updateProvider = async (req: Request, res: Response) => {
         prisma.experiences.createMany({
           data: experiences.map((e: any) => ({
             description: e.description,
-            userId
+            userId,
           })),
         })
       );
@@ -401,14 +403,67 @@ export const updateProvider = async (req: Request, res: Response) => {
       );
     }
 
+    if (services) {
+       const user = await prisma.users.update({
+         where: { id: userId },
+         data: {
+           providerServices: {
+             connect: services.map((id: number) => ({ id })),
+           },
+         },
+       });
+
+    }
+
     await prisma.$transaction(transactions);
     res.json({ message: "Mise à jour effectuée avec succès" });
   } catch (error: any) {
-    res
-      .status(500)
-      .json({
-        message: "Erreur lors de la mise à jour"
-        , error: error.message
-      });
+    res.status(500).json({
+      message: "Erreur lors de la mise à jour",
+      error: error.message,
+    });
   }
 };
+
+// _____________________________________________________________________________
+
+export const toggleWorkingStatus = async (req: Request, res: Response) => {
+  const userId = req.user.userId;
+  const { isWorking } = req.body;
+
+  try {
+    const user = await prisma.users.findUnique({
+      where: { id: userId },
+    });
+    if (!user) {
+      res.status(404).json({ error: "Utilisateur non trouvé" });
+      return;
+    }
+
+    if (!user.isProvider) {
+      res.status(403).json({
+        error: "Vous n'êtes pas un prestataire de service",
+      });
+      return;
+    }
+
+    const updatedUser = await prisma.users.update({
+      where: { id: userId },
+      data: { providerWorking: isWorking },
+    });
+
+    res.json({
+      message: `Statut de travail ${isWorking ? "activé" : "désactivé"}`,
+      data: updatedUser,
+      newStatus: isWorking,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      message: "Erreur lors de la mise à jour du statut de travail",
+      error: error.message,
+    });
+  }
+};
+
+// _____________________________________________________________________________
+

@@ -42,6 +42,8 @@ const toInclude = {
   providerAwards: true,
   providerServiceCount: true,
   visiteRequestCount: true,
+  providerServices: true,
+  providerWorking: true,
   createdAt: true,
   updatedAt: true,
 };

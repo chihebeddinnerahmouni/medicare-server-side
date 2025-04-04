@@ -74,6 +74,8 @@ model Users {
   providerDegrees      Degrees[]
   providerExperiences  Experiences[]
   providerAwards       Awards[]
+  providerWorking      Boolean      @default(false)
+  providerServices     HomeServices[]   @relation("HomeServiceProviders")
 }
 
 // home services _______________________________________________________________________________________________
@@ -95,6 +97,7 @@ model HomeServices {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   visites     Visites[]
+  providers   Users[]   @relation("HomeServiceProviders")
 }
 
 model Visites {

@@ -12,6 +12,7 @@ import {
   cancelVisite,
   getVisiteById,
   updateProvider,
+  toggleWorkingStatus,
 } from "../controllers/HomeControllers";
 
 const router = Router();
@@ -29,6 +30,7 @@ router.put("/cancel-visite/:visiteId", authGuard, (req, res) => {
   cancelVisite(req, res);
 });
 router.post("/update-provider", authGuard, updateProvider);
+router.put("/toggle-working-status", authGuard, toggleWorkingStatus);
 
 // admin
 router.post("/home-services", adminGuard, createService);
