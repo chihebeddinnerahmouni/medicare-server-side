@@ -44,6 +44,11 @@ const toInclude = {
   visiteRequestCount: true,
   providerServices: true,
   providerWorking: true,
+  providerServicesDemandes: {
+    include: {
+      services: true,
+    },
+  },
   createdAt: true,
   updatedAt: true,
 };

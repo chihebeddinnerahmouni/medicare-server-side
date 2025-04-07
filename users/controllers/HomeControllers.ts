@@ -1,7 +1,7 @@
 import { prisma } from "../db/prisma/prismaConfig";
 import { Request, Response } from "express";
 import { validateBody } from "../helper/validateBody";
-import { Status } from "@prisma/client";
+import { Status, serviceDemandeStatus } from "@prisma/client";
 import { Multer } from "multer";
 
 declare global {
@@ -34,6 +34,11 @@ const toInclude = {
   visiteRequestCount: true,
   providerServices: true,
   providerWorking: true,
+  providerServicesDemandes: {
+    include: {
+      services: true,
+    },
+  },
   createdAt: true,
   updatedAt: true,
 };
@@ -360,9 +365,21 @@ export const cancelVisite = async (req: Request, res: Response) => {
 
 export const updateProvider = async (req: Request, res: Response) => {
   const userId = req.user.userId;
-  const { degrees, experiences, awards, services } = req.body;
+  const { degrees, experiences, awards } = req.body;
 
   try {
+    const user = await prisma.users.findUnique({
+      where: { id: userId },
+      select: { isProvider: true },
+    });
+
+    if (!user?.isProvider) {
+      res.status(403).json({
+        error: "Vous n'êtes pas un prestataire de service",
+      });
+      return;
+    }
+
     const transactions: any = [];
     if (degrees) {
       transactions.push(
@@ -401,18 +418,6 @@ export const updateProvider = async (req: Request, res: Response) => {
           })),
         })
       );
-    }
-
-    if (services) {
-       const user = await prisma.users.update({
-         where: { id: userId },
-         data: {
-           providerServices: {
-             connect: services.map((id: number) => ({ id })),
-           },
-         },
-       });
-
     }
 
     await prisma.$transaction(transactions);
@@ -467,3 +472,135 @@ export const toggleWorkingStatus = async (req: Request, res: Response) => {
 
 // _____________________________________________________________________________
 
+export const updateServices = async (req: Request, res: Response) => {
+  const userId = req.user.userId;
+  const { services }: { services: number[] } = req.body;
+  const serviceConnections = services.map((id) => ({ id }));
+
+  try {
+    const user = await prisma.users.findUnique({
+      where: { id: userId },
+      select: { isProvider: true },
+    });
+
+    if (!user?.isProvider) {
+      res.status(403).json({
+        error: "Vous n'êtes pas un prestataire de service",
+      });
+      return;
+    }
+
+    const operation = await prisma.servicesDemandes.upsert({
+      where: { userId },
+      create: {
+        userId,
+        services: { connect: serviceConnections },
+      },
+      update: {
+        status: "pending" as serviceDemandeStatus,
+        services: {
+          set: [],
+          connect: serviceConnections,
+        },
+      },
+      include: { services: true },
+    });
+
+    res.json({
+      message: "Demande de services envoyée avec succès",
+      data: operation,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      message: "Erreur lors de la mise à jour des services",
+      error: error.message,
+    });
+  }
+};
+
+// _____________________________________________________________________________
+
+export const getServicesDemandes = async (req: Request, res: Response) => {
+  const status = req.query.status
+    ? (req.query.status as serviceDemandeStatus)
+    : "";
+  try {
+    const demandes = await prisma.servicesDemandes.findMany({
+      where: {
+        ...(status && { status }),
+      },
+      include: {
+        services: true,
+      },
+    });
+    res.json(demandes);
+  } catch (error: any) {
+    res.status(500).json({
+      message: "Erreur lors de la récupération des demandes de services",
+      error: error.message,
+    });
+  }
+};
+
+// _____________________________________________________________________________
+
+export const toggleServiceDemandes = async (req: Request, res: Response) => {
+  const serviceDemandeId = Number(req.params.serviceDemandeId);
+  const { status } = req.body as { status: "accepted" | "refused" };
+
+  try {
+    const serviceDemande = await prisma.servicesDemandes.findUnique({
+      where: {
+        id: serviceDemandeId,
+      },
+      include: { services: true },
+    });
+    if (!serviceDemande) {
+      res.status(404).json({ error: "Demande de service non trouvée" });
+      return;
+    }
+    if (serviceDemande.status !== "pending") {
+      res.status(400).json({ error: "Demande de service déjà traitée" });
+      return;
+    }
+    if (status === "accepted") {
+      const newUser = await prisma.users.update({
+        where: { id: serviceDemande.userId },
+        data: {
+          providerServices: {
+            set: [],
+            connect: serviceDemande.services.map((s: any) => ({ id: s.id })),
+          },
+        },
+        include: {
+          providerServices: true,
+        },
+      });
+      await prisma.servicesDemandes.update({
+        where: { id: serviceDemandeId },
+        data: {
+          status: "accepted" as serviceDemandeStatus,
+        },
+      });
+      res.json({
+        message: "Demande de service acceptée avec succès",
+        data: newUser,
+      });
+    } else {
+      await prisma.servicesDemandes.update({
+        where: { id: serviceDemandeId },
+        data: {
+          status: "refused" as serviceDemandeStatus,
+        },
+      });
+      res.json({
+        message: "Demande de service refusée avec succès",
+      });
+    }
+  } catch (error: any) {
+    res.status(500).json({
+      message: "Erreur lors de la mise à jour des demandes de services",
+      error: error.message,
+    });
+  }
+};

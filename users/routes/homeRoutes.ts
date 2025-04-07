@@ -13,6 +13,9 @@ import {
   getVisiteById,
   updateProvider,
   toggleWorkingStatus,
+  updateServices,
+  toggleServiceDemandes,
+  getServicesDemandes,
 } from "../controllers/HomeControllers";
 
 const router = Router();
@@ -31,10 +34,13 @@ router.put("/cancel-visite/:visiteId", authGuard, (req, res) => {
 });
 router.post("/update-provider", authGuard, updateProvider);
 router.put("/toggle-working-status", authGuard, toggleWorkingStatus);
+router.put("/update-services", authGuard, updateServices);
 
 // admin
 router.post("/home-services", adminGuard, createService);
 router.put("/accept-visite/:visiteId", adminGuard, acceptVisite);
+router.get("/update-service-demandes", adminGuard, getServicesDemandes);
+router.put("/toggle-service-demandes/:serviceDemandeId", adminGuard, toggleServiceDemandes);
 
 // Middleware to handle non-existent routes
 router.use((req, res) => {

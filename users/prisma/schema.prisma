@@ -65,17 +65,18 @@ model Users {
   updatedAt          DateTime    @updatedAt
 
   // Provider Information
-  providerType         String?
-  providerSpeciality   String?
-  providerServiceCount Int?          @default(0)
-  visites              Visites[]
-  providersVisite      Visites[]     @relation("VisiteProviders")
-  providerDescription  String?       @default("")
-  providerDegrees      Degrees[]
-  providerExperiences  Experiences[]
-  providerAwards       Awards[]
-  providerWorking      Boolean      @default(false)
-  providerServices     HomeServices[]   @relation("HomeServiceProviders")
+  providerType            String?
+  providerSpeciality      String?
+  providerServiceCount    Int?               @default(0)
+  visites                 Visites[]
+  providersVisite         Visites[]          @relation("VisiteProviders")
+  providerDescription     String?            @default("")
+  providerDegrees         Degrees[]
+  providerExperiences     Experiences[]
+  providerAwards          Awards[]
+  providerWorking         Boolean            @default(false)
+  providerServices        HomeServices[]     @relation("HomeServiceProviders")
+  providerServicesDemandes servicesDemandes[]  
 }
 
 // home services _______________________________________________________________________________________________
@@ -88,16 +89,32 @@ enum Status {
   cancelledByAdmin
   autoCancelled
 }
+enum serviceDemandeStatus {
+  pending
+  accepted
+  refused
+}
 
 model HomeServices {
-  id          Int       @id @default(autoincrement())
-  name        String    @unique
+  id          Int                @id @default(autoincrement())
+  name        String             @unique
   description String
   price       Float
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
   visites     Visites[]
-  providers   Users[]   @relation("HomeServiceProviders")
+  providers   Users[]            @relation("HomeServiceProviders")
+  demandes    servicesDemandes[] @relation("ServiceDemandes")
+}
+
+model servicesDemandes {
+  id        Int            @id @default(autoincrement())
+  userId    Int            @unique 
+  status    serviceDemandeStatus @default(pending)   
+  services  HomeServices[] @relation("ServiceDemandes")
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  user      Users          @relation(fields: [userId], references: [id])
 }
 
 model Visites {
