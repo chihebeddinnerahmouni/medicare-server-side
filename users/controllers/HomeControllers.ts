@@ -3,6 +3,8 @@ import { Request, Response } from "express";
 import { validateBody } from "../helper/validateBody";
 import { Status, serviceDemandeStatus } from "@prisma/client";
 import { Multer } from "multer";
+import { io } from "../src/server";
+
 
 declare global {
   namespace Express {
@@ -87,57 +89,6 @@ export const getServices = async (req: Request, res: Response) => {
 
 // _____________________________________________________________________________
 
-export const createVisite = async (req: Request, res: Response) => {
-  const userId = req.user.userId;
-  const { serviceId, latitude, longitude, description, date, hour } = req.body;
-  const errors = validateBody({ serviceId, latitude, longitude, date, hour });
-  if (errors.length > 0) {
-    res
-      .status(400)
-      .json({ error: "Remplire tous les champs", message: errors });
-    return;
-  }
-
-  try {
-    // const iUserHavePendingVisite = await prisma.visites.findFirst({
-    //   where: {
-    //     userId,
-    //     status: "pending",
-    //   },
-    // });
-    // if (iUserHavePendingVisite) {
-    //   res.status(400).json({
-    //     message: "Vous avez déjà une visite en attente de validation",
-    //   });
-    //   return
-    // }
-
-    const visite = await prisma.visites.create({
-      data: {
-        serviceId,
-        userId,
-        latitude: Number(latitude),
-        longitude: Number(longitude),
-        description,
-        date,
-        hour,
-      },
-      include: {
-        patient: true,
-        service: true,
-      },
-    });
-    res.json(visite);
-  } catch (error: any) {
-    res.status(500).json({
-      message: error.message,
-      error: "Erreur lors de la création de la visite",
-    });
-  }
-};
-
-// _____________________________________________________________________________
-
 export const getVisites = async (req: Request, res: Response) => {
   const status = req.query.status ? (req.query.status as Status) : "";
   const userId = req.query.userId ? (req.query.userId as string) : "";
@@ -194,60 +145,6 @@ export const getVisiteById = async (req: Request, res: Response) => {
     res.status(500).json({
       message: error.message,
       error: "Erreur lors de la récupération de la visite",
-    });
-  }
-};
-
-// _____________________________________________________________________________
-
-export const acceptVisite = async (req: Request, res: Response) => {
-  const visiteId = Number(req.params.visiteId);
-  const { providersId } = req.body;
-
-  try {
-    const existingVisite = await prisma.visites.findUnique({
-      where: { id: visiteId },
-    });
-    if (!existingVisite) {
-      res.status(404).json({ error: "Visite n'existe pas" });
-      return;
-    }
-    if (existingVisite.status !== "pending") {
-      res.status(400).json({ error: "Visite n'est pas en attente" });
-      return;
-    }
-    if (providersId.length === 0) {
-      res
-        .status(400)
-        .json({ error: "Veuillez sélectionner un ou plusieurs prestataires" });
-      return;
-    }
-    const updatedVisite = await prisma.visites.update({
-      where: { id: visiteId },
-      data: {
-        status: "inProgress",
-        providers: {
-          connect: providersId.map((providerId: number) => ({
-            id: providerId,
-          })),
-        },
-      },
-      include: {
-        patient: {
-          select: toInclude,
-        },
-        service: true,
-        providers: {
-          select: toInclude,
-        },
-      },
-    });
-
-    res.json({ message: "Visite acceptée", data: updatedVisite });
-  } catch (error: any) {
-    res.status(500).json({
-      error: "Erreur lors de l'acceptation de la visite",
-      message: error.message,
     });
   }
 };
@@ -604,3 +501,279 @@ export const toggleServiceDemandes = async (req: Request, res: Response) => {
     });
   }
 };
+
+// _____________________________________________________________________________
+
+export const createVisite = async (req: Request, res: Response) => {
+  const userId = req.user.userId;
+  const { serviceId, latitude, longitude, description, date, hour } = req.body;
+  const errors = validateBody({ serviceId, latitude, longitude, date, hour });
+  if (errors.length > 0) {
+    res
+      .status(400)
+      .json({ error: "Remplire tous les champs", message: errors });
+    return;
+  }
+
+  try {
+    // const iUserHavePendingVisite = await prisma.visites.findFirst({
+    //   where: {
+    //     userId,
+    //     status: "pending",
+    //   },
+    // });
+    // if (iUserHavePendingVisite) {
+    //   res.status(400).json({
+    //     message: "Vous avez déjà une visite en attente de validation",
+    //   });
+    //   return
+    // }
+
+    const visite = await prisma.visites.create({
+      data: {
+        serviceId,
+        userId,
+        latitude: Number(latitude),
+        longitude: Number(longitude),
+        description,
+        date,
+        hour,
+      },
+      include: {
+        patient: true,
+        service: true,
+      },
+    });
+    res.json(visite);
+  } catch (error: any) {
+    res.status(500).json({
+      message: error.message,
+      error: "Erreur lors de la création de la visite",
+    });
+  }
+};
+
+// _____________________________________________________________________________
+
+export const acceptVisite = async (req: Request, res: Response) => {
+  const visiteId = Number(req.params.visiteId);
+  const { providersId } = req.body;
+
+  try {
+    const existingVisite = await prisma.visites.findUnique({
+      where: { id: visiteId },
+    });
+    if (!existingVisite) {
+      res.status(404).json({ error: "Visite n'existe pas" });
+      return;
+    }
+    if (existingVisite.status !== "pending") {
+      res.status(400).json({ error: "Visite n'est pas en attente" });
+      return;
+    }
+    if (providersId.length === 0) {
+      res
+        .status(400)
+        .json({ error: "Veuillez sélectionner un ou plusieurs prestataires" });
+      return;
+    }
+    const updatedVisite = await prisma.visites.update({
+      where: { id: visiteId },
+      data: {
+        status: "inProgress",
+        providers: {
+          connect: providersId.map((providerId: number) => ({
+            id: providerId,
+          })),
+        },
+      },
+      include: {
+        patient: {
+          select: toInclude,
+        },
+        service: true,
+        providers: {
+          select: toInclude,
+        },
+      },
+    });
+
+    res.json({ message: "Visite acceptée", data: updatedVisite });
+  } catch (error: any) {
+    res.status(500).json({
+      error: "Erreur lors de l'acceptation de la visite",
+      message: error.message,
+    });
+  }
+};
+
+// _____________________________________________________________________________
+
+export const autoCreateVisite = async (req: Request, res: Response) => { 
+const userId = req.user.userId;
+const { serviceId, latitude, longitude, description, date, hour } = req.body;
+const errors = validateBody({ serviceId, latitude, longitude, date, hour });
+if (errors.length > 0) {
+  res.status(400).json({ error: "Remplire tous les champs", message: errors });
+  return;
+  }
+  
+  try {
+    const visite = await prisma.visites.create({
+      data: {
+        serviceId,
+        userId,
+        latitude: Number(latitude),
+        longitude: Number(longitude),
+        description,
+        date,
+        hour,
+      },
+      include: {
+        patient: true,
+        service: true,
+      },
+    });
+   
+    const providers = await prisma.users.findMany({
+      where: {
+        providerServices: {
+          some: {
+            id: serviceId,
+          },
+        },
+        providerWorking: true,
+        isProvider: true,
+      },
+    });
+    if (providers.length === 0) {
+      res.status(404).json({ error: "Aucun prestataire trouvé" });
+      return;
+    }
+    io.to(providers[0].id.toString()).emit("new-visite", {
+      message: "Nouvelle visite créée",
+      data: {
+        ...visite,
+        providers,
+      },
+    });
+
+    res.json({
+      message: "Visite créée avec succès",
+      data: visite,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      error: error.message,
+      message: "Erreur lors de la création de la visite",
+    });
+  }
+}
+
+// _____________________________________________________________________________
+
+export const providerAcceptVisite = async (req: Request, res: Response) => {
+
+  const userId = req.user.userId;
+  const { visiteId } = req.params;
+
+  try {
+    const visite = await prisma.visites.findUnique({
+      where: { id: Number(visiteId) },
+      include: {
+        providers: {
+          select: toInclude,
+        },
+      },
+    });
+
+    if (!visite) {
+      res.status(404).json({ error: "Visite n'existe pas" });
+      return;
+    }
+    if (visite.status !== "pending") {
+      res.status(400).json({ error: "Visite n'est pas en attente" });
+      return;
+    }
+
+    const updatedVisite = await prisma.visites.update({
+      where: { id: Number(visiteId) },
+      data: {
+        status: "inProgress",
+        providers: {
+          connect: { id: userId },
+        },
+      },
+      include: {
+        patient: {
+          select: toInclude,
+        },
+        service: true,
+        providers: {
+          select: toInclude,
+        },
+      },
+    });
+
+    res.json({ message: "Visite acceptée", data: updatedVisite });
+  } catch (error: any) {
+    res.status(500).json({
+      message: "Erreur lors de l'acceptation de la visite",
+      error: error.message,
+    });
+  }
+}
+
+// _____________________________________________________________________________
+
+export const providerRefuseVisite = async (req: Request, res: Response) => { 
+  const userId = req.user.userId;
+  const { visiteId } = req.params;
+
+  try {
+    const visite = await prisma.visites.findUnique({
+      where: { id: Number(visiteId) },
+      include: {
+        providers: {
+          select: toInclude,
+        },
+      },
+    });
+
+    if (!visite) {
+      res.status(404).json({ error: "Visite n'existe pas" });
+      return;
+    }
+    if (visite.status !== "pending") {
+      res.status(400).json({ error: "Visite n'est pas en attente" });
+      return;
+    }
+
+
+    const updatedVisite = await prisma.visites.update({
+      where: { id: Number(visiteId) },
+      data: {
+        // status: "refused",
+        providers: {
+          disconnect: { id: userId },
+        },
+      },
+      include: {
+        patient: {
+          select: toInclude,
+        },
+        service: true,
+        providers: {
+          select: toInclude,
+        },
+      },
+    });
+
+    res.json({ message: "Visite refusée", data: updatedVisite });
+  } catch (error: any) {
+    res.status(500).json({
+      message: "Erreur lors du refus de la visite",
+      error: error.message,
+    });
+  }
+}

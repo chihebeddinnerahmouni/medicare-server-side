@@ -16,6 +16,7 @@ import {
   updateServices,
   toggleServiceDemandes,
   getServicesDemandes,
+  autoCreateVisite,
 } from "../controllers/HomeControllers";
 
 const router = Router();
@@ -35,6 +36,7 @@ router.put("/cancel-visite/:visiteId", authGuard, (req, res) => {
 router.post("/update-provider", authGuard, updateProvider);
 router.put("/toggle-working-status", authGuard, toggleWorkingStatus);
 router.put("/update-services", authGuard, updateServices);
+router.post("/auto-create-visite", authGuard, autoCreateVisite);
 
 // admin
 router.post("/home-services", adminGuard, createService);
